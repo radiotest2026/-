@@ -1,0 +1,111 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>إذاعة الشباب والرياضة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+        body { font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
+        @keyframes border-glow { 0%, 100% { box-shadow: 0 0 0px rgba(255, 255, 255, 0); } 50% { box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.4); } }
+        .animate-border-glow { animation: border-glow 3s ease-in-out infinite; }
+        @keyframes red-ring-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); } 50% { box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.2); } }
+        .animate-red-ring-pulse { animation: red-ring-pulse 2s ease-in-out infinite; }
+        @keyframes halo-pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5); } 70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); } }
+        .animate-halo-pulse { animation: halo-pulse 2s infinite; }
+        @keyframes mic-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .animate-mic-blink { animation: mic-blink 1s ease-in-out infinite; }
+        @keyframes pulse-vivid { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.8); opacity: 0; } 100% { transform: scale(1); opacity: 0; } }
+        .pulse-vivid { animation: pulse-vivid 1s infinite; }
+        @keyframes play-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+        .animate-play-blink { animation: play-blink 1.5s ease-in-out infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .animate-blink { animation: blink 1.5s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .animate-spin-slow { animation: spin-slow 10s linear infinite; }
+        @keyframes sun-glow { 0%, 100% { filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.9)); transform: scale(1.2); } 50% { filter: drop-shadow(0 0 25px rgba(250, 204, 21, 1)); transform: scale(1.4); } }
+        .animate-sun-glow { animation: sun-glow 2s ease-in-out infinite; }
+        .active-scale:active { transform: scale(0.95); transition: 0.1s; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <div id="root"></div>
+
+    <script>
+        const { createElement: e } = React;
+        const allNews = [
+            { id: 16, title: "راندا فاروق تستعرض تفاصيل فيلم «فرقة الموت» وأحدث الأخبار والمهرجانات الفنية", program: "108 فن", image: "https://i.postimg.cc/3xsdBY2g/images-(6).jpg", time: "15 يوليو 2026 - 10:15 ص", link: "https://randafarouk.vercel.app/" },
+            { id: 15, title: "محمد عادل يكشف أسلحة توخيل لإسقاط الأرجنتين وسر اعتماد سكالوني على ميسي بنصف نهائي المونديال", program: "صباحكم رياضة", image: "https://i.postimg.cc/vBGCFx5J/hq720.jpg", time: "15 يوليو 2026 - 10:05 ص", link: "https://mohamedadel-ecru.vercel.app/" },
+            { id: 14, title: "«صباحكم رياضة» يستعرض فوز إسبانيا على فرنسا ومواجهة إنجلترا والأرجنتين بمونديال 2026", program: "صباحكم رياضة", image: "https://i.postimg.cc/J0VLf2YR/large.jpg", time: "15 يوليو 2026 - 09:55 ص", link: "https://sabahkomryadh.vercel.app/" },
+            { id: 13, title: "أمير سعد يكشف كواليس أزمة القيد بالزمالك ومصير المدرب الأجنبي وتفاصيل احتراف عبد المجيد", program: "صباحكم رياضة", image: "https://i.postimg.cc/X7jKf7xf/images-(5).jpg", time: "15 يوليو 2026 - 09:45 ص", link: "https://amirsad-roan.vercel.app/" },
+            { id: 12, title: "عيد فؤاد يكشف كواليس رحيل تريزيجيه ومصير أجانب الأهلي وحظوظ إنجلترا بالمونديال", program: "صباحكم رياضة", image: "https://i.postimg.cc/85fMC712/images-(4).jpg", time: "15 يوليو 2026 - 09:30 ص", link: "https://eidfouad.vercel.app/" },
+            { id: 11, title: "محمد عبد المقصود: الدعاء يرفع البلاء.. والرضا بقضاء الله مفتاح الفرج والرحمة", program: "ربيع القلوب", image: "https://i.postimg.cc/HLGd7DnY/images.jpg", time: "15 يوليو 2026 - 05:00 ص", link: "https://rabeakloob.vercel.app/" },
+            { id: 10, title: "«الموسوعة المسموعة» يستعرض معلومات جغرافية عن السنغال وباقة من الحكم والأقوال المأثورة", program: "الموسوعة المسموعة", image: "https://i.postimg.cc/pXtfkySf/Adobe-Stock-67783341-scaled.jpg", time: "15 يوليو 2026 - 04:30 ص", link: "https://mawso3a-delta.vercel.app/" },
+            { id: 9, title: "مروة عادل: قانون الخدمة المدنية يحدد واجبات الموظف.. والعمل التطوعي للزملاء يحمل صاحبه المسؤولية", program: "واو وعي", image: "https://i.postimg.cc/02f83HVp/17612478700.jpg", time: "15 يوليو 2026 - 04:00 ص", link: "https://marwaadel.vercel.app/" },
+            { id: 8, title: "«راديو Tweet» يستعرض تأثير العواصف الشمسية وتاريخ بورصة القطن ومكاسب العرب بالمونديال", program: "راديو Tweet", image: "https://i.postimg.cc/B6VFxnK0/208363.jpg", time: "15 يوليو 2026 - 03:00 ص", link: "https://radiotweet.vercel.app/" },
+            { id: 7, title: "«مع السهرانين» يواصل مناقشة تقلبات المزاج.. ومستمعون يشاركون تجاربهم الإنسانية المؤثرة", program: "مع السهرانين", image: "https://i.postimg.cc/rszng3bx/123132-shr.jpg", time: "15 يوليو 2026 - 02:40 ص", link: "https://ma3asahranin.vercel.app/" },
+            { id: 6, title: "ولاء العبد: هناك فجوة واضحة بين المناهج وسوق العمل.. والتوأمة الإجبارية هي الحل", program: "الرياضة في أروقة الجامعة", image: "https://i.postimg.cc/VvNBmtBn/61Hh8cw-Qo-YL-AC-UF1000-1000-QL80.jpg", time: "15 يوليو 2026 - 02:00 ص", link: "https://walaaelabd.vercel.app/" },
+            { id: 5, title: "سلوى حسن: الغناء الأوبراي يستهلك العمر والاستقلال المادي يمنح المرأة استقرارا نفسيا", program: "كلمة حب", image: "https://i.postimg.cc/3wr1rzBx/images.jpg", time: "15 يوليو 2026 - 01:20 ص", link: "https://salwahassan.vercel.app/" },
+            { id: 4, title: "محمد علاء: هجوم فرنسا يصطدم باستحواذ إسبانيا ومخاوف من التحكيم بنصف نهائي المونديال", program: "استوديو المونديال", image: "https://i.ytimg.com/vi/nDhdzAZqxyk/hq720.jpg", time: "15 يوليو 2026 - 12:30 ص", link: "https://mondialstudio.vercel.app/" },
+            { id: 3, title: "نادية النشار: الرياضة تقضي على آفة النميمة والقميص رقم 10 يمثل أساطير كرة القدم", program: "لايف ستايل", image: "https://png.pngtree.com/png-vector/20230913/ourlarge/pngtree-football-shirt-with-number-10-team-sports-white-png-image_9241588.png", time: "14 يوليو 2026 - 09:20 م", link: "https://nwes1.vercel.app/" },
+            { id: 2, title: "مصطفى مارين: فرنسا والأرجنتين بنهائي المونديال وميسي يتفوق على مبابي", program: "90 دقيقة كورة", image: "https://gate.ahram.org.eg/daily/Media/News/2018/12/6/2018-636797308630769972-76.jpg", time: "14 يوليو 2026 - 04:50 م", link: "https://mostafa-maren.vercel.app/" },
+            { id: 1, title: "مطور أداء منتخب كينيا: إنجلترا ستقصي الأرجنتين واللياقة البدنية حرمت الفراعنة من إنجاز تاريخي", program: "90 دقيقة كورة", image: "https://www.maspero.eg/image/750/450/2026/06/17812146460.jpg", time: "14 يوليو 2026 - 04:30 م", link: "https://news2-iota.vercel.app/" },
+            { id: 0, title: "108 فن: شمس الزناتي يعود للسينما ومصطفى كامل يطرح أغنيته الجديدة", program: "108 فن", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2xMIiplDqHgY1Shn6qbCaDnn7dL15Qg6Idb436e-9E-GH7-Br0vteJ5zo&s=10", time: "14 يوليو 2026 - 11:15 ص", link: "https://fan-pied.vercel.app/" }
+        ];
+
+        function WeatherSeparator() {
+            return e('div', { className: 'bg-gradient-to-br from-blue-700 to-blue-900 mx-3 my-4 p-4 rounded-2xl shadow-lg flex items-center justify-between border border-blue-500 overflow-hidden relative animate-border-glow' },
+                e('div', { className: 'text-white relative z-10' }, e('div', { className: 'text-[10px] opacity-80' }, 'الطقس الآن'), e('div', { className: 'text-2xl font-black mt-0.5' }, '33°')),
+                e('div', { className: 'relative w-20 h-14 flex items-center justify-center' },
+                    e('svg', { className: 'w-14 h-14 text-yellow-400 animate-spin-slow animate-sun-glow absolute left-1 z-10', fill: 'currentColor', viewBox: '0 0 24 24' }, e('circle', { cx: '12', cy: '12', r: '5' }), e('path', { d: 'M12 2v2M12 20v2M2 12h2M20 12h2M5.64 5.64l1.41 1.41M16.95 16.95l1.41 1.41M5.64 18.36l1.41-1.41M16.95 7.05l1.41-1.41' })),
+                    e('svg', { className: 'w-8 h-8 text-white absolute top-0 right-0 animate-float', fill: 'currentColor', viewBox: '0 0 24 24' }, e('path', { d: 'M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z' }))
+                )
+            );
+        }
+
+        function MatchCoverage() {
+            return e('div', { onClick: () => window.open('https://www.maspero.eg/stream/11', '_blank'), className: 'bg-gradient-to-l from-blue-900 to-red-700 mx-3 my-4 p-3 rounded-2xl border-2 border-white shadow-lg relative cursor-pointer active-scale animate-border-glow' },
+                e('div', { className: 'absolute -top-3 right-4 bg-white text-red-700 text-[9px] px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1 shadow-md' }, e('div', { className: 'relative w-2 h-2' }, e('div', { className: 'absolute inset-0 bg-red-600 rounded-full' }), e('div', { className: 'absolute inset-0 bg-red-600 rounded-full pulse-vivid' })), 'اليوم'),
+                e('div', { className: 'flex items-center justify-between gap-2 pt-1' },
+                    e('div', { className: 'flex-1 text-center' }, e('div', { className: 'flex items-center justify-center gap-2 font-black text-[14px] text-white leading-tight mb-1' }, e('svg', { className: 'w-5 h-5 text-yellow-300 animate-mic-blink', fill: 'currentColor', viewBox: '0 0 24 24' }, e('path', { d: 'M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zM17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z' })), 'استوديو المونديال'), e('div', { className: 'text-[11px] text-yellow-300 font-bold bg-black/20 px-2 py-1 rounded-lg' }, 'إنجلترا والأرجنتين في نصف نهائي كأس العالم 2026')),
+                    e('div', { className: 'flex flex-col items-center gap-0.5 border-r border-white/20 pr-2' }, e('img', { src: 'https://upload.wikimedia.org/wikipedia/ar/thumb/c/c1/%D8%B4%D8%B9%D8%A7%D8%B1_%D9%83%D8%A3%D8%B3_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85_2026.svg/960px-%D8%B4%D8%B9%D8%A7%D8%B1_%D9%83%D8%A3%D8%B3_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85_2026.svg.png', className: 'w-8 h-8 object-contain' }), e('div', { className: 'text-sm' }, '🏴󠁧󠁢󠁥󠁮󠁧󠁿 🇦🇷'))
+                )
+            );
+        }
+
+        function App() {
+            return e('div', { className: 'min-h-screen flex flex-col bg-gray-50' },
+                e('header', { className: 'bg-blue-950 text-white p-2 shadow-lg sticky top-0 z-50 border-b-4 border-red-600' },
+                    e('div', { className: 'flex items-center justify-between' },
+                        e('div', { className: 'flex items-center gap-1.5' }, e('svg', { className: 'w-6 h-6 text-red-600 animate-mic-blink', fill: 'currentColor', viewBox: '0 0 24 24' }, e('path', { d: 'M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zM17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z' })), e('div', { className: 'whitespace-nowrap' }, e('h1', { className: 'font-black text-[13px] tracking-tight' }, 'إذاعة الشباب والرياضة'), e('div', { className: 'text-yellow-400 text-[10px] font-bold' }, '108 FM'))),
+                        e('div', { className: 'flex justify-center' }, e('img', { src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-14 h-14 rounded-full border-2 border-white object-cover shadow-2xl animate-halo-pulse' })),
+                        e('div', { className: 'flex items-center gap-2' }, e('a', { href: 'https://www.facebook.com/share/1Dy9ozMj7B/', target: '_blank', className: 'active-scale' }, e('img', { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1280px-Facebook_f_logo_%282019%29.svg.png', className: 'w-6 h-6 rounded-full' })), e('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'relative bg-yellow-500 text-blue-950 px-2 py-1 rounded-full text-[9px] font-bold active-scale flex items-center gap-1' }, e('svg', { className: 'w-3 h-3 text-red-600 fill-current animate-play-blink', viewBox: '0 0 24 24' }, e('path', { d: 'M8 5v14l11-7z' })), 'استمع الآن'))
+                    )
+                ),
+                e('main', { className: 'flex-grow p-3' },
+                    e(MatchCoverage),
+                    allNews.map((news, index) => e('div', { key: news.id },
+                        e('div', { onClick: () => window.open(news.link, '_blank'), className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm border-r-4 border-red-600 flex items-center gap-3 active-scale cursor-pointer' },
+                            e('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse' }, e('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover' })),
+                            e('div', { className: 'flex-1 overflow-hidden' }, e('div', { className: 'flex items-center gap-1.5 mb-0.5' }, e('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), e('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)), e('h2', { className: 'font-bold text-sm leading-tight text-gray-800' }, news.title), e('div', { className: 'text-[9px] text-gray-400 mt-0.5' }, news.time))
+                        ),
+                        index === 2 ? e(WeatherSeparator) : null
+                    ))
+                ),
+                e('footer', { className: 'bg-blue-950 text-white text-center p-4 text-[10px] border-t-4 border-red-600' }, 'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 2026')
+            );
+        }
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(e(App));
+    </script>
+</body>
+</html>
+
+```
