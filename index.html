@@ -31,17 +31,19 @@
         .animate-float { animation: float 4s ease-in-out infinite; }
         @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .animate-spin-slow { animation: spin-slow 10s linear infinite; }
-        @keyframes edge-glow-blink { 0%, 100% { filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.6)); } 50% { filter: drop-shadow(0 0 15px rgba(250, 204, 21, 1)); } }
-        .animate-edge-glow { animation: edge-glow-blink 1.5s ease-in-out infinite; }
+        @keyframes sun-glow { 0%, 100% { filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.9)); transform: scale(1.2); } 50% { filter: drop-shadow(0 0 25px rgba(250, 204, 21, 1)); transform: scale(1.4); } }
+        .animate-sun-glow { animation: sun-glow 2s ease-in-out infinite; }
         .active-scale:active { transform: scale(0.95); transition: 0.1s; }
     </style>
 </head>
 <body class="bg-gray-50">
+
     <div id="root"></div>
+
     <script>
         const { createElement } = React;
         const allNews = [
-            { id: 17, title: "علاء صلاح يكشف أسرار اختبار MBTI وأنماط الشخصيات لتحقيق النجاح ببرنامج «للسعادة طاقة»", program: "للسعادة طاقة", image: "https://i.postimg.cc/52svkRM4/6291d82b7e312.jpg", time: "15 يوليو 2026 - 08:30 م", link: "https://sa3adataqa.vercel.app" },
+            { id: 17, title: "علاء صلاح يكشف أسرار اختبار MBTI وأنماط الشخصيات لتحقيق النجاح ببرنامج «للسعادة طاقة»", program: "للسعادة طاقة", image: "https://i.postimg.cc/wvLnVJRf/anwaʿ-alshkhsyat-fy-ʿlm-alnfs.jpg", time: "15 يوليو 2026 - 08:30 م", link: "https://sa3adataqa.vercel.app" },
             { id: 16, title: "راندا فاروق تستعرض تفاصيل فيلم «فرقة الموت» وأحدث الأخبار والمهرجانات الفنية", program: "108 فن", image: "https://i.postimg.cc/3xsdBY2g/images-(6).jpg", time: "15 يوليو 2026 - 10:15 ص", link: "https://randafarouk.vercel.app/" },
             { id: 15, title: "محمد عادل يكشف أسلحة توخيل لإسقاط الأرجنتين وسر اعتماد سكالوني على ميسي بنصف نهائي المونديال", program: "صباحكم رياضة", image: "https://i.postimg.cc/vBGCFx5J/hq720.jpg", time: "15 يوليو 2026 - 10:05 ص", link: "https://mohamedadel-ecru.vercel.app/" },
             { id: 14, title: "«صباحكم رياضة» يستعرض فوز إسبانيا على فرنسا ومواجهة إنجلترا والأرجنتين بمونديال 2026", program: "صباحكم رياضة", image: "https://i.postimg.cc/J0VLf2YR/large.jpg", time: "15 يوليو 2026 - 09:55 ص", link: "https://sabahkomryadh.vercel.app/" },
@@ -65,22 +67,25 @@
             return createElement('div', { className: 'bg-gradient-to-br from-blue-700 to-blue-900 mx-3 my-4 p-4 rounded-2xl shadow-lg flex items-center justify-between border border-blue-500 overflow-hidden relative animate-border-glow' },
                 createElement('div', { className: 'text-white relative z-10' },
                     createElement('div', { className: 'text-[10px] opacity-80' }, 'الطقس الآن'),
-                    createElement('div', { className: 'text-2xl font-black mt-0.5' }, '27°')
+                    createElement('div', { className: 'text-2xl font-black mt-0.5' }, '34°')
                 ),
-                createElement('div', { className: 'relative w-24 h-16 flex items-center justify-center' },
-                    createElement('svg', { className: 'w-20 h-20 text-yellow-400 animate-spin-slow animate-edge-glow absolute left-0 z-0', fill: 'currentColor', viewBox: '0 0 24 24' }, 
-                        createElement('circle', { cx: '12', cy: '12', r: '7' }),
-                        createElement('path', { d: 'M12 1v3M12 20v3M1 12h3M20 12h3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12' })
+                createElement('div', { className: 'relative w-20 h-14 flex items-center justify-center' },
+                    createElement('svg', { className: 'w-14 h-14 text-yellow-400 animate-spin-slow animate-sun-glow absolute left-1 z-10', fill: 'currentColor', viewBox: '0 0 24 24' }, 
+                        createElement('circle', { cx: '12', cy: '12', r: '5' }),
+                        createElement('path', { d: 'M12 2v2M12 20v2M2 12h2M20 12h2M5.64 5.64l1.41 1.41M16.95 16.95l1.41 1.41M5.64 18.36l1.41-1.41M16.95 7.05l1.41-1.41' })
                     ),
-                    createElement('svg', { className: 'w-10 h-10 text-white absolute top-0 right-0 animate-float z-10', fill: 'currentColor', viewBox: '0 0 24 24' }, createElement('path', { d: 'M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z' })),
-                    createElement('svg', { className: 'w-8 h-8 text-white absolute bottom-0 right-4 animate-float z-10', style: { animationDelay: '1s' }, fill: 'currentColor', viewBox: '0 0 24 24' }, createElement('path', { d: 'M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z' })),
-                    createElement('svg', { className: 'w-7 h-7 text-white absolute bottom-1 right-1 animate-float z-10', style: { animationDelay: '2s' }, fill: 'currentColor', viewBox: '0 0 24 24' }, createElement('path', { d: 'M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z' }))
+                    createElement('svg', { className: 'w-8 h-8 text-white absolute top-0 right-0 animate-float', fill: 'currentColor', viewBox: '0 0 24 24' }, createElement('path', { d: 'M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z' })),
+                    createElement('svg', { className: 'w-6 h-6 text-white absolute bottom-0 right-4 animate-float', style: { animationDelay: '1s' }, fill: 'currentColor', viewBox: '0 0 24 24' }, createElement('path', { d: 'M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z' })),
+                    createElement('svg', { className: 'w-5 h-5 text-white absolute bottom-1 right-1 animate-float', style: { animationDelay: '2s' }, fill: 'currentColor', viewBox: '0 0 24 24' }, createElement('path', { d: 'M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z' }))
                 )
             );
         }
 
         function MatchCoverage() {
-            return createElement('div', { onClick: () => window.open('https://www.maspero.eg/stream/11', '_blank'), className: 'bg-gradient-to-l from-blue-900 to-red-700 mx-3 my-4 p-3 rounded-2xl border-2 border-white shadow-lg relative cursor-pointer active-scale animate-border-glow' },
+            return createElement('div', { 
+                onClick: () => window.open('https://www.maspero.eg/stream/11', '_blank'),
+                className: 'bg-gradient-to-l from-blue-900 to-red-700 mx-3 my-4 p-3 rounded-2xl border-2 border-white shadow-lg relative cursor-pointer active-scale animate-border-glow' 
+            },
                 createElement('div', { className: 'absolute -top-3 right-4 bg-white text-red-700 text-[9px] px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1 shadow-md' },
                     createElement('div', { className: 'relative w-2 h-2' },
                         createElement('div', { className: 'absolute inset-0 bg-red-600 rounded-full' }),
@@ -135,7 +140,7 @@
                     allNews.map((news, index) => createElement('div', { key: news.id },
                         createElement('div', { onClick: () => window.open(news.link, '_blank'), className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm border-r-4 border-red-600 flex items-center gap-3 active-scale cursor-pointer' },
                             createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse' },
-                                createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', onError: (e) => e.target.src = 'https://i.postimg.cc/52svkRM4/6291d82b7e312.jpg' })
+                                createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })
                             ),
                             createElement('div', { className: 'flex-1 overflow-hidden' },
                                 createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' },
