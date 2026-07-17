@@ -30,18 +30,19 @@
         .animate-blink { animation: blink 1.5s ease-in-out infinite; }
         @keyframes fade-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
         .animate-fade-pulse { animation: fade-pulse 1s infinite; }
-        @keyframes moon-flicker { 0%, 100% { filter: drop-shadow(0 0 5px #e2e8f0); transform: scale(1); } 50% { filter: drop-shadow(0 0 15px #f8fafc); transform: scale(1.05); } }
-        .animate-moon-flicker { animation: moon-flicker 1.5s infinite; }
         @keyframes cloud-drift { 0% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 100% { transform: translateX(-5px); } }
         .animate-cloud-drift { animation: cloud-drift 3s infinite ease-in-out; }
         @keyframes tag-blink-style { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
         .animate-tag-blink { animation: tag-blink-style 1.5s infinite; }
         @keyframes elegant-pulse { 0%, 100% { box-shadow: 0 0 5px #fbbf24; border-color: #fbbf24; } 50% { box-shadow: 0 0 15px #f59e0b; border-color: #f59e0b; } }
         .animate-elegant-pulse { animation: elegant-pulse 2s infinite ease-in-out; }
-        @keyframes weather-pulse { 0%, 100% { box-shadow: 0 0 5px #1e3a8a; border-color: #1e3a8a; } 50% { box-shadow: 0 0 15px #3b82f6; border-color: #3b82f6; } }
+        @keyframes weather-pulse { 0%, 100% { box-shadow: 0 0 5px #0ea5e9; border-color: #0ea5e9; } 50% { box-shadow: 0 0 15px #38bdf8; border-color: #38bdf8; } }
         .animate-weather-pulse { animation: weather-pulse 2.5s infinite ease-in-out; }
         @keyframes mic-glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.3); } 50% { box-shadow: 0 0 8px 3px rgba(220, 38, 38, 0.4); } }
         .animate-mic-glow { animation: mic-glow 2s ease-in-out infinite; }
+        
+        @keyframes sun-disk-glow { 0%, 100% { box-shadow: 0 0 5px #fbbf24; transform: scale(1); } 50% { box-shadow: 0 0 15px 2px #fbbf24; transform: scale(1.02); } }
+        .animate-sun-disk-glow { animation: sun-disk-glow 2s infinite ease-in-out; }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -88,16 +89,18 @@
         ];
 
         function WeatherSeparator() {
-            return createElement('div', { className: 'bg-gradient-to-br from-blue-900 to-indigo-950 mx-3 my-4 p-4 rounded-2xl shadow-lg flex items-center justify-between border-[2px] border-indigo-700 overflow-hidden relative animate-weather-pulse' },
+            return createElement('div', { className: 'bg-sky-500 mx-3 my-4 p-4 rounded-2xl shadow-lg flex items-center justify-between border-[2px] border-sky-400 overflow-hidden relative animate-weather-pulse' },
                 createElement('div', { className: 'flex flex-col items-center relative z-10' },
-                    createElement('div', { className: 'bg-blue-950 text-white text-[10px] px-2 py-0.5 rounded-lg border border-white/20 shadow-inner mb-1 font-bold whitespace-nowrap animate-tag-blink' }, 'الطقس الآن'),
-                    createElement('div', { className: 'text-4xl font-black text-white mt-0.5' }, '24°')
+                    createElement('div', { className: 'bg-white/20 text-white text-[10px] px-2 py-0.5 rounded-lg border border-white/20 shadow-inner mb-1 font-bold whitespace-nowrap animate-tag-blink' }, 'الطقس الآن'),
+                    createElement('div', { className: 'text-4xl font-black text-white mt-0.5' }, '31°')
                 ),
                 createElement('div', { className: 'h-10 w-[1px] bg-white/30 mx-3' }),
-                createElement('div', { className: 'text-white font-bold text-sm whitespace-nowrap flex-grow text-right' }, 'صافي فجرًا على أغلب الأنحاء'),
+                createElement('div', { className: 'text-white font-bold text-sm whitespace-nowrap flex-grow text-right' }, 'حار نهارًا'),
                 createElement('div', { className: 'relative w-24 h-16 flex items-center justify-center' },
-                    createElement('div', { className: 'text-4xl absolute z-10 animate-moon-flicker' }, '🌙'),
-                    createElement('div', { className: 'text-2xl absolute -bottom-2 right-0 text-white/50 animate-cloud-drift', style: { animationDelay: '1s' } }, '☁️')
+                    createElement('div', { className: 'w-12 h-12 rounded-full bg-yellow-400 absolute z-20 animate-sun-disk-glow' }),
+                    createElement('div', { className: 'text-2xl absolute -bottom-2 right-0 text-white/50 animate-cloud-drift', style: { animationDelay: '0s' } }, '☁️'),
+                    createElement('div', { className: 'text-2xl absolute -top-1 -left-2 text-white/40 animate-cloud-drift', style: { animationDelay: '1.5s' } }, '☁️'),
+                    createElement('div', { className: 'text-xl absolute bottom-0 left-4 text-white/60 animate-cloud-drift', style: { animationDelay: '0.7s' } }, '☁️')
                 )
             );
         }
@@ -144,8 +147,8 @@
                         createElement('span', { className: 'text-2xl' }, '🎙️')
                     ),
                     createElement('div', { className: 'flex flex-col justify-center' },
-                        createElement('div', { className: 'text-[14px] font-black text-gray-900 leading-tight' }, 'مع السهرانين'),
-                        createElement('div', { className: 'text-[9px] text-gray-500 font-bold mt-0.5' }, 'شاركنا برأيك.. بتدي سرك لمين؟')
+                        createElement('div', { className: 'text-[14px] font-black text-gray-900 leading-tight' }, 'نقل مباشر لصلاة الجمعة'),
+                        createElement('div', { className: 'text-[9px] text-gray-500 font-bold mt-0.5' }, 'تقبل الله منا ومنكم صالح الأعمال')
                     )
                 ),
                 createElement('div', { className: 'bg-green-600 text-white text-[9px] font-black px-3 py-1.5 rounded-full shadow-md flex items-center gap-1 whitespace-nowrap' },
