@@ -72,6 +72,7 @@
     <script>
         const { createElement, useState, useEffect, useRef } = React;
         const allNews = [
+            { id: 52, title: "أسرار مقطوعة «أحبك» التركية تتصدر المشهد في «صوت الموسيقى» مع علا صلاح", program: "صوت الموسيقى", image: "https://www.chosic.com/wp-content/uploads/2019/11/Omar-Faruk-Tekbilek-2.jpg", time: "18 يوليو 2026 - 01:40 ص", link: "https://soundmusic-nine.vercel.app" },
             { id: 51, title: "عبر «نجوم فوق العادة».. إلهامي الزيات يكشف كواليس غناء سيناترا بالهرم وإحراج السفير البريطاني", program: "نجوم فوق العادة", image: "https://hapijournal.com/wp-content/uploads/2023/08/888-1-750x416.png", time: "18 يوليو 2026 - 01:30 ص", link: "https://elhamyzyat.vercel.app" },
             { id: 50, title: "شيف المنتخب الوطني يكشف أسرار مطبخ الفراعنة وعقاب محمد صلاح الصارم لنفسه", program: "الا الكورة", image: "https://cnn-arabic-images.cnn.io/cloudinary/image/upload/w_1920,c_scale,q_auto/cnnarabic/2025/10/05/images/311406.jpg", time: "17 يوليو 2026 - 08:25 م", link: "https://montkhab.vercel.app" },
             { id: 49, title: "عبر «مع ولا ضد».. الغندور يشيد بتوجيهات السيسي وعثمان يكشف سر انعدام الجريمة في مباريات مصر", program: "مع ولا ضد", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA27SmRGO_3j0NXerlGlQoIj5FAISJ43BMqWkOv1BPO5-tKvO-yDsK0wc&s=10", time: "17 يوليو 2026 - 04:40 م", link: "https://shababwryadh.vercel.app" },
@@ -97,7 +98,8 @@
 
         function Slider() {
             const [index, setIndex] = useState(0);
-            const sliderNews = allNews.slice(1, 4);
+            // تم اختيار الأخبار ids: 50, 49, 48 للسلايدر
+            const sliderNews = allNews.slice(2, 5);
             const timerRef = useRef(null);
 
             const nextSlide = (e) => {
@@ -269,4 +271,3 @@
     </script>
 </body>
 </html>
-
