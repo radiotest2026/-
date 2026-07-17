@@ -11,13 +11,36 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
         body { font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .slider-container { overflow: hidden; position: relative; width: 100%; height: 280px; }
+        .slider-wrapper { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
+        .slider-item { min-width: 100%; height: 100%; box-sizing: border-box; padding: 10px; cursor: pointer; }
         
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .nav-button:active { background: rgba(0, 0, 0, 0.6); }
+        .prev-btn { right: 15px; }
+        .next-btn { left: 15px; }
+
         @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 10px rgba(234, 179, 8, 0.3); } 50% { box-shadow: 0 0 20px rgba(234, 179, 8, 0.5); } }
         .animate-pulse-glow { animation: pulse-glow 2s infinite ease-in-out; }
-
         @keyframes border-glow { 0% { box-shadow: inset 0 0 0px #22c55e, 0 0 0px #22c55e; } 50% { box-shadow: inset 0 0 5px #22c55e, 0 0 5px #22c55e; } 100% { box-shadow: inset 0 0 0px #22c55e, 0 0 0px #22c55e; } }
         .animate-border-glow { animation: border-glow 2s infinite; }
-
         @keyframes red-ring-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); } 50% { box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.2); } }
         .animate-red-ring-pulse { animation: red-ring-pulse 2s ease-in-out infinite; }
         @keyframes soft-pulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.15); opacity: 0; } }
@@ -40,17 +63,14 @@
         .animate-weather-pulse { animation: weather-pulse 2.5s infinite ease-in-out; }
         @keyframes mic-glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.3); } 50% { box-shadow: 0 0 8px 3px rgba(220, 38, 38, 0.4); } }
         .animate-mic-glow { animation: mic-glow 2s ease-in-out infinite; }
-        
         @keyframes sun-disk-glow { 0%, 100% { box-shadow: 0 0 5px #fbbf24; transform: scale(1); } 50% { box-shadow: 0 0 15px 2px #fbbf24; transform: scale(1.02); } }
         .animate-sun-disk-glow { animation: sun-disk-glow 2s infinite ease-in-out; }
     </style>
 </head>
 <body class="bg-gray-50">
-
     <div id="root"></div>
-
     <script>
-        const { createElement } = React;
+        const { createElement, useState, useEffect, useRef } = React;
         const allNews = [
             { id: 49, title: "عبر «مع ولا ضد».. الغندور يشيد بتوجيهات السيسي وعثمان يكشف سر انعدام الجريمة في مباريات مصر", program: "مع ولا ضد", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA27SmRGO_3j0NXerlGlQoIj5FAISJ43BMqWkOv1BPO5-tKvO-yDsK0wc&s=10", time: "17 يوليو 2026 - 04:40 م", link: "https://shababwryadh.vercel.app" },
             { id: 48, title: "عبر «مع ولا ضد».. سمير عثمان يطالب بمنع الحكام من السوشيال ميديا والغندور يكشف كواليس القهر التحكيمي", program: "مع ولا ضد", image: "https://mediaaws-live.almasryalyoum.com/AMAYLivePictures/portalimages/news/large/2025/08/10/2743211_0.jpg", time: "17 يوليو 2026 - 04:38 م", link: "https://gamalgandor.vercel.app" },
@@ -70,33 +90,50 @@
             { id: 34, title: "الأباصيري يستعرض أزمة الشوكولاتة وعائدات المونديال ببرنامج «راديو تويت»", program: "راديو تويت", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-bgZ62Lm3G7BcjmaLQORVVLvOWtdLvu4HsslUAbJZPg&s=10", time: "16 يوليو 2026 - 08:35 م", link: "https://apasery.vercel.app" },
             { id: 33, title: "رضا البلتاجي: مصر تمتلك مئات المواهب مثل محمد صلاح.. وأرفض الحكم المتخاذل", program: "بطل ساعة", image: "https://img.youm7.com/large/201611200728342834.jpg", time: "16 يوليو 2026 - 08:00 م", link: "https://redabeltagy.vercel.app" },
             { id: 32, title: "أسامة قابيل يوضح فضل الرفق ويحذر من الإفلاس يوم القيامة ببرنامج «كلام يطمن» مع نجلاء مرسي", program: "كلام يطمن", image: "https://gate.ahram.org.eg/Media/News/2025/8/24/19_2025-638916449286337113-633.jpg", time: "16 يوليو 2026 - 03:30 م", link: "https://kalamytamen.vercel.app" },
-            { id: 31, title: "علي عبد الراضي يناقش طرق بناء الثقة مع المراهقين ومخاوف الآباء ببرنامج «من أول لمسة»", program: "من أول لمسة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLr2hcan4AeI18tQb_LlyX3pQd5P-3xQP4dzE38EEO4GbhtcNAcZezO5cr&s=10", time: "16 يوليو 2026 - 02:35 م", link: "https://menawllamsa.vercel.app" },
-            { id: 30, title: "جمعة قابيل يستعرض أسرار السيرة الذاتية لمحمد صلاح ببرنامج «كتاب كلوب»", program: "كتاب كلوب", image: "https://cnn-arabic-images.cnn.io/cloudinary/image/upload/w_1920,c_scale,q_auto/cnnarabic/2026/07/07/images/337906.jpg", time: "16 يوليو 2026 - 02:20 م", link: "https://ketabklub.vercel.app" },
-            { id: 29, title: "إيمان رمضان تناقش إنجازات الأثقال وتستضيف حاتم عسكر ببرنامج «استفتاء على الهواء»", program: "استفتاء على الهواء", image: "https://i.postimg.cc/kGKNy7bR/FB-IMG-1726403850008-1024x498.jpg", time: "16 يوليو 2026 - 02:00 م", link: "https://estifta3a.vercel.app" },
-            { id: 28, title: "أحمد عوض يوضح عبر «ربيع القلوب» أهمية استثمار الوقت ويحذر من التسويف", program: "ربيع القلوب", image: "https://i.postimg.cc/bvDdvBY8/hq720-(1).jpg", time: "16 يوليو 2026 - 04:15 ص", link: "https://kloob-tawny.vercel.app" },
-            { id: 27, title: "خالد عبد اللطيف يستعرض مسيرة ابن منظور وابن هشام ببرنامج «الموسوعة المسموعة»", program: "الموسوعة المسموعة", image: "https://i.postimg.cc/wTyXS0JV/images-(9).jpg", time: "16 يوليو 2026 - 04:10 ص", link: "https://mowso3a.vercel.app" },
-            { id: 26, title: "الأباصيري يستعرض ابتكار طلاء يبرد المنازل ويجمع المياه وأسرار رواتب رواد الفضاء ببرنامج «راديو تويت»", program: "راديو تويت", image: "https://i.postimg.cc/MZhMjxMd/images-(8).jpg", time: "16 يوليو 2026 - 04:00 ص", link: "https://radiotweet-chi.vercel.app" },
-            { id: 25, title: "محمد رضا الفقي يحذر عبر «واو وعي» من خطورة الشجارات الزوجية أمام الأطفال", program: "واو وعي", image: "https://i.postimg.cc/jdgH1BLW/images-(7).jpg", time: "16 يوليو 2026 - 03:30 ص", link: "https://feky.vercel.app" },
-            { id: 24, title: "شيماء عبد الوهاب تناقش التخلص من العلاقات السامة والتسويف ببرنامج «مع السهرانين»", program: "مع السهرانين", image: "https://i.postimg.cc/brVCYrNg/Screenshot-2026-07-16-02-56-56-57-680d03679600f7af0b4c700c6b270fe7.jpg", time: "16 يوليو 2026 - 03:00 ص", link: "https://ma3asahraneen.vercel.app" },
-            { id: 23, title: "حنان حسين تكشف لـ «بنات أفكاري» أسباب تراجع اللغة العربية وتحذر من زيف السوشيال ميديا", program: "بنات أفكاري", image: "https://i.postimg.cc/hGhGh3r7/00-2-1734526221.jpg", time: "16 يوليو 2026 - 02:50 ص", link: "https://banaatafkary.vercel.app" },
-            { id: 22, title: "إسلام نبيل يسخر من محتوى «التريند» المفرغ وفيديوهات المؤثرين ببرنامج «كوميكس»", program: "كوميكس", image: "https://images.copts-united.com/uploads/4082/77_20200505175013.jpg", time: "16 يوليو 2026 - 02:20 ص", link: "https://trend2-three.vercel.app" },
-            { id: 21, title: "عمر هشام وعماد غنيم يحللان لـ «إنسايد استوديو» أسباب خروج الفراعنة وسر تفوق إسبانيا وفرص إنجلترا بالمونديال", program: "إنسايد استوديو", image: "https://i.postimg.cc/XJYjCBLt/sddefault.jpg", time: "16 يوليو 2026 - 12:35 ص", link: "https://omarhesham.vercel.app" },
-            { id: 20, title: "حنان رمسيس تكشف لـ «المؤشر» أسباب القفزة التاريخية للاحتياطي النقدي وتحذر من فخ العملات المشفرة", program: "المؤشر", image: "https://mediaaws-live.almasryalyoum.com/AMAYLivePictures/portalimages/news/large/2023/08/16/2176174_0.jpeg", time: "16 يوليو 2026 - 12:10 ص", link: "https://hananramsis.vercel.app" },
-            { id: 19, title: "انتصار غريب تكشف كواليس تشكيل الوفد المصري وثورة 19 وموقف سعد زغلول من الأقباط ببرنامج «قول يا تاريخ»", program: "قول يا تاريخ", image: "https://www.cairo24.com/UploadCache/libfiles/70/1/600x338o/544.jpg", time: "15 يوليو 2026 - 11:55 م", link: "https://qoolyatarikh.vercel.app" },
-            { id: 18, title: "نادية النشار ووائل عيسى يستعرضان إنجازات الفراعنة بأمم إفريقيا وقصة كفاح لتجاوز أزمات العمل ببرنامج «Lifestyle»", program: "Lifestyle", image: "https://www.emaratalyoum.com/polopoly_fs/1.1336547.1587202967!/image/image.jpeg", time: "15 يوليو 2026 - 09:50 م", link: "https://lifestyle-indol.vercel.app" },
-            { id: 17, title: "علاء صلاح يكشف أسرار اختبار MBTI وأنماط الشخصيات لتحقيق النجاح ببرنامج «للسعادة طاقة»", program: "للسعادة طاقة", image: "https://i.postimg.cc/wvLnVJRf/anwaʿ-alshkhsyat-fy-ʿlm-alnfs.jpg", time: "15 يوليو 2026 - 08:30 م", link: "https://sa3ada.vercel.app" },
-            { id: 16, title: "راندا فاروق تستعرض تفاصيل فيلم «فرقة الموت» وأحدث الأخبار والمهرجانات الفنية", program: "108 فن", image: "https://i.postimg.cc/3xsdBY2g/images-(6).jpg", time: "15 يوليو 2026 - 10:15 ص", link: "https://randafarouk.vercel.app/" },
-            { id: 15, title: "محمد عادل يكشف أسلحة توخيل لإسقاط الأرجنتين وسر اعتماد سكالوني على ميسي بنصف نهائي المونديال", program: "صباحكم رياضة", image: "https://i.postimg.cc/vBGCFx5J/hq720.jpg", time: "15 يوليو 2026 - 10:05 ص", link: "https://mohamedadel-ecru.vercel.app/" },
-            { id: 14, title: "«صباحكم رياضة» يستعرض فوز إسبانيا على فرنسا ومواجهة إنجلترا والأرجنتين بمونديال 2026", program: "صباحكم رياضة", image: "https://i.postimg.cc/J0VLf2YR/large.jpg", time: "15 يوليو 2026 - 09:55 ص", link: "https://sabahkomryadh.vercel.app/" },
-            { id: 13, title: "أمير سعد يكشف كواليس أزمة القيد بالزمالك ومصير المدرب الأجنبي وتفاصيل احتراف عبد المجيد", program: "صباحكم رياضة", image: "https://i.postimg.cc/X7jKf7xf/images-(5).jpg", time: "15 يوليو 2026 - 09:45 ص", link: "https://amirsad-roan.vercel.app/" },
-            { id: 12, title: "عيد فؤاد يكشف كواليس رحيل تريزيجيه ومصير أجانب الأهلي وحظوظ إنجلترا بالمونديال", program: "صباحكم رياضة", image: "https://i.postimg.cc/85fMC712/images-(4).jpg", time: "15 يوليو 2026 - 09:30 ص", link: "https://eidfouad.vercel.app/" },
-            { id: 11, title: "محمد عبد المقصود: الدعاء يرفع البلاء.. والرضا بقضاء الله مفتاح الفرج والرحمة", program: "ربيع القلوب", image: "https://i.postimg.cc/HLGd7DnY/images.jpg", time: "15 يوليو 2026 - 05:00 ص", link: "https://rabeakloob.vercel.app/" },
-            { id: 10, title: "«الموسوعة المسموعة» يستعرض معلومات جغرافية عن السنغال وباقة من الحكم والأقوال المأثورة", program: "الموسوعة المسموعة", image: "https://i.postimg.cc/pXtfkySf/Adobe-Stock-67783341-scaled.jpg", time: "15 يوليو 2026 - 04:30 ص", link: "https://mawso3a-delta.vercel.app/" },
-            { id: 9, title: "مروة عادل: قانون الخدمة المدنية يحدد واجبات الموظف.. والعمل التطوعي للزملاء يحمل صاحبه المسؤولية", program: "واو وعي", image: "https://i.postimg.cc/02f83HVp/17612478700.jpg", time: "15 يوليو 2026 - 04:00 ص", link: "https://marwaadel.vercel.app/" },
-            { id: 8, title: "«راديو Tweet» يستعرض تأثير العواصف الشمسية وتاريخ بورصة القطن ومكاسب العرب بالمونديال", program: "راديو Tweet", image: "https://i.postimg.cc/B6VFxnK0/208363.jpg", time: "15 يوليو 2026 - 03:00 ص", link: "https://radiotweet.vercel.app/" },
-            { id: 7, title: "«مع السهرانين» يواصل مناقشة تقلبات المزاج.. ومستمعون يشاركون تجاربهم الإنسانية المؤثرة", program: "مع السهرانين", image: "https://i.postimg.cc/rszng3bx/123132-shr.jpg", time: "15 يوليو 2026 - 02:40 ص", link: "https://ma3asahranin.vercel.app/" },
-            { id: 6, title: "ولاء العبد: هناك فجوة واضحة بين المناهج وسوق العمل.. والتوأمة الإجبارية هي الحل", program: "الرياضة في أروقة الجامعة", image: "https://i.postimg.cc/VvNBmtBn/61Hh8cw-Qo-YL-AC-UF1000-1000-QL80.jpg", time: "15 يوليو 2026 - 02:00 ص", link: "https://walaaelabd.vercel.app/" }
+            { id: 31, title: "علي عبد الراضي يناقش طرق بناء الثقة مع المراهقين ومخاوف الآباء ببرنامج «من أول لمسة»", program: "من أول لمسة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLr2hcan4AeI18tQb_LlyX3pQd5P-3xQP4dzE38EEO4GbhtcNAcZezO5cr&s=10", time: "16 يوليو 2026 - 02:35 م", link: "https://menawllamsa.vercel.app" }
         ];
+
+        function Slider() {
+            const [index, setIndex] = useState(0);
+            const sliderNews = allNews.slice(0, 3);
+            const timerRef = useRef(null);
+
+            const nextSlide = (e) => {
+                if(e) e.stopPropagation();
+                setIndex((prev) => (prev + 1) % sliderNews.length);
+            };
+
+            const prevSlide = (e) => {
+                if(e) e.stopPropagation();
+                setIndex((prev) => (prev - 1 + sliderNews.length) % sliderNews.length);
+            };
+
+            useEffect(() => {
+                timerRef.current = setInterval(() => {
+                    setIndex((prev) => (prev + 1) % sliderNews.length);
+                }, 4000);
+                return () => clearInterval(timerRef.current);
+            }, [sliderNews.length]);
+
+            return createElement('div', { className: 'slider-container' },
+                createElement('button', { className: 'nav-button prev-btn', onClick: prevSlide }, '▶'),
+                createElement('button', { className: 'nav-button next-btn', onClick: nextSlide }, '◀'),
+                
+                createElement('div', { className: 'slider-wrapper', style: { transform: `translateX(${index * 100}%)` } },
+                    sliderNews.map((news) => createElement('div', { key: news.id, className: 'slider-item', onClick: () => window.open(news.link, '_blank') },
+                        createElement('div', { className: 'bg-white h-full rounded-2xl shadow-lg border border-gray-100 overflow-hidden relative' },
+                            createElement('div', { className: 'relative w-full h-40' },
+                                createElement('img', { src: news.image, className: 'w-full h-full object-cover' }),
+                                createElement('div', { className: 'absolute top-2 right-2 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-md z-10' }, news.program)
+                            ),
+                            createElement('div', { className: 'p-3' },
+                                createElement('h2', { className: 'font-bold text-[18px] text-gray-900 leading-snug mt-1' }, news.title)
+                            )
+                        )
+                    ))
+                )
+            );
+        }
 
         function WeatherSeparator() {
             return createElement('div', { className: 'bg-sky-500 mx-3 my-4 p-4 rounded-2xl shadow-lg flex items-center justify-between border-[2px] border-sky-400 overflow-hidden relative animate-weather-pulse' },
@@ -118,12 +155,8 @@
         function WarningBanner() {
             return createElement('div', { className: 'bg-amber-50 mx-6 my-4 p-4 rounded-2xl shadow-xl flex items-center justify-between border-[2px] border-amber-400 overflow-hidden relative animate-pulse-glow' },
                 createElement('div', { className: 'relative z-10 flex flex-col justify-center gap-1 flex-grow text-right' },
-                    createElement('div', { className: 'text-amber-800 font-black text-[15px] leading-tight tracking-tight border-b border-amber-200 pb-1 mb-0.5 flex items-center' }, 
-                        '📢 إذاعة الشباب والرياضة بتقول لك'
-                    ),
-                    createElement('div', { className: 'text-gray-900 font-extrabold text-[13px] leading-relaxed' }, 
-                        'ابعد عن المراهنات.. فلوسك أنت أولى بيها'
-                    )
+                    createElement('div', { className: 'text-amber-800 font-black text-[15px] leading-tight tracking-tight border-b border-amber-200 pb-1 mb-0.5 flex items-center' }, '📢 إذاعة الشباب والرياضة بتقول لك'),
+                    createElement('div', { className: 'text-gray-900 font-extrabold text-[13px] leading-relaxed' }, 'ابعد عن المراهنات.. فلوسك أنت أولى بيها')
                 ),
                 createElement('div', { className: 'flex-shrink-0 mr-3' },
                     createElement('div', { className: 'w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center border border-amber-200' },
@@ -181,6 +214,10 @@
                                 createElement('div', { className: 'text-yellow-400 text-[11px] font-bold' }, '108 FM')
                             )
                         ),
+                        createElement('div', { className: 'flex items-center gap-1 bg-white/10 rounded-full px-2 py-1' },
+                           createElement('span', { className: 'text-lg' }, '🌤️'),
+                           createElement('span', { className: 'font-bold text-[12px]' }, '33°')
+                        ),
                         createElement('div', { className: 'flex items-center gap-2' },
                             createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'relative bg-yellow-500 text-blue-950 px-2 py-0.5 rounded-full text-[8px] font-bold active-scale flex items-center gap-1' }, 
                                 createElement('svg', { className: 'w-3 h-3 text-red-600 fill-current animate-play-blink', viewBox: '0 0 24 24' }, createElement('path', { d: 'M8 5v14l11-7z' })),
@@ -194,6 +231,7 @@
                     )
                 ),
                 createElement('main', { className: 'flex-grow p-3' },
+                    createElement(Slider),
                     createElement(LiveProgram),
                     allNews.map((news, index) => createElement('div', { key: news.id },
                         createElement('div', { 
@@ -227,4 +265,5 @@
     </script>
 </body>
 </html>
+
 
