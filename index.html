@@ -72,6 +72,7 @@
     <script>
         const { createElement, useState, useEffect, useRef } = React;
         const allNews = [
+            { id: 51, title: "عبر «نجوم فوق العادة».. إلهامي الزيات يكشف كواليس غناء سيناترا بالهرم وإحراج السفير البريطاني", program: "نجوم فوق العادة", image: "https://hapijournal.com/wp-content/uploads/2023/08/888-1-750x416.png", time: "18 يوليو 2026 - 01:30 ص", link: "https://elhamyzyat.vercel.app" },
             { id: 50, title: "شيف المنتخب الوطني يكشف أسرار مطبخ الفراعنة وعقاب محمد صلاح الصارم لنفسه", program: "الا الكورة", image: "https://cnn-arabic-images.cnn.io/cloudinary/image/upload/w_1920,c_scale,q_auto/cnnarabic/2025/10/05/images/311406.jpg", time: "17 يوليو 2026 - 08:25 م", link: "https://montkhab.vercel.app" },
             { id: 49, title: "عبر «مع ولا ضد».. الغندور يشيد بتوجيهات السيسي وعثمان يكشف سر انعدام الجريمة في مباريات مصر", program: "مع ولا ضد", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA27SmRGO_3j0NXerlGlQoIj5FAISJ43BMqWkOv1BPO5-tKvO-yDsK0wc&s=10", time: "17 يوليو 2026 - 04:40 م", link: "https://shababwryadh.vercel.app" },
             { id: 48, title: "عبر «مع ولا ضد».. سمير عثمان يطالب بمنع الحكام من السوشيال ميديا والغندور يكشف كواليس القهر التحكيمي", program: "مع ولا ضد", image: "https://mediaaws-live.almasryalyoum.com/AMAYLivePictures/portalimages/news/large/2025/08/10/2743211_0.jpg", time: "17 يوليو 2026 - 04:38 م", link: "https://gamalgandor.vercel.app" },
@@ -96,7 +97,7 @@
 
         function Slider() {
             const [index, setIndex] = useState(0);
-            const sliderNews = allNews.slice(0, 3);
+            const sliderNews = allNews.slice(1, 4);
             const timerRef = useRef(null);
 
             const nextSlide = (e) => {
@@ -268,5 +269,4 @@
     </script>
 </body>
 </html>
-
 
