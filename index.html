@@ -61,12 +61,26 @@
         .animate-mic-glow { animation: mic-glow 2s ease-in-out infinite; }
         @keyframes sun-glow { 0%, 100% { transform: scale(1); box-shadow: 0 0 10px #f59e0b; } 50% { transform: scale(1.1); box-shadow: 0 0 25px #f59e0b; } }
         .animate-sun-glow { animation: sun-glow 2s infinite ease-in-out; }
+        @keyframes moon-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .animate-moon-blink { animation: moon-blink 3s infinite ease-in-out; }
     </style>
 </head>
 <body class="bg-gray-50">
     <div id="root"></div>
     <script>
         const { createElement, useState, useEffect, useRef } = React;
+        
+        function Clock() {
+            const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }));
+            useEffect(() => {
+                const timer = setInterval(() => {
+                    setTime(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }));
+                }, 60000);
+                return () => clearInterval(timer);
+            }, []);
+            return createElement('div', { className: 'text-[9px] font-bold text-yellow-200 mt-0.5' }, time);
+        }
+
         const newNews = { id: 101, title: "تحذيرات عاجلة من رضا البلتاجي في «ملعب الناشئين» لإنقاذ المواهب من التطرف وإعادة دوري المدارس", program: "ملعب الناشئين", image: "https://mediayk.gemini.media/img/yallakora/xlarge/2026/4/3/789232026_4_3_23_24.webp", time: "18 يوليو 2026 - 07:40 م", link: "https://91384625.vercel.app" };
         const weatherNews = { id: 62, title: "تحذيرات عاجلة في «ساعة حرة» من طقس شديد الحرارة وارتفاع كبير في نسب الرطوبة", program: "ساعة حرة", image: "https://www.tafsela.net/UploadCache/libfiles/2/0/800x450o/994.jpg", time: "18 يوليو 2026 - 05:47 م", link: "https://37851563.vercel.app" };
         const newNews2 = { id: 102, title: "دمج الأندية ولوائح القيد الجديدة تتصدر مناقشات «ملعب الناشئين» استعدادا للموسم الجديد", program: "ملعب الناشئين", image: "https://img.youm7.com/large/s520148132718.jpg", time: "18 يوليو 2026 - 07:55 م", link: "https://6453589626.vercel.app" };
@@ -107,6 +121,8 @@
             { id: 32, title: "أسامة قابيل يوضح فضل الرفق ويحذر من الإفلاس يوم القيامة ببرنامج «كلام يطمن» مع نجلاء مرسي", program: "كلام يطمن", image: "https://gate.ahram.org.eg/Media/News/2025/8/24/19_2025-638916449286337113-633.jpg", time: "16 يوليو 2026 - 03:30 م", link: "https://kalamytamen.vercel.app" },
             { id: 31, title: "علي عبد الراضي يناقش طرق بناء الثقة مع المراهقين ومخاوف الآباء ببرنامج «من أول لمسة»", program: "من أول لمسة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLr2hcan4AeI18tQb_LlyX3pQd5P-3xQP4dzE38EEO4GbhtcNAcZezO5cr&s=10", time: "16 يوليو 2026 - 02:35 م", link: "https://menawllamsa.vercel.app" }
         ];
+
+        const sliderData = sliderNews;
 
         function Slider() {
             const [index, setIndex] = useState(0);
@@ -149,8 +165,6 @@
                 )
             );
         }
-
-        const sliderData = sliderNews;
 
         function AdBanner() {
             return createElement('a', { 
@@ -230,9 +244,12 @@
                                 createElement('div', { className: 'text-yellow-400 text-[11px] font-bold' }, '108 FM')
                             )
                         ),
-                        createElement('div', { className: 'flex items-center gap-1 bg-white/10 rounded-full px-2 py-1 relative' },
-                           createElement('span', { className: 'w-4 h-4 bg-yellow-400 rounded-full animate-sun-glow' }),
-                           createElement('span', { className: 'font-bold text-[12px]' }, '28°')
+                        createElement('div', { className: 'flex flex-col items-center bg-white/10 rounded-xl px-2 py-1' },
+                           createElement('div', { className: 'flex items-center gap-1' },
+                              createElement('span', { className: 'text-xl animate-moon-blink' }, '🌙'),
+                              createElement('span', { className: 'font-bold text-[12px]' }, '28°')
+                           ),
+                           createElement(Clock)
                         ),
                         createElement('div', { className: 'flex items-center gap-2' },
                             createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'relative bg-yellow-500 text-blue-950 px-2 py-0.5 rounded-full text-[8px] font-bold active-scale flex items-center gap-1' }, 
@@ -281,3 +298,4 @@
     </script>
 </body>
 </html>
+
