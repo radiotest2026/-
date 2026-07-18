@@ -78,49 +78,26 @@
                 }, 60000);
                 return () => clearInterval(timer);
             }, []);
-            return createElement('div', { className: 'text-[10px] font-bold text-white/80' }, time);
+            return createElement('div', { className: 'text-[9px] font-bold text-yellow-200 mt-0.5' }, time);
+        }
+
+        function Weather() {
+            const [temp, setTemp] = useState(28);
+            useEffect(() => {
+                const timer = setInterval(() => {
+                    setTemp(prev => (prev >= 30 ? 25 : prev + 1));
+                }, 120000);
+                return () => clearInterval(timer);
+            }, []);
+            return createElement('span', { className: 'font-bold text-[12px]' }, `${temp}°`);
         }
 
         const newNews = { id: 101, title: "تحذيرات عاجلة من رضا البلتاجي في «ملعب الناشئين» لإنقاذ المواهب من التطرف وإعادة دوري المدارس", program: "ملعب الناشئين", image: "https://mediayk.gemini.media/img/yallakora/xlarge/2026/4/3/789232026_4_3_23_24.webp", time: "18 يوليو 2026 - 07:40 م", link: "https://91384625.vercel.app" };
         const weatherNews = { id: 62, title: "تحذيرات عاجلة في «ساعة حرة» من طقس شديد الحرارة وارتفاع كبير في نسب الرطوبة", program: "ساعة حرة", image: "https://www.tafsela.net/UploadCache/libfiles/2/0/800x450o/994.jpg", time: "18 يوليو 2026 - 05:47 م", link: "https://37851563.vercel.app" };
         const newNews2 = { id: 102, title: "دمج الأندية ولوائح القيد الجديدة تتصدر مناقشات «ملعب الناشئين» استعدادا للموسم الجديد", program: "ملعب الناشئين", image: "https://img.youm7.com/large/s520148132718.jpg", time: "18 يوليو 2026 - 07:55 م", link: "https://6453589626.vercel.app" };
         
-        const sliderNews = [
-            newNews,
-            weatherNews,
-            { id: 55, title: "«يحدث هذا الأسبوع» يكشف كواليس القلعة البيضاء.. احتراف عبد المجيد وأزمة الجزيري ومصير القيد", program: "يحدث هذا الأسبوع", image: "https://mediaaws-live.almasryalyoum.com/almasryalyoum/uploads/images/2026/06/10/thumbs/600x600/1832448.jpg", time: "18 يوليو 2026 - 03:00 م", link: "https://86545235582.vercel.app" }
-        ];
-
-        const listNews = [
-            newNews2,
-            newNews,
-            weatherNews,
-            { id: 61, title: "عبر «90 دقيقة كورة».. محمد همام يكشف توقعات نهائي المونديال ويطالب باحتراف نجوم منتخب مصر", program: "90 دقيقة كورة", image: "https://media.elbalad.news/2026/6/large/7051757668595202606270648314831.jpg", time: "18 يوليو 2026 - 04:20 م", link: "https://8165635563.vercel.app" },
-            { id: 60, title: "عبر «ملوك الثالثة».. إدارة الطيران تكشف خطة إنقاذ النادي وتأسيس أول مركز لذوي الهمم", program: "ملوك الثالثة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAVmKFtmsQqMYODjK0kmsJzWn8hGF19cCv1EQ-iO2UOvujySr4_FPiIR8&s=10", time: "18 يوليو 2026 - 03:50 م", link: "https://499399855.vercel.app" },
-            { id: 55, title: "«يحدث هذا الأسبوع» يكشف كواليس القلعة البيضاء.. احتراف عبد المجيد وأزمة الجزيري ومصير القيد", program: "يحدث هذا الأسبوع", image: "https://mediaaws-live.almasryalyoum.com/almasryalyoum/uploads/images/2026/06/10/thumbs/600x600/1832448.jpg", time: "18 يوليو 2026 - 03:00 م", link: "https://86545235582.vercel.app" },
-            { id: 54, title: "أرق الصيف وقلق الامتحانات وظلم البشر.. «مع السهرانين» يفتح ملف أسباب طيران النوم", program: "مع السهرانين", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnG4nf974IWmwzqb3PFMKsDXZQQMUVStLbJvqZJjgtYkUICRHIGhKLDjY&s=10", time: "18 يوليو 2026 - 02:50 ص", link: "https://shranin2.vercel.app" },
-            { id: 53, title: "مخططات التقسيم وحروب العقول.. مصطفى بكري يفتح قلبه في «من سيربح الميكروفون»", program: "من سيربح الميكروفون", image: "https://yaf.ps/file/attachs/2131.jpg", time: "18 يوليو 2026 - 02:40 ص", link: "https://mostafabakry.vercel.app" },
-            { id: 52, title: "أسرار مقطوعة «أحبك» التركية تتصدر المشهد في «صوت الموسيقى» مع علا صلاح", program: "صوت الموسيقى", image: "https://www.chosic.com/wp-content/uploads/2019/11/Omar-Faruk-Tekbilek-2.jpg", time: "18 يوليو 2026 - 01:40 ص", link: "https://soundmusic-nine.vercel.app" },
-            { id: 51, title: "عبر «نجوم فوق العادة».. إلهامي الزيات يكشف كواليس غناء سيناترا بالهرم وإحراج السفير البريطاني", program: "نجوم فوق العادة", image: "https://hapijournal.com/wp-content/uploads/2023/08/888-1-750x416.png", time: "18 يوليو 2026 - 01:30 ص", link: "https://elhamyzyat.vercel.app" },
-            { id: 49, title: "عبر «مع ولا ضد».. الغندور يشيد بتوجيهات السيسي وعثمان يكشف سر انعدام الجريمة في مباريات مصر", program: "مع ولا ضد", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA27SmRGO_3j0NXerlGlQoIj5FAISJ43BMqWkOv1BPO5-tKvO-yDsK0wc&s=10", time: "17 يوليو 2026 - 04:40 م", link: "https://shababwryadh.vercel.app" },
-            { id: 47, title: "عبر «مع ولا ضد».. سمير عثمان يطالب بعودة فقرات التحكيم التلفزيونية ويكشف سر طرد اللاعب الذي يغطي فمه", program: "مع ولا ضد", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjbGVaoxzQVhjVA-Pu48iE1YUNd7XNawneeEcGmPo7_un3QOfse6Bdu3w&s=10", time: "17 يوليو 2026 - 04:33 م", link: "https://samirothman.vercel.app" },
-            { id: 46, title: "عبر «مع ولا ضد».. سمير عثمان ومحمد فاروق يضعان خارطة طريق لإنقاذ التحكيم المصري بعد رحيل أوسكار", program: "مع ولا ضد", image: "https://www.cairo24.com/UploadCache/libfiles/140/6/600x338o/239.jpg", time: "17 يوليو 2026 - 04:30 م", link: "https://samirosman.vercel.app" },
-            { id: 45, title: "عبر «مع ولا ضد».. سمير عثمان يفتح النار على «فيفا» وتوفيق السيد يكشف كواليس الإطاحة بمصر من المونديال", program: "مع ولا ضد", image: "https://img.youm7.com/large/201702151123482348.jpg", time: "17 يوليو 2026 - 04:25 م", link: "https://ma3awladed.vercel.app" },
-            { id: 44, title: "نفحات روحانية ومدائح نبوية في أحدث حلقات برنامج «كلام قد المقام»", program: "كلام قد المقام", image: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Kaaba_Mirror_like.jpg", time: "17 يوليو 2026 - 03:15 م", link: "https://maqam-iota.vercel.app" },
-            { id: 43, title: "«ربيع القلوب» يكشف أسرار ولاية الله لعباده.. وشروط الوصول لمرتبة المتقين", program: "ربيع القلوب", image: "https://yt3.googleusercontent.com/CDv-LWdNYqYi78Z1dq6g2NmYAGT5-Faqmau4IhCkzqGnGg5s_5Bwd__WX-sOUdAYyE5s79-ZKOA=s900-c-k-c0x00ffffff-no-rj", time: "17 يوليو 2026 - 03:10 م", link: "https://qoloob.vercel.app" },
-            { id: 42, title: "أسرار الفلك والزراعة في «الموسوعة المسموعة».. ابن يونس مخترع البندول وأقدم علم في العالم", program: "الموسوعة المسموعة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5CRfSuoS9l8CjAQByxEAZJCkYgxpQE2WyExd17F_U1w&s=10", time: "17 يوليو 2026 - 03:00 م", link: "https://maws03a.vercel.app" },
-            { id: 41, title: "عبر «واو وعي».. المستشارة مروة عادل تكشف الوجه القانوني لمخالفات الموظفين وتصحح الصورة النمطية", program: "واو وعي", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROZ24Bla9HIhCM1gfbhpF3pBKSbnQWpclHJwlgaS9Ea8-tx4WOr9f-gLc&s=10", time: "17 يوليو 2026 - 02:55 م", link: "https://wawway.vercel.app/" },
-            { id: 40, title: "ببرنامج «مع السهرانين».. طبيب يرفض الكتمان ومستمعون يحذرون من غدر الأصدقاء", program: "مع السهرانين", image: "https://img.youm7.com/ArticleImgs/2019/6/29/223424-%D8%A7%D9%84%D8%B3%D9%87%D8%B1.jpg", time: "17 يوليو 2026 - 02:30 م", link: "https://sahranin.vercel.app/" },
-            { id: 39, title: "ببرنامج «ساعة رياضة».. مصطفى بوسي يطالب بعودة مدرسة الموهوبين ويشيد بتنظيم الأهلي للمونديال", program: "ساعة رياضة", image: "https://i.ytimg.com/vi/iu5Y8fNpGhw/maxresdefault.jpg", time: "17 يوليو 2026 - 12:45 ص", link: "https://mostafabosy.vercel.app/" },
-            { id: 38, title: "«قول ياتاريخ» يكشف المستور.. مصر تحملت نفقات بريطانيا بالحرب العالمية وتنكر الإنجليز فجر ثورة 1919", program: "قول ياتاريخ", image: "https://upload.wikimedia.org/wikipedia/commons/3/38/Demonstration_in_Egypt_in_1919_%28Crescent%2C_the_Cross_and_Star_of_David%29.jpg", time: "17 يوليو 2026 - 12:40 ص", link: "https://qoolyatarikh-two.vercel.app/" },
-            { id: 37, title: "«لايف ستايل»: الرياضة طوق النجاة للخلافات الزوجية.. وخضر التوني أسطورة مصرية أذهلت هتلر", program: "لايف ستايل", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwE9xpxyz__HcyJepOFVwDQ0ORj-IryGAnIpSH7zov1Z0ESqBluPFuva77&s=10", time: "17 يوليو 2026 - 12:35 ص", link: "https://khedrtony.vercel.app/" },
-            { id: 36, title: "وفاء حسام لـ«زوم على بنت اليوم»: التطوع كسر حاجز الرهاب الاجتماعي لدي.. والأنشطة الطلابية تبني الشخصية", program: "زوم على بنت اليوم", image: "https://phy.aswu.edu.eg/wp-content/uploads/2020/05/sci2018-03-225997404.gif", time: "17 يوليو 2026 - 12:30 ص", link: "https://zoom-snowy-gamma.vercel.app/" },
-            { id: 35, title: "محمد حجاج: نعاني من انتشار «البلطجة اللغوية».. وندرس العربية من أجل الامتحانات فقط", program: "انزيمات", image: "https://i.ytimg.com/vi/LKIMeFOkOvw/hqdefault.jpg", time: "16 يوليو 2026 - 08:45 م", link: "https://anzemat.vercel.app" },
-            { id: 34, title: "الأباصيري يستعرض أزمة الشوكولاتة وعائدات المونديال ببرنامج «راديو تويت»", program: "راديو تويت", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-bgZ62Lm3G7BcjmaLQORVVLvOWtdLvu4HsslUAbJZPg&s=10", time: "16 يوليو 2026 - 08:35 م", link: "https://apasery.vercel.app" },
-            { id: 33, title: "رضا البلتاجي: مصر تمتلك مئات المواهب مثل محمد صلاح.. وأرفض الحكم المتخاذل", program: "بطل ساعة", image: "https://img.youm7.com/large/201611200728342834.jpg", time: "16 يوليو 2026 - 08:00 م", link: "https://redabeltagy.vercel.app" },
-            { id: 32, title: "أسامة قابيل يوضح فضل الرفق ويحذر من الإفلاس يوم القيامة ببرنامج «كلام يطمن» مع نجلاء مرسي", program: "كلام يطمن", image: "https://gate.ahram.org.eg/Media/News/2025/8/24/19_2025-638916449286337113-633.jpg", time: "16 يوليو 2026 - 03:30 م", link: "https://kalamytamen.vercel.app" },
-            { id: 31, title: "علي عبد الراضي يناقش طرق بناء الثقة مع المراهقين ومخاوف الآباء ببرنامج «من أول لمسة»", program: "من أول لمسة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLr2hcan4AeI18tQb_LlyX3pQd5P-3xQP4dzE38EEO4GbhtcNAcZezO5cr&s=10", time: "16 يوليو 2026 - 02:35 م", link: "https://menawllamsa.vercel.app" }
-        ];
+        const sliderNews = [newNews, weatherNews, { id: 55, title: "«يحدث هذا الأسبوع» يكشف كواليس القلعة البيضاء.. احتراف عبد المجيد وأزمة الجزيري ومصير القيد", program: "يحدث هذا الأسبوع", image: "https://mediaaws-live.almasryalyoum.com/almasryalyoum/uploads/images/2026/06/10/thumbs/600x600/1832448.jpg", time: "18 يوليو 2026 - 03:00 م", link: "https://86545235582.vercel.app" }];
+        const listNews = [newNews2, newNews, weatherNews, { id: 61, title: "عبر «90 دقيقة كورة».. محمد همام يكشف توقعات نهائي المونديال ويطالب باحتراف نجوم منتخب مصر", program: "90 دقيقة كورة", image: "https://media.elbalad.news/2026/6/large/7051757668595202606270648314831.jpg", time: "18 يوليو 2026 - 04:20 م", link: "https://8165635563.vercel.app" }, { id: 60, title: "عبر «ملوك الثالثة».. إدارة الطيران تكشف خطة إنقاذ النادي وتأسيس أول مركز لذوي الهمم", program: "ملوك الثالثة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAVmKFtmsQqMYODjK0kmsJzWn8hGF19cCv1EQ-iO2UOvujySr4_FPiIR8&s=10", time: "18 يوليو 2026 - 03:50 م", link: "https://499399855.vercel.app" }, { id: 55, title: "«يحدث هذا الأسبوع» يكشف كواليس القلعة البيضاء.. احتراف عبد المجيد وأزمة الجزيري ومصير القيد", program: "يحدث هذا الأسبوع", image: "https://mediaaws-live.almasryalyoum.com/almasryalyoum/uploads/images/2026/06/10/thumbs/600x600/1832448.jpg", time: "18 يوليو 2026 - 03:00 م", link: "https://86545235582.vercel.app" }, { id: 54, title: "أرق الصيف وقلق الامتحانات وظلم البشر.. «مع السهرانين» يفتح ملف أسباب طيران النوم", program: "مع السهرانين", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnG4nf974IWmwzqb3PFMKsDXZQQMUVStLbJvqZJjgtYkUICRHIGhKLDjY&s=10", time: "18 يوليو 2026 - 02:50 ص", link: "https://shranin2.vercel.app" }, { id: 53, title: "مخططات التقسيم وحروب العقول.. مصطفى بكري يفتح قلبه في «من سيربح الميكروفون»", program: "من سيربح الميكروفون", image: "https://yaf.ps/file/attachs/2131.jpg", time: "18 يوليو 2026 - 02:40 ص", link: "https://mostafabakry.vercel.app" }, { id: 52, title: "أسرار مقطوعة «أحبك» التركية تتصدر المشهد في «صوت الموسيقى» مع علا صلاح", program: "صوت الموسيقى", image: "https://www.chosic.com/wp-content/uploads/2019/11/Omar-Faruk-Tekbilek-2.jpg", time: "18 يوليو 2026 - 01:40 ص", link: "https://soundmusic-nine.vercel.app" }, { id: 51, title: "عبر «نجوم فوق العادة».. إلهامي الزيات يكشف كواليس غناء سيناترا بالهرم وإحراج السفير البريطاني", program: "نجوم فوق العادة", image: "https://hapijournal.com/wp-content/uploads/2023/08/888-1-750x416.png", time: "18 يوليو 2026 - 01:30 ص", link: "https://elhamyzyat.vercel.app" }];
 
         const sliderData = sliderNews;
 
@@ -244,9 +221,11 @@
                                 createElement('div', { className: 'text-yellow-400 text-[11px] font-bold' }, '108 FM')
                             )
                         ),
-                        createElement('div', { className: 'flex items-center gap-1 bg-white/10 rounded-xl px-2 py-1' },
+                        createElement('div', { className: 'flex flex-col items-center bg-white/10 rounded-xl px-2 py-1' },
+                           createElement('div', { className: 'flex items-center gap-1' },
                               createElement('span', { className: 'text-xl animate-moon-blink' }, '🌙'),
-                              createElement('span', { className: 'font-bold text-[12px]' }, '28°')
+                              createElement(Weather)
+                           )
                         ),
                         createElement('div', { className: 'flex flex-col items-center gap-1' },
                             createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'relative bg-yellow-500 text-blue-950 px-2 py-0.5 rounded-full text-[8px] font-bold active-scale flex items-center gap-1' }, 
