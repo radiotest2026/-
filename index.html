@@ -63,6 +63,8 @@
         .animate-sun-glow { animation: sun-glow 2s infinite ease-in-out; }
         @keyframes moon-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
         .animate-moon-blink { animation: moon-blink 3s infinite ease-in-out; }
+        @keyframes slow-fade { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+        .animate-slow-fade { animation: slow-fade 4s infinite ease-in-out; }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -78,7 +80,10 @@
                 }, 60000);
                 return () => clearInterval(timer);
             }, []);
-            return createElement('div', { className: 'text-[10px] font-bold text-white/80' }, time);
+            return createElement('div', { className: 'flex items-center gap-1' },
+                createElement('span', { className: 'text-[12px] animate-slow-fade' }, '🕛'),
+                createElement('span', { className: 'text-[10px] font-bold text-white/80' }, time.replace('AM', 'ص').replace('PM', 'م'))
+            );
         }
 
         function LiveTemp() {
@@ -313,3 +318,4 @@
     </script>
 </body>
 </html>
+
