@@ -81,7 +81,7 @@
                 return () => clearInterval(timer);
             }, []);
             return createElement('div', { className: 'flex items-center gap-1' },
-                createElement('span', { className: 'text-[12px] animate-slow-fade' }, '🕛'),
+                createElement('span', { className: 'animate-slow-fade' }, '🕒'),
                 createElement('span', { className: 'text-[10px] font-bold text-white/80' }, time.replace('AM', 'ص').replace('PM', 'م'))
             );
         }
@@ -100,7 +100,14 @@
                 const interval = setInterval(updateTemp, 600000);
                 return () => clearInterval(interval);
             }, []);
-            return createElement('span', { className: 'font-bold text-[12px]' }, temp + '°');
+            
+            const hour = new Date().getHours();
+            const icon = (hour >= 5 && hour < 19) ? '🌞' : '🌙';
+            
+            return createElement('div', { className: 'flex items-center gap-1' },
+                createElement('span', { className: 'text-sm ' + (hour >= 5 && hour < 19 ? 'animate-sun-glow' : 'animate-moon-blink') }, icon),
+                createElement('span', { className: 'font-bold text-[12px]' }, temp + '°')
+            );
         }
 
         const newNews = { id: 101, title: "تحذيرات عاجلة من رضا البلتاجي في «ملعب الناشئين» لإنقاذ المواهب من التطرف وإعادة دوري المدارس", program: "ملعب الناشئين", image: "https://mediayk.gemini.media/img/yallakora/xlarge/2026/4/3/789232026_4_3_23_24.webp", time: "18 يوليو 2026 - 07:40 م", link: "https://91384625.vercel.app" };
@@ -267,7 +274,6 @@
                             )
                         ),
                         createElement('div', { className: 'flex items-center gap-1 bg-white/10 rounded-xl px-2 py-1' },
-                              createElement('span', { className: 'text-xl animate-moon-blink' }, '🌙'),
                               createElement(LiveTemp)
                         ),
                         createElement('div', { className: 'flex flex-col items-center gap-1' },
@@ -318,4 +324,3 @@
     </script>
 </body>
 </html>
-
