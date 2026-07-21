@@ -65,12 +65,14 @@
         .animate-sun-rotate { animation: sun-rotate 10s linear infinite; }
         @keyframes sun-glow-effect { 0%, 100% { filter: drop-shadow(0 0 3px #fbbf24); } 50% { filter: drop-shadow(0 0 8px #f59e0b); } }
         .animate-sun-glow-effect { animation: sun-glow-effect 2s infinite ease-in-out; }
-        @keyframes moon-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-        .animate-moon-blink { animation: moon-blink 3s infinite ease-in-out; }
         @keyframes slow-fade { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
         .animate-slow-fade { animation: slow-fade 4s infinite ease-in-out; }
         @keyframes strong-breath { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
         .animate-strong-breath { animation: strong-breath 2s ease-in-out infinite; }
+        @keyframes cloud-move { 0% { transform: translateX(0px); } 50% { transform: translateX(10px); } 100% { transform: translateX(0px); } }
+        .animate-cloud-move { animation: cloud-move 4s ease-in-out infinite; }
+        @keyframes sun-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.8; } }
+        .animate-sun-pulse { animation: sun-pulse 3s infinite ease-in-out; }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -93,18 +95,31 @@
         }
 
         function LiveTemp() {
-            const [temp, setTemp] = useState("33");
-            return createElement('div', { className: 'flex items-center gap-1' },
-                createElement('div', { className: 'animate-sun-rotate animate-sun-glow-effect' },
-                    createElement('svg', { width: "16", height: "16", viewBox: "0 0 24 24", fill: "#fbbf24" }, createElement('circle', { cx: "12", cy: "12", r: "8" }))
+            const [isDay, setIsDay] = useState(true);
+            useEffect(() => {
+                const checkTime = () => {
+                    const hour = new Date().getHours();
+                    const minutes = new Date().getMinutes();
+                    const currentTime = hour + minutes / 60;
+                    setIsDay(currentTime >= 5 && currentTime < 19.5);
+                };
+                checkTime();
+                const timer = setInterval(checkTime, 60000);
+                return () => clearInterval(timer);
+            }, []);
+            return createElement('div', { className: 'flex items-center gap-1 relative' },
+                isDay && createElement('span', { className: 'absolute -top-3 right-0 animate-cloud-move' }, '☁️'),
+                createElement('div', { className: isDay ? 'animate-sun-rotate animate-sun-glow-effect animate-sun-pulse' : '' },
+                    isDay ? '☀️' : '🌙'
                 ),
-                createElement('span', { className: 'font-bold text-[12px]' }, temp + '°')
+                createElement('span', { className: 'font-bold text-[12px]' }, '33°')
             );
         }
 
         const newsUpdate = { id: 865425625, title: "طبيب يحذر من تورم الوجه بسبب الشمس ويكشف الفئات الأكثر عرضة للحساسية ببرنامج «في عز الزحمة»", program: "في عز الزحمة", image: "https://www.shorouknews.com/uploadedimages/Other/original/sdgfdsfghsdthfghdfgh.jpg", time: "21 يوليو 2026 - 04:00 ص", link: "https://865425625.vercel.app" };
         const newsNew = { id: 86523546, title: "الباز ونجلاء حلمي يضعان الحصاد الشامل للمونديال ويكشفان صفقات الأهلي في «صباحكم رياضة»", program: "صباحكم رياضة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQjByULm7J9kZDhlH2adYVpcac_PBVhELcdUhz33AmzDPXWxAczhEzu08&s=10", time: "21 يوليو 2026 - 02:50 ص", link: "https://86523546.vercel.app" };
         const newsExtra = { id: 894462563, title: "عمرو الحديدي يضع روشتة إنقاذ دفاع الأهلي ويكشف مصير الرباعي الأجنبي في «صباحكم رياضة»", program: "صباحكم رياضة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLGZKdl-mMpGcMl_6Hds3rxoevhePOb-BNzyKMoJ6dd2TT9lmSxalufdE&s=10", time: "21 يوليو 2026 - 02:35 ص", link: "https://894462563.vercel.app" };
+        const newsAbbas = { id: 86555255, title: "محمد عباس يفتح النار على التحكيم ودمج الأندية ويكشف كواليس المونديال ومستقبل الفراعنة في «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://www.aljazeera.net/wp-content/uploads/2026/07/ap_6a59d726285b7-1784272678.jpg?resize=770%2C513&quality=80", time: "21 يوليو 2026 - 05:00 ص", link: "https://86555255.vercel.app" };
         const news1 = { id: 115, title: "جمال علام يكشف لـ«نجلاء حلمي» أسرار التعاقد مع التوأم ورحلته السرية للمونديال ويلمح للترشح لانتخابات اتحاد الكرة", program: "لقاء خاص", image: "https://www.shorouknews.com/uploadedimages/Sections/Sports/original/images%20-%202023-08-09T211148.327.jpeg", time: "20 يوليو 2026 - 04:50 ص", link: "https://59546355.vercel.app" };
         const news8 = { id: 765526, title: "نجم الأهلي السابق مشير عثمان يطالب باحتراف شوبير وينتقد مرموش في «صباحكم رياضة»", program: "صباحكم رياضة", image: "https://img.youm7.com/large/small9200822204448.jpg", time: "21 يوليو 2026 - 01:50 ص", link: "https://765526556.vercel.app" };
         const news9 = { id: 719345, title: "فكري صالح ينصح شوبير بالاحتراف ويشيد باعتزال إكرامي ويوجه رسالة لحسام حسن عبر «صباحكم رياضة»", program: "صباحكم رياضة", image: "https://img.youm7.com/ArticleImgs/2017/12/5/52688-%D9%81%D9%83%D8%B1%D9%89-%D8%B5%D8%A7%D9%84%D8%AD.jpg", time: "21 يوليو 2026 - 02:15 ص", link: "https://7193458.vercel.app" };
@@ -115,8 +130,8 @@
         const news6 = { id: 110, title: "عيد مرازيق يكشف في «صباحكوا رياضة» تفاصيل استثمار الزمالك وأسباب فشل المحترفين", program: "صباحكوا رياضة", image: "https://www.cairo24.com/UploadCache/libfiles/80/3/600x338o/842.jpeg", time: "19 يوليو 2026 - 11:00 ص", link: "https://314861463.vercel.app" };
         const news7 = { id: 843987, title: "جهاد جريشة يفتح النار على الفيفا ويكشف كارثة تحكيمية في نهائي المونديال عبر «صباحكم رياضة»", program: "صباحكم رياضة", image: "https://mediaaws-live.almasryalyoum.com/AMAYLivePictures/portalimages/news/large/2021/08/22/1606754_0.jpeg", time: "20 يوليو 2026 - 11:15 م", link: "https://843987565.vercel.app" };
         
-        const sliderNews = [newsUpdate, newsNew, newsExtra, news9, news8];
-        const listNews = [newsUpdate, { id: 954786288, title: "عمرو دياب وتامر حسني يشوقان الجمهور ومصطفى كامل يرد على منتقديه في حصاد «108 فن»", program: "108 فن", image: "https://elfann.com/i/large/4077564_1784472709.jpg", time: "21 يوليو 2026 - 03:20 ص", link: "https://954786288.vercel.app" }, { id: 8654562566, title: "الكاتب عبد الرحمن الراوي في «الكابتن ماما»: الأم هي «الرادار» والمخزون الاستراتيجي لبناء إنسان سوي وناجح", program: "الكابتن ماما", image: "https://i0.wp.com/captainmama.org/wp-content/uploads/2024/06/cropped-logo-9182.png?resize=512%2C512&ssl=1", time: "21 يوليو 2026 - 03:10 ص", link: "https://8654562566.vercel.app" }, newsNew, newsExtra, news9, news8, news1, news7, { id: 862453, title: "التصدير الرقمي والعمل الحر.. خبيرة ذكاء اصطناعي تكشف أسرار الربح من الإنترنت في برنامج «الـ coach»", program: "الـ coach", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD3rl9CpaE4G8857qPMJhbmC9-tHIDu1RXW0542gkgi8stlrKVz4QdebEB&s=10", time: "20 يوليو 2026 - 09:50 m", link: "https://862453225.vercel.app" }, { id: 999, title: "الجفاف العاطفي واعتزال التمثيل.. غادة صفوت تثير الجدل بتصريحاتها عن الرجل المصري في «نبض الشارع»", program: "نبض الشارع", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-lcmP5KcKq4fK_kZYP7M7Q1azFmNpvpSTgXl9dnwU8Ajn6e3XyofmZBF2&s=10", time: "20 يوليو 2026 - 09:10 م", link: "https://865752255.vercel.app" }, { id: 120, title: "أهمية الإطالات وسر ثبات الوزن.. إيمان رمضان تقدم نصائح رياضية في برنامج «يلا نعيشها صح»", program: "يلا نعيشها صح", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIrrmUk4CHyZrFEU_2pzIobI1aU2-bpq1gTT9fikkW6_d1sbdw4Jvyp4E&s=10", time: "20 يوليو 2026 - 08:41 م", link: "https://895452566.vercel.app" }, { id: 119, title: "رؤية 2030 وتتويج إسبانيا بالمونديال.. أحمد يعقوب يستعرض أبرز الأحداث في حصاد «النهار من أوله»", program: "النهار من أوله", image: "https://media.alalamsyria.ir/original/2023/10/05/638321131041519539.jpg", time: "20 يوليو 2026 - 08:30 م", link: "https://5985296.vercel.app" }, { id: 118, title: "فوائد مذهلة للبطاطا الحلوة.. داليا حمزة تكشف أسرارها الصحية في برنامج «بالهنا والشفا»", program: "بالهنا والشفا", image: "https://static.mithaly.sa/storage/media/hF2LkPc7PBwMRbqTxmVlLYvceT8wCTsCv6WsIIJq.jpg", time: "20 يوليو 2026 - 08:15 م", link: "https://35865455.vercel.app" }, { id: 117, title: "مكانة اليتيم وحقوقه في الإسلام.. الدكتور الشحات العزازي يوجه رسالة مؤثرة عبر برنامج «علمنا الرسول»", program: "علمنا الرسول", image: "https://modo3.com/thumbs/fit630x300/13734/1441703508/%D9%85%D8%A7_%D9%85%D8%B9%D9%86%D9%89_%D8%A4%D9%84%D9%8A%D8%AA%D9%8A%D9%85.jpg", time: "20 يوليو 2026 - 07:58 م", link: "https://68556585.vercel.app" }, { id: 116, title: "الكلمة الطيبة واليقين بالله.. غادة وفيق تستعرض إشراقات الشيخ عبد الرحمن القاضي عبر إذاعة الشباب والرياضة", program: "الكلمة الطيبة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkkNRyLAHHJT8uOkNaEinCiB2wK5HIJZpylSEeFn8dX4qG-3PuxbYiBHM&s=10", time: "20 يوليو 2026 - 07:40 م", link: "https://24895665.vercel.app" }, news2, news3, news4, news5, news6, { id: 109, title: "طارق رضوان يكشف في «صباحكوا رياضة» كواليس أزمة الكاف وأسباب تألق المواهب الأفريقية", program: "صباحكوا رياضة", image: "https://i.ytimg.com/vi/s64yYVDcOpM/sddefault.jpg", time: "19 يوليو 2026 - 10:50 ص", link: "https://34895357.vercel.app" }, { id: 108, title: "محمد إسماعيل يكشف في «صباحكوا رياضة» تفاصيل دمج إنبي والشرقية ومصير محمد عبد الله", program: "صباحكوا رياضة", image: "https://www.cairo24.com/UploadCache/libfiles/112/3/600x338o/30.jpg", time: "19 يوليو 2026 - 10:30 ص", link: "https://34791286.vercel.app" }, { id: 105, title: "أيمن دجيش في «صباحكوا رياضة»: رئاسة لجنة الحكام يجب أن تكون لمصري.. والفيفا ألغى سن التقاعد", program: "صباحكوا رياضة", image: "https://img.youm7.com/large/s5201115224126.jpg", time: "19 يوليو 2026 - 09:30 ص", link: "https://9138844.vercel.app" }];
+        const sliderNews = [newsAbbas, newsUpdate, newsNew, newsExtra];
+        const listNews = [newsAbbas, newsUpdate, { id: 954786288, title: "عمرو دياب وتامر حسني يشوقان الجمهور ومصطفى كامل يرد على منتقديه في حصاد «108 فن»", program: "108 فن", image: "https://elfann.com/i/large/4077564_1784472709.jpg", time: "21 يوليو 2026 - 03:20 ص", link: "https://954786288.vercel.app" }, { id: 8654562566, title: "الكاتب عبد الرحمن الراوي في «الكابتن ماما»: الأم هي «الرادار» والمخزون الاستراتيجي لبناء إنسان سوي وناجح", program: "الكابتن ماما", image: "https://i0.wp.com/captainmama.org/wp-content/uploads/2024/06/cropped-logo-9182.png?resize=512%2C512&ssl=1", time: "21 يوليو 2026 - 03:10 ص", link: "https://8654562566.vercel.app" }, newsNew, newsExtra, news9, news8, news1, news7, { id: 862453, title: "التصدير الرقمي والعمل الحر.. خبيرة ذكاء اصطناعي تكشف أسرار الربح من الإنترنت في برنامج «الـ coach»", program: "الـ coach", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD3rl9CpaE4G8857qPMJhbmC9-tHIDu1RXW0542gkgi8stlrKVz4QdebEB&s=10", time: "20 يوليو 2026 - 09:50 m", link: "https://862453225.vercel.app" }, { id: 999, title: "الجفاف العاطفي واعتزال التمثيل.. غادة صفوت تثير الجدل بتصريحاتها عن الرجل المصري في «نبض الشارع»", program: "نبض الشارع", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-lcmP5KcKq4fK_kZYP7M7Q1azFmNpvpSTgXl9dnwU8Ajn6e3XyofmZBF2&s=10", time: "20 يوليو 2026 - 09:10 م", link: "https://865752255.vercel.app" }, { id: 120, title: "أهمية الإطالات وسر ثبات الوزن.. إيمان رمضان تقدم نصائح رياضية في برنامج «يلا نعيشها صح»", program: "يلا نعيشها صح", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIrrmUk4CHyZrFEU_2pzIobI1aU2-bpq1gTT9fikkW6_d1sbdw4Jvyp4E&s=10", time: "20 يوليو 2026 - 08:41 م", link: "https://895452566.vercel.app" }, { id: 119, title: "رؤية 2030 وتتويج إسبانيا بالمونديال.. أحمد يعقوب يستعرض أبرز الأحداث في حصاد «النهار من أوله»", program: "النهار من أوله", image: "https://media.alalamsyria.ir/original/2023/10/05/638321131041519539.jpg", time: "20 يوليو 2026 - 08:30 م", link: "https://5985296.vercel.app" }, { id: 118, title: "فوائد مذهلة للبطاطا الحلوة.. داليا حمزة تكشف أسرارها الصحية في برنامج «بالهنا والشفا»", program: "بالهنا والشفا", image: "https://static.mithaly.sa/storage/media/hF2LkPc7PBwMRbqTxmVlLYvceT8wCTsCv6WsIIJq.jpg", time: "20 يوليو 2026 - 08:15 م", link: "https://35865455.vercel.app" }, { id: 117, title: "مكانة اليتيم وحقوقه في الإسلام.. الدكتور الشحات العزازي يوجه رسالة مؤثرة عبر برنامج «علمنا الرسول»", program: "علمنا الرسول", image: "https://modo3.com/thumbs/fit630x300/13734/1441703508/%D9%85%D8%A7_%D9%85%D8%B9%D9%86%D9%89_%D8%A4%D9%84%D9%8A%D8%AA%D9%8A%D9%85.jpg", time: "20 يوليو 2026 - 07:58 م", link: "https://68556585.vercel.app" }, { id: 116, title: "الكلمة الطيبة واليقين بالله.. غادة وفيق تستعرض إشراقات الشيخ عبد الرحمن القاضي عبر إذاعة الشباب والرياضة", program: "الكلمة الطيبة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkkNRyLAHHJT8uOkNaEinCiB2wK5HIJZpylSEeFn8dX4qG-3PuxbYiBHM&s=10", time: "20 يوليو 2026 - 07:40 م", link: "https://24895665.vercel.app" }, news2, news3, news4, news5, news6, { id: 109, title: "طارق رضوان يكشف في «صباحكوا رياضة» كواليس أزمة الكاف وأسباب تألق المواهب الأفريقية", program: "صباحكوا رياضة", image: "https://i.ytimg.com/vi/s64yYVDcOpM/sddefault.jpg", time: "19 يوليو 2026 - 10:50 ص", link: "https://34895357.vercel.app" }, { id: 108, title: "محمد إسماعيل يكشف في «صباحكوا رياضة» تفاصيل دمج إنبي والشرقية ومصير محمد عبد الله", program: "صباحكوا رياضة", image: "https://www.cairo24.com/UploadCache/libfiles/112/3/600x338o/30.jpg", time: "19 يوليو 2026 - 10:30 ص", link: "https://34791286.vercel.app" }, { id: 105, title: "أيمن دجيش في «صباحكوا رياضة»: رئاسة لجنة الحكام يجب أن تكون لمصري.. والفيفا ألغى سن التقاعد", program: "صباحكوا رياضة", image: "https://img.youm7.com/large/s5201115224126.jpg", time: "19 يوليو 2026 - 09:30 ص", link: "https://9138844.vercel.app" }];
         
         function Slider() {
             const [index, setIndex] = useState(0);
@@ -148,9 +163,9 @@
             const [index, setIndex] = useState(0);
             const [zoomedImage, setZoomedImage] = useState(null);
             const programs = [
+                { img: 'https://i.postimg.cc/8kw40JLV/Messenger-creation-8BEA8E8A-5327-49FE-8794-B20A08A68012.jpg' },
                 { img: 'https://i.postimg.cc/9F172Kpj/file-0000000054fc81f499113a1e5f3433bd.png' },
                 { img: 'https://i.postimg.cc/pTC3cHwk/5b1dc460-849f-11f1-bae1-0ba1c20a12b6.png' },
-                { img: 'https://i.postimg.cc/8kw40JLV/Messenger-creation-8BEA8E8A-5327-49FE-8794-B20A08A68012.jpg' },
                 { img: 'https://i.postimg.cc/jqvcFwyK/Messenger-creation-FA377992-2B44-46AA-BFA8-4CEA7E0AD9A3.jpg' }
             ];
             useEffect(() => {
