@@ -41,8 +41,9 @@
         .next-btn { left: 15px; }
 
         @media (min-width: 1024px) {
-            .desktop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1200px; margin: 0 auto; }
+            .desktop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1000px; margin: 0 auto; }
             .slider-container { height: 400px; }
+            .news-card-wrapper { display: flex; flex-direction: column; }
         }
 
         @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 10px rgba(234, 179, 8, 0.3); } 50% { box-shadow: 0 0 20px rgba(234, 179, 8, 0.5); } }
@@ -252,10 +253,10 @@
                     createElement(Slider),
                     createElement(LiveProgram),
                     createElement('div', { className: 'desktop-grid' },
-                        displayedNews.map((news, index) => createElement('div', { key: news.id },
+                        displayedNews.map((news, index) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
                             index === 3 ? createElement(ProgramsSlider) : null,
-                            createElement('div', { onClick: () => window.open(news.link, '_blank'), className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200' },
-                                createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
+                            createElement('div', { onClick: () => window.open(news.link, '_blank'), className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full' },
+                                createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
                                 createElement('div', { className: 'flex-1 overflow-hidden' },
                                     createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
                                     createElement('h2', { className: 'font-bold text-sm leading-tight text-gray-800' }, news.title),
