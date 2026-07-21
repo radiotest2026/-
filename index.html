@@ -40,6 +40,11 @@
         .prev-btn { right: 15px; }
         .next-btn { left: 15px; }
 
+        @media (min-width: 1024px) {
+            .desktop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1200px; margin: 0 auto; }
+            .slider-container { height: 400px; }
+        }
+
         @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 10px rgba(234, 179, 8, 0.3); } 50% { box-shadow: 0 0 20px rgba(234, 179, 8, 0.5); } }
         .animate-pulse-glow { animation: pulse-glow 2s infinite ease-in-out; }
         @keyframes border-glow { 0% { box-shadow: inset 0 0 0px #22c55e, 0 0 0px #22c55e; } 50% { box-shadow: inset 0 0 5px #22c55e, 0 0 5px #22c55e; } 100% { box-shadow: inset 0 0 0px #22c55e, 0 0 0px #22c55e; } }
@@ -116,15 +121,12 @@
         function Slider() {
             const [index, setIndex] = useState(0);
             const timerRef = useRef(null);
-
             const nextSlide = (e) => { if(e) e.stopPropagation(); setIndex((prev) => (prev + 1) % sliderNews.length); };
             const prevSlide = (e) => { if(e) e.stopPropagation(); setIndex((prev) => (prev - 1 + sliderNews.length) % sliderNews.length); };
-
             useEffect(() => {
                 timerRef.current = setInterval(() => { setIndex((prev) => (prev + 1) % sliderNews.length); }, 4000);
                 return () => clearInterval(timerRef.current);
             }, []);
-
             return createElement('div', { className: 'slider-container' },
                 createElement('button', { className: 'nav-button prev-btn', onClick: prevSlide }, '▶'),
                 createElement('button', { className: 'nav-button next-btn', onClick: nextSlide }, '◀'),
@@ -146,17 +148,15 @@
             const [index, setIndex] = useState(0);
             const [zoomedImage, setZoomedImage] = useState(null);
             const programs = [
+                { img: 'https://i.postimg.cc/9F172Kpj/file-0000000054fc81f499113a1e5f3433bd.png' },
                 { img: 'https://i.postimg.cc/pTC3cHwk/5b1dc460-849f-11f1-bae1-0ba1c20a12b6.png' },
                 { img: 'https://i.postimg.cc/8kw40JLV/Messenger-creation-8BEA8E8A-5327-49FE-8794-B20A08A68012.jpg' },
-                { img: 'https://i.postimg.cc/jqvcFwyK/Messenger-creation-FA377992-2B44-46AA-BFA8-4CEA7E0AD9A3.jpg' },
-                { img: 'https://i.postimg.cc/9F172Kpj/file-0000000054fc81f499113a1e5f3433bd.png' }
+                { img: 'https://i.postimg.cc/jqvcFwyK/Messenger-creation-FA377992-2B44-46AA-BFA8-4CEA7E0AD9A3.jpg' }
             ];
-
             useEffect(() => {
                 const timer = setInterval(() => { if(!zoomedImage) setIndex((prev) => (prev + 1) % programs.length); }, 2000);
                 return () => clearInterval(timer);
             }, [zoomedImage]);
-
             return createElement('div', { className: 'mx-3 mt-4 mb-4' },
                 createElement('div', { className: 'text-right font-black text-blue-950 text-[18px] mb-3 pr-2 border-r-4 border-yellow-500' }, 'برامجنا'),
                 createElement('div', { className: 'programs-slider' },
@@ -217,7 +217,7 @@
             const displayedNews = showAll ? listNews : listNews.slice(0, 15);
             return createElement('div', { className: 'min-h-screen flex flex-col bg-gray-50' },
                 createElement('header', { className: 'bg-blue-950 text-white p-3 shadow-2xl sticky top-0 z-50 rounded-b-[2rem] pb-6' },
-                    createElement('div', { className: 'flex items-center justify-between' },
+                    createElement('div', { className: 'max-w-4xl mx-auto flex items-center justify-between' },
                         createElement('div', { className: 'flex items-center gap-2' },
                             createElement('img', { onClick: () => window.open('https://www.maspero.eg/stream/11', '_blank'), src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-[45px] h-[45px] rounded-full border-2 border-white object-cover shadow-2xl animate-halo-pulse cursor-pointer' }),
                             createElement('div', { className: 'whitespace-nowrap' }, createElement('h1', { className: 'font-black text-[14px] tracking-tight' }, 'إذاعة الشباب والرياضة'), createElement('div', { className: 'text-yellow-400 text-[11px] font-bold' }, '108 FM'))
@@ -233,22 +233,24 @@
                         createElement('a', { href: 'https://www.facebook.com/share/1bzDzdVHfh/', target: '_blank' }, createElement('img', { src: 'https://i.postimg.cc/B61C0pPF/images.png', className: 'w-6 h-6 rounded-full object-cover border border-white/20' }))
                     )
                 ),
-                createElement('main', { className: 'flex-grow p-3' },
+                createElement('main', { className: 'flex-grow p-3 max-w-4xl mx-auto w-full' },
                     createElement(Slider),
                     createElement(LiveProgram),
-                    displayedNews.map((news, index) => createElement('div', { key: news.id },
-                        index === 3 ? createElement(ProgramsSlider) : null,
-                        createElement('div', { onClick: () => window.open(news.link, '_blank'), className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200' },
-                            createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
-                            createElement('div', { className: 'flex-1 overflow-hidden' },
-                                createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
-                                createElement('h2', { className: 'font-bold text-sm leading-tight text-gray-800' }, news.title),
-                                createElement('div', { className: 'text-[9px] text-gray-400 mt-0.5' }, news.time)
-                            )
-                        ),
-                        index === 5 ? createElement(PrayerImage) : null,
-                        index === 8 ? createElement(WarningBanner) : null
-                    )),
+                    createElement('div', { className: 'desktop-grid' },
+                        displayedNews.map((news, index) => createElement('div', { key: news.id },
+                            index === 3 ? createElement(ProgramsSlider) : null,
+                            createElement('div', { onClick: () => window.open(news.link, '_blank'), className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200' },
+                                createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
+                                createElement('div', { className: 'flex-1 overflow-hidden' },
+                                    createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
+                                    createElement('h2', { className: 'font-bold text-sm leading-tight text-gray-800' }, news.title),
+                                    createElement('div', { className: 'text-[9px] text-gray-400 mt-0.5' }, news.time)
+                                )
+                            ),
+                            index === 5 ? createElement(PrayerImage) : null,
+                            index === 8 ? createElement(WarningBanner) : null
+                        ))
+                    ),
                     !showAll && createElement('button', { onClick: () => setShowAll(true), className: 'w-full bg-blue-900 text-white py-3 rounded-2xl font-black text-sm mb-6 shadow-lg active:scale-95 transition-all' }, 'عرض المزيد من الأخبار')
                 )
             );
