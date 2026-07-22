@@ -133,6 +133,7 @@
             );
         }
 
+        const newsMeteo = { id: 7504502025, title: "الأرصاد تحذر من موجة حارة والصحة والزراعة تصدران إرشادات عاجلة في «النهار من أوله»", program: "النهار من أوله", image: "https://www.maspero.eg/image/750/450/2025/01/17370378090.jpg", time: "22 يوليو 2026 - 07:07 ص", link: "https://radioshababwrayadh108.vercel.app" };
         const newsKarim = { id: 499545248, title: "محمد عبد الكريم يكشف تفاصيل معسكر رومانيا وقائمة منتخب الشابات للمونديال في «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://www.cairo24.com/UploadCache/libfiles/171/9/600x338o/412.jpg", time: "22 يوليو 2026 - 04:00 ص", link: "https://499545248.vercel.app" };
         const newsGamal = { id: 8257654, title: "جمال سالم يطالب باحتراف الناشئين ويشيد بأداء مصر وإسبانيا في المونديال عبر «سوبر الملاعب»", program: "سوبر الملاعب", image: "https://m.gomhuriaonline.com/Upload/News/25-12-2019_00_24_07_GomhuriaOnline_1577226247.jpg", time: "22 يوليو 2026 - 03:16 ص", link: "https://8257654.vercel.app" };
         const newsEssam = { id: 89548521, title: "عصام سالم يكشف كواليس مدرب الزمالك الجديد وتسييس الفيفا لمونديال 2026 في «صباحكوا رياضة»", program: "صباحكوا رياضة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7xUcvn4us-WNtiVsTYU3GQw193pTfaeF8rtkojghs3YkG9PBYEAvY0VE&s=10", time: "22 يوليو 2026 - 02:17 ص", link: "https://89548521.vercel.app" };
@@ -154,8 +155,8 @@
         const news6 = { id: 110, title: "عيد مرازيق يكشف في «صباحكوا رياضة» تفاصيل استثمار الزمالك وأسباب فشل المحترفين", program: "صباحكوا رياضة", image: "https://www.cairo24.com/UploadCache/libfiles/80/3/600x338o/842.jpeg", time: "19 يوليو 2026 - 11:00 ص", link: "https://314861463.vercel.app" };
         const news7 = { id: 843987, title: "جهاد جريشة يفتح النار على الفيفا ويكشف كارثة تحكيمية في نهائي المونديال عبر «صباحكم رياضة»", program: "صباحكم رياضة", image: "https://mediaaws-live.almasryalyoum.com/AMAYLivePictures/portalimages/news/large/2021/08/22/1606754_0.jpeg", time: "20 يوليو 2026 - 11:15 م", link: "https://843987565.vercel.app" };
         
-        const sliderNews = [newsKarim, newsGamal, newsEssam, newsHamed];
-        const listNews = [newsKarim, newsGamal, newsEssam, newsHamed, newsCold, newsFarouk, newsRami, newsAbbas, newsUpdate, { id: 954786288, title: "عمرو دياب وتامر حسني يشوقان الجمهور ومصطفى كامل يرد على منتقديه في حصاد «108 فن»", program: "108 فن", image: "https://elfann.com/i/large/4077564_1784472709.jpg", time: "21 يوليو 2026 - 03:20 ص", link: "https://954786288.vercel.app" }, { id: 8654562566, title: "الكاتب عبد الرحمن الراوي في «الكابتن ماما»: الأم هي «الرادار» والمخزون الاستراتيجي لبناء إنسان سوي وناجح", program: "الكابتن ماما", image: "https://i0.wp.com/captainmama.org/wp-content/uploads/2024/06/cropped-logo-9182.png?resize=512%2C512&ssl=1", time: "21 يوليو 2026 - 03:10 ص", link: "https://8654562566.vercel.app" }, newsNew, newsExtra, news9, news8, news1, news7, { id: 862453, title: "التصدير الرقمي والعمل الحر.. خبيرة ذكاء اصطناعي تكشف أسرار الربح من الإنترنت في برنامج «الـ coach»", program: "الـ coach", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD3rl9CpaE4G8857qPMJhbmC9-tHIDu1RXW0542gkgi8stlrKVz4QdebEB&s=10", time: "20 يوليو 2026 - 09:50 m", link: "https://862453225.vercel.app" }, { id: 999, title: "الجفاف العاطفي واعتزال التمثيل.. غادة صفوت تثير الجدل بتصريحاتها عن الرجل المصري في «نبض الشارع»", program: "نبض الشارع", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-lcmP5KcKq4fK_kZYP7M7Q1azFmNpvpSTgXl9dnwU8Ajn6e3XyofmZBF2&s=10", time: "20 يوليو 2026 - 09:10 م", link: "https://865752255.vercel.app" }, { id: 120, title: "أهمية الإطالات وسر ثبات الوزن.. إيمان رمضان تقدم نصائح رياضية في برنامج «يلا نعيشها صح»", program: "يلا نعيشها صح", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIrrmUk4CHyZrFEU_2pzIobI1aU2-bpq1gTT9fikkW6_d1sbdw4Jvyp4E&s=10", time: "20 يوليو 2026 - 08:41 م", link: "https://895452566.vercel.app" }, { id: 119, title: "رؤية 2030 وتتويج إسبانيا بالمونديال.. أحمد يعقوب يستعرض أبرز الأحداث في حصاد «النهار من أوله»", program: "النهار من أوله", image: "https://media.alalamsyria.ir/original/2023/10/05/638321131041519539.jpg", time: "20 يوليو 2026 - 08:30 م", link: "https://5985296.vercel.app" }, { id: 118, title: "فوائد مذهلة للبطاطا الحلوة.. داليا حمزة تكشف أسرارها الصحية في برنامج «بالهنا والشفا»", program: "بالهنا والشفا", image: "https://static.mithaly.sa/storage/media/hF2LkPc7PBwMRbqTxmVlLYvceT8wCTsCv6WsIIJq.jpg", time: "20 يوليو 2026 - 08:15 م", link: "https://35865455.vercel.app" }, { id: 117, title: "مكانة اليتيم وحقوقه في الإسلام.. الدكتور الشحات العزازي يوجه رسالة مؤثرة عبر برنامج «علمنا الرسول»", program: "علمنا الرسول", image: "https://modo3.com/thumbs/fit630x300/13734/1441703508/%D9%85%D8%A7_%D9%85%D8%B9%D9%86%D9%89_%D8%A4%D9%84%D9%8A%D8%AA%D9%8A%D9%85.jpg", time: "20 يوليو 2026 - 07:58 م", link: "https://68556585.vercel.app" }, { id: 116, title: "الكلمة الطيبة واليقين بالله.. غادة وفيق تستعرض إشراقات الشيخ عبد الرحمن القاضي عبر إذاعة الشباب والرياضة", program: "الكلمة الطيبة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkkNRyLAHHJT8uOkNaEinCiB2wK5HIJZpylSEeFn8dX4qG-3PuxbYiBHM&s=10", time: "20 يوليو 2026 - 07:40 م", link: "https://24895665.vercel.app" }, news2, news3, news4, news5, news6, { id: 109, title: "طارق رضوان يكشف في «صباحكوا رياضة» كواليس أزمة الكاف وأسباب تألق المواهب الأفريقية", program: "صباحكوا رياضة", image: "https://i.ytimg.com/vi/s64yYVDcOpM/sddefault.jpg", time: "19 يوليو 2026 - 10:50 ص", link: "https://34895357.vercel.app" }, { id: 108, title: "محمد إسماعيل يكشف في «صباحكوا رياضة» تفاصيل دمج إنبي والشرقية ومصير محمد عبد الله", program: "صباحكوا رياضة", image: "https://www.cairo24.com/UploadCache/libfiles/112/3/600x338o/30.jpg", time: "19 يوليو 2026 - 10:30 ص", link: "https://34791286.vercel.app" }, { id: 105, title: "أيمن دجيش في «صباحكوا رياضة» رئاسة لجنة الحكام يجب أن تكون لمصري.. والفيفا ألغى سن التقاعد", program: "صباحكوا رياضة", image: "https://img.youm7.com/large/s5201115224126.jpg", time: "19 يوليو 2026 - 09:30 ص", link: "https://9138844.vercel.app" }];
+        const sliderNews = [newsMeteo, newsKarim, newsGamal, newsEssam, newsHamed];
+        const listNews = [newsMeteo, newsKarim, newsGamal, newsEssam, newsHamed, newsCold, newsFarouk, newsRami, newsAbbas, newsUpdate, { id: 954786288, title: "عمرو دياب وتامر حسني يشوقان الجمهور ومصطفى كامل يرد على منتقديه في حصاد «108 فن»", program: "108 فن", image: "https://elfann.com/i/large/4077564_1784472709.jpg", time: "21 يوليو 2026 - 03:20 ص", link: "https://954786288.vercel.app" }, { id: 8654562566, title: "الكاتب عبد الرحمن الراوي في «الكابتن ماما»: الأم هي «الرادار» والمخزون الاستراتيجي لبناء إنسان سوي وناجح", program: "الكابتن ماما", image: "https://i0.wp.com/captainmama.org/wp-content/uploads/2024/06/cropped-logo-9182.png?resize=512%2C512&ssl=1", time: "21 يوليو 2026 - 03:10 ص", link: "https://8654562566.vercel.app" }, newsNew, newsExtra, news9, news8, news1, news7, { id: 862453, title: "التصدير الرقمي والعمل الحر.. خبيرة ذكاء اصطناعي تكشف أسرار الربح من الإنترنت في برنامج «الـ coach»", program: "الـ coach", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD3rl9CpaE4G8857qPMJhbmC9-tHIDu1RXW0542gkgi8stlrKVz4QdebEB&s=10", time: "20 يوليو 2026 - 09:50 m", link: "https://862453225.vercel.app" }, { id: 999, title: "الجفاف العاطفي واعتزال التمثيل.. غادة صفوت تثير الجدل بتصريحاتها عن الرجل المصري في «نبض الشارع»", program: "نبض الشارع", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-lcmP5KcKq4fK_kZYP7M7Q1azFmNpvpSTgXl9dnwU8Ajn6e3XyofmZBF2&s=10", time: "20 يوليو 2026 - 09:10 م", link: "https://865752255.vercel.app" }, { id: 120, title: "أهمية الإطالات وسر ثبات الوزن.. إيمان رمضان تقدم نصائح رياضية في برنامج «يلا نعيشها صح»", program: "يلا نعيشها صح", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIrrmUk4CHyZrFEU_2pzIobI1aU2-bpq1gTT9fikkW6_d1sbdw4Jvyp4E&s=10", time: "20 يوليو 2026 - 08:41 م", link: "https://895452566.vercel.app" }, { id: 119, title: "رؤية 2030 وتتويج إسبانيا بالمونديال.. أحمد يعقوب يستعرض أبرز الأحداث في حصاد «النهار من أوله»", program: "النهار من أوله", image: "https://media.alalamsyria.ir/original/2023/10/05/638321131041519539.jpg", time: "20 يوليو 2026 - 08:30 م", link: "https://5985296.vercel.app" }, { id: 118, title: "فوائد مذهلة للبطاطا الحلوة.. داليا حمزة تكشف أسرارها الصحية في برنامج «بالهنا والشفا»", program: "بالهنا والشفا", image: "https://static.mithaly.sa/storage/media/hF2LkPc7PBwMRbqTxmVlLYvceT8wCTsCv6WsIIJq.jpg", time: "20 يوليو 2026 - 08:15 م", link: "https://35865455.vercel.app" }, { id: 117, title: "مكانة اليتيم وحقوقه في الإسلام.. الدكتور الشحات العزازي يوجه رسالة مؤثرة عبر برنامج «علمنا الرسول»", program: "علمنا الرسول", image: "https://modo3.com/thumbs/fit630x300/13734/1441703508/%D9%85%D8%A7_%D9%85%D8%B9%D9%86%D9%89_%D8%A4%D9%84%D9%8A%D8%AA%D9%8A%D9%85.jpg", time: "20 يوليو 2026 - 07:58 م", link: "https://68556585.vercel.app" }, { id: 116, title: "الكلمة الطيبة واليقين بالله.. غادة وفيق تستعرض إشراقات الشيخ عبد الرحمن القاضي عبر إذاعة الشباب والرياضة", program: "الكلمة الطيبة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkkNRyLAHHJT8uOkNaEinCiB2wK5HIJZpylSEeFn8dX4qG-3PuxbYiBHM&s=10", time: "20 يوليو 2026 - 07:40 م", link: "https://24895665.vercel.app" }, news2, news3, news4, news5, news6, { id: 109, title: "طارق رضوان يكشف في «صباحكوا رياضة» كواليس أزمة الكاف وأسباب تألق المواهب الأفريقية", program: "صباحكوا رياضة", image: "https://i.ytimg.com/vi/s64yYVDcOpM/sddefault.jpg", time: "19 يوليو 2026 - 10:50 ص", link: "https://34895357.vercel.app" }, { id: 108, title: "محمد إسماعيل يكشف في «صباحكوا رياضة» تفاصيل دمج إنبي والشرقية ومصير محمد عبد الله", program: "صباحكوا رياضة", image: "https://www.cairo24.com/UploadCache/libfiles/112/3/600x338o/30.jpg", time: "19 يوليو 2026 - 10:30 ص", link: "https://34791286.vercel.app" }, { id: 105, title: "أيمن دجيش في «صباحكوا رياضة» رئاسة لجنة الحكام يجب أن تكون لمصري.. والفيفا ألغى سن التقاعد", program: "صباحكوا رياضة", image: "https://img.youm7.com/large/s5201115224126.jpg", time: "19 يوليو 2026 - 09:30 ص", link: "https://9138844.vercel.app" }];
         
         function Slider() {
             const [index, setIndex] = useState(0);
@@ -171,7 +172,9 @@
                 createElement('button', { className: 'nav-button next-btn', onClick: nextSlide }, '◀'),
                 createElement('div', { className: 'slider-wrapper', style: { transform: `translateX(${index * 100}%)` } },
                     sliderNews.map((news) => createElement('div', { key: news.id, className: 'slider-item', onClick: () => {
-                        if (news.id === 499545248) {
+                        if (news.id === 7504502025) {
+                            window.dispatchEvent(new CustomEvent('open-meteo-modal'));
+                        } else if (news.id === 499545248) {
                             window.dispatchEvent(new CustomEvent('open-karim-modal'));
                         } else if (news.id === 8257654) {
                             window.dispatchEvent(new CustomEvent('open-gamal-modal'));
@@ -259,6 +262,96 @@
             );
         }
 
+        function MeteoModal({ isOpen, onClose }) {
+            if (!isOpen) return null;
+
+            const shareUrl = "https://radioshababwrayadh108.vercel.app/";
+            const newsTitle = "الأرصاد تحذر من موجة حارة والصحة والزراعة تصدران إرشادات عاجلة في «النهار من أوله»";
+
+            const shareLink = (type) => {
+                if(type === 'wa') window.open('https://wa.me/?text=' + encodeURIComponent(newsTitle + '\n\n' + shareUrl), '_blank');
+                else if(type === 'fb') window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl), '_blank');
+                else if(type === 'tw') window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(shareUrl) + '&text=' + encodeURIComponent(newsTitle), '_blank');
+            };
+
+            return createElement('div', { className: 'fixed inset-0 z-[300] bg-white flex flex-col overflow-y-auto' },
+                createElement('header', { className: 'bg-blue-950 text-white p-3 shadow-lg border-b-4 border-red-600 sticky-header' },
+                    createElement('div', { className: 'flex items-center justify-between max-w-4xl mx-auto', dir: 'rtl' },
+                        createElement('a', { href: 'https://radioshababwrayadh108.vercel.app/', target: '_blank', className: 'flex items-center gap-3' },
+                            createElement('img', { src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-12 h-12 rounded-full border-2 border-white object-cover animate-halo-pulse-red', alt: '' }),
+                            createElement('div', { className: 'flex flex-col' },
+                                createElement('span', { className: 'font-black text-[12.5px] leading-tight' }, 'إذاعة الشباب والرياضة'),
+                                createElement('span', { className: 'text-yellow-400 font-bold text-[11px]' }, '108 FM')
+                            )
+                        ),
+                        createElement('div', { className: 'flex items-center gap-1.5' },
+                            createElement('button', { onClick: onClose, className: 'bg-white/10 hover:bg-white/20 text-white border border-white/20 px-2 py-1 rounded-full text-[10.5px] font-bold flex items-center gap-1 transition-all shadow-sm cursor-pointer' },
+                                createElement('i', { className: 'fa-solid fa-house text-yellow-400 text-[9px]' }), ' الرئيسية'
+                            ),
+                            createElement('a', { href: 'https://www.facebook.com/share/1D8UNajv2q/', target: '_blank' },
+                                createElement('img', { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1280px-Facebook_f_logo_%282019%29.svg.png', className: 'w-7 h-7 rounded-full', alt: '' })
+                            ),
+                            createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'bg-yellow-500 text-blue-950 px-2 py-1 rounded-full text-[10px] font-bold flex items-center gap-1 shadow-md whitespace-nowrap' },
+                                createElement('svg', { className: 'w-3 h-3 text-red-600 fill-current animate-play-blink flex-shrink-0', viewBox: '0 0 24 24' },
+                                    createElement('path', { d: 'M8 5v14l11-7z' })
+                                ),
+                                createElement('span', null, 'اسمعنا الآن')
+                            )
+                        )
+                    )
+                ),
+
+                createElement('div', { className: 'bg-white w-full min-h-full p-4 relative text-right max-w-2xl mx-auto flex-grow' },
+                    createElement('article', { className: 'pt-2 pb-12' },
+                        createElement('h1', { className: 'text-2xl font-black text-blue-950 leading-snug mb-3 flex items-start gap-2 pt-2' },
+                            createElement('span', { className: 'ring-pulse-container mt-2 flex-shrink-0' },
+                                createElement('span', { className: 'block w-3 h-3 bg-[#991b1b] rounded-full' })
+                            ),
+                            newsTitle
+                        ),
+                        
+                        createElement('div', { className: 'flex justify-between items-center mb-4' },
+                            createElement('div', { className: 'text-[14px] text-gray-500 font-bold' },
+                                createElement('i', { className: 'fa-solid fa-pen text-red-600 ml-1' }), ' كتب: محمد السعيد'
+                            ),
+                            createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'flex items-center gap-2 bg-red-600 text-white px-3 py-1 rounded shadow-lg' },
+                                createElement('span', { className: 'professional-pulse flex-shrink-0' },
+                                    createElement('span', { className: 'block w-2 h-2 bg-white rounded-full' })
+                                ),
+                                createElement('span', { className: 'font-black text-[11px]' }, 'النهار من أوله')
+                            )
+                        ),
+
+                        createElement('img', { src: "https://www.maspero.eg/image/750/450/2025/01/17370378090.jpg", className: 'w-full rounded-lg mb-3 object-cover h-64', referrerPolicy: 'no-referrer', onError: (e) => { e.target.src='https://via.placeholder.com/800x450?text=النهار+من+أوله'; } }),
+                        
+                        createElement('div', { className: 'flex justify-between items-center mb-5' },
+                            createElement('div', { className: 'text-[11px] font-bold text-gray-500' },
+                                createElement('i', { className: 'fa-solid fa-clock text-red-600 ml-1' }), ' 22 يوليو 2026 - 07:07 ص'
+                            ),
+                            createElement('div', { className: 'flex gap-2' },
+                                createElement('button', { onClick: () => shareLink('wa'), className: 'share-btn bg-green-500' }, createElement('i', { className: 'fa-brands fa-whatsapp' })),
+                                createElement('button', { onClick: () => shareLink('fb'), className: 'share-btn bg-blue-600' }, createElement('i', { className: 'fa-brands fa-facebook-f' })),
+                                createElement('button', { onClick: () => shareLink('tw'), className: 'share-btn bg-black' }, createElement('i', { className: 'fa-brands fa-x-twitter' }))
+                            )
+                        ),
+
+                        createElement('div', { className: 'text-gray-800 text-[17px] leading-relaxed font-medium text-right space-y-4' },
+                            createElement('p', { className: 'mb-4' }, 'استهلت إذاعة الشباب والرياضة 108 FM يومها ببرنامج النهار من أوله لاستعراض حالة الطقس حيث حذرت الهيئة العامة للأرصاد الجوية من استمرار الموجة شديدة الحرارة لتسجل درجة الحرارة المحسوسة في القاهرة 40 درجة وفي جنوب الصعيد 46 درجة مع التحذير من شبورة مائية صباحية ونشاط للرياح قد يثير الرمال والأتربة'),
+                            createElement('p', { className: 'mb-4' }, 'واستعرض البرنامج حزمة من الإرشادات العاجلة التي أصدرتها وزارة الصحة والسكان للوقاية من الإجهاد الحراري وضربات الشمس حيث شددت على ضرورة تجنب التعرض المباشر لأشعة الشمس وقت الظهيرة واستخدام واقيات الشمس بانتظام مع التأكيد على أهمية تغطية مقاعد السيارات لحماية الأطفال من الحروق وركن المركبات في أماكن مظللة ومناشدة المواطنين بالاتصال على الخط الساخن 105 في حالات الطوارئ'),
+                            createElement('p', { className: 'mb-4' }, 'وتطرقت الحلقة إلى التحذيرات شديدة اللهجة التي وجهها الدكتور محمد علي فهيم رئيس مركز معلومات تغير المناخ بوزارة الزراعة للمزارعين بخطورة ري المحاصيل خلال ساعات الذروة موضحا أن هذا الإجراء يسبب خسائر مائية فادحة ويصيب النبات بإجهاد فسيولوجي حاد مما ينعكس سلبا على الإنتاجية الكلية ومطالبا بضرورة تبني استراتيجيات ري علمية للتكيف مع التغيرات المناخية')
+                        ),
+
+                        createElement('div', { className: 'mt-6 flex items-center gap-3 bg-red-50 p-3 rounded-lg border border-red-100 mb-6' },
+                            createElement('span', { className: 'broadcast-pulse-brown' }),
+                            createElement('p', { className: 'font-bold text-red-800 text-[14px]' }, 'يذاع برنامج النهار من أوله عبر أثير إذاعة الشباب والرياضة 108 FM ويقدم جرعة إخبارية صباحية شاملة لأهم الأحداث والفعاليات وهو من هندسة صوتية لسيد زكريا')
+                        ),
+
+                        createElement('button', { onClick: onClose, className: 'w-full bg-blue-950 text-white py-3.5 rounded-xl font-black text-base mt-4 active:scale-95 transition-all cursor-pointer' }, 'إغلاق الخبر والعودة للرئيسية')
+                    )
+                )
+            );
+        }
+
         function KarimModal({ isOpen, onClose }) {
             if (!isOpen) return null;
 
@@ -298,7 +391,7 @@
                     )
                 ),
 
-                createElement('div', { className: 'bg-white w-full min-h-full p-4 text-right max-w-2xl mx-auto flex-grow' },
+                createElement('div', { className: 'bg-white w-full min-h-full p-4 relative text-right max-w-2xl mx-auto flex-grow' },
                     createElement('article', { className: 'pt-2 pb-12' },
                         createElement('h1', { className: 'text-2xl font-black text-blue-950 leading-snug mb-3 flex items-start gap-2 pt-2' },
                             createElement('span', { className: 'ring-pulse-container mt-2 flex-shrink-0' },
@@ -469,15 +562,19 @@
 
         function App() {
             const [showAll, setShowAll] = useState(false);
+            const [showMeteoModal, setShowMeteoModal] = useState(false);
             const [showKarimModal, setShowKarimModal] = useState(false);
             const [showGamalModal, setShowGamalModal] = useState(false);
 
             useEffect(() => {
+                const handleOpenMeteo = () => setShowMeteoModal(true);
                 const handleOpenKarim = () => setShowKarimModal(true);
                 const handleOpenGamal = () => setShowGamalModal(true);
+                window.addEventListener('open-meteo-modal', handleOpenMeteo);
                 window.addEventListener('open-karim-modal', handleOpenKarim);
                 window.addEventListener('open-gamal-modal', handleOpenGamal);
                 return () => {
+                    window.removeEventListener('open-meteo-modal', handleOpenMeteo);
                     window.removeEventListener('open-karim-modal', handleOpenKarim);
                     window.removeEventListener('open-gamal-modal', handleOpenGamal);
                 };
@@ -509,7 +606,9 @@
                         displayedNews.map((news, index) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
                             index === 3 ? createElement(ProgramsSlider) : null,
                             createElement('div', { onClick: () => {
-                                if (news.id === 499545248) {
+                                if (news.id === 7504502025) {
+                                    setShowMeteoModal(true);
+                                } else if (news.id === 499545248) {
                                     setShowKarimModal(true);
                                 } else if (news.id === 8257654) {
                                     setShowGamalModal(true);
@@ -530,6 +629,7 @@
                     ),
                     !showAll && createElement('button', { onClick: () => setShowAll(true), className: 'w-full bg-blue-900 text-white py-3 rounded-2xl font-black text-sm mb-6 shadow-lg active:scale-95 transition-all' }, 'عرض المزيد من الأخبار')
                 ),
+                createElement(MeteoModal, { isOpen: showMeteoModal, onClose: () => setShowMeteoModal(false) }),
                 createElement(KarimModal, { isOpen: showKarimModal, onClose: () => setShowKarimModal(false) }),
                 createElement(GamalModal, { isOpen: showGamalModal, onClose: () => setShowGamalModal(false) })
             );
