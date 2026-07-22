@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -8,9 +9,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
-        body { font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+        body { font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; background-color: #f3f4f6; }
         .slider-container { overflow: hidden; position: relative; width: 100%; height: 280px; }
         .slider-wrapper { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
         .slider-item { min-width: 100%; height: 100%; box-sizing: border-box; padding: 10px; cursor: pointer; }
@@ -47,14 +49,25 @@
             .news-card-wrapper { display: flex; flex-direction: column; }
         }
 
+        @keyframes halo-pulse-red { 0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.6); } 70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); } 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); } }
+        @keyframes play-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+        @keyframes ring-pulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(2.2); opacity: 0; } }
+        .professional-pulse { position: relative; display: inline-block; }
+        .professional-pulse::before, .professional-pulse::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 1.5px solid #ffffff; animation: ring-pulse 3s ease-in-out infinite; }
+        .professional-pulse::after { animation-delay: 1.5s; }
+        .ring-pulse-container { position: relative; display: inline-block; }
+        .ring-pulse-container::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 1.5px solid #991b1b; animation: ring-pulse 3s ease-in-out infinite; }
+        .broadcast-pulse-brown { position: relative; display: inline-block; width: 12px; height: 12px; background-color: #78350f; border-radius: 50%; flex-shrink: 0; }
+        .broadcast-pulse-brown::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 1.5px solid #78350f; animation: ring-pulse 2s ease-in-out infinite; }
+        .animate-halo-pulse-red { animation: halo-pulse-red 2s infinite; }
+        .animate-play-blink { animation: play-blink 1.5s ease-in-out infinite; }
+        
         @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 10px rgba(234, 179, 8, 0.3); } 50% { box-shadow: 0 0 20px rgba(234, 179, 8, 0.5); } }
         .animate-pulse-glow { animation: pulse-glow 2s infinite ease-in-out; }
         @keyframes border-glow { 0% { box-shadow: inset 0 0 0px #22c55e, 0 0 0px #22c55e; } 50% { box-shadow: inset 0 0 5px #22c55e, 0 0 5px #22c55e; } 100% { box-shadow: inset 0 0 0px #22c55e, 0 0 0px #22c55e; } }
         .animate-border-glow { animation: border-glow 2s infinite; }
         @keyframes red-ring-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); } 50% { box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.2); } }
         .animate-red-ring-pulse { animation: red-ring-pulse 2s ease-in-out infinite; }
-        @keyframes play-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
-        .animate-play-blink { animation: play-blink 1.5s ease-in-out infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
         .animate-blink { animation: blink 1.5s ease-in-out infinite; }
         @keyframes fade-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
@@ -75,6 +88,8 @@
         .animate-cloud-move { animation: cloud-move 4s ease-in-out infinite; }
         @keyframes sun-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.8; } }
         .animate-sun-pulse { animation: sun-pulse 3s infinite ease-in-out; }
+        .share-btn { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; font-size: 17px; transition: transform 0.2s; cursor: pointer; border: none; }
+        .sticky-header { position: sticky; top: 0; z-index: 50; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -118,8 +133,8 @@
             );
         }
 
-        const newsKarim = { id: 499545248, title: "محمد عبد الكريم يكشف تفاصيل معسكر رومانيا وقائمة منتخب الشابات للمونديال في «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://www.cairo24.com/UploadCache/libfiles/171/9/600x338o/412.jpg", time: "22 يوليو 2026 - 03:40 ص", link: "https://499545248.vercel.app" };
-        const newsGamal = { id: 8257654, title: "جمال سالم يطالب باحتراف الناشئين ويشيد بأداء مصر وإسبانيا في المونديال عبر «سوبر الملاعب»", program: "سوبر الملاعب", image: "https://m.gomhuriaonline.com/Upload/News/25-12-2019_00_24_07_GomhuriaOnline_1577226247.jpg", time: "22 يوليو 2026 - 03:00 ص", link: "https://8257654.vercel.app" };
+        const newsKarim = { id: 499545248, title: "محمد عبد الكريم يكشف تفاصيل معسكر رومانيا وقائمة منتخب الشابات للمونديال في «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://www.cairo24.com/UploadCache/libfiles/171/9/600x338o/412.jpg", time: "22 يوليو 2026 - 04:00 ص", link: "https://499545248.vercel.app" };
+        const newsGamal = { id: 8257654, title: "جمال سالم يطالب باحتراف الناشئين ويشيد بأداء مصر وإسبانيا في المونديال عبر «سوبر الملاعب»", program: "سوبر الملاعب", image: "https://m.gomhuriaonline.com/Upload/News/25-12-2019_00_24_07_GomhuriaOnline_1577226247.jpg", time: "22 يوليو 2026 - 03:16 ص", link: "https://8257654.vercel.app" };
         const newsEssam = { id: 89548521, title: "عصام سالم يكشف كواليس مدرب الزمالك الجديد وتسييس الفيفا لمونديال 2026 في «صباحكوا رياضة»", program: "صباحكوا رياضة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7xUcvn4us-WNtiVsTYU3GQw193pTfaeF8rtkojghs3YkG9PBYEAvY0VE&s=10", time: "22 يوليو 2026 - 02:17 ص", link: "https://89548521.vercel.app" };
         const newsHamed = { id: 8952659555, title: "موهبة إنبي حامد عبد الله يفضل الاحتراف الخارجي ويرفض الأهلي في «ميركاتو»", program: "ميركاتو", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPMMcwfrFjoLtyQJrxZWZJWY4TqN5kLOrHr-aYr4hhIw0yeC8rEC6NnB8&s=10", time: "22 يوليو 2026 - 01:35 ص", link: "https://895435.vercel.app" };
         const newsCold = { id: 89426595, title: "6 مشروبات طبيعية لعلاج نزلات البرد في نصيحة «بالهنا والشفا» مع داليا حمزة", program: "بالهنا والشفا", image: "https://www.moh.gov.bh/Content/Upload/Image/637430624002598899-2020.jpg", time: "21 يوليو 2026 - 06:10 ص", link: "https://89426595.vercel.app" };
@@ -155,10 +170,18 @@
                 createElement('button', { className: 'nav-button prev-btn', onClick: prevSlide }, '▶'),
                 createElement('button', { className: 'nav-button next-btn', onClick: nextSlide }, '◀'),
                 createElement('div', { className: 'slider-wrapper', style: { transform: `translateX(${index * 100}%)` } },
-                    sliderNews.map((news) => createElement('div', { key: news.id, className: 'slider-item', onClick: () => window.open(news.link, '_blank') },
+                    sliderNews.map((news) => createElement('div', { key: news.id, className: 'slider-item', onClick: () => {
+                        if (news.id === 499545248) {
+                            window.dispatchEvent(new CustomEvent('open-karim-modal'));
+                        } else if (news.id === 8257654) {
+                            window.dispatchEvent(new CustomEvent('open-gamal-modal'));
+                        } else {
+                            window.open(news.link, '_blank');
+                        }
+                    } },
                         createElement('div', { className: 'bg-white h-full rounded-2xl shadow-lg border border-gray-100 overflow-hidden relative' },
                             createElement('div', { className: 'relative w-full h-40' },
-                                createElement('img', { src: news.image, className: 'w-full h-full object-cover' }),
+                                createElement('img', { src: news.image, className: 'w-full h-full object-cover', referrerPolicy: 'no-referrer' }),
                                 createElement('div', { className: 'absolute top-2 right-2 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-md z-10' }, news.program)
                             ),
                             createElement('div', { className: 'p-3' }, createElement('h2', { className: 'font-bold text-[18px] text-gray-900 leading-snug mt-1' }, news.title))
@@ -189,7 +212,7 @@
                     createElement('div', { className: 'programs-wrapper', style: { transform: `translateX(${index * 100}%)` } },
                         programs.map((p, i) => createElement('div', { key: i, className: 'programs-item' },
                             createElement('div', { onClick: () => setZoomedImage(p.img), className: 'block w-full h-full rounded-2xl shadow-lg overflow-hidden border-2 border-white cursor-pointer' },
-                                createElement('img', { src: p.img, className: 'w-full h-full object-cover' })
+                                createElement('img', { src: p.img, className: 'w-full h-full object-cover', referrerPolicy: 'no-referrer' })
                             )
                         ))
                     )
@@ -236,14 +259,240 @@
             );
         }
 
+        function KarimModal({ isOpen, onClose }) {
+            if (!isOpen) return null;
+
+            const shareUrl = "https://499545248.vercel.app";
+            const newsTitle = "محمد عبد الكريم يكشف تفاصيل معسكر رومانيا وقائمة منتخب الشابات للمونديال في «90 دقيقة كورة»";
+
+            const shareLink = (type) => {
+                if(type === 'wa') window.open('https://wa.me/?text=' + encodeURIComponent(newsTitle + '\n\n' + shareUrl), '_blank');
+                else if(type === 'fb') window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl), '_blank');
+                else if(type === 'tw') window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(shareUrl) + '&text=' + encodeURIComponent(newsTitle), '_blank');
+            };
+
+            return createElement('div', { className: 'fixed inset-0 z-[300] bg-white flex flex-col overflow-y-auto' },
+                createElement('header', { className: 'bg-blue-950 text-white p-3 shadow-lg border-b-4 border-red-600 sticky-header' },
+                    createElement('div', { className: 'flex items-center justify-between max-w-4xl mx-auto', dir: 'rtl' },
+                        createElement('a', { href: 'https://radioshababwrayadh108.vercel.app/', target: '_blank', className: 'flex items-center gap-3' },
+                            createElement('img', { src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-12 h-12 rounded-full border-2 border-white object-cover animate-halo-pulse-red', alt: '' }),
+                            createElement('div', { className: 'flex flex-col' },
+                                createElement('span', { className: 'font-black text-[12.5px] leading-tight' }, 'إذاعة الشباب والرياضة'),
+                                createElement('span', { className: 'text-yellow-400 font-bold text-[11px]' }, '108 FM')
+                            )
+                        ),
+                        createElement('div', { className: 'flex items-center gap-1.5' },
+                            createElement('button', { onClick: onClose, className: 'bg-white/10 hover:bg-white/20 text-white border border-white/20 px-2 py-1 rounded-full text-[10.5px] font-bold flex items-center gap-1 transition-all shadow-sm cursor-pointer' },
+                                createElement('i', { className: 'fa-solid fa-house text-yellow-400 text-[9px]' }), ' الرئيسية'
+                            ),
+                            createElement('a', { href: 'https://www.facebook.com/share/1D8UNajv2q/', target: '_blank' },
+                                createElement('img', { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1280px-Facebook_f_logo_%282019%29.svg.png', className: 'w-7 h-7 rounded-full', alt: '' })
+                            ),
+                            createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'bg-yellow-500 text-blue-950 px-2 py-1 rounded-full text-[10px] font-bold flex items-center gap-1 shadow-md whitespace-nowrap' },
+                                createElement('svg', { className: 'w-3 h-3 text-red-600 fill-current animate-play-blink flex-shrink-0', viewBox: '0 0 24 24' },
+                                    createElement('path', { d: 'M8 5v14l11-7z' })
+                                ),
+                                createElement('span', null, 'اسمعنا الآن')
+                            )
+                        )
+                    )
+                ),
+
+                createElement('div', { className: 'bg-white w-full min-h-full p-4 relative text-right max-w-2xl mx-auto flex-grow' },
+                    createElement('button', { onClick: onClose, className: 'absolute top-4 left-4 bg-gray-200 hover:bg-gray-300 w-10 h-10 rounded-full flex items-center justify-center font-bold text-gray-700 z-10 shadow-md' }, '✕'),
+                    
+                    createElement('article', { className: 'pt-2 pb-12' },
+                        createElement('h1', { className: 'text-2xl font-black text-blue-950 leading-snug mb-3 flex items-start gap-2 pt-2' },
+                            createElement('span', { className: 'ring-pulse-container mt-2 flex-shrink-0' },
+                                createElement('span', { className: 'block w-3 h-3 bg-[#991b1b] rounded-full' })
+                            ),
+                            newsTitle
+                        ),
+                        
+                        createElement('div', { className: 'flex justify-between items-center mb-4' },
+                            createElement('div', { className: 'text-[14px] text-gray-500 font-bold' },
+                                createElement('i', { className: 'fa-solid fa-pen text-red-600 ml-1' }), ' كتب: محمد السعيد'
+                            ),
+                            createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'flex items-center gap-2 bg-red-600 text-white px-3 py-1 rounded shadow-lg' },
+                                createElement('span', { className: 'professional-pulse flex-shrink-0' },
+                                    createElement('span', { className: 'block w-2 h-2 bg-white rounded-full' })
+                                ),
+                                createElement('span', { className: 'font-black text-[11px]' }, '90 دقيقة كورة')
+                            )
+                        ),
+
+                        createElement('img', { src: "https://www.cairo24.com/UploadCache/libfiles/171/9/600x338o/412.jpg", className: 'w-full rounded-lg mb-3 object-cover h-64', referrerPolicy: 'no-referrer', onError: (e) => { e.target.src='https://via.placeholder.com/800x450?text=90+دقيقة+كورة'; } }),
+                        
+                        createElement('div', { className: 'flex justify-between items-center mb-5' },
+                            createElement('div', { className: 'text-[11px] font-bold text-gray-500' },
+                                createElement('i', { className: 'fa-solid fa-clock text-red-600 ml-1' }), ' 22 يوليو 2026 - 04:00 ص'
+                            ),
+                            createElement('div', { className: 'flex gap-2' },
+                                createElement('button', { onClick: () => shareLink('wa'), className: 'share-btn bg-green-500' }, createElement('i', { className: 'fa-brands fa-whatsapp' })),
+                                createElement('button', { onClick: () => shareLink('fb'), className: 'share-btn bg-blue-600' }, createElement('i', { className: 'fa-brands fa-facebook-f' })),
+                                createElement('button', { onClick: () => shareLink('tw'), className: 'share-btn bg-black' }, createElement('i', { className: 'fa-brands fa-x-twitter' }))
+                            )
+                        ),
+
+                        createElement('div', { className: 'text-gray-800 text-[17px] leading-relaxed font-medium text-right space-y-4' },
+                            createElement('p', { className: 'mb-4' }, 'سلطت إذاعة الشباب والرياضة الضوء على استعدادات منتخب مصر للشابات مواليد 2008 لبطولة كأس العالم في رومانيا وذلك من خلال برنامج 90 دقيقة كورة الذي تقدمه الإعلامية هدى جابر حيث استضافت الكابتن محمد عبد الكريم المدير الفني للمنتخب للحديث عن تفاصيل المعسكر وقائمة اللاعبات ومواعيد المباريات المرتقبة.'),
+                            createElement('p', { className: 'mb-4' }, 'وأوضح الكابتن محمد عبد الكريم أن الجهاز الفني استقر على قائمة نهائية تضم 18 لاعبة منهن 3 حارسات مرمى بعد تصفية القائمة الأولية التي ضمت 22 لاعبة مشيرا الى أن البعثة تحركت في تمام الساعة 10 مساء متجهة إلى تركيا لقضاء فترة ترانزيت تستغرق 3 ساعات قبل الوصول إلى رومانيا في تمام الساعة 8 صباحا لبدء الاستعدادات النهائية للبطولة.'),
+                            createElement('p', { className: 'mb-4' }, 'وأشار المدير الفني إلى أن المنتخب سيخوض تدريبات فورية بمجرد وصوله إلى رومانيا يعقبها خوض 3 مباريات ودية قوية أمام منتخبات اليابان وتونس ورومانيا بهدف زيادة الانسجام ومعالجة الأخطاء الفنية وتجهيز العناصر الجديدة التي انضمت للقائمة مثل ياسمين حسن والتوأم زينة وحبيبة محمود ومريم صلاح التي تعد أصغر لاعبة في البطولة من مواليد عام 2010.'),
+                            createElement('p', { className: 'mb-4' }, 'وتطرق ضيف البرنامج إلى قوة المجموعة الأولى التي تضم منتخبات كرواتيا وصيفة أوروبا وفرنسا بطلة القارة إلى جانب منتخب فيجي الذي يشارك للمرة الأولى موضحا أن مشوار الفراعنة سيبدأ بمواجهة كرواتيا يوم 29 في تمام الساعة 12 و 45 دقيقة ظهرا ثم الاصطدام بفرنسا يوم 30 في تمام الساعة 2 ظهرا على أن يختتم دور المجموعات بلقاء فيجي يوم 1 أغسطس أملا في خطف بطاقة الصعود للدور الثاني.'),
+                            createElement('p', { className: 'mb-4' }, 'واختتم عبد الكريم تصريحاته بتوجيه الشكر لاتحاد الكرة ولجنة التخطيط ورئيسة البعثة الكابتن عبير عقيل على الدعم المعنوي الكبير للاعبات معربا عن تفاؤله بقدرة بنات مصر على تقديم أداء مشرف وتحقيق مركز متقدم يفوق المشاركات السابقة ومطالبا الجماهير المصرية بمساندة المنتخب في هذا المحفل العالمي.')
+                        ),
+
+                        createElement('div', { className: 'my-6 bg-gradient-to-r from-blue-950 to-slate-900 p-4 rounded-xl border-2 border-red-600/50' },
+                            createElement('div', { className: 'flex items-center justify-between mb-2' },
+                                createElement('span', { className: 'text-xs font-bold text-yellow-400 flex items-center gap-2' },
+                                    createElement('i', { className: 'fa-solid fa-podcast animate-bounce text-red-500 text-sm' }), ' الاستماع للحلقة الصوتية:'
+                                ),
+                                createElement('span', { className: 'text-[10px] bg-red-600 text-white px-2 py-0.5 rounded-full font-bold' }, 'خاص اذاعة الشباب والرياضة')
+                            ),
+                            createElement('div', { style: { width: '100%', height: '50px', position: 'relative', borderRadius: '8px', overflow: 'hidden', background: '#0f172a' } },
+                                createElement('iframe', { src: 'https://vocaroo.com/embed/18wbGzUOyKpJ?autoplay=0', style: { top: 0, left: 0, width: '100%', height: '100%', position: 'absolute', border: 0 }, allowFullscreen: true })
+                            )
+                        ),
+
+                        createElement('div', { className: 'mt-6 flex items-center gap-3 bg-red-50 p-3 rounded-lg border border-red-100 mb-6' },
+                            createElement('span', { className: 'broadcast-pulse-brown' }),
+                            createElement('p', { className: 'font-bold text-red-800 text-[14px]' }, 'يذاع برنامج 90 دقيقة كورة عبر أثير إذاعة الشباب والرياضة لمتابعة أهم الأحداث الرياضية وهو من تقديم الإعلامية هدى جابر وإخراج أشرف الظواهري وهندسة إذاعية لمحمد صلاح.')
+                        ),
+
+                        createElement('button', { onClick: onClose, className: 'w-full bg-blue-950 text-white py-3.5 rounded-xl font-black text-base mt-4 active:scale-95 transition-all cursor-pointer' }, 'إغلاق الخبر والعودة للرئيسية')
+                    )
+                )
+            );
+        }
+
+        function GamalModal({ isOpen, onClose }) {
+            if (!isOpen) return null;
+
+            const shareUrl = "https://8257654.vercel.app";
+            const newsTitle = "جمال سالم يطالب باحتراف الناشئين ويشيد بأداء مصر وإسبانيا في المونديال عبر «سوبر الملاعب»";
+
+            const shareLink = (type) => {
+                if(type === 'wa') window.open('https://wa.me/?text=' + encodeURIComponent(newsTitle + '\n\n' + shareUrl), '_blank');
+                else if(type === 'fb') window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl), '_blank');
+                else if(type === 'tw') window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(shareUrl) + '&text=' + encodeURIComponent(newsTitle), '_blank');
+            };
+
+            return createElement('div', { className: 'fixed inset-0 z-[300] bg-white flex flex-col overflow-y-auto' },
+                createElement('header', { className: 'bg-blue-950 text-white p-3 shadow-lg border-b-4 border-red-600 sticky-header' },
+                    createElement('div', { className: 'flex items-center justify-between max-w-4xl mx-auto', dir: 'rtl' },
+                        createElement('a', { href: 'https://radioshababwrayadh108.vercel.app/', target: '_blank', className: 'flex items-center gap-3' },
+                            createElement('img', { src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-12 h-12 rounded-full border-2 border-white object-cover animate-halo-pulse-red', alt: '' }),
+                            createElement('div', { className: 'flex flex-col' },
+                                createElement('span', { className: 'font-black text-[12.5px] leading-tight' }, 'إذاعة الشباب والرياضة'),
+                                createElement('span', { className: 'text-yellow-400 font-bold text-[11px]' }, '108 FM')
+                            )
+                        ),
+                        createElement('div', { className: 'flex items-center gap-1.5' },
+                            createElement('button', { onClick: onClose, className: 'bg-white/10 hover:bg-white/20 text-white border border-white/20 px-2 py-1 rounded-full text-[10.5px] font-bold flex items-center gap-1 transition-all shadow-sm cursor-pointer' },
+                                createElement('i', { className: 'fa-solid fa-house text-yellow-400 text-[9px]' }), ' الرئيسية'
+                            ),
+                            createElement('a', { href: 'https://www.facebook.com/share/1D8UNajv2q/', target: '_blank' },
+                                createElement('img', { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1280px-Facebook_f_logo_%282019%29.svg.png', className: 'w-7 h-7 rounded-full', alt: '' })
+                            ),
+                            createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'bg-yellow-500 text-blue-950 px-2 py-1 rounded-full text-[10px] font-bold flex items-center gap-1 shadow-md whitespace-nowrap' },
+                                createElement('svg', { className: 'w-3 h-3 text-red-600 fill-current animate-play-blink flex-shrink-0', viewBox: '0 0 24 24' },
+                                    createElement('path', { d: 'M8 5v14l11-7z' })
+                                ),
+                                createElement('span', null, 'اسمعنا الآن')
+                            )
+                        )
+                    )
+                ),
+
+                createElement('div', { className: 'bg-white w-full min-h-full p-4 relative text-right max-w-2xl mx-auto flex-grow' },
+                    createElement('button', { onClick: onClose, className: 'absolute top-4 left-4 bg-gray-200 hover:bg-gray-300 w-10 h-10 rounded-full flex items-center justify-center font-bold text-gray-700 z-10 shadow-md' }, '✕'),
+                    
+                    createElement('article', { className: 'pt-2 pb-12' },
+                        createElement('h1', { className: 'text-2xl font-black text-blue-950 leading-snug mb-3 flex items-start gap-2 pt-2' },
+                            createElement('span', { className: 'ring-pulse-container mt-2 flex-shrink-0' },
+                                createElement('span', { className: 'block w-3 h-3 bg-[#991b1b] rounded-full' })
+                            ),
+                            newsTitle
+                        ),
+                        
+                        createElement('div', { className: 'flex justify-between items-center mb-4' },
+                            createElement('div', { className: 'text-[14px] text-gray-500 font-bold' },
+                                createElement('i', { className: 'fa-solid fa-pen text-red-600 ml-1' }), ' كتب: محمد السعيد'
+                            ),
+                            createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'flex items-center gap-2 bg-red-600 text-white px-3 py-1 rounded shadow-lg' },
+                                createElement('span', { className: 'professional-pulse flex-shrink-0' },
+                                    createElement('span', { className: 'block w-2 h-2 bg-white rounded-full' })
+                                ),
+                                createElement('span', { className: 'font-black text-[11px]' }, 'سوبر الملاعب')
+                            )
+                        ),
+
+                        createElement('img', { src: "https://m.gomhuriaonline.com/Upload/News/25-12-2019_00_24_07_GomhuriaOnline_1577226247.jpg", className: 'w-full rounded-lg mb-3 object-cover h-64', referrerPolicy: 'no-referrer', onError: (e) => { e.target.src='https://via.placeholder.com/800x450?text=سوبر+الملاعب'; } }),
+                        
+                        createElement('div', { className: 'flex justify-between items-center mb-5' },
+                            createElement('div', { className: 'text-[11px] font-bold text-gray-500' },
+                                createElement('i', { className: 'fa-solid fa-clock text-red-600 ml-1' }), ' 22 يوليو 2026 - 03:16 ص'
+                            ),
+                            createElement('div', { className: 'flex gap-2' },
+                                createElement('button', { onClick: () => shareLink('wa'), className: 'share-btn bg-green-500' }, createElement('i', { className: 'fa-brands fa-whatsapp' })),
+                                createElement('button', { onClick: () => shareLink('fb'), className: 'share-btn bg-blue-600' }, createElement('i', { className: 'fa-brands fa-facebook-f' })),
+                                createElement('button', { onClick: () => shareLink('tw'), className: 'share-btn bg-black' }, createElement('i', { className: 'fa-brands fa-x-twitter' }))
+                            )
+                        ),
+
+                        createElement('div', { className: 'text-gray-800 text-[17px] leading-relaxed font-medium text-right space-y-4' },
+                            createElement('p', { className: 'mb-4' }, 'استضافت إذاعة الشباب والرياضة من خلال برنامج سوبر الملاعب نجم المقاولون العرب ومنتخب مصر السابق الكابتن جمال سالم في حوار شامل مع الإعلامية دعاء مشرف لمناقشة حصاد بطولة كأس العالم 2026 وتقييم المشاركة المصرية والإفريقية في المونديال إلى جانب استعراض سبل تطوير الكرة المصرية خلال المرحلة المقبلة.'),
+                            createElement('p', { className: 'mb-4' }, 'وأكد الكابتن جمال سالم أن المنتخب الوطني قدم بطولة مشرفة وكان قادرا على الوصول لأبعد من دور الـ 16 مشيدا بالمستويات القوية التي قدمتها المنتخبات الإفريقية مثل السنغال والرأس الأخضر وموضحا أن مصر حققت مفاجأة سارة للعالم بأدائها القوي وكان يجب استغلال هذه الدفعة المعنوية للوصول إلى دور الـ 8.'),
+                            createElement('p', { className: 'mb-4' }, 'وتطرق نجم الكرة المصرية السابق إلى تتويج المنتخب الإسباني بلقب المونديال مؤكدا أن الماتادور استحق الكأس عن جدارة واستحقاق بعدما حافظ على إيقاع لعب ثابت ونظام تكتيكي موحد منذ مباراته الأولى وحتى المباراة النهائية دون أي تراجع في المستوى الفني أو البدني.'),
+                            createElement('p', { className: 'mb-4' }, 'وشدد ضيف البرنامج بقوة على ضرورة فتح الأندية المصرية الباب أمام اللاعبين الصغار للاحتراف في أوروبا في سن مبكرة على غرار تجارب عمر فايد وحمزة عبد الكريم وهيثم حسن منتقدا مغالاة الأندية في طلباتها المالية التي تصل إلى 3 أو 4 ملايين جنيه للموافقة على احتراف الناشئين ومطالبا بالاقتداء بنماذج السنغال وغانا التي تمتلك كتيبة من المحترفين في كبرى الدوريات الأوروبية.'),
+                            createElement('p', { className: 'mb-4' }, 'وأشار سالم إلى أن الاحتراف الخارجي يفرض على اللاعب نظاما صارما في التدريب والنوم والتغذية بعكس السهر المنتشر بين اللاعبين المحليين معتبرا النجم محمد صلاح نموذجا استثنائيا للالتزام والاحتراف الحقيقي ومؤكدا على أهمية تنفيذ توجيهات الرئيس عبد الفتاح السيسي بزيادة عدد المحترفين المصريين بالخارج لبناء منتخب قوي قادر على المنافسة في كأس العالم 2030.')
+                        ),
+
+                        createElement('div', { className: 'my-6 bg-gradient-to-r from-blue-950 to-slate-900 p-4 rounded-xl border-2 border-red-600/50' },
+                            createElement('div', { className: 'flex items-center justify-between mb-2' },
+                                createElement('span', { className: 'text-xs font-bold text-yellow-400 flex items-center gap-2' },
+                                    createElement('i', { className: 'fa-solid fa-podcast animate-bounce text-red-500 text-sm' }), ' الاستماع للحلقة الصوتية:'
+                                ),
+                                createElement('span', { className: 'text-[10px] bg-red-600 text-white px-2 py-0.5 rounded-full font-bold' }, 'خاص اذاعة الشباب والرياضة')
+                            ),
+                            createElement('div', { style: { width: '100%', height: '50px', position: 'relative', borderRadius: '8px', overflow: 'hidden', background: '#0f172a' } },
+                                createElement('iframe', { src: 'https://vocaroo.com/embed/1iYGSbXP0kCP?autoplay=0', style: { top: 0, left: 0, width: '100%', height: '100%', position: 'absolute', border: 0 }, allowFullscreen: true })
+                            )
+                        ),
+
+                        createElement('div', { className: 'mt-6 flex items-center gap-3 bg-red-50 p-3 rounded-lg border border-red-100 mb-6' },
+                            createElement('span', { className: 'broadcast-pulse-brown' }),
+                            createElement('p', { className: 'font-bold text-red-800 text-[14px]' }, 'يذاع برنامج سوبر الملاعب عبر أثير إذاعة الشباب والرياضة لمتابعة أهم الأحداث الرياضية وهو من تقديم الإعلامية دعاء مشرف وهندسة إذاعية لمحمد صلاح.')
+                        ),
+
+                        createElement('button', { onClick: onClose, className: 'w-full bg-blue-950 text-white py-3.5 rounded-xl font-black text-base mt-4 active:scale-95 transition-all cursor-pointer' }, 'إغلاق الخبر والعودة للرئيسية')
+                    )
+                )
+            );
+        }
+
         function App() {
             const [showAll, setShowAll] = useState(false);
+            const [showKarimModal, setShowKarimModal] = useState(false);
+            const [showGamalModal, setShowGamalModal] = useState(false);
+
+            useEffect(() => {
+                const handleOpenKarim = () => setShowKarimModal(true);
+                const handleOpenGamal = () => setShowGamalModal(true);
+                window.addEventListener('open-karim-modal', handleOpenKarim);
+                window.addEventListener('open-gamal-modal', handleOpenGamal);
+                return () => {
+                    window.removeEventListener('open-karim-modal', handleOpenKarim);
+                    window.removeEventListener('open-gamal-modal', handleOpenGamal);
+                };
+            }, []);
+
             const displayedNews = showAll ? listNews : listNews.slice(0, 15);
             return createElement('div', { className: 'min-h-screen flex flex-col bg-gray-50' },
                 createElement('header', { className: 'bg-blue-950 text-white p-3 shadow-2xl sticky top-0 z-50 rounded-b-[2rem] pb-6' },
                     createElement('div', { className: 'max-w-4xl mx-auto flex items-center justify-between' },
                         createElement('div', { className: 'flex items-center gap-2' },
-                            createElement('img', { onClick: () => window.open('https://www.maspero.eg/stream/11', '_blank'), src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-[45px] h-[45px] rounded-full border-2 border-white object-cover shadow-2xl animate-halo-pulse cursor-pointer' }),
+                            createElement('img', { onClick: () => window.open('https://www.maspero.eg/stream/11', '_blank'), src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-[45px] h-[45px] rounded-full border-2 border-white object-cover shadow-2xl animate-halo-pulse cursor-pointer', referrerPolicy: 'no-referrer' }),
                             createElement('div', { className: 'whitespace-nowrap' }, createElement('h1', { className: 'font-black text-[14px] tracking-tight' }, 'إذاعة الشباب والرياضة'), createElement('div', { className: 'text-yellow-400 text-[11px] font-bold' }, '108 FM'))
                         ),
                         createElement('div', { className: 'flex items-center gap-1 bg-white/10 rounded-xl px-2 py-1' }, createElement(LiveTemp)),
@@ -254,7 +503,7 @@
                             ),
                             createElement(Clock)
                         ),
-                        createElement('a', { href: 'https://www.facebook.com/share/1bzDzdVHfh/', target: '_blank' }, createElement('img', { src: 'https://i.postimg.cc/B61C0pPF/images.png', className: 'w-6 h-6 rounded-full object-cover border border-white/20' }))
+                        createElement('a', { href: 'https://www.facebook.com/share/1bzDzdVHfh/', target: '_blank' }, createElement('img', { src: 'https://i.postimg.cc/B61C0pPF/images.png', className: 'w-6 h-6 rounded-full object-cover border border-white/20', referrerPolicy: 'no-referrer' }))
                     )
                 ),
                 createElement('main', { className: 'flex-grow p-3 max-w-4xl mx-auto w-full' },
@@ -263,7 +512,15 @@
                     createElement('div', { className: 'desktop-grid' },
                         displayedNews.map((news, index) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
                             index === 3 ? createElement(ProgramsSlider) : null,
-                            createElement('div', { onClick: () => window.open(news.link, '_blank'), className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full' },
+                            createElement('div', { onClick: () => {
+                                if (news.id === 499545248) {
+                                    setShowKarimModal(true);
+                                } else if (news.id === 8257654) {
+                                    setShowGamalModal(true);
+                                } else {
+                                    window.open(news.link, '_blank');
+                                }
+                            }, className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full' },
                                 createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
                                 createElement('div', { className: 'flex-1 overflow-hidden' },
                                     createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
@@ -276,7 +533,9 @@
                         ))
                     ),
                     !showAll && createElement('button', { onClick: () => setShowAll(true), className: 'w-full bg-blue-900 text-white py-3 rounded-2xl font-black text-sm mb-6 shadow-lg active:scale-95 transition-all' }, 'عرض المزيد من الأخبار')
-                )
+                ),
+                createElement(KarimModal, { isOpen: showKarimModal, onClose: () => setShowKarimModal(false) }),
+                createElement(GamalModal, { isOpen: showGamalModal, onClose: () => setShowGamalModal(false) })
             );
         }
 
