@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>إذاعة الشباب والرياضة</title>
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIuKchSDYp9mE0YjZhSDYqNin2YTYqNivINin2YTYt9in2YjYqSDYqNmF2K/Yqtin2K8iLAogICJzaG9ydF9uYW1lIjogIuKchSDYp9mE0YjZhSDYqNin2YTYqNivIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMxZTFhNDMiLAogICJ0aGVtZV9jb2xvciI6ICIjMWUxYTQzIiwKICAiaWNvbnMiOiBbIHsgInNyYyI6ICJodHRwczovL2kucG9zdGltZy5jYy84NXRTMzhDYy9TY3JlZW5zaG90LTIwMjYtMDUtMTMtMDItNTgtNTAtODAtOTZiMjYxMjFlNTQ1MjMxYTNjNTY5MzExYTU0Y2RhOTYuanBnIiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9qcGVnIiB9IF0KfQ==">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIuKchSDYp9mE0YjZhSDYqNin2YTYqNivINin2YTYt9in2YjYqSDYqNmF2K/Yqtin2K8iLAogICJzaG9ydF9uYW1lIjogIuKchSDYp9mE0YjZhSDYqNin2YTYqNivIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMxZTFhNDMiLAogICJ0aGVtZV9jb2xvciI6ICIjMWUxYTQzIiwKICAiaWNvbnMiOiBbIHsgInNyYyI6ICJodHRwczovL2kucG9zdGltZy5jYy84NXRTMzhDYy9TY3JlZW5zaG90LTIwMjYtMDUtMTMtMDItNTgtNTAtODAtOTZiMjYxMjFlNTQ1MjMxYTNjNTY5MzExYTU0Y2RhOTYuanBnIiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9qcGVnIiB9 F0KfQ==">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -15,11 +16,12 @@
         .slider-container { overflow: hidden; position: relative; width: 100%; height: 280px; }
         .slider-wrapper { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
         .slider-item { min-width: 100%; height: 100%; box-sizing: border-box; padding: 10px; cursor: pointer; }
-        
-        .programs-slider { overflow: hidden; position: relative; width: 100%; height: 200px; }
-        .programs-wrapper { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
-        .programs-item { min-width: 100%; height: 100%; box-sizing: border-box; padding: 0 12px; cursor: pointer; }
 
+        .programs-slider-container { overflow: hidden; position: relative; width: 100%; height: 180px; border-radius: 1rem; touch-action: pan-y; cursor: grab; }
+        .programs-slider-container:active { cursor: grabbing; }
+        .programs-slider-wrapper { display: flex; transition: transform 0.3s ease-out; height: 100%; }
+        .programs-slider-item { min-width: 100%; height: 100%; box-sizing: border-box; }
+        
         .nav-button {
             position: absolute;
             top: 50%;
@@ -51,22 +53,7 @@
         @keyframes halo-pulse-red { 0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.6); } 70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); } 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); } }
         @keyframes play-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
         @keyframes ring-pulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(2.2); opacity: 0; } }
-        @keyframes success-pop { 0% { transform: scale(0.92); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        @keyframes smooth-heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-        .professional-pulse { position: relative; display: inline-block; }
-        .professional-pulse::before, .professional-pulse::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 1.5px solid #ffffff; animation: ring-pulse 3s ease-in-out infinite; }
-        .professional-pulse::after { animation-delay: 1.5s; }
-        .ring-pulse-container { position: relative; display: inline-block; }
-        .ring-pulse-container::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 1.5px solid #991b1b; animation: ring-pulse 3s ease-in-out infinite; }
-        .broadcast-pulse-brown { position: relative; display: inline-block; width: 12px; height: 12px; background-color: #78350f; border-radius: 50%; flex-shrink: 0; }
-        .broadcast-pulse-brown::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 1.5px solid #78350f; animation: ring-pulse 2s ease-in-out infinite; }
-        .animate-halo-pulse-red { animation: halo-pulse-red 2s infinite; }
-        .animate-play-blink { animation: play-blink 1.5s ease-in-out infinite; }
-        .animate-success-pop { animation: success-pop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .animate-smooth-heartbeat { animation: smooth-heartbeat 1.5s ease-in-out infinite; }
         
-        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 10px rgba(234, 179, 8, 0.3); } 50% { box-shadow: 0 0 20px rgba(234, 179, 8, 0.5); } }
-        .animate-pulse-glow { animation: pulse-glow 2s infinite ease-in-out; }
         @keyframes border-glow { 0% { box-shadow: inset 0 0 0px #22c55e, 0 0 0px #22c55e; } 50% { box-shadow: inset 0 0 5px #22c55e, 0 0 5px #22c55e; } 100% { box-shadow: inset 0 0 0px #22c55e, 0 0 0px #22c55e; } }
         .animate-border-glow { animation: border-glow 2s infinite; }
         @keyframes red-ring-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); } 50% { box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.2); } }
@@ -75,8 +62,6 @@
         .animate-blink { animation: blink 1.5s ease-in-out infinite; }
         @keyframes fade-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
         .animate-fade-pulse { animation: fade-pulse 1s infinite; }
-        @keyframes elegant-pulse { 0%, 100% { box-shadow: 0 0 5px #fbbf24; border-color: #fbbf24; } 50% { box-shadow: 0 0 15px #f59e0b; border-color: #f59e0b; } }
-        .animate-elegant-pulse { animation: elegant-pulse 2s infinite ease-in-out; }
         @keyframes mic-glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.3); } 50% { box-shadow: 0 0 8px 3px rgba(220, 38, 38, 0.4); } }
         .animate-mic-glow { animation: mic-glow 2s ease-in-out infinite; }
         @keyframes sun-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -85,16 +70,10 @@
         .animate-sun-glow-effect { animation: sun-glow-effect 2s infinite ease-in-out; }
         @keyframes slow-fade { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
         .animate-slow-fade { animation: slow-fade 4s infinite ease-in-out; }
-        @keyframes strong-breath { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
-        .animate-strong-breath { animation: strong-breath 2s ease-in-out infinite; }
         @keyframes cloud-move { 0% { transform: translateX(0px); } 50% { transform: translateX(10px); } 100% { transform: translateX(0px); } }
         .animate-cloud-move { animation: cloud-move 4s ease-in-out infinite; }
         @keyframes sun-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.8; } }
         .animate-sun-pulse { animation: sun-pulse 3s infinite ease-in-out; }
-        @keyframes smooth-float-btn { 0%, 100% { transform: translateY(0); box-shadow: 0 2px 10px rgba(29, 78, 216, 0.2); } 50% { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3); } }
-        .animate-smooth-float-btn { animation: smooth-float-btn 2.5s ease-in-out infinite; }
-        .share-btn { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; font-size: 17px; transition: transform 0.2s; cursor: pointer; border: none; }
-        .sticky-header { position: sticky; top: 0; z-index: 50; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -199,9 +178,156 @@
             );
         }
 
+        function ProgramsSlider() {
+            const [progIndex, setProgIndex] = useState(0);
+            const [zoomedIndex, setZoomedIndex] = useState(null);
+            const images = [
+                "https://e.top4top.io/p_3856hfvtk0.png",
+                "https://j.top4top.io/p_3856j6h3t0.png",
+                "https://k.top4top.io/p_3856i9uyv0.png"
+            ];
+            
+            const touchStartX = useRef(0);
+            const touchEndX = useRef(0);
+
+            // دوال السحب داخل المودال المكبر
+            const zoomTouchStartX = useRef(0);
+            const zoomTouchEndX = useRef(0);
+
+            useEffect(() => {
+                const timer = setInterval(() => {
+                    if (zoomedIndex === null) {
+                        setProgIndex((prev) => (prev + 1) % images.length);
+                    }
+                }, 4000);
+                return () => clearInterval(timer);
+            }, [images.length, zoomedIndex]);
+
+            const handleTouchStart = (e) => {
+                touchStartX.current = e.touches[0].clientX;
+            };
+
+            const handleTouchMove = (e) => {
+                touchEndX.current = e.touches[0].clientX;
+            };
+
+            const handleTouchEnd = () => {
+                if (!touchStartX.current || !touchEndX.current) return;
+                const distance = touchStartX.current - touchEndX.current;
+                const minSwipeDistance = 40;
+
+                if (distance > minSwipeDistance) {
+                    setProgIndex((prev) => (prev + 1) % images.length);
+                } else if (distance < -minSwipeDistance) {
+                    setProgIndex((prev) => (prev - 1 + images.length) % images.length);
+                }
+
+                touchStartX.current = 0;
+                touchEndX.current = 0;
+            };
+
+            const handleZoomTouchStart = (e) => {
+                zoomTouchStartX.current = e.touches[0].clientX;
+            };
+
+            const handleZoomTouchMove = (e) => {
+                zoomTouchEndX.current = e.touches[0].clientX;
+            };
+
+            const handleZoomTouchEnd = () => {
+                if (!zoomTouchStartX.current || !zoomTouchEndX.current) return;
+                const distance = zoomTouchStartX.current - zoomTouchEndX.current;
+                const minSwipeDistance = 40;
+
+                if (distance > minSwipeDistance) {
+                    // سحب لليسار داخل التكبير -> الصورة التالية
+                    setZoomedIndex((prev) => (prev + 1) % images.length);
+                } else if (distance < -minSwipeDistance) {
+                    // سحب لليمين داخل التكبير -> الصورة السابقة
+                    setZoomedIndex((prev) => (prev - 1 + images.length) % images.length);
+                }
+
+                zoomTouchStartX.current = 0;
+                zoomTouchEndX.current = 0;
+            };
+
+            return createElement('div', { className: 'mb-4' },
+                createElement('div', { 
+                    className: 'programs-slider-container shadow-md bg-white relative overflow-hidden',
+                    onTouchStart: handleTouchStart,
+                    onTouchMove: handleTouchMove,
+                    onTouchEnd: handleTouchEnd
+                },
+                    createElement('div', { className: 'programs-slider-wrapper', style: { transform: `translateX(${progIndex * 100}%)` } },
+                        images.map((imgUrl, idx) => 
+                            createElement('div', { key: idx, className: 'programs-slider-item' },
+                                createElement('img', { 
+                                    src: imgUrl, 
+                                    className: 'w-full h-full object-cover cursor-pointer', 
+                                    alt: 'برامجنا',
+                                    onClick: () => setZoomedIndex(idx)
+                                })
+                            )
+                        )
+                    ),
+                    createElement('div', { className: 'absolute bottom-2 left-0 right-0 z-20 flex justify-center gap-1.5 pointer-events-none' },
+                        images.map((_, idx) =>
+                            createElement('button', {
+                                key: idx,
+                                onClick: (e) => { e.stopPropagation(); setProgIndex(idx); },
+                                className: `w-2 h-2 rounded-full transition-all pointer-events-auto ${idx === progIndex ? 'bg-yellow-400 w-4' : 'bg-white/60'}`
+                            })
+                        )
+                    )
+                ),
+
+                // Lightbox Modal عند الضغط لتكبير الصورة مع إمكانية التحريك يمين ويسار
+                zoomedIndex !== null && createElement('div', { 
+                    className: 'fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4',
+                    onClick: () => setZoomedIndex(null)
+                },
+                    createElement('div', { 
+                        className: 'relative max-w-lg w-full flex flex-col items-center select-none',
+                        onTouchStart: handleZoomTouchStart,
+                        onTouchMove: handleZoomTouchMove,
+                        onTouchEnd: handleZoomTouchEnd,
+                        onClick: (e) => e.stopPropagation()
+                    },
+                        createElement('button', { 
+                            className: 'absolute -top-12 left-0 text-white bg-red-600 w-9 h-9 rounded-full font-bold text-sm shadow-md flex items-center justify-center z-50',
+                            onClick: () => setZoomedIndex(null)
+                        }, '✕'),
+                        
+                        // زر السهم للأمام في التكبير
+                        createElement('button', {
+                            className: 'absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center z-40 text-lg hover:bg-black/80',
+                            onClick: () => setZoomedIndex((prev) => (prev - 1 + images.length) % images.length)
+                        }, '❯'),
+
+                        // زر السهم للخلف في التكبير
+                        createElement('button', {
+                            className: 'absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center z-40 text-lg hover:bg-black/80',
+                            onClick: () => setZoomedIndex((prev) => (prev + 1) % images.length)
+                        }, '❮'),
+
+                        createElement('img', { 
+                            src: images[zoomedIndex], 
+                            className: 'w-full max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/20 transition-all duration-300', 
+                            alt: 'صورة مكبرة'
+                        }),
+                        createElement('p', { className: 'text-white text-xs mt-3 font-bold opacity-80 text-center' }, 'اسحب يميناً أو يساراً للتنقل بين الصور، أو اضغط على الزر للإغلاق')
+                    )
+                )
+            );
+        }
+
         function App() {
             const [showAll, setShowAll] = useState(false);
             const displayedNews = showAll ? listNews : listNews.slice(0, 15);
+            
+            const firstThreeNews = displayedNews.slice(0, 3);
+            const remainingNews = displayedNews.slice(3);
+
             return createElement('div', { className: 'min-h-screen flex flex-col bg-gray-50' },
                 createElement('header', { className: 'bg-blue-950 text-white p-3 shadow-2xl sticky top-0 z-50 rounded-b-[2rem] pb-6' },
                     createElement('div', { className: 'max-w-4xl mx-auto flex items-center justify-between' },
@@ -223,8 +349,10 @@
                 createElement('main', { className: 'flex-grow p-3 max-w-4xl mx-auto w-full' },
                     createElement(Slider),
                     createElement(LiveProgram),
+                    
+                    // أول ٣ أخبار
                     createElement('div', { className: 'desktop-grid' },
-                        displayedNews.map((news) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
+                        firstThreeNews.map((news) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
                             createElement('div', { onClick: () => window.open(news.link, '_blank'), className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full' },
                                 createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
                                 createElement('div', { className: 'flex-1 overflow-hidden' },
@@ -235,6 +363,33 @@
                             )
                         ))
                     ),
+
+                    // عنوان قسم برامجنا المنسق
+                    createElement('div', { className: 'my-4 flex items-center justify-between bg-blue-950 text-white px-4 py-2.5 rounded-xl shadow-md border-r-4 border-yellow-400' },
+                        createElement('div', { className: 'flex items-center gap-2' },
+                            createElement('i', { className: 'fa-solid fa-microphone-lines text-yellow-400 text-sm' }),
+                            createElement('span', { className: 'font-black text-xs tracking-wide' }, 'برامجنا')
+                        ),
+                        createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2 py-0.5 rounded-full' }, 'الخريطة البرامجية')
+                    ),
+
+                    // سلايدر برامجنا المدعوم بالسحب داخل وضع التكبير
+                    createElement(ProgramsSlider),
+
+                    // باقي الأخبار
+                    createElement('div', { className: 'desktop-grid' },
+                        remainingNews.map((news) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
+                            createElement('div', { onClick: () => window.open(news.link, '_blank'), className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full' },
+                                createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
+                                createElement('div', { className: 'flex-1 overflow-hidden' },
+                                    createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
+                                    createElement('h2', { className: 'font-bold text-sm leading-tight text-gray-800' }, news.title),
+                                    createElement('div', { className: 'text-[9px] text-gray-400 mt-0.5' }, news.time)
+                                )
+                            )
+                        ))
+                    ),
+
                     !showAll && createElement('button', { onClick: () => setShowAll(true), className: 'w-full bg-blue-900 text-white py-3 rounded-2xl font-black text-sm mb-6 shadow-lg active:scale-95 transition-all' }, 'عرض المزيد من الأخبار')
                 ),
                 createElement('footer', { className: 'bg-blue-950 text-white text-center py-4 mt-auto font-black text-xs border-t-4 border-yellow-500' },
@@ -248,3 +403,4 @@
     </script>
 </body>
 </html>
+
