@@ -74,6 +74,15 @@
         .animate-cloud-move { animation: cloud-move 4s ease-in-out infinite; }
         @keyframes sun-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.8; } }
         .animate-sun-pulse { animation: sun-pulse 3s infinite ease-in-out; }
+
+        /* تأثير الحركة الانسيابية للظهور والاختفاء (Fade & Scale Pulse) لأيقونة المايكروفون */
+        @keyframes smooth-mic-fade {
+            0%, 100% { opacity: 0.2; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.15); }
+        }
+        .animate-smooth-mic {
+            animation: smooth-mic-fade 2.2s ease-in-out infinite;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -190,7 +199,6 @@
             const touchStartX = useRef(0);
             const touchEndX = useRef(0);
 
-            // دوال السحب داخل المودال المكبر
             const zoomTouchStartX = useRef(0);
             const zoomTouchEndX = useRef(0);
 
@@ -240,10 +248,8 @@
                 const minSwipeDistance = 40;
 
                 if (distance > minSwipeDistance) {
-                    // سحب لليسار داخل التكبير -> الصورة التالية
                     setZoomedIndex((prev) => (prev + 1) % images.length);
                 } else if (distance < -minSwipeDistance) {
-                    // سحب لليمين داخل التكبير -> الصورة السابقة
                     setZoomedIndex((prev) => (prev - 1 + images.length) % images.length);
                 }
 
@@ -281,7 +287,6 @@
                     )
                 ),
 
-                // Lightbox Modal عند الضغط لتكبير الصورة مع إمكانية التحريك يمين ويسار
                 zoomedIndex !== null && createElement('div', { 
                     className: 'fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4',
                     onClick: () => setZoomedIndex(null)
@@ -298,13 +303,11 @@
                             onClick: () => setZoomedIndex(null)
                         }, '✕'),
                         
-                        // زر السهم للأمام في التكبير
                         createElement('button', {
                             className: 'absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center z-40 text-lg hover:bg-black/80',
                             onClick: () => setZoomedIndex((prev) => (prev - 1 + images.length) % images.length)
                         }, '❯'),
 
-                        // زر السهم للخلف في التكبير
                         createElement('button', {
                             className: 'absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center z-40 text-lg hover:bg-black/80',
                             onClick: () => setZoomedIndex((prev) => (prev + 1) % images.length)
@@ -364,10 +367,10 @@
                         ))
                     ),
 
-                    // عنوان قسم برامجنا المنسق
+                    // عنوان قسم برامجنا المنسق مع أيقونة الميكروفون المتحركة بانسيابية (ظهور واختفاء ناعم)
                     createElement('div', { className: 'my-4 flex items-center justify-between bg-blue-950 text-white px-4 py-2.5 rounded-xl shadow-md border-r-4 border-yellow-400' },
                         createElement('div', { className: 'flex items-center gap-2' },
-                            createElement('i', { className: 'fa-solid fa-microphone-lines text-yellow-400 text-sm' }),
+                            createElement('i', { className: 'fa-solid fa-microphone-lines text-yellow-400 text-sm animate-smooth-mic' }),
                             createElement('span', { className: 'font-black text-xs tracking-wide' }, 'برامجنا')
                         ),
                         createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2 py-0.5 rounded-full' }, 'الخريطة البرامجية')
