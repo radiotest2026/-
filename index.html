@@ -51,6 +51,8 @@
         @keyframes halo-pulse-red { 0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.6); } 70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); } 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); } }
         @keyframes play-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
         @keyframes ring-pulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(2.2); opacity: 0; } }
+        @keyframes success-pop { 0% { transform: scale(0.92); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes smooth-heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
         .professional-pulse { position: relative; display: inline-block; }
         .professional-pulse::before, .professional-pulse::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 1.5px solid #ffffff; animation: ring-pulse 3s ease-in-out infinite; }
         .professional-pulse::after { animation-delay: 1.5s; }
@@ -60,6 +62,8 @@
         .broadcast-pulse-brown::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 1.5px solid #78350f; animation: ring-pulse 2s ease-in-out infinite; }
         .animate-halo-pulse-red { animation: halo-pulse-red 2s infinite; }
         .animate-play-blink { animation: play-blink 1.5s ease-in-out infinite; }
+        .animate-success-pop { animation: success-pop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-smooth-heartbeat { animation: smooth-heartbeat 1.5s ease-in-out infinite; }
         
         @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 10px rgba(234, 179, 8, 0.3); } 50% { box-shadow: 0 0 20px rgba(234, 179, 8, 0.5); } }
         .animate-pulse-glow { animation: pulse-glow 2s infinite ease-in-out; }
@@ -134,10 +138,11 @@
             );
         }
 
-        const newsEntessar = { id: 333222111, title: "انتصار غريب تكشف أسرار رفض عمر مكرم للسلطة وصراع محمد علي مع المماليك في «قول يا تاريخ»", program: "قول يا تاريخ", image: "https://i.postimg.cc/6pGpvf3W/file-00000000932c81f486cc2b9c178cf9e0.png", time: "23 يوليو 2026 - 05:12 ص", link: "https://radioshababwrayadh108.vercel.app" };
-        const newsLifestyle = { id: 444555666, title: "برنامج «لايف ستايل» يستعيد ذكريات طاهر أبو زيد ويناقش أهمية الرياضة واحترام الجيران عبر إذاعة الشباب والرياضة", program: "لايف ستايل", image: "https://i.postimg.cc/wT8fz6ms/file-00000000a5d481f4828d3c71a03d7b1d.png", time: "23 يوليو 2026 - 05:04 ص", link: "https://radioshababwrayadh108.vercel.app" };
-        const newsAdel = { id: 123456789, title: "عادل عبد الصبور يرفض زيادة الأندية إفريقيا ويوجه رسالة لوزير الشباب وتحذر الزمالك في «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQMzjGtwU3xnUxF_IJnFv8252TE0PBWfqar0oclsITw8jVBBS8UucjL_v2&s=10", time: "23 يوليو 2026 - 04:20 ص", link: "https://radioshababwrayadh108.vercel.app" };
-        const newsHafez = { id: 77889900, title: "محمود حافظ يدعم تجديد عقد حسام حسن ويكشف سر تألق الفراعنة في المونديال ببرنامج «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH0CrYaZHlkuYFUsBXNNO9xPAjIrUIPNAZwmv30Chb1AeKoX9Cv8mflCQ&s=10", time: "23 يوليو 2026 - 03:50 ص", link: "https://radioshababwrayadh108.vercel.app" };
+        const newsEntessar = { id: 444555666, title: "انتصار غريب تكشف أسرار رفض عمر مكرم للسلطة وصراع محمد علي مع المماليك في «قول يا تاريخ»", program: "قول يا تاريخ", image: "https://i.postimg.cc/6pGpvf3W/file-00000000932c81f486cc2b9c178cf9e0.png", time: "23 يوليو 2026 - 05:12 ص", link: "https://radioshababwrayadh108.vercel.app" };
+        const newsLifestyle = { id: 333444555, title: "برنامج «لايف ستايل» يستعيد ذكريات طاهر أبو زيد ويناقش أهمية الرياضة واحترام الجيران عبر إذاعة الشباب والرياضة", program: "لايف ستايل", image: "https://i.postimg.cc/wT8fz6ms/file-00000000a5d481f4828d3c71a03d7b1d.png", time: "23 يوليو 2026 - 05:04 ص", link: "https://radioshababwrayadh108.vercel.app" };
+        const newsSisi = { id: 111222333, title: "الرئيس عبد الفتاح السيسي يوجه رسائل حاسمة للسلام والأمل في ذكرى ثورة 23 يوليو", program: "استوديو 16", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcYlO0Sat0WatrbXzQ7S7uPfjVHrFut44h0zx89fTQMg&s=10", time: "23 يوليو 2026 - 05:02 م", link: "https://radioshababwrayadh108.vercel.app" };
+        const newsAdel = { id: 222333444, title: "عادل عبد الصبور يرفض زيادة الأندية إفريقيا ويوجه رسالة لوزير الشباب وتحذر الزمالك في «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQMzjGtwU3xnUxF_IJnFv8252TE0PBWfqar0oclsITw8jVBBS8UucjL_v2&s=10", time: "23 يوليو 2026 - 04:20 ص", link: "https://radioshababwrayadh108.vercel.app" };
+        const newsMahmoud = { id: 111000999, title: "محمود حافظ يدعم تجديد عقد حسام حسن ويكشف سر تألق الفراعنة في المونديال ببرنامج «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH0CrYaZHlkuYFUsBXNNO9xPAjIrUIPNAZwmv30Chb1AeKoX9Cv8mflCQ&s=10", time: "23 يوليو 2026 - 03:50 ص", link: "https://radioshababwrayadh108.vercel.app" };
         const newsEmad = { id: 999888777, title: "عماد غنيم يحلل أداء الفراعنة في المونديال ويطالب بدعم حسام حسن في «مشغول بإيه»", program: "مشغول بإيه", image: "https://i.ytimg.com/vi/tq7evIgZzpI/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGBMgSih_MA8=&rs=AOn4CLDThq-CE-YrC78EYjaG8BJqWIof5w", time: "23 يوليو 2026 - 02:54 ص", link: "https://radioshababwrayadh108.vercel.app" };
         const newsAmer = { id: 666777888, title: "عامر العمايرة يكشف كوارث دمج الأندية الجماهيرية ويشتبك مع محمد الجبالي بسبب عقود اللاعبين في «صباحكوا رياضة»", program: "صباحكوا رياضة", image: "https://img.ahlmasrnews.com/750x450/2026/03/%D8%B9%D8%A7%D9%85%D8%B1-%D8%A7%D9%84%D8%B9%D9%85%D8%A7%D9%8A%D8%B1%D8%A9-1772827709-0.jpg", time: "22 يوليو 2026 - 10:45 م", link: "https://radioshababwrayadh108.vercel.app" };
         const newsZaghloul = { id: 555666777, title: "زغلول صيام يفتح النار على ظاهرة العقود الوهمية ويطالب بسقف للرواتب في «صباحكوا رياضة»", program: "صباحكوا رياضة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ40JoFaP9nSLfv6SEVXDtDJPrkJueMjdSwGMaJXMrrI_4JSAbtyS8JeEgJ&s=10", time: "22 يوليو 2026 - 10:32 م", link: "https://radioshababwrayadh108.vercel.app" };
@@ -152,21 +157,154 @@
         const newsFarouk = { id: 6855562563, title: "محمد فاروق يحلل أسباب تفوق مبابي ويكشف سر تتويج إسبانيا ويطالب بتجديد دماء الفراعنة في «ساعة رياضة»", program: "ساعة رياضة", image: "https://i.ytimg.com/vi/eesuIQXH-_c/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGH8gMCgTMA8=&rs=AOn4CLAgaI8gNz0E77ODiJKBuEBHGS07WQ", time: "21 يوليو 2026 - 06:00 ص", link: "https://6855562563.vercel.app" };
         const newsRami = { id: 88426885, title: "رامي سعد يتوقع انتقال صلاح لتشيلسي وينتقد حسام حسن ويكشف حلول أزمة الزمالك في «ساعة رياضة»", program: "ساعة رياضة", image: "https://i.ytimg.com/vi/1ZNbLI4OHYQ/hqdefault.jpg", time: "21 يوليو 2026 - 05:54 ص", link: "https://88426885.vercel.app" };
         const newsUpdate = { id: 865425625, title: "طبيب يحذر من تورم الوجه بسبب الشمس ويكشف الفئات الأكثر عرضة للحساسية ببرنامج «في عز الزحمة»", program: "في عز الزحمة", image: "https://www.shorouknews.com/uploadedimages/Other/original/sdgfdsfghsdthfghdfgh.jpg", time: "21 يوليو 2026 - 04:00 ص", link: "https://865425625.vercel.app" };
-        const newsNew = { id: 86523546, title: "الباز ونجلاء حلمي يضعان الحصاد الشامل للمونديال ويكشفان صفقات الأهلي في «صباحكم رياضة»", program: "صباحكم رياضة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQjByULm7J9kZDhlH2adYVpcac_PBVhELcdUhz33AmzDPXWxAczhEzu08&s=10", time: "21 يوليو 2026 - 02:50 ص", link: "https://86523546.vercel.app" };
         const newsExtra = { id: 894462563, title: "عمرو الحديدي يضع روشتة إنقاذ دفاع الأهلي ويكشف مصير الرباعي الأجنبي في «صباحكم رياضة»", program: "صباحكم رياضة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLGZKdl-mMpGcMl_6Hds3rxoevhePOb-BNzyKMoJ6dd2TT9lmSxalufdE&s=10", time: "21 يوليو 2026 - 02:35 ص", link: "https://894462563.vercel.app" };
-        const newsAbbas = { id: 86555255, title: "محمد عباس يفتح النار على التحكيم ودمج الأندية ويكشف كواليس المونديال ومستقبل الفراعنة في «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://www.aljazeera.net/wp-content/uploads/2026/07/ap_6a59d726285b7-1784272678.jpg?resize=770%2C513&quality=80", time: "21 يوليو 2026 - 05:00 ص", link: "https://86555255.vercel.app" };
-        const news1 = { id: 115, title: "جمال علام يكشف لـ«نجلاء حلمي» أسرار التعاقد مع التوأم ورحلته السرية للمونديال ويلمح للترشح لانتخابات اتحاد الكرة", program: "لقاء خاص", image: "https://www.shorouknews.com/uploadedimages/Sections/Sports/original/images%20-%202023-08-09T211148.327.jpeg", time: "20 يوليو 2026 - 04:50 ص", link: "https://59546355.vercel.app" };
-        const news8 = { id: 765526, title: "نجم الأهلي السابق مشير عثمان يطالب باحتراف شوبير وينتقد مرموش في «صباحكم رياضة»", program: "صباحكم رياضة", image: "https://img.youm7.com/large/small9200822204448.jpg", time: "21 يوليو 2026 - 01:50 ص", link: "https://765526556.vercel.app" };
         const news9 = { id: 719345, title: "فكري صالح ينصح شوبير بالاحتراف ويشيد باعتزال إكرامي ويوجه رسالة لحسام حسن عبر «صباحكم رياضة»", program: "صباحكم رياضة", image: "https://img.youm7.com/ArticleImgs/2017/12/5/52688-%D9%81%D9%83%D8%B1%D9%89-%D8%B5%D8%A7%D9%84%D8%AD.jpg", time: "21 يوليو 2026 - 02:15 ص", link: "https://7193458.vercel.app" };
+        const news8 = { id: 765526, title: "نجم الأهلي السابق مشير عثمان يطالب باحتراف شوبير وينتقد مرموش في «صباحكم رياضة»", program: "صباحكم رياضة", image: "https://img.youm7.com/large/small9200822204448.jpg", time: "21 يوليو 2026 - 01:50 ص", link: "https://765526556.vercel.app" };
+        const news1 = { id: 115, title: "جمال علام يكشف لـ«نجلاء حلمي» أسرار التعاقد مع التوأم ورحلته السرية للمونديال ويلمح للترشح لانتخابات اتحاد الكرة", program: "لقاء خاص", image: "https://www.shorouknews.com/uploadedimages/Sections/Sports/original/images%20-%202023-08-09T211148.327.jpeg", time: "20 يوليو 2026 - 04:50 ص", link: "https://59546355.vercel.app" };
+        const news7 = { id: 843987, title: "جهاد جريشة يفتح النار على الفيفا ويكشف كارثة تحكيمية في نهائي المونديال عبر «صباحكم رياضة»", program: "صباحكم رياضة", image: "https://mediaaws-live.almasryalyoum.com/AMAYLivePictures/portalimages/news/large/2021/08/22/1606754_0.jpeg", time: "20 يوليو 2026 - 11:15 م", link: "https://843987565.vercel.app" };
         const news2 = { id: 114, title: "معاهدة 1936 وحريق القاهرة.. محطات فاصلة يوثقها برنامج «قول يا تاريخ»", program: "قول يا تاريخ", image: "https://mediaaws-live.almasryalyoum.com/AMAYLivePictures/portalimages/news/large/2024/01/26/2307268_0.jpeg", time: "20 يوليو 2026 - 01:45 ص", link: "https://825462232.vercel.app" };
         const news3 = { id: 113, title: "من الحب إلى الموت.. رشا عادل بدر تكشف أسرار دواوينها الثمانية وتفاصيل مسيرتها في «حفل توقيع»", program: "حفل توقيع", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnvrdrtigXkIurU1aAM7aPFH5amGhY1t1eUvkoAwWngRKy9mfsMf8JaGI&s=10", time: "19 يوليو 2026 - 09:30 م", link: "https://546358633.vercel.app" };
         const news4 = { id: 112, title: "توفيق السيد يهاجم التحكيم في المونديال ويدعم الكوادر المصرية عبر برنامج «الكرة العالمية»", program: "الكرة العالمية", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNFO2nC6CeGHTEd0P0du0wyS8wqmEH68YQZFY2JfMDY-AyRQkMhEJZpLRA&s=10", time: "19 يوليو 2026 - 08:40 م", link: "https://57765565.vercel.app" };
         const news6 = { id: 110, title: "عيد مرازيق يكشف في «صباحكوا رياضة» تفاصيل استثمار الزمالك وأسباب فشل المحترفين", program: "صباحكوا رياضة", image: "https://www.cairo24.com/UploadCache/libfiles/80/3/600x338o/842.jpeg", time: "19 يوليو 2026 - 11:00 ص", link: "https://314861463.vercel.app" };
-        const news7 = { id: 843987, title: "جهاد جريشة يفتح النار على الفيفا ويكشف كارثة تحكيمية في نهائي المونديال عبر «صباحكم رياضة»", program: "صباحكم رياضة", image: "https://mediaaws-live.almasryalyoum.com/AMAYLivePictures/portalimages/news/large/2021/08/22/1606754_0.jpeg", time: "20 يوليو 2026 - 11:15 م", link: "https://843987565.vercel.app" };
+
+        // Sorted strictly descending by date/time (newest first: Sisi, Entessar, Lifestyle, Adel, Mahmoud, Emad...)
+        const sliderNews = [newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud];
+        const listNews = [newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal, newsEssam, newsHamed, newsCold, newsFarouk, newsRami, newsUpdate, newsExtra, news9, news8, news1, news7, news2, news3, news4, news6];
         
-        const sliderNews = [newsEntessar, newsLifestyle, newsAdel, newsHafez, newsEmad];
-        const listNews = [newsEntessar, newsLifestyle, newsAdel, newsHafez, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal, newsEssam, newsHamed, newsCold, newsFarouk, newsRami, newsAbbas, newsUpdate, { id: 954786288, title: "عمرو دياب وتامر حسني يشوقان الجمهور ومصطفى كامل يرد على منتقديه في حصاد «108 فن»", program: "108 فن", image: "https://elfann.com/i/large/4077564_1784472709.jpg", time: "21 يوليو 2026 - 03:20 ص", link: "https://954786288.vercel.app" }, { id: 8654562566, title: "الكاتب عبد الرحمن الراوي في «الكابتن ماما»: الأم هي «الرادار» والمخزون الاستراتيجي لبناء إنسان سوي وناجح", program: "الكابتن ماما", image: "https://i0.wp.com/captainmama.org/wp-content/uploads/2024/06/cropped-logo-9182.png?resize=512%2C512&ssl=1", time: "21 يوليو 2026 - 03:10 ص", link: "https://8654562566.vercel.app" }, newsNew, newsExtra, news9, news8, news1, news7, { id: 862453, title: "التصدير الرقمي والعمل الحر.. خبيرة ذكاء اصطناعي تكشف أسرار الربح من الإنترنت في برنامج «الـ coach»", program: "الـ coach", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD3rl9CpaE4G8857qPMJhbmC9-tHIDu1RXW0542gkgi8stlrKVz4QdebEB&s=10", time: "20 يوليو 2026 - 09:50 m", link: "https://862453225.vercel.app" }, { id: 999, title: "الجفاف العاطفي واعتزال التمثيل.. غادة صفوت تثير الجدل بتصريحاتها عن الرجل المصري في «نبض الشارع»", program: "نبض الشارع", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-lcmP5KcKq4fK_kZYP7M7Q1azFmNpvpSTgXl9dnwU8Ajn6e3XyofmZBF2&s=10", time: "20 يوليو 2026 - 09:10 م", link: "https://865752255.vercel.app" }, { id: 120, title: "أهمية الإطالات وسر ثبات الوزن.. إيمان رمضان تقدم نصائح رياضية في برنامج «يلا نعيشها صح»", program: "يلا نعيشها صح", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIrrmUk4CHyZrFEU_2pzIobI1aU2-bpq1gTT9fikkW6_d1sbdw4Jvyp4E&s=10", time: "20 يوليو 2026 - 08:41 م", link: "https://895452566.vercel.app" }, { id: 119, title: "رؤية 2030 وتتويج إسبانيا بالمونديال.. أحمد يعقوب يستعرض أبرز الأحداث في حصاد «النهار من أوله»", program: "النهار من أوله", image: "https://media.alalamsyria.ir/original/2023/10/05/638321131041519539.jpg", time: "20 يوليو 2026 - 08:30 م", link: "https://5985296.vercel.app" }, { id: 118, title: "فوائد مذهلة للبطاطا الحلوة.. داليا حمزة تكشف أسرارها الصحية في برنامج «بالهنا والشفا»", program: "بالهنا والشفا", image: "https://static.mithaly.sa/storage/media/hF2LkPc7PBwMRbqTxmVlLYvceT8wCTsCv6WsIIJq.jpg", time: "20 يوليو 2026 - 08:15 م", link: "https://35865455.vercel.app" }, { id: 117, title: "مكانة اليتيم وحقوقه في الإسلام.. الدكتور الشحات العزازي يوجه رسالة مؤثرة عبر برنامج «علمنا الرسول»", program: "علمنا الرسول", image: "https://modo3.com/thumbs/fit630x300/13734/1441703508/%D9%85%D8%A7_%D9%85%D8%B9%D9%86%D9%89_%D8%A4%D9%84%D9%8A%D8%AA%D9%8A%D9%85.jpg", time: "20 يوليو 2026 - 07:58 م", link: "https://68556585.vercel.app" }, { id: 116, title: "الكلمة الطيبة واليقين بالله.. غادة وفيق تستعرض إشراقات الشيخ عبد الرحمن القاضي عبر إذاعة الشباب والرياضة", program: "الكلمة الطيبة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkkNRyLAHHJT8uOkNaEinCiB2wK5HIJZpylSEeFn8dX4qG-3PuxbYiBHM&s=10", time: "20 يوليو 2026 - 07:40 م", link: "https://24895665.vercel.app" }, news2, news3, news4, news6];
-        
+        function SisiComments() {
+            useEffect(() => {
+                import("https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js").then(({ initializeApp }) => {
+                    import("https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js").then(({ getAuth, signInAnonymously, signInWithCustomToken }) => {
+                        import("https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js").then(({ getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp }) => {
+                            try {
+                                const firebaseConfig = JSON.parse(__firebase_config);
+                                const app = initializeApp(firebaseConfig);
+                                const auth = getAuth(app);
+                                const db = getFirestore(app);
+                                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+                                const commentsColRef = collection(db, 'artifacts', appId, 'public', 'data', 'sisi_july23_comments_v1');
+
+                                const checkCommentLock = () => {
+                                    const savedAuthor = localStorage.getItem('sisi_july23_author_name');
+                                    if (localStorage.getItem('sisi_july23_locked_device')) {
+                                        const formWrapper = document.getElementById('comment-form-wrapper');
+                                        const successMsg = document.getElementById('success-thankyou-msg');
+                                        const titleEl = document.getElementById('thankyou-title');
+                                        const descEl = document.getElementById('thankyou-desc');
+                                        if (formWrapper) formWrapper.style.display = 'none';
+                                        if (successMsg) successMsg.style.display = 'block';
+                                        if (titleEl && savedAuthor) titleEl.textContent = `شكراً لتفاعلك معنا يا ${savedAuthor}!`;
+                                    }
+                                };
+
+                                window.postComment = async function() {
+                                    if (localStorage.getItem('sisi_july23_locked_device')) {
+                                        return;
+                                    }
+                                    const authorInput = document.getElementById('comment-author');
+                                    const textInput = document.getElementById('comment-text');
+                                    if (!authorInput || !textInput) return;
+                                    const author = authorInput.value.trim();
+                                    const text = textInput.value.trim();
+                                    if (!author || !text) {
+                                        alert('يرجى كتابة الاسم ومحتوى التعليق أولاً.');
+                                        return;
+                                    }
+                                    try {
+                                        localStorage.setItem('sisi_july23_locked_device', 'true');
+                                        localStorage.setItem('sisi_july23_author_name', author);
+                                        checkCommentLock();
+                                        await addDoc(commentsColRef, {
+                                            author: author,
+                                            text: text,
+                                            createdAt: serverTimestamp()
+                                        });
+                                        authorInput.value = '';
+                                        textInput.value = '';
+                                    } catch (e) {}
+                                };
+
+                                const initAuth = async () => {
+                                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                                        await signInWithCustomToken(auth, __initial_auth_token);
+                                    } else {
+                                        await signInAnonymously(auth);
+                                    }
+                                };
+
+                                initAuth().then(() => {
+                                    checkCommentLock();
+                                    const q = query(commentsColRef, orderBy('createdAt', 'desc'));
+                                    onSnapshot(q, (snapshot) => {
+                                        checkCommentLock();
+                                        const container = document.getElementById('comments-container');
+                                        const countSpan = document.getElementById('comments-count');
+                                        if (!container || !countSpan) return;
+                                        if (snapshot.empty) {
+                                            container.innerHTML = '<p class="text-[11px] text-gray-400 text-center py-2">لا توجد تعليقات حالياً، كن أول المتحدثين!</p>';
+                                            countSpan.textContent = 0;
+                                            return;
+                                        }
+                                        container.innerHTML = '';
+                                        countSpan.textContent = snapshot.size;
+                                        snapshot.forEach((doc) => {
+                                            const data = doc.data();
+                                            const commentEl = document.createElement('div');
+                                            commentEl.className = 'bg-gray-50 p-2.5 rounded-lg border border-gray-100 text-right animate-success-pop';
+                                            commentEl.innerHTML = `
+                                                <div class="flex items-center justify-between mb-1">
+                                                    <span class="font-bold text-[11px] text-blue-950">${escapeHtml(data.author || '')}</span>
+                                                    <span class="text-[9px] text-gray-400">الآن</span>
+                                                </div>
+                                                <p class="text-[11px] text-gray-700 leading-relaxed">${escapeHtml(data.text || '')}</p>
+                                            `;
+                                            container.appendChild(commentEl);
+                                        });
+                                    });
+                                });
+                            } catch(err) {}
+                        });
+                    });
+                });
+            }, []);
+
+            function escapeHtml(text) {
+                if (!text) return '';
+                const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+                return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+            }
+
+            return createElement('div', { className: 'mt-6 bg-white p-4 rounded-xl border border-gray-200 shadow-sm' },
+                createElement('h3', { className: 'text-sm font-black text-blue-950 mb-3 flex items-center gap-2' },
+                    createElement('i', { className: 'fa-solid fa-comments text-red-600' }), ' اترك تعليقاً على الموضوع:'
+                ),
+                createElement('div', { id: 'comment-form-wrapper', className: 'space-y-3' },
+                    createElement('div', null,
+                        createElement('input', { type: 'text', id: 'comment-author', placeholder: 'اسمك الكريم...', className: 'w-full p-2.5 text-xs border border-gray-300 rounded-lg focus:outline-none focus:border-blue-950 bg-gray-50' })
+                    ),
+                    createElement('div', null,
+                        createElement('textarea', { id: 'comment-text', rows: 3, placeholder: 'اكتب تعليقك هنا...', className: 'w-full p-2.5 text-xs border border-gray-300 rounded-lg focus:outline-none focus:border-blue-950 bg-gray-50 resize-none' })
+                    ),
+                    createElement('button', { onClick: () => window.postComment && window.postComment(), className: 'w-full bg-blue-950 hover:bg-blue-900 text-white font-bold py-2.5 rounded-lg text-xs transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer' },
+                        createElement('i', { className: 'fa-solid fa-paper-plane text-yellow-400' }), ' نشر التعليق'
+                    )
+                ),
+                createElement('div', { id: 'success-thankyou-msg', style: { display: 'none' }, className: 'bg-gradient-to-br from-blue-950 to-slate-900 p-5 rounded-xl border-2 border-red-600/50 shadow-lg text-center animate-success-pop mt-3' },
+                    createElement('div', { className: 'w-14 h-14 bg-red-500/20 border-2 border-red-500 rounded-full flex items-center justify-center mx-auto mb-3 professional-pulse' },
+                        createElement('i', { className: 'fa-solid fa-heart text-red-500 text-2xl animate-smooth-heartbeat' })
+                    ),
+                    createElement('h4', { id: 'thankyou-title', className: 'text-sm font-black text-yellow-400 mb-1' }, 'شكراً لتفاعلك معنا!'),
+                    createElement('p', { id: 'thankyou-desc', className: 'text-[12px] text-white font-bold leading-relaxed' }, 'تم نشر تعليقك بنجاح')
+                ),
+                createElement('div', { className: 'mt-6 border-t border-gray-100 pt-4' },
+                    createElement('h4', { className: 'text-xs font-bold text-gray-700 mb-3' }, 'التعليقات المنشورة (', createElement('span', { id: 'comments-count' }, '0'), '):'),
+                    createElement('div', { id: 'comments-container', className: 'space-y-2.5 max-h-60 overflow-y-auto' },
+                        createElement('p', { className: 'text-[11px] text-gray-400 text-center py-2' }, 'لا توجد تعليقات حالياً، كن أول المتحدثين!')
+                    )
+                )
+            );
+        }
+
         function Slider() {
             const [index, setIndex] = useState(0);
             const timerRef = useRef(null);
@@ -181,14 +319,16 @@
                 createElement('button', { className: 'nav-button next-btn', onClick: nextSlide }, '◀'),
                 createElement('div', { className: 'slider-wrapper', style: { transform: `translateX(${index * 100}%)` } },
                     sliderNews.map((news) => createElement('div', { key: news.id, className: 'slider-item', onClick: () => {
-                        if (news.id === 333222111) {
-                            window.dispatchEvent(new CustomEvent('open-entessar-modal'));
+                        if (news.id === 111222333) {
+                            window.dispatchEvent(new CustomEvent('open-sisi-modal'));
                         } else if (news.id === 444555666) {
+                            window.dispatchEvent(new CustomEvent('open-entessar-modal'));
+                        } else if (news.id === 333444555) {
                             window.dispatchEvent(new CustomEvent('open-lifestyle-modal'));
-                        } else if (news.id === 123456789) {
+                        } else if (news.id === 222333444) {
                             window.dispatchEvent(new CustomEvent('open-adel-modal'));
-                        } else if (news.id === 77889900) {
-                            window.dispatchEvent(new CustomEvent('open-hafez-modal'));
+                        } else if (news.id === 111000999) {
+                            window.dispatchEvent(new CustomEvent('open-mahmoud-modal'));
                         } else if (news.id === 999888777) {
                             window.dispatchEvent(new CustomEvent('open-emad-modal'));
                         } else if (news.id === 666777888) {
@@ -289,6 +429,112 @@
             );
         }
 
+        function SisiModal({ isOpen, onClose }) {
+            if (!isOpen) return null;
+            const shareUrl = "https://radioshababwrayadh108.vercel.app/";
+            const newsTitle = "الرئيس عبد الفتاح السيسي يوجه رسائل حاسمة للسلام والأمل في ذكرى ثورة 23 يوليو";
+            const shareLink = (type) => {
+                if(type === 'wa') window.open('https://wa.me/?text=' + encodeURIComponent(newsTitle + '\n\n' + shareUrl), '_blank');
+                else if(type === 'fb') window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl), '_blank');
+                else if(type === 'tw') window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(shareUrl) + '&text=' + encodeURIComponent(newsTitle), '_blank');
+            };
+            return createElement('div', { className: 'fixed inset-0 z-[300] bg-white flex flex-col overflow-y-auto' },
+                createElement('header', { className: 'bg-blue-950 text-white p-3 shadow-lg border-b-4 border-red-600 sticky-header' },
+                    createElement('div', { className: 'flex items-center justify-between max-w-4xl mx-auto', dir: 'rtl' },
+                        createElement('a', { href: 'https://radioshababwrayadh108.vercel.app/', target: '_blank', className: 'flex items-center gap-3' },
+                            createElement('img', { src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-12 h-12 rounded-full border-2 border-white object-cover animate-halo-pulse-red', alt: '' }),
+                            createElement('div', { className: 'flex flex-col' },
+                                createElement('span', { className: 'font-black text-[12.5px] leading-tight' }, 'إذاعة الشباب والرياضة'),
+                                createElement('span', { className: 'text-yellow-400 font-bold text-[11px]' }, '108 FM')
+                            )
+                        ),
+                        createElement('div', { className: 'flex items-center gap-1.5' },
+                            createElement('button', { onClick: onClose, className: 'bg-white/10 hover:bg-white/20 text-white border border-white/20 px-2 py-1 rounded-full text-[10.5px] font-bold flex items-center gap-1 transition-all shadow-sm cursor-pointer' },
+                                createElement('i', { className: 'fa-solid fa-house text-yellow-400 text-[9px]' }), ' الرئيسية'
+                            ),
+                            createElement('a', { href: 'https://www.facebook.com/share/1D8UNajv2q/', target: '_blank' },
+                                createElement('img', { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/1280px-Facebook_f_logo_%282019%29.svg.png', className: 'w-7 h-7 rounded-full', alt: '' })
+                            ),
+                            createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'bg-yellow-500 text-blue-950 px-2 py-1 rounded-full text-[10px] font-bold flex items-center gap-1 shadow-md whitespace-nowrap' },
+                                createElement('svg', { className: 'w-3 h-3 text-red-600 fill-current animate-play-blink flex-shrink-0', viewBox: '0 0 24 24' },
+                                    createElement('path', { d: 'M8 5v14l11-7z' })
+                                ),
+                                createElement('span', null, 'اسمعنا الآن')
+                            )
+                        )
+                    )
+                ),
+                createElement('div', { className: 'bg-white w-full min-h-full p-4 relative text-right max-w-2xl mx-auto flex-grow' },
+                    createElement('article', { className: 'pt-2 pb-12' },
+                        createElement('h1', { className: 'text-2xl font-black text-blue-950 leading-snug mb-3 flex items-start gap-2 pt-2' },
+                            createElement('span', { className: 'ring-pulse-container mt-2 flex-shrink-0' },
+                                createElement('span', { className: 'block w-3 h-3 bg-[#991b1b] rounded-full' })
+                            ),
+                            newsTitle
+                        ),
+                        createElement('div', { className: 'flex justify-between items-center mb-4' },
+                            createElement('div', { className: 'text-[14px] text-gray-500 font-bold' },
+                                createElement('i', { className: 'fa-solid fa-pen text-red-600 ml-1' }), ' كتب: محمد السعيد'
+                            ),
+                            createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'flex items-center gap-2 bg-red-600 text-white px-3 py-1 rounded shadow-lg' },
+                                createElement('span', { className: 'professional-pulse flex-shrink-0' },
+                                    createElement('span', { className: 'block w-2 h-2 bg-white rounded-full' })
+                                ),
+                                createElement('span', { className: 'font-black text-[11px]' }, 'استوديو 16')
+                            )
+                        ),
+                        createElement('img', { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcYlO0Sat0WatrbXzQ7S7uPfjVHrFut44h0zx89fTQMg&s=10", className: 'w-full rounded-lg mb-3 object-cover h-64', referrerPolicy: 'no-referrer', onerror: (e) => { e.target.src='https://via.placeholder.com/800x450?text=استوديو+16'; } }),
+                        createElement('div', { className: 'flex justify-between items-center mb-5' },
+                            createElement('div', { className: 'text-[11px] font-bold text-gray-500' },
+                                createElement('i', { className: 'fa-solid fa-clock text-red-600 ml-1' }), ' 23 يوليو 2026 - 05:02 م'
+                            ),
+                            createElement('div', { className: 'flex gap-2' },
+                                createElement('button', { onClick: () => shareLink('wa'), className: 'share-btn bg-green-500' }, createElement('i', { className: 'fa-brands fa-whatsapp' })),
+                                createElement('button', { onClick: () => shareLink('fb'), className: 'share-btn bg-blue-600' }, createElement('i', { className: 'fa-brands fa-facebook-f' })),
+                                createElement('button', { onClick: () => shareLink('tw'), className: 'share-btn bg-black' }, createElement('i', { className: 'fa-brands fa-x-twitter' }))
+                            )
+                        ),
+                        createElement('div', { className: 'text-gray-800 text-[17px] leading-relaxed font-medium text-right space-y-4' },
+                            createElement('p', null, 'نقلت إذاعة الشباب والرياضة عبر «استوديو 16» مباشرة بالانضمام لشبكة البرنامج العام كلمة الرئيس عبد الفتاح السيسي بمناسبة الاحتفال بذكرى ثورة 23 يوليو المجيدة.'),
+                            createElement('p', null, 'وأكد الرئيس السيسي أن ثورة يوليو رسخت استقلال القرار الوطني المصري ومكنت الدولة من استعادة سيادتها لبناء جمهورية جديدة قوية ومتقدمة.'),
+                            createElement('p', null, 'واستعرض الرئيس مسيرة التنمية الشاملة التي انطلقت منذ عام 2014 وشهدت هزيمة الإرهاب وبناء بنية أساسية عصرية والقضاء على العشوائيات.'),
+                            createElement('p', null, 'وأشار إلى نجاح الدولة في إطلاق المشروع القومي حياة كريمة وتطوير قطاعات التعليم والصحة والطاقة لتوفير بيئة حضارية تليق بكرامة المصريين.'),
+                            createElement('p', null, 'وشدد على أن مصر مضت بثبات في طريق التنمية رغم التحديات غير المسبوقة والحروب التي تعصف بالمنطقة والخسائر الاقتصادية الخارجة عن إرادتها.'),
+                            createElement('p', null, 'ووجه الرئيس تحية إجلال وتقدير للشعب المصري العظيم وجيشه الباسل وشرطته المدنية والشهداء الأبرار الذين ضحوا بأرواحهم فداء للوطن.'),
+                            createElement('p', null, 'وبعث الرئيس عبد الفتاح السيسي برسالة سلام قوية طالب فيها دول العالم بوقف الحروب والصراعات في الشرق الأوسط والعودة إلى طاولة المفاوضات.'),
+                            createElement('p', null, 'واختتم كلمته بتوجيه رسالة أمل وتفاؤل للمصريين مؤكدا أن القادم أفضل بفضل العمل الجاد والرؤية العلمية ومواجهة الفساد بكل صوره.')
+                        ),
+                        createElement('div', { className: 'my-6 bg-gradient-to-r from-blue-950 to-slate-900 p-4 rounded-xl border-2 border-red-600/50' },
+                            createElement('div', { className: 'flex items-center justify-between mb-2' },
+                                createElement('span', { className: 'text-xs font-bold text-yellow-400 flex items-center gap-2' },
+                                    createElement('i', { className: 'fa-solid fa-podcast animate-bounce text-red-500 text-sm' }), ' الاستماع للحلقة الصوتية:'
+                                ),
+                                createElement('span', { className: 'text-[10px] bg-red-600 text-white px-2 py-0.5 rounded-full font-bold' }, 'خاص اذاعة الشباب والرياضة')
+                            ),
+                            createElement('div', { style: { width: '100%', height: '50px', position: 'relative', borderRadius: '8px', overflow: 'hidden', background: '#0f172a' } },
+                                createElement('iframe', { src: 'https://voca.ro/embed/1cYUD6H4w9sc?autoplay=0', style: { top: 0, left: 0, width: '100%', height: '100%', position: 'absolute', border: 0 }, allowFullscreen: true })
+                            )
+                        ),
+                        createElement('div', { className: 'mt-6 flex items-center gap-3 bg-red-50 p-3 rounded-lg border border-red-100 mb-6' },
+                            createElement('span', { className: 'broadcast-pulse-brown' }),
+                            createElement('p', { className: 'font-bold text-red-800 text-[14px]' }, 'تذاع هذه التغطية الخاصة عبر أثير إذاعة الشباب والرياضة من خلال «استوديو 16» لنقل أهم الفعاليات الوطنية والخطابات الرسمية.')
+                        ),
+                        createElement(SisiComments),
+                        createElement('div', { className: 'mt-6 text-center max-w-xs mx-auto' },
+                            createElement('button', { onClick: onClose, className: 'w-full bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-950 text-white py-2.5 px-4 rounded-xl font-bold text-xs shadow-md border border-yellow-400/80 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2 animate-smooth-float-btn' },
+                                createElement('i', { className: 'fa-solid fa-house-chimney text-yellow-400 text-sm animate-bounce' }),
+                                createElement('span', null, 'إغلاق الخبر والعودة للرئيسية'),
+                                createElement('i', { className: 'fa-solid fa-arrow-left text-xs text-red-500' })
+                            )
+                        ),
+                        createElement('div', { className: 'text-center mt-6 text-[10px] font-bold text-gray-500 border-t border-gray-200 pt-3' },
+                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'
+                        )
+                    )
+                )
+            );
+        }
+
         function EntessarModal({ isOpen, onClose }) {
             if (!isOpen) return null;
             const shareUrl = "https://radioshababwrayadh108.vercel.app/";
@@ -355,10 +601,10 @@
                             )
                         ),
                         createElement('div', { className: 'text-gray-800 text-[17px] leading-relaxed font-medium text-right space-y-4' },
-                            createElement('p', null, 'سلطت إذاعة الشباب والرياضة الضوء على الدور التاريخي للزعيم الشعبي عمر مكرم في دعم محمد علي باشا لتولي حكم مصر وذلك من خلال حلقة جديدة من برنامج «قول يا تاريخ»s.'),
+                            createElement('p', null, 'سلطت إذاعة الشباب والرياضة الضوء على الدور التاريخي للزعيم الشعبي عمر مكرم في دعم محمد علي باشا لتولي حكم مصر وذلك من خلال حلقة جديدة من برنامج «قول يا تاريخ» الرئيسية.'),
                             createElement('p', null, 'وأوضحت الإعلامية انتصار غريب أن عمر مكرم كان يمتلك مكانة رفيعة كأحد أكبر زعامات الشعب المصري ولعب دورا حاسما في تولي محمد علي السلطة.'),
                             createElement('p', null, 'وأشارت إلى أن الشعب اعترض على محاولات الدولة العثمانية لفرض محمد الألفي كوالي على مصر مما أدى إلى صدور فرمان من السلطان العثماني بتولي محمد علي باشا الحكم.'),
-                            createElement('p', null, 'وأضافت أن محمد علي بدأ في أبريل عام 1806 التجهيز لمواجهة محمد الألفي في الصعيد وعرض على عمر مكرم أن ينوب عنه كقائم مقام خلال فترة غيابه.'),
+                            createElement('p', null, 'وأضاف أن محمد علي بدأ في أبريل عام 1806 التجهيز لمواجهة محمد الألفي في الصعيد وعرض على عمر مكرم أن ينوب عنه كقائم مقام خلال فترة غيابه.'),
                             createElement('p', null, 'وكشفت أن عمر مكرم رفض هذا المنصب الرفيع ورغم أن المؤرخ الجبرتي لم يذكر أسباب الرفض إلا أن الفرضيات تؤكد ترفع الزعيم الشعبي عن المناصب والمكاسب الشخصية.'),
                             createElement('p', null, 'وأكدت أن جهاد عمر مكرم ووقوفه مع الشعب ضد الحملة الفرنسية ونابليون بونابرت كان خالصا لوجه الله والوطن دون أي طمع في السلطة.'),
                             createElement('p', null, 'وتطرق البرنامج إلى أن عمر مكرم ظل مرجعية هامة لمحمد علي باشا الذي كان يستشيره في كل صغيرة وكبيرة مما دفع محمد الألفي لطلب وساطته لتصفية الخلافات.'),
@@ -390,7 +636,7 @@
                             )
                         ),
                         createElement('div', { className: 'text-center mt-6 text-[10px] font-bold text-gray-500 border-t border-gray-200 pt-3' },
-                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'
+                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 اف ام 2026'
                         )
                     )
                 )
@@ -463,14 +709,14 @@
                             )
                         ),
                         createElement('div', { className: 'text-gray-800 text-[17px] leading-relaxed font-medium text-right space-y-4' },
-                            createElement('p', null, 'سلطت إذاعة الشباب والرياضة الضوء على مسيرة نجم الكرة المصرية طاهر أبو زيد وأهمية ممارسة الرياضة في حياتنا اليومية من خلال حلقة جديدة من برنامج «لايف ستايل».'),
+                            createElement('p', null, 'سلطت إذاعة الشباب والرياضة الضوء على مسيرة نجم الكرة المصرية طاهر أبو زيد وأهمية ممارسة الرياضة في حياتنا اليومية من خلال حلقة جديدة من برنامج «لايف ستايل»ُ.'),
                             createElement('p', null, 'واستعاد الإعلامي وائل عيسى والدكتورة نادية النشار ذكريات تسديدات مارادونا النيل الكابتن طاهر أبو زيد الصاروخية التي سكنت شباك المنافسين من مسافات بعيدة.'),
                             createElement('p', null, 'واستعرض مقدما البرنامج إنجازات نجم النادي الأهلي ومنتخب مصر الذي شارك في كأس العالم بإيطاليا عام 1990 وحصد لقب هداف كأس العالم للشباب عام 1981.'),
                             createElement('p', null, 'كما تطرق اللقاء إلى تتويج أبو زيد مع القلعة الحمراء ببطولة الدوري المصري 7 مرات وكأس مصر 5 مرات إلى جانب حصد بطولتين إفريقيتين وتوليه منصب وزير الرياضة.'),
                             createElement('p', null, 'وانتقل البرنامج إلى فقرته الدرامية المعتادة لسرد قصة اجتماعية هادفة بطلتها جارتان هما منال ونسرين لتسليط الضوء على آداب الجوار.'),
                             createElement('p', null, 'ودارت أحداث القصة حول انزعاج منال من الأصوات المرتفعة والاهتزازات العنيفة الصادرة من شقة جارتها نسرين وشقيقتها نيفين أثناء ممارستهما للتمارين الرياضية المنزلية.'),
                             createElement('p', null, 'وتضمنت الرسالة الدرامية التأكيد على وصية النبي باحترام حقوق الجيران وعدم إزعاجهم حيث نصحت منال جارتيها بالتوجه إلى صالة الألعاب الرياضية بدلا من القفز في المنزل.'),
-                            createElement('p', null, 'واختتمت القصة بنهاية إيجابية حيث وافقت نسرين على الذهاب إلى النادي الرياضي بشرط أن ترافقها منال لتصبح الرياضة أسلوب حياة للجميع وتتحول الخلافات إلى صداقة قوية.')
+                            createElement('p', null, 'واختتمت القصة بنهاية إيجابية حيث وافقت نسرين على الذهاب إلى النادي الرياضي بشرط أن ترافقها منال لتصبح الرياضة أسلوب الحياة للجميع وتتحول الخلافات إلى صداقة قوية.')
                         ),
                         createElement('div', { className: 'my-6 bg-gradient-to-r from-blue-950 to-slate-900 p-4 rounded-xl border-2 border-red-600/50' },
                             createElement('div', { className: 'flex items-center justify-between mb-2' },
@@ -495,7 +741,7 @@
                             )
                         ),
                         createElement('div', { className: 'text-center mt-6 text-[10px] font-bold text-gray-500 border-t border-gray-200 pt-3' },
-                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'
+                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 اف ام 2026'
                         )
                     )
                 )
@@ -603,14 +849,14 @@
                             )
                         ),
                         createElement('div', { className: 'text-center mt-6 text-[10px] font-bold text-gray-500 border-t border-gray-200 pt-3' },
-                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'
+                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 اف ام 2026'
                         )
                     )
                 )
             );
         }
 
-        function HafezModal({ isOpen, onClose }) {
+        function MahmoudModal({ isOpen, onClose }) {
             if (!isOpen) return null;
             const shareUrl = "https://radioshababwrayadh108.vercel.app/";
             const newsTitle = "محمود حافظ يدعم تجديد عقد حسام حسن ويكشف سر تألق الفراعنة في المونديال ببرنامج «90 دقيقة كورة»";
@@ -709,7 +955,7 @@
                             )
                         ),
                         createElement('div', { className: 'text-center mt-6 text-[10px] font-bold text-gray-500 border-t border-gray-200 pt-3' },
-                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'
+                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 اف ام 2026'
                         )
                     )
                 )
@@ -818,7 +1064,7 @@
                             )
                         ),
                         createElement('div', { className: 'text-center mt-6 text-[10px] font-bold text-gray-500 border-t border-gray-200 pt-3' },
-                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'
+                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 اف ام 2026'
                         )
                     )
                 )
@@ -925,7 +1171,7 @@
                             )
                         ),
                         createElement('div', { className: 'text-center mt-6 text-[10px] font-bold text-gray-500 border-t border-gray-200 pt-3' },
-                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'
+                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 اف ام 2026'
                         )
                     )
                 )
@@ -1032,7 +1278,7 @@
                             )
                         ),
                         createElement('div', { className: 'text-center mt-6 text-[10px] font-bold text-gray-500 border-t border-gray-200 pt-3' },
-                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'
+                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 اف ام 2026'
                         )
                     )
                 )
@@ -1133,7 +1379,7 @@
                             )
                         ),
                         createElement('div', { className: 'text-center mt-6 text-[10px] font-bold text-gray-500 border-t border-gray-200 pt-3' },
-                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'
+                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 اف ام 2026'
                         )
                     )
                 )
@@ -1206,7 +1452,7 @@
                             )
                         ),
                         createElement('div', { className: 'text-gray-800 text-[17px] leading-relaxed font-medium text-right space-y-4' },
-                            createElement('p', null, 'سلطت إذاعة الشباب والرياضة 108 FM الضوء على مجموعة من المعلومات والحقائق المدهشة في مجالات التكنولوجيا والاقتصاد والرياضة وذلك من خلال برنامج راديو تويت الذي يقدمه الإعلامي الأباصيري حيث استعرضت الحلقة تفاصيل دمج الخلايا البشرية بالذكاء الصناعي وأرقام المليارديرات الشباب وتاريخ تصميم كأس العالم.'),
+                            createElement('p', null, 'سلطت إذاعة الشباب والرياضة 108 FM الضوء على مجموعة من المعلومات والحقائق المدهشة في مجالات التكنولوجيا الاقتصاد والرياضة وذلك من خلال برنامج راديو تويت الذي يقدمه الإعلامي الأباصيري حيث استعرضت الحلقة تفاصيل دمج الخلايا البشرية بالذكاء الصناعي وأرقام المليارديرات الشباب وتاريخ تصميم كأس العالم.'),
                             createElement('p', null, 'وأوضح البرنامج أن إحدى شركات التكنولوجيا الحيوية نجحت في دمج حوالي 200 ألف خلية عصبية بشرية مخلقة مع رقاقة سيليكون إلكترونية حيث ظهرت هذه الخلايا وهي تمارس لعبة Doom الكلاسيكية في تجربة علمية فريدة.'),
                             createElement('p', null, 'وأشار الأباصيري إلى أن الخبراء يعتبرون هذه التجربة نقطة تحول جوهرية تتخطى الترفيه لتساهم في حل أزمة الاستهلاك المفرط للطاقة في أنظمة الذكاء الصناعي نظرا لقدرة الخلايا العصبية على تنفيذ العمليات الحسابية بفعالية أكبر عبر النبضات الكهربائية المشتركة رغم التحديات المتعلقة بتطويع هذه الخلايا لأداء وظائف محددة.'),
                             createElement('p', null, 'وتطرقت الحلقة إلى الإحصائيات الاقتصادية لعام 2026 الذي شهد رقما قياسيا في أعداد المليارديرات من جيل Z ممن ولدوا بين عامي 1997 و 2012 حيث ضمت قائمة فوربس للأثرياء 35 شخصا تحت سن 30 عاما.'),
@@ -1226,7 +1472,7 @@
                             )
                         ),
                         createElement('div', { className: 'text-center mt-6 text-[10px] font-bold text-gray-500 border-t border-gray-200 pt-3' },
-                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'
+                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 اف ام 2026'
                         )
                     )
                 )
@@ -1315,7 +1561,7 @@
                             )
                         ),
                         createElement('div', { className: 'text-center mt-6 text-[10px] font-bold text-gray-500 border-t border-gray-200 pt-3' },
-                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'
+                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 اف ام 2026'
                         )
                     )
                 )
@@ -1417,7 +1663,7 @@
                             )
                         ),
                         createElement('div', { className: 'text-center mt-6 text-[10px] font-bold text-gray-500 border-t border-gray-200 pt-3' },
-                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'
+                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 اف ام 2026'
                         )
                     )
                 )
@@ -1519,7 +1765,7 @@
                             )
                         ),
                         createElement('div', { className: 'text-center mt-6 text-[10px] font-bold text-gray-500 border-t border-gray-200 pt-3' },
-                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'
+                            'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 اف ام 2026'
                         )
                     )
                 )
@@ -1528,58 +1774,63 @@
 
         function App() {
             const [showAll, setShowAll] = useState(false);
+            const [showSisiModal, setShowSisiModal] = useState(false);
             const [showEntessarModal, setShowEntessarModal] = useState(false);
             const [showLifestyleModal, setShowLifestyleModal] = useState(false);
             const [showAdelModal, setShowAdelModal] = useState(false);
-            const [showHafezModal, setShowHafezModal] = useState(false);
+            const [showMahmoudModal, setShowMahmoudModal] = useState(false);
             const [showEmadModal, setShowEmadModal] = useState(false);
+            const [showAmerModal, setShowAmerModal] = useState(false);
+            const [showZaghloulModal, setShowZaghloulModal] = useState(false);
+            const [showJabaliModal, setShowJabaliModal] = useState(false);
+            const [showRadioTweetModal, setShowRadioTweetModal] = useState(false);
             const [showMeteoModal, setShowMeteoModal] = useState(false);
             const [showKarimModal, setShowKarimModal] = useState(false);
             const [showGamalModal, setShowGamalModal] = useState(false);
-            const [showRadioTweetModal, setShowRadioTweetModal] = useState(false);
-            const [showJabaliModal, setShowJabaliModal] = useState(false);
-            const [showAmerModal, setShowAmerModal] = useState(false);
-            const [showZaghloulModal, setShowZaghloulModal] = useState(false);
 
             useEffect(() => {
+                const handleOpenSisi = () => setShowSisiModal(true);
                 const handleOpenEntessar = () => setShowEntessarModal(true);
                 const handleOpenLifestyle = () => setShowLifestyleModal(true);
                 const handleOpenAdel = () => setShowAdelModal(true);
-                const handleOpenHafez = () => setShowHafezModal(true);
+                const handleOpenMahmoud = () => setShowMahmoudModal(true);
                 const handleOpenEmad = () => setShowEmadModal(true);
+                const handleOpenAmer = () => setShowAmerModal(true);
+                const handleOpenZaghloul = () => setShowZaghloulModal(true);
+                const handleOpenJabali = () => setShowJabaliModal(true);
+                const handleOpenRadioTweet = () => setShowRadioTweetModal(true);
                 const handleOpenMeteo = () => setShowMeteoModal(true);
                 const handleOpenKarim = () => setShowKarimModal(true);
                 const handleOpenGamal = () => setShowGamalModal(true);
-                const handleOpenRadioTweet = () => setShowRadioTweetModal(true);
-                const handleOpenJabali = () => setShowJabaliModal(true);
-                const handleOpenAmer = () => setShowAmerModal(true);
-                const handleOpenZaghloul = () => setShowZaghloulModal(true);
-                
+
+                window.addEventListener('open-sisi-modal', handleOpenSisi);
                 window.addEventListener('open-entessar-modal', handleOpenEntessar);
                 window.addEventListener('open-lifestyle-modal', handleOpenLifestyle);
                 window.addEventListener('open-adel-modal', handleOpenAdel);
-                window.addEventListener('open-hafez-modal', handleOpenHafez);
+                window.addEventListener('open-mahmoud-modal', handleOpenMahmoud);
                 window.addEventListener('open-emad-modal', handleOpenEmad);
+                window.addEventListener('open-amer-modal', handleOpenAmer);
+                window.addEventListener('open-zaghloul-modal', handleOpenZaghloul);
+                window.addEventListener('open-jabali-modal', handleOpenJabali);
+                window.addEventListener('open-radiotweet-modal', handleOpenRadioTweet);
                 window.addEventListener('open-meteo-modal', handleOpenMeteo);
                 window.addEventListener('open-karim-modal', handleOpenKarim);
                 window.addEventListener('open-gamal-modal', handleOpenGamal);
-                window.addEventListener('open-radiotweet-modal', handleOpenRadioTweet);
-                window.addEventListener('open-jabali-modal', handleOpenJabali);
-                window.addEventListener('open-amer-modal', handleOpenAmer);
-                window.addEventListener('open-zaghloul-modal', handleOpenZaghloul);
+
                 return () => {
+                    window.removeEventListener('open-sisi-modal', handleOpenSisi);
                     window.removeEventListener('open-entessar-modal', handleOpenEntessar);
                     window.removeEventListener('open-lifestyle-modal', handleOpenLifestyle);
                     window.removeEventListener('open-adel-modal', handleOpenAdel);
-                    window.removeEventListener('open-hafez-modal', handleOpenHafez);
+                    window.removeEventListener('open-mahmoud-modal', handleOpenMahmoud);
                     window.removeEventListener('open-emad-modal', handleOpenEmad);
+                    window.removeEventListener('open-amer-modal', handleOpenAmer);
+                    window.removeEventListener('open-zaghloul-modal', handleOpenZaghloul);
+                    window.removeEventListener('open-jabali-modal', handleOpenJabali);
+                    window.removeEventListener('open-radiotweet-modal', handleOpenRadioTweet);
                     window.removeEventListener('open-meteo-modal', handleOpenMeteo);
                     window.removeEventListener('open-karim-modal', handleOpenKarim);
                     window.removeEventListener('open-gamal-modal', handleOpenGamal);
-                    window.removeEventListener('open-radiotweet-modal', handleOpenRadioTweet);
-                    window.removeEventListener('open-jabali-modal', handleOpenJabali);
-                    window.removeEventListener('open-amer-modal', handleOpenAmer);
-                    window.removeEventListener('open-zaghloul-modal', handleOpenZaghloul);
                 };
             }, []);
 
@@ -1609,14 +1860,16 @@
                         displayedNews.map((news, index) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
                             index === 3 ? createElement(ProgramsSlider) : null,
                             createElement('div', { onClick: () => {
-                                if (news.id === 333222111) {
-                                    setShowEntessarModal(true);
+                                if (news.id === 111222333) {
+                                    setShowSisiModal(true);
                                 } else if (news.id === 444555666) {
+                                    setShowEntessarModal(true);
+                                } else if (news.id === 333444555) {
                                     setShowLifestyleModal(true);
-                                } else if (news.id === 123456789) {
+                                } else if (news.id === 222333444) {
                                     setShowAdelModal(true);
-                                } else if (news.id === 77889900) {
-                                    setShowHafezModal(true);
+                                } else if (news.id === 111000999) {
+                                    setShowMahmoudModal(true);
                                 } else if (news.id === 999888777) {
                                     setShowEmadModal(true);
                                 } else if (news.id === 666777888) {
@@ -1650,24 +1903,17 @@
                     ),
                     !showAll && createElement('button', { onClick: () => setShowAll(true), className: 'w-full bg-blue-900 text-white py-3 rounded-2xl font-black text-sm mb-6 shadow-lg active:scale-95 transition-all' }, 'عرض المزيد من الأخبار')
                 ),
-                createElement('footer', { className: 'bg-blue-950 text-white text-center py-6 px-4 mt-8 rounded-t-[2rem] border-t-4 border-red-600 shadow-2xl relative overflow-hidden' },
-                    createElement('div', { className: 'max-w-4xl mx-auto flex flex-col items-center gap-2' },
-                        createElement('div', { className: 'flex items-center gap-2' },
-                            createElement('span', { className: 'text-yellow-400 font-black text-sm' }, 'إذاعة الشباب والرياضة'),
-                            createElement('span', { className: 'text-white/60 text-xs' }, '•'),
-                            createElement('span', { className: 'text-white/80 font-bold text-xs' }, '108 FM')
-                        ),
-                        createElement('p', { className: 'text-[12px] font-extrabold text-white/90 tracking-wide' }, 'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'),
-                        createElement('div', { className: 'w-16 h-1 bg-red-600 rounded-full mt-1 animate-pulse' })
-                    )
+                createElement('footer', { className: 'bg-blue-950 text-white text-center py-4 mt-auto font-black text-xs border-t-4 border-yellow-500' },
+                    'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'
                 ),
+                createElement(SisiModal, { isOpen: showSisiModal, onClose: () => setShowSisiModal(false) }),
                 createElement(EntessarModal, { isOpen: showEntessarModal, onClose: () => setShowEntessarModal(false) }),
                 createElement(LifestyleModal, { isOpen: showLifestyleModal, onClose: () => setShowLifestyleModal(false) }),
                 createElement(AdelModal, { isOpen: showAdelModal, onClose: () => setShowAdelModal(false) }),
-                createElement(HafezModal, { isOpen: showHafezModal, onClose: () => setShowHafezModal(false) }),
+                createElement(MahmoudModal, { isOpen: showMahmoudModal, onClose: () => setShowMahmoudModal(false) }),
                 createElement(EmadModal, { isOpen: showEmadModal, onClose: () => setShowEmadModal(false) }),
-                createElement(ZaghloulModal, { isOpen: showZaghloulModal, onClose: () => setShowZaghloulModal(false) }),
                 createElement(AmerModal, { isOpen: showAmerModal, onClose: () => setShowAmerModal(false) }),
+                createElement(ZaghloulModal, { isOpen: showZaghloulModal, onClose: () => setShowZaghloulModal(false) }),
                 createElement(JabaliModal, { isOpen: showJabaliModal, onClose: () => setShowJabaliModal(false) }),
                 createElement(RadioTweetModal, { isOpen: showRadioTweetModal, onClose: () => setShowRadioTweetModal(false) }),
                 createElement(MeteoModal, { isOpen: showMeteoModal, onClose: () => setShowMeteoModal(false) }),
