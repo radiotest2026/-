@@ -129,6 +129,10 @@
         const newsEntessar = { id: 444555666, title: "انتصار غريب تكشف أسرار رفض عمر مكرم للسلطة وصراع محمد علي مع المماليك في «قول يا تاريخ»", program: "قول يا تاريخ", image: "https://i.postimg.cc/6pGpvf3W/file-00000000932c81f486cc2b9c178cf9e0.png", time: "23 يوليو 2026 - 05:12 ص", link: "https://radioshababwrayadh108.vercel.app" };
         const newsLifestyle = { id: 333444555, title: "برنامج «لايف ستايل» يستعيد ذكريات طاهر أبو زيد ويناقش أهمية الرياضة واحترام الجيران عبر إذاعة الشباب والرياضة", program: "لايف ستايل", image: "https://i.postimg.cc/wT8fz6ms/file-00000000a5d481f4828d3c71a03d7b1d.png", time: "23 يوليو 2026 - 05:04 ص", link: "https://radioshababwrayadh108.vercel.app" };
         const newsSisi = { id: 111222333, title: "الرئيس عبد الفتاح السيسي يوجه رسائل حاسمة للسلام والأمل في ذكرى ثورة 23 يوليو", program: "استوديو 16", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcYlO0Sat0WatrbXzQ7S7uPfjVHrFut44h0zx89fTQMg&s=10", time: "23 يوليو 2026 - 05:02 م", link: "https://865876.vercel.app/" };
+        
+        // خبر الشيخ محمد حسن قاعود المطلوب إضافته كأول خبر تحت السلايدر مباشرة
+        const newsQahoud = { id: 457585, title: "الشيخ محمد حسن قاعود يوضح أهمية روح الجماعة والشورى ببرنامج «علمنا الرسول»", program: "علمنا الرسول", image: "https://l.top4top.io/p_38561wbic0.png", time: "24 يوليو 2026 - 04:00 ص", link: "https://457585.vercel.app/" };
+
         const newsAdel = { id: 222333444, title: "عادل عبد الصبور يرفض زيادة الأندية إفريقيا ويوجه رسالة لوزير الشباب وتحذر الزمالك في «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQMzjGtwU3xnUxF_IJnFv8252TE0PBWfqar0oclsITw8jVBBS8UucjL_v2&s=10", time: "23 يوليو 2026 - 04:20 ص", link: "https://radioshababwrayadh108.vercel.app" };
         const newsMahmoud = { id: 111000999, title: "محمود حافظ يدعم تجديد عقد حسام حسن ويكشف سر تألق الفراعنة في المونديال ببرنامج «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH0CrYaZHlkuYFUsBXNNO9xPAjIrUIPNAZwmv30Chb1AeKoX9Cv8mflCQ&s=10", time: "23 يوليو 2026 - 03:50 ص", link: "https://radioshababwrayadh108.vercel.app" };
         const newsEmad = { id: 999888777, title: "عماد غنيم يحلل أداء الفراعنة في المونديال ويطالب بدعم حسام حسن في «مشغول بإيه»", program: "مشغول بإيه", image: "https://i.ytimg.com/vi/tq7evIgZzpI/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGBMgSih_MA8=&rs=AOn4CLDThq-CE-YrC78EYjaG8BJqWIof5w", time: "23 يوليو 2026 - 02:54 ص", link: "https://radioshababwrayadh108.vercel.app" };
@@ -141,7 +145,8 @@
         const newsGamal = { id: 8257654, title: "جمال سالم يطالب باحتراف الناشئين ويشيد بأداء مصر وإسبانيا في المونديال عبر «سوبر الملاعب»", program: "سوبر الملاعب", image: "https://m.gomhuriaonline.com/Upload/News/25-12-2019_00_24_07_GomhuriaOnline_1577226247.jpg", time: "22 يوليو 2026 - 03:16 ص", link: "https://8257654.vercel.app" };
         
         const sliderNews = [newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle];
-        const listNews = [newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal];
+        // جعل خبر الشيخ محمد حسن قاعود أول خبر في القائمة تحت السلايدر مباشرة
+        const listNews = [newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal];
         
         function LiveProgram() {
             return createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'mx-3 my-4 bg-white rounded-2xl border-2 border-green-600 shadow-lg p-4 flex items-center justify-between active:scale-[0.98] transition-transform animate-border-glow' },
@@ -315,7 +320,7 @@
 
         function App() {
             const [showAll, setShowAll] = useState(false);
-            const displayedNews = showAll ? listNews : listNews.slice(0, 15);
+            const displayedNews = showAll ? listNews : listNews.slice(0, 16);
             
             const firstThreeNews = displayedNews.slice(0, 3);
             const nextThreeNews = displayedNews.slice(3, 6);
@@ -343,7 +348,7 @@
                     createElement(Slider),
                     createElement(LiveProgram),
                     
-                    // أول ٣ أخبار
+                    // أول ٣ أخبار (حيث أصبح خبر الشيخ قاعود هو الأول في القائمة تحت السلايدر)
                     createElement('div', { className: 'desktop-grid' },
                         firstThreeNews.map((news) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
                             createElement('a', { href: news.link, target: '_blank', rel: 'noopener noreferrer', className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' },
