@@ -130,7 +130,6 @@
         const newsLifestyle = { id: 333444555, title: "برنامج «لايف ستايل» يستعيد ذكريات طاهر أبو زيد ويناقش أهمية الرياضة واحترام الجيران عبر إذاعة الشباب والرياضة", program: "لايف ستايل", image: "https://i.postimg.cc/wT8fz6ms/file-00000000a5d481f4828d3c71a03d7b1d.png", time: "23 يوليو 2026 - 05:04 ص", link: "https://radioshababwrayadh108.vercel.app" };
         const newsSisi = { id: 111222333, title: "الرئيس عبد الفتاح السيسي يوجه رسائل حاسمة للسلام والأمل في ذكرى ثورة 23 يوليو", program: "استوديو 16", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcYlO0Sat0WatrbXzQ7S7uPfjVHrFut44h0zx89fTQMg&s=10", time: "23 يوليو 2026 - 05:02 م", link: "https://865876.vercel.app/" };
         
-        // خبر الشيخ محمد حسن قاعود المطلوب إضافته كأول خبر تحت السلايدر مباشرة
         const newsQahoud = { id: 457585, title: "الشيخ محمد حسن قاعود يوضح أهمية روح الجماعة والشورى ببرنامج «علمنا الرسول»", program: "علمنا الرسول", image: "https://l.top4top.io/p_38561wbic0.png", time: "24 يوليو 2026 - 04:00 ص", link: "https://457585.vercel.app/" };
 
         const newsAdel = { id: 222333444, title: "عادل عبد الصبور يرفض زيادة الأندية إفريقيا ويوجه رسالة لوزير الشباب وتحذر الزمالك في «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQMzjGtwU3xnUxF_IJnFv8252TE0PBWfqar0oclsITw8jVBBS8UucjL_v2&s=10", time: "23 يوليو 2026 - 04:20 ص", link: "https://radioshababwrayadh108.vercel.app" };
@@ -145,7 +144,6 @@
         const newsGamal = { id: 8257654, title: "جمال سالم يطالب باحتراف الناشئين ويشيد بأداء مصر وإسبانيا في المونديال عبر «سوبر الملاعب»", program: "سوبر الملاعب", image: "https://m.gomhuriaonline.com/Upload/News/25-12-2019_00_24_07_GomhuriaOnline_1577226247.jpg", time: "22 يوليو 2026 - 03:16 ص", link: "https://8257654.vercel.app" };
         
         const sliderNews = [newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle];
-        // جعل خبر الشيخ محمد حسن قاعود أول خبر في القائمة تحت السلايدر مباشرة
         const listNews = [newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal];
         
         function LiveProgram() {
@@ -320,11 +318,13 @@
 
         function App() {
             const [showAll, setShowAll] = useState(false);
-            const displayedNews = showAll ? listNews : listNews.slice(0, 16);
             
-            const firstThreeNews = displayedNews.slice(0, 3);
-            const nextThreeNews = displayedNews.slice(3, 6);
-            const remainingNews = displayedNews.slice(6);
+            const initialNews = listNews.slice(0, 15);
+            const remainingNews = listNews.slice(15);
+
+            const firstThreeNews = initialNews.slice(0, 3);
+            const nextThreeNews = initialNews.slice(3, 6);
+            const middleNews = initialNews.slice(6, 15);
 
             return createElement('div', { className: 'min-h-screen flex flex-col bg-gray-50' },
                 createElement('header', { className: 'bg-blue-950 text-white p-3 shadow-2xl sticky top-0 z-50 rounded-b-[2rem] pb-6' },
@@ -348,7 +348,7 @@
                     createElement(Slider),
                     createElement(LiveProgram),
                     
-                    // أول ٣ أخبار (حيث أصبح خبر الشيخ قاعود هو الأول في القائمة تحت السلايدر)
+                    // أول ٣ أخبار تحت السلايدر مباشرة
                     createElement('div', { className: 'desktop-grid' },
                         firstThreeNews.map((news) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
                             createElement('a', { href: news.link, target: '_blank', rel: 'noopener noreferrer', className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' },
@@ -362,7 +362,7 @@
                         ))
                     ),
 
-                    // عنوان قسم برامجنا المنسق مع الأيقونة ذات الحركة الانسيابية
+                    // عنوان قسم برامجنا المنسق
                     createElement('div', { className: 'my-4 flex items-center justify-between bg-blue-950 text-white px-4 py-2.5 rounded-xl shadow-md border-r-4 border-yellow-400' },
                         createElement('div', { className: 'flex items-center gap-2' },
                             createElement('i', { className: 'fa-solid fa-microphone-lines text-yellow-400 text-sm animate-mic-pulse-bounce' }),
@@ -391,8 +391,22 @@
                     // قسم مواقيت الصلاة
                     createElement(PrayerTimesSection),
 
-                    // باقي الأخبار
+                    // باقي أخبار الـ 15 خبراً الأولى
                     createElement('div', { className: 'desktop-grid' },
+                        middleNews.map((news) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
+                            createElement('a', { href: news.link, target: '_blank', rel: 'noopener noreferrer', className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' },
+                                createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
+                                createElement('div', { className: 'flex-1 overflow-hidden' },
+                                    createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
+                                    createElement('h2', { className: 'font-bold text-sm leading-tight text-gray-800' }, news.title),
+                                    createElement('div', { className: 'text-[9px] text-gray-400 mt-0.5' }, news.time)
+                                )
+                            )
+                        ))
+                    ),
+
+                    // الأخبار المتبقية التي تظهر عند الضغط على زر عرض المزيد
+                    showAll && createElement('div', { className: 'desktop-grid' },
                         remainingNews.map((news) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
                             createElement('a', { href: news.link, target: '_blank', rel: 'noopener noreferrer', className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' },
                                 createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
@@ -405,6 +419,7 @@
                         ))
                     ),
 
+                    // زر عرض المزيد من الأخبار يظهر بعد الخبر رقم 15 تماماً
                     !showAll && createElement('button', { onClick: () => setShowAll(true), className: 'w-full bg-blue-900 text-white py-3 rounded-2xl font-black text-sm mb-6 shadow-lg active:scale-95 transition-all' }, 'عرض المزيد من الأخبار')
                 ),
                 createElement('footer', { className: 'bg-blue-950 text-white text-center py-4 mt-auto font-black text-xs border-t-4 border-yellow-500' },
