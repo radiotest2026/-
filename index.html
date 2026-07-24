@@ -113,7 +113,6 @@
                     const currentTime = hour + minutes / 60;
                     const dayTime = currentTime >= 5 && currentTime < 19.5;
                     setIsDay(dayTime);
-                    // تحديث درجة الحرارة الحالية بناءً على توقيت اللحظة (بعد الظهر 29 درجة)
                     setTemp('29°');
                 };
                 checkTime();
@@ -129,6 +128,9 @@
             );
         }
 
+        // الخبر الجديد المطلوب إضافته
+        const newsRabieYassin = { id: 544436475, title: "ربيع ياسين يدعم التعتيم الإعلامي ويطالب بتقليص الأجانب ببرنامج «مع ولا ضد»", program: "مع ولا ضد", image: "https://c.top4top.io/p_3857otx8c0.png", time: "24 يوليو 2026 - 05:00 م", link: "https://544436475.vercel.app/" };
+
         const newsAdelToaima = { id: 85659695, title: "عادل طعيمة يكشف أسباب تفضيل الأهلي للمدرب الأجنبي في «استفتاء على الهوا»", program: "استفتاء على الهوا", image: "https://e.top4top.io/p_38560zpgj0.png", time: "23 يوليو 2026 - 09:00 م", link: "https://656843643.vercel.app/" };
         const newsHussein = { id: 750618, title: "حسين محيي الدين يرفض الأجنبي ويشيد بحسام حسن في «استفتاء على الهوا»", program: "استفتاء على الهوا", image: "https://www.elnabaa.net/UploadCache/libfiles/61/8/600x338o/750.jpg", time: "23 يوليو 2026 - 06:25 م", link: "https://978695978.vercel.app/" };
         const newsEntessar = { id: 444555666, title: "انتصار غريب تكشف أسرار رفض عمر مكرم للسلطة وصراع محمد علي مع المماليك في «قول يا تاريخ»", program: "قول يا تاريخ", image: "https://i.postimg.cc/6pGpvf3W/file-00000000932c81f486cc2b9c178cf9e0.png", time: "23 يوليو 2026 - 05:12 ص", link: "https://radioshababwrayadh108.vercel.app" };
@@ -136,7 +138,6 @@
         const newsSisi = { id: 111222333, title: "الرئيس عبد الفتاح السيسي يوجه رسائل حاسمة للسلام والأمل في ذكرى ثورة 23 يوليو", program: "استوديو 16", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcYlO0Sat0WatrbXzQ7S7uPfjVHrFut44h0zx89fTQMg&s=10", time: "23 يوليو 2026 - 05:02 م", link: "https://865876.vercel.app/" };
         
         const newsQahoud = { id: 457585, title: "الشيخ محمد حسن قاعود يوضح أهمية روح الجماعة والشورى ببرنامج «علمنا الرسول»", program: "علمنا الرسول", image: "https://l.top4top.io/p_38561wbic0.png", time: "24 يوليو 2026 - 04:00 ص", link: "https://457585.vercel.app/" };
-        
         const newsBalHana = { id: 547696589, title: "نصائح ذهبية لتقوية الذاكرة ونضارة البشرة مع داليا حمزة في «بالهنا والشفا»", program: "بالهنا والشفا", image: "https://b.top4top.io/p_3856luf6t0.png", time: "24 يوليو 2026 - 04:30 ص", link: "https://547696589.vercel.app/" };
 
         const newsAdel = { id: 222333444, title: "عادل عبد الصبور يرفض زيادة الأندية إفريقيا ويوجه رسالة لوزير الشباب وتحذر الزمالك في «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQMzjGtwU3xnUxF_IJnFv8252TE0PBWfqar0oclsITw8jVBBS8UucjL_v2&s=10", time: "23 يوليو 2026 - 04:20 ص", link: "https://radioshababwrayadh108.vercel.app" };
@@ -150,8 +151,10 @@
         const newsKarim = { id: 499545248, title: "محمد عبد الكريم يكشف تفاصيل معسكر رومانيا وقائمة منتخب الشابات للمونديال في «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://www.cairo24.com/UploadCache/libfiles/171/9/600x338o/412.jpg", time: "22 يوليو 2026 - 04:00 ص", link: "https://499545248.vercel.app" };
         const newsGamal = { id: 8257654, title: "جمال سالم يطالب باحتراف الناشئين ويشيد بأداء مصر وإسبانيا في المونديال عبر «سوبر الملاعب»", program: "سوبر الملاعب", image: "https://m.gomhuriaonline.com/Upload/News/25-12-2019_00_24_07_GomhuriaOnline_1577226247.jpg", time: "22 يوليو 2026 - 03:16 ص", link: "https://8257654.vercel.app" };
         
-        const sliderNews = [newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle];
-        const listNews = [newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal];
+        // السلايدر العلوي يحتوي على 5 أخبار بالضبط متضمنة الخبر الجديد ربيع ياسين
+        const sliderNews = [newsRabieYassin, newsAdelToaima, newsHussein, newsSisi, newsEntessar];
+        // قائمة الأخبار تحت السلايدر ويبدأ الخبر الجديد كأول خبر
+        const listNews = [newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal];
         
         function LiveProgram() {
             return createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'mx-3 my-4 bg-white rounded-2xl border-2 border-green-600 shadow-lg p-4 flex items-center justify-between active:scale-[0.98] transition-transform animate-border-glow' },
