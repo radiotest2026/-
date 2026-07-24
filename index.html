@@ -184,7 +184,7 @@
                 createElement('button', { className: 'nav-button prev-btn', onClick: prevSlide }, '▶'),
                 createElement('button', { className: 'nav-button next-btn', onClick: nextSlide }, '◀'),
                 createElement('div', { className: 'slider-wrapper', style: { transform: `translateX(${index * 100}%)` } },
-                    sliderNews.map((news) => createElement('div', { key: news.id, className: 'slider-item', onClick: () => window.open(news.link, '_blank') },
+                    sliderNews.map((news) => createElement('div', { key: news.id, className: 'slider-item', onClick: (e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openNewsModal', { detail: news.link })); } },
                         createElement('div', { className: 'bg-white h-full rounded-2xl shadow-lg border border-gray-100 overflow-hidden relative' },
                             createElement('div', { className: 'relative w-full h-40 bg-white flex items-center justify-center overflow-hidden' },
                                 createElement('img', { src: news.image, className: 'w-full h-full object-cover', referrerPolicy: 'no-referrer' }),
@@ -328,8 +328,16 @@
         function App() {
             const [showAll, setShowAll] = useState(false);
             const [activeModalUrl, setActiveModalUrl] = useState(null);
+            const [headerVisible, setHeaderVisible] = useState(true);
+            const lastScrollTop = useRef(0);
             
             useEffect(() => {
+                const handleOpenModal = (e) => {
+                    setHeaderVisible(true);
+                    setActiveModalUrl(e.detail);
+                };
+                window.addEventListener('openNewsModal', handleOpenModal);
+
                 const handlePopState = () => {
                     if (activeModalUrl) {
                         setActiveModalUrl(null);
@@ -342,6 +350,7 @@
                 }
 
                 return () => {
+                    window.removeEventListener('openNewsModal', handleOpenModal);
                     window.removeEventListener('popstate', handlePopState);
                 };
             }, [activeModalUrl]);
@@ -354,6 +363,16 @@
                     }
                 }
             };
+
+            const handleModalScroll = (e) => {
+                const st = e.target.scrollTop;
+                if (st > lastScrollTop.current && st > 30) {
+                    setHeaderVisible(false);
+                } else {
+                    setHeaderVisible(true);
+                }
+                lastScrollTop.current = st <= 0 ? 0 : st;
+            };
             
             const initialNews = listNews.slice(0, 15);
             const remainingNews = listNews.slice(15);
@@ -365,6 +384,7 @@
             const handleNewsClick = (e, news) => {
                 if (news.link) {
                     e.preventDefault();
+                    setHeaderVisible(true);
                     setActiveModalUrl(news.link);
                 }
             };
@@ -490,7 +510,9 @@
                         className: 'bg-white w-screen h-screen flex flex-col relative',
                         onClick: (e) => e.stopPropagation()
                     },
-                        createElement('div', { className: 'bg-blue-950 text-white px-4 py-3 flex items-center justify-between border-b-4 border-yellow-500 flex-shrink-0 shadow-lg rounded-b-[2rem]' },
+                        createElement('div', { 
+                            className: `bg-blue-950 text-white px-4 py-3 flex items-center justify-between border-b-4 border-yellow-500 flex-shrink-0 shadow-lg rounded-b-[2rem] transition-all duration-300 transform ${headerVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'}` 
+                        },
                             createElement('div', { className: 'flex items-center gap-2.5' },
                                 createElement('img', { src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-9 h-9 rounded-full border-2 border-yellow-400 object-cover shadow-md' }),
                                 createElement('div', { className: 'flex flex-col' },
@@ -508,8 +530,13 @@
                         ),
                         createElement('iframe', { 
                             src: activeModalUrl, 
-                            className: 'w-full flex-grow border-0 bg-white',
-                            title: 'محتوى الخبر'
+                            className: 'w-full flex-grow border-0 bg-white overflow-y-auto',
+                            title: 'محتوى الخبر',
+                            onLoad: (e) => {
+                                try {
+                                    e.target.contentWindow.addEventListener('scroll', handleModalScroll);
+                                } catch(err) {}
+                            }
                         })
                     )
                 ),
@@ -525,4 +552,3 @@
     </script>
 </body>
 </html>
-
