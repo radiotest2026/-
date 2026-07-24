@@ -128,10 +128,10 @@
             );
         }
 
-        // الخبر الجديد المطلوب إضافته
         const newsTarekRamadan = { id: 647858485, title: "طارق رمضان يكشف تفاصيل شركة الزمالك وأزمة الحكام في «مع ولا ضد»", program: "مع ولا ضد", image: "https://a.top4top.io/p_3857cigra0.png", time: "24 يوليو 2026 - 04:12 م", link: "https://647858485.vercel.app/" };
 
         const newsRabieYassin = { id: 544436475, title: "ربيع ياسين يدعم التعتيم الإعلامي ويطالب بتقليص الأجانب ببرنامج «مع ولا ضد»", program: "مع ولا ضد", image: "https://c.top4top.io/p_3857otx8c0.png", time: "24 يوليو 2026 - 03:36 م", link: "https://544436475.vercel.app/" };
+
         const newsAdelToaima = { id: 85659695, title: "عادل طعيمة يكشف أسباب تفضيل الأهلي للمدرب الأجنبي في «استفتاء على الهوا»", program: "استفتاء على الهوا", image: "https://e.top4top.io/p_38560zpgj0.png", time: "23 يوليو 2026 - 09:00 م", link: "https://656843643.vercel.app/" };
         const newsHussein = { id: 750618, title: "حسين محيي الدين يرفض الأجنبي ويشيد بحسام حسن في «استفتاء على الهوا»", program: "استفتاء على الهوا", image: "https://www.elnabaa.net/UploadCache/libfiles/61/8/600x338o/750.jpg", time: "23 يوليو 2026 - 06:25 م", link: "https://978695978.vercel.app/" };
         const newsEntessar = { id: 444555666, title: "انتصار غريب تكشف أسرار رفض عمر مكرم للسلطة وصراع محمد علي مع المماليك في «قول يا تاريخ»", program: "قول يا تاريخ", image: "https://i.postimg.cc/6pGpvf3W/file-00000000932c81f486cc2b9c178cf9e0.png", time: "23 يوليو 2026 - 05:12 ص", link: "https://radioshababwrayadh108.vercel.app" };
@@ -152,9 +152,7 @@
         const newsKarim = { id: 499545248, title: "محمد عبد الكريم يكشف تفاصيل معسكر رومانيا وقائمة منتخب الشابات للمونديال في «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://www.cairo24.com/UploadCache/libfiles/171/9/600x338o/412.jpg", time: "22 يوليو 2026 - 04:00 ص", link: "https://499545248.vercel.app" };
         const newsGamal = { id: 8257654, title: "جمال سالم يطالب باحتراف الناشئين ويشيد بأداء مصر وإسبانيا في المونديال عبر «سوبر الملاعب»", program: "سوبر الملاعب", image: "https://m.gomhuriaonline.com/Upload/News/25-12-2019_00_24_07_GomhuriaOnline_1577226247.jpg", time: "22 يوليو 2026 - 03:16 ص", link: "https://8257654.vercel.app" };
         
-        // السلايدر العلوي يحتوي على 5 أخبار متضمنة الخبر الجديد طارق رمضان
         const sliderNews = [newsTarekRamadan, newsRabieYassin, newsAdelToaima, newsHussein, newsSisi];
-        // قائمة الأخبار تحت السلايدر ويبدأ الخبر الجديد كأول خبر
         const listNews = [newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal];
         
         function LiveProgram() {
@@ -331,6 +329,32 @@
             const [showAll, setShowAll] = useState(false);
             const [activeModalUrl, setActiveModalUrl] = useState(null);
             
+            useEffect(() => {
+                const handlePopState = () => {
+                    if (activeModalUrl) {
+                        setActiveModalUrl(null);
+                    }
+                };
+
+                if (activeModalUrl) {
+                    window.history.pushState({ modalOpen: true }, '');
+                    window.addEventListener('popstate', handlePopState);
+                }
+
+                return () => {
+                    window.removeEventListener('popstate', handlePopState);
+                };
+            }, [activeModalUrl]);
+
+            const closeModal = () => {
+                if (activeModalUrl) {
+                    setActiveModalUrl(null);
+                    if (window.history.state && window.history.state.modalOpen) {
+                        window.history.back();
+                    }
+                }
+            };
+            
             const initialNews = listNews.slice(0, 15);
             const remainingNews = listNews.slice(15);
 
@@ -458,15 +482,16 @@
                     !showAll && createElement('button', { onClick: () => setShowAll(true), className: 'w-full bg-blue-900 text-white py-3 rounded-2xl font-black text-sm mb-6 shadow-lg active:scale-95 transition-all' }, 'عرض المزيد من الأخبار')
                 ),
                 
+                // نافذة منبثقة مع هيدر دائرى متكامل وبدون زوايا بيضاء مزعجة
                 activeModalUrl && createElement('div', { 
-                    className: 'fixed inset-0 z-50 bg-black/90 flex flex-col items-center justify-center p-0 m-0',
-                    onClick: () => setActiveModalUrl(null)
+                    className: 'fixed inset-0 z-50 bg-blue-950 flex flex-col items-center justify-center p-0 m-0 overflow-hidden',
+                    onClick: closeModal
                 },
                     createElement('div', { 
                         className: 'bg-white w-screen h-screen flex flex-col relative',
                         onClick: (e) => e.stopPropagation()
                     },
-                        createElement('div', { className: 'bg-blue-950 text-white px-4 py-3 flex items-center justify-between border-b-4 border-yellow-500 flex-shrink-0 shadow-lg' },
+                        createElement('div', { className: 'bg-blue-950 text-white px-4 py-3 flex items-center justify-between border-b-4 border-yellow-500 flex-shrink-0 shadow-lg rounded-b-[2rem]' },
                             createElement('div', { className: 'flex items-center gap-2.5' },
                                 createElement('img', { src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-9 h-9 rounded-full border-2 border-yellow-400 object-cover shadow-md' }),
                                 createElement('div', { className: 'flex flex-col' },
@@ -476,7 +501,7 @@
                             ),
                             createElement('button', { 
                                 className: 'bg-gradient-to-r from-red-600 to-red-700 text-white px-3.5 py-1.5 rounded-full font-black text-xs flex items-center gap-2 hover:from-red-700 hover:to-red-800 transition-all shadow-md active:scale-95 border border-red-500',
-                                onClick: () => setActiveModalUrl(null)
+                                onClick: closeModal
                             },
                                 createElement('i', { className: 'fa-solid fa-arrow-right text-xs' }),
                                 'الرجوع للرئيسية'
