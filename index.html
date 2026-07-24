@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -132,7 +133,6 @@
         
         const newsQahoud = { id: 457585, title: "الشيخ محمد حسن قاعود يوضح أهمية روح الجماعة والشورى ببرنامج «علمنا الرسول»", program: "علمنا الرسول", image: "https://l.top4top.io/p_38561wbic0.png", time: "24 يوليو 2026 - 04:00 ص", link: "https://457585.vercel.app/" };
         
-        // الخبر الجديد المطلوب إضافته كأول خبر في القائمة تحت السلايدر مباشرة
         const newsBalHana = { id: 547696589, title: "نصائح ذهبية لتقوية الذاكرة ونضارة البشرة مع داليا حمزة في «بالهنا والشفا»", program: "بالهنا والشفا", image: "https://b.top4top.io/p_3856luf6t0.png", time: "24 يوليو 2026 - 04:30 ص", link: "https://547696589.vercel.app/" };
 
         const newsAdel = { id: 222333444, title: "عادل عبد الصبور يرفض زيادة الأندية إفريقيا ويوجه رسالة لوزير الشباب وتحذر الزمالك في «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQMzjGtwU3xnUxF_IJnFv8252TE0PBWfqar0oclsITw8jVBBS8UucjL_v2&s=10", time: "23 يوليو 2026 - 04:20 ص", link: "https://radioshababwrayadh108.vercel.app" };
@@ -147,7 +147,6 @@
         const newsGamal = { id: 8257654, title: "جمال سالم يطالب باحتراف الناشئين ويشيد بأداء مصر وإسبانيا في المونديال عبر «سوبر الملاعب»", program: "سوبر الملاعب", image: "https://m.gomhuriaonline.com/Upload/News/25-12-2019_00_24_07_GomhuriaOnline_1577226247.jpg", time: "22 يوليو 2026 - 03:16 ص", link: "https://8257654.vercel.app" };
         
         const sliderNews = [newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle];
-        // وضع الخبر الجديد كأول خبر في القائمة تحت السلايدر مباشرة
         const listNews = [newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal];
         
         function LiveProgram() {
@@ -322,6 +321,33 @@
 
         function App() {
             const [showAll, setShowAll] = useState(false);
+            const [activeModalUrl, setActiveModalUrl] = useState(null);
+            
+            useEffect(() => {
+                const handlePopState = () => {
+                    if (activeModalUrl) {
+                        setActiveModalUrl(null);
+                    }
+                };
+
+                if (activeModalUrl) {
+                    window.history.pushState({ modalOpen: true }, '');
+                    window.addEventListener('popstate', handlePopState);
+                }
+
+                return () => {
+                    window.removeEventListener('popstate', handlePopState);
+                };
+            }, [activeModalUrl]);
+
+            const closeModal = () => {
+                if (activeModalUrl) {
+                    setActiveModalUrl(null);
+                    if (window.history.state && window.history.state.modalOpen) {
+                        window.history.back();
+                    }
+                }
+            };
             
             const initialNews = listNews.slice(0, 15);
             const remainingNews = listNews.slice(15);
@@ -329,6 +355,13 @@
             const firstThreeNews = initialNews.slice(0, 3);
             const nextThreeNews = initialNews.slice(3, 6);
             const middleNews = initialNews.slice(6, 15);
+
+            const handleNewsClick = (e, news) => {
+                if (news.link) {
+                    e.preventDefault();
+                    setActiveModalUrl(news.link);
+                }
+            };
 
             return createElement('div', { className: 'min-h-screen flex flex-col bg-gray-50' },
                 createElement('header', { className: 'bg-blue-950 text-white p-3 shadow-2xl sticky top-0 z-50 rounded-b-[2rem] pb-6' },
@@ -341,7 +374,7 @@
                         createElement('div', { className: 'flex flex-col items-center gap-1' },
                             createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'relative bg-yellow-500 text-blue-950 px-2 py-0.5 rounded-full text-[8px] font-bold active-scale flex items-center gap-1' }, 
                                 createElement('svg', { className: 'w-3 h-3 text-red-600 fill-current animate-play-blink', viewBox: '0 0 24 24' }, createElement('path', { d: 'M8 5v14l11-7z' })),
-                                'استمع الآن'
+                                'اسمع الآن'
                             ),
                             createElement(Clock)
                         ),
@@ -352,10 +385,15 @@
                     createElement(Slider),
                     createElement(LiveProgram),
                     
-                    // أول ٣ أخبار تحت السلايدر مباشرة (حيث الخبر الجديد هو الأول)
                     createElement('div', { className: 'desktop-grid' },
                         firstThreeNews.map((news) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
-                            createElement('a', { href: news.link, target: '_blank', rel: 'noopener noreferrer', className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' },
+                            createElement('a', { 
+                                href: news.link, 
+                                target: '_self', 
+                                rel: 'noopener noreferrer', 
+                                onClick: (e) => handleNewsClick(e, news),
+                                className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' 
+                            },
                                 createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
                                 createElement('div', { className: 'flex-1 overflow-hidden' },
                                     createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
@@ -366,7 +404,6 @@
                         ))
                     ),
 
-                    // عنوان قسم برامجنا المنسق
                     createElement('div', { className: 'my-4 flex items-center justify-between bg-blue-950 text-white px-4 py-2.5 rounded-xl shadow-md border-r-4 border-yellow-400' },
                         createElement('div', { className: 'flex items-center gap-2' },
                             createElement('i', { className: 'fa-solid fa-microphone-lines text-yellow-400 text-sm animate-mic-pulse-bounce' }),
@@ -375,13 +412,17 @@
                         createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2 py-0.5 rounded-full' }, 'الخريطة البرامجية')
                     ),
 
-                    // سلايدر برامجنا
                     createElement(ProgramsSlider),
 
-                    // الثلاث أخبار التالية بعد قسم برامجنا
                     createElement('div', { className: 'desktop-grid' },
                         nextThreeNews.map((news) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
-                            createElement('a', { href: news.link, target: '_blank', rel: 'noopener noreferrer', className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' },
+                            createElement('a', { 
+                                href: news.link, 
+                                target: '_self', 
+                                rel: 'noopener noreferrer', 
+                                onClick: (e) => handleNewsClick(e, news),
+                                className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' 
+                            },
                                 createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
                                 createElement('div', { className: 'flex-1 overflow-hidden' },
                                     createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
@@ -392,13 +433,17 @@
                         ))
                     ),
 
-                    // قسم مواقيت الصلاة
                     createElement(PrayerTimesSection),
 
-                    // باقي أخبار الـ 15 خبراً الأولى
                     createElement('div', { className: 'desktop-grid' },
                         middleNews.map((news) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
-                            createElement('a', { href: news.link, target: '_blank', rel: 'noopener noreferrer', className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' },
+                            createElement('a', { 
+                                href: news.link, 
+                                target: '_self', 
+                                rel: 'noopener noreferrer', 
+                                onClick: (e) => handleNewsClick(e, news),
+                                className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' 
+                            },
                                 createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
                                 createElement('div', { className: 'flex-1 overflow-hidden' },
                                     createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
@@ -409,10 +454,15 @@
                         ))
                     ),
 
-                    // الأخبار المتبقية التي تظهر عند الضغط على زر عرض المزيد
                     showAll && createElement('div', { className: 'desktop-grid' },
                         remainingNews.map((news) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
-                            createElement('a', { href: news.link, target: '_blank', rel: 'noopener noreferrer', className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' },
+                            createElement('a', { 
+                                href: news.link, 
+                                target: '_self', 
+                                rel: 'noopener noreferrer', 
+                                onClick: (e) => handleNewsClick(e, news),
+                                className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' 
+                            },
                                 createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
                                 createElement('div', { className: 'flex-1 overflow-hidden' },
                                     createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
@@ -423,9 +473,36 @@
                         ))
                     ),
 
-                    // زر عرض المزيد من الأخبار يظهر بعد الخبر رقم 15 تماماً
                     !showAll && createElement('button', { onClick: () => setShowAll(true), className: 'w-full bg-blue-900 text-white py-3 rounded-2xl font-black text-sm mb-6 shadow-lg active:scale-95 transition-all' }, 'عرض المزيد من الأخبار')
                 ),
+                
+                // نافذة منبثقة بكامل الشاشة مع زر الإغلاق وزر الرجوع من الموبايل
+                activeModalUrl && createElement('div', { 
+                    className: 'fixed inset-0 z-50 bg-black/90 flex flex-col items-center justify-center p-0 m-0',
+                    onClick: closeModal
+                },
+                    createElement('div', { 
+                        className: 'bg-white w-screen h-screen flex flex-col relative',
+                        onClick: (e) => e.stopPropagation()
+                    },
+                        createElement('div', { className: 'bg-blue-950 text-white px-4 py-3 flex items-center justify-between border-b-2 border-yellow-400 flex-shrink-0' },
+                            createElement('div', { className: 'flex items-center gap-2' },
+                                createElement('i', { className: 'fa-solid fa-newspaper text-yellow-400' }),
+                                createElement('span', { className: 'font-black text-xs sm:text-sm' }, 'تفاصيل الخبر')
+                            ),
+                            createElement('button', { 
+                                className: 'bg-red-600 text-white w-9 h-9 rounded-full font-bold flex items-center justify-center hover:bg-red-700 transition-colors shadow-md text-sm',
+                                onClick: closeModal
+                            }, '✕')
+                        ),
+                        createElement('iframe', { 
+                            src: activeModalUrl, 
+                            className: 'w-full flex-grow border-0 bg-white',
+                            title: 'محتوى الخبر'
+                        })
+                    )
+                ),
+
                 createElement('footer', { className: 'bg-blue-950 text-white text-center py-4 mt-auto font-black text-xs border-t-4 border-yellow-500' },
                     'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'
                 )
