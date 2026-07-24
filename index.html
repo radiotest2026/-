@@ -53,7 +53,15 @@
         @keyframes halo-pulse-red { 0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.6); } 70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); } 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); } }
         @keyframes play-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
         @keyframes ring-pulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(2.2); opacity: 0; } }
+        @keyframes smooth-floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+        .animate-smooth-floating { animation: smooth-floating 3s ease-in-out infinite; }
         
+        @keyframes mic-pulse-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.18); filter: drop-shadow(0 0 5px rgba(234, 179, 8, 0.8)); }
+        }
+        .animate-mic-pulse-bounce { animation: mic-pulse-bounce 1.8s ease-in-out infinite; }
+
         @keyframes border-glow { 0% { box-shadow: inset 0 0 0px #22c55e, 0 0 0px #22c55e; } 50% { box-shadow: inset 0 0 5px #22c55e, 0 0 5px #22c55e; } 100% { box-shadow: inset 0 0 0px #22c55e, 0 0 0px #22c55e; } }
         .animate-border-glow { animation: border-glow 2s infinite; }
         @keyframes red-ring-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); } 50% { box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.2); } }
@@ -74,15 +82,6 @@
         .animate-cloud-move { animation: cloud-move 4s ease-in-out infinite; }
         @keyframes sun-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.8; } }
         .animate-sun-pulse { animation: sun-pulse 3s infinite ease-in-out; }
-
-        /* تأثير الحركة الانسيابية للظهور والاختفاء (Fade & Scale Pulse) لأيقونة المايكروفون */
-        @keyframes smooth-mic-fade {
-            0%, 100% { opacity: 0.2; transform: scale(0.9); }
-            50% { opacity: 1; transform: scale(1.15); }
-        }
-        .animate-smooth-mic {
-            animation: smooth-mic-fade 2.2s ease-in-out infinite;
-        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -198,7 +197,6 @@
             
             const touchStartX = useRef(0);
             const touchEndX = useRef(0);
-
             const zoomTouchStartX = useRef(0);
             const zoomTouchEndX = useRef(0);
 
@@ -211,50 +209,26 @@
                 return () => clearInterval(timer);
             }, [images.length, zoomedIndex]);
 
-            const handleTouchStart = (e) => {
-                touchStartX.current = e.touches[0].clientX;
-            };
-
-            const handleTouchMove = (e) => {
-                touchEndX.current = e.touches[0].clientX;
-            };
-
+            const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+            const handleTouchMove = (e) => { touchEndX.current = e.touches[0].clientX; };
             const handleTouchEnd = () => {
                 if (!touchStartX.current || !touchEndX.current) return;
                 const distance = touchStartX.current - touchEndX.current;
                 const minSwipeDistance = 40;
-
-                if (distance > minSwipeDistance) {
-                    setProgIndex((prev) => (prev + 1) % images.length);
-                } else if (distance < -minSwipeDistance) {
-                    setProgIndex((prev) => (prev - 1 + images.length) % images.length);
-                }
-
-                touchStartX.current = 0;
-                touchEndX.current = 0;
+                if (distance > minSwipeDistance) setProgIndex((prev) => (prev + 1) % images.length);
+                else if (distance < -minSwipeDistance) setProgIndex((prev) => (prev - 1 + images.length) % images.length);
+                touchStartX.current = 0; touchEndX.current = 0;
             };
 
-            const handleZoomTouchStart = (e) => {
-                zoomTouchStartX.current = e.touches[0].clientX;
-            };
-
-            const handleZoomTouchMove = (e) => {
-                zoomTouchEndX.current = e.touches[0].clientX;
-            };
-
+            const handleZoomTouchStart = (e) => { zoomTouchStartX.current = e.touches[0].clientX; };
+            const handleZoomTouchMove = (e) => { zoomTouchEndX.current = e.touches[0].clientX; };
             const handleZoomTouchEnd = () => {
                 if (!zoomTouchStartX.current || !zoomTouchEndX.current) return;
                 const distance = zoomTouchStartX.current - zoomTouchEndX.current;
                 const minSwipeDistance = 40;
-
-                if (distance > minSwipeDistance) {
-                    setZoomedIndex((prev) => (prev + 1) % images.length);
-                } else if (distance < -minSwipeDistance) {
-                    setZoomedIndex((prev) => (prev - 1 + images.length) % images.length);
-                }
-
-                zoomTouchStartX.current = 0;
-                zoomTouchEndX.current = 0;
+                if (distance > minSwipeDistance) setZoomedIndex((prev) => (prev + 1) % images.length);
+                else if (distance < -minSwipeDistance) setZoomedIndex((prev) => (prev - 1 + images.length) % images.length);
+                zoomTouchStartX.current = 0; zoomTouchEndX.current = 0;
             };
 
             return createElement('div', { className: 'mb-4' },
@@ -302,17 +276,14 @@
                             className: 'absolute -top-12 left-0 text-white bg-red-600 w-9 h-9 rounded-full font-bold text-sm shadow-md flex items-center justify-center z-50',
                             onClick: () => setZoomedIndex(null)
                         }, '✕'),
-                        
                         createElement('button', {
                             className: 'absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center z-40 text-lg hover:bg-black/80',
                             onClick: () => setZoomedIndex((prev) => (prev - 1 + images.length) % images.length)
                         }, '❯'),
-
                         createElement('button', {
                             className: 'absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center z-40 text-lg hover:bg-black/80',
                             onClick: () => setZoomedIndex((prev) => (prev + 1) % images.length)
                         }, '❮'),
-
                         createElement('img', { 
                             src: images[zoomedIndex], 
                             className: 'w-full max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/20 transition-all duration-300', 
@@ -324,12 +295,32 @@
             );
         }
 
+        function PrayerTimesSection() {
+            return createElement('div', { className: 'my-4' },
+                createElement('div', { className: 'mb-2 flex items-center justify-between bg-blue-950 text-white px-4 py-2.5 rounded-xl shadow-md border-r-4 border-yellow-400' },
+                    createElement('div', { className: 'flex items-center gap-2' },
+                        createElement('i', { className: 'fa-solid fa-mosque text-yellow-400 text-sm animate-smooth-floating' }),
+                        createElement('span', { className: 'font-black text-xs tracking-wide' }, 'مواقيت الصلاة')
+                    ),
+                    createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2 py-0.5 rounded-full' }, 'الجمعة 24 يوليو 2026')
+                ),
+                createElement('div', { className: 'rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white p-1' },
+                    createElement('img', { 
+                        src: 'https://d.top4top.io/p_3856ehvin0.png', 
+                        className: 'w-full object-cover rounded-xl animate-smooth-floating', 
+                        alt: 'مواقيت الصلاة' 
+                    })
+                )
+            );
+        }
+
         function App() {
             const [showAll, setShowAll] = useState(false);
             const displayedNews = showAll ? listNews : listNews.slice(0, 15);
             
             const firstThreeNews = displayedNews.slice(0, 3);
-            const remainingNews = displayedNews.slice(3);
+            const nextThreeNews = displayedNews.slice(3, 6);
+            const remainingNews = displayedNews.slice(6);
 
             return createElement('div', { className: 'min-h-screen flex flex-col bg-gray-50' },
                 createElement('header', { className: 'bg-blue-950 text-white p-3 shadow-2xl sticky top-0 z-50 rounded-b-[2rem] pb-6' },
@@ -356,7 +347,7 @@
                     // أول ٣ أخبار
                     createElement('div', { className: 'desktop-grid' },
                         firstThreeNews.map((news) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
-                            createElement('div', { onClick: () => window.open(news.link, '_blank'), className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full' },
+                            createElement('a', { href: news.link, target: '_blank', rel: 'noopener noreferrer', className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' },
                                 createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
                                 createElement('div', { className: 'flex-1 overflow-hidden' },
                                     createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
@@ -367,22 +358,39 @@
                         ))
                     ),
 
-                    // عنوان قسم برامجنا المنسق مع أيقونة الميكروفون المتحركة بانسيابية (ظهور واختفاء ناعم)
+                    // عنوان قسم برامجنا المنسق مع الأيقونة ذات الحركة الانسيابية
                     createElement('div', { className: 'my-4 flex items-center justify-between bg-blue-950 text-white px-4 py-2.5 rounded-xl shadow-md border-r-4 border-yellow-400' },
                         createElement('div', { className: 'flex items-center gap-2' },
-                            createElement('i', { className: 'fa-solid fa-microphone-lines text-yellow-400 text-sm animate-smooth-mic' }),
+                            createElement('i', { className: 'fa-solid fa-microphone-lines text-yellow-400 text-sm animate-mic-pulse-bounce' }),
                             createElement('span', { className: 'font-black text-xs tracking-wide' }, 'برامجنا')
                         ),
                         createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2 py-0.5 rounded-full' }, 'الخريطة البرامجية')
                     ),
 
-                    // سلايدر برامجنا المدعوم بالسحب داخل وضع التكبير
+                    // سلايدر برامجنا
                     createElement(ProgramsSlider),
+
+                    // الثلاث أخبار التالية بعد قسم برامجنا
+                    createElement('div', { className: 'desktop-grid' },
+                        nextThreeNews.map((news) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
+                            createElement('a', { href: news.link, target: '_blank', rel: 'noopener noreferrer', className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' },
+                                createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
+                                createElement('div', { className: 'flex-1 overflow-hidden' },
+                                    createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
+                                    createElement('h2', { className: 'font-bold text-sm leading-tight text-gray-800' }, news.title),
+                                    createElement('div', { className: 'text-[9px] text-gray-400 mt-0.5' }, news.time)
+                                )
+                            )
+                        ))
+                    ),
+
+                    // قسم مواقيت الصلاة
+                    createElement(PrayerTimesSection),
 
                     // باقي الأخبار
                     createElement('div', { className: 'desktop-grid' },
                         remainingNews.map((news) => createElement('div', { key: news.id, className: 'news-card-wrapper' },
-                            createElement('div', { onClick: () => window.open(news.link, '_blank'), className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full' },
+                            createElement('a', { href: news.link, target: '_blank', rel: 'noopener noreferrer', className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' },
                                 createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
                                 createElement('div', { className: 'flex-1 overflow-hidden' },
                                     createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
@@ -406,4 +414,3 @@
     </script>
 </body>
 </html>
-
