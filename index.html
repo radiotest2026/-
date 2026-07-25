@@ -128,6 +128,7 @@
             );
         }
 
+        const newsFadelAssiri = { id: 5687647644, title: "فضل العسيري يكشف صفقات بيراميدز والأهلي ومستقبل صلاح ببرنامج «الرياضة في الميزان»", program: "الرياضة في الميزان", image: "https://f.top4top.io/p_3858o8a2z0.png", time: "25 يوليو 2026 - 09:10 م", link: "https://5687647644.vercel.app/" };
         const newsMohamedDaoud = { id: 758863568, title: "الدكتور محمد داود يوضح أهمية ترشيد استهلاك نعمة الماء ببرنامج «ربيع القلوب»", program: "ربيع القلوب", image: "https://i.top4top.io/p_3857p8anp0.png", time: "25 يوليو 2026 - 04:14 ص", link: "https://758863568.vercel.app/" };
         const newsKhaledLatif = { id: 75868645, title: "خالد عبد اللطيف يستعرض إنجازات ثورة يوليو وألقاب الشخصيات ببرنامج «الموسوعة المسموعة»", program: "الموسوعة المسموعة", image: "https://j.top4top.io/p_3857dj2sh0.png", time: "25 يوليو 2026 - 03:50 ص", link: "https://75868645.vercel.app/" };
         const newsYasserSharif = { id: 95548555, title: "ياسر الشريف يكشف أزمات الإسماعيلي ويطالب بتدخل وزير الرياضة في «مع ولا ضد»", program: "مع ولا ضد", image: "https://j.top4top.io/p_3857kljjl0.png", time: "24 يوليو 2026 - 11:30 م", link: "https://95548555.vercel.app/" };
@@ -153,8 +154,10 @@
         const newsKarim = { id: 499545248, title: "محمد عبد الكريم يكشف تفاصيل معسكر رومانيا وقائمة منتخب الشابات للمونديال في «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://www.cairo24.com/UploadCache/libfiles/171/9/600x338o/412.jpg", time: "22 يوليو 2026 - 04:00 ص", link: "https://499545248.vercel.app" };
         const newsGamal = { id: 8257654, title: "جمال سالم يطالب باحتراف الناشئين ويشيد بأداء مصر وإسبانيا في المونديال عبر «سوبر الملاعب»", program: "سوبر الملاعب", image: "https://m.gomhuriaonline.com/Upload/News/25-12-2019_00_24_07_GomhuriaOnline_1577226247.jpg", time: "22 يوليو 2026 - 03:16 ص", link: "https://8257654.vercel.app" };
         
-        const sliderNews = [newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsAdelToaima, newsHussein];
-        const listNews = [newsMohamedDaoud, newsKhaledLatif, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal];
+        // السلايدر العلوي يضم الخبر الجديد (فضل العسيري) كأول خبر
+        const sliderNews = [newsFadelAssiri, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsAdelToaima];
+        // قائمة الأخبار تحت السلايدر ويبدأ الخبر الجديد (فضل العسيري) كأول خبر في الأعلى
+        const listNews = [newsFadelAssiri, newsMohamedDaoud, newsKhaledLatif, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal];
         
         function LiveProgram() {
             return createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'mx-3 my-4 bg-white rounded-2xl border-2 border-green-600 shadow-lg p-4 flex items-center justify-between active:scale-[0.98] transition-transform animate-border-glow' },
