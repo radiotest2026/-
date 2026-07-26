@@ -128,7 +128,8 @@
             );
         }
 
-        // جميع الأخبار بالكامل دون أي حذف
+        // جميع الأخبار بالكامل دون أي حذف مع الخبر الجديد في الصدارة
+        const newsMohamedHamdy = { id: 31, title: "محمد حمدي يكشف كواليس رحيل صلاح وصفقات ريال مدريد ببرنامج «توب فايف»", program: "توب فايف", image: "https://h.top4top.io/p_38598b3h30.png", time: "26 يوليو 2026 - 01:05 م", link: "https://top5-three.vercel.app/" };
         const newsEssamSalem = { id: 30, title: "عصام سالم ببرنامج «الرياضة رايح جاي»: الدوري أصعب وشركة الكرة تنقذ الزمالك", program: "الرياضة رايح جاي", image: "https://b.top4top.io/p_3859byfu70.png", time: "26 يوليو 2026 - 11:40 ص", link: "https://essamsalem.vercel.app/" };
         const newsTarekRamadanNew = { id: 1, title: "طارق رمضان يفتح ملفات الزمالك الساخنة وأزمات اتحاد الكرة ببرنامج «صباحكو رياضة»", program: "صباحكو رياضة", image: "https://d.top4top.io/p_3859jfyzs0.png", time: "26 يوليو 2026 - 10:20 ص", link: "https://tarekramadan1.vercel.app/" };
         const newsRehabRahmawy = { id: 2, title: "الدكتورة رحاب الرحماوي تكشف أسرار بناء العلامة الشخصية وصناعة المحتوى ببرنامج «الكوتش»", program: "الكوتش", image: "https://i.top4top.io/p_3859n23lx0.png", time: "26 يوليو 2026 - 09:25 ص", link: "https://rehabrahmawy.vercel.app/" };
@@ -160,10 +161,10 @@
         const newsKarim = { id: 28, title: "محمد عبد الكريم يكشف تفاصيل معسكر رومانيا وقائمة منتخب الشابات للمونديال في «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://www.cairo24.com/UploadCache/libfiles/171/9/600x338o/412.jpg", time: "22 يوليو 2026 - 04:00 ص", link: "https://499545248.vercel.app" };
         const newsGamal = { id: 29, title: "جمال سالم يطالب باحتراف الناشئين ويشيد بأداء مصر وإسبانيا في المونديال عبر «سوبر الملاعب»", program: "سوبر الملاعب", image: "https://m.gomhuriaonline.com/Upload/News/25-12-2019_00_24_07_GomhuriaOnline_1577226247.jpg", time: "22 يوليو 2026 - 03:16 ص", link: "https://8257654.vercel.app" };
         
-        // السلايدر العلوي يضم الخبر الجديد (عصام سالم) كأول خبر
-        const sliderNews = [newsEssamSalem, newsTarekRamadanNew, newsShrifKhshab, newsAminOmar, newsYasmineYehia];
-        // قائمة الأخبار تحت السلايدر ويبدأ الخبر الجديد (عصام سالم) كأول خبر في الأعلى
-        const listNews = [newsEssamSalem, newsTarekRamadanNew, newsRehabRahmawy, newsShrifKhshab, newsKhaledSaad, newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsMohamedDaoud, newsKhaledLatif, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal];
+        // السلايدر العلوي يضم الخبر الجديد (محمد حمدي) كأول خبر
+        const sliderNews = [newsMohamedHamdy, newsEssamSalem, newsTarekRamadanNew, newsShrifKhshab, newsAminOmar];
+        // قائمة الأخبار تحت السلايدر ويبدأ الخبر الجديد (محمد حمدي) كأول خبر في الأعلى
+        const listNews = [newsMohamedHamdy, newsEssamSalem, newsTarekRamadanNew, newsRehabRahmawy, newsShrifKhshab, newsKhaledSaad, newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsMohamedDaoud, newsKhaledLatif, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal];
         
         function LiveProgram() {
             return createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'mx-3 my-4 bg-white rounded-2xl border-2 border-green-600 shadow-lg p-4 flex items-center justify-between active:scale-[0.98] transition-transform animate-border-glow' },
@@ -470,8 +471,11 @@
             );
         }
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(createElement(App));
+        const container = document.getElementById('root');
+        if (container) {
+            const root = ReactDOM.createRoot(container);
+            root.render(createElement(App));
+        }
     </script>
 </body>
 </html>
