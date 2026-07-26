@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
-        body { font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; background-color: #f3f4f6; }
+        body { font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; background-color: #f3f4f6; overflow-x: hidden; }
+        body.modal-open { overflow: hidden; position: fixed; width: 100%; height: 100%; }
         .slider-container { overflow: hidden; position: relative; width: 100%; height: 280px; }
         .slider-wrapper { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
         .slider-item { min-width: 100%; height: 100%; box-sizing: border-box; padding: 10px; cursor: pointer; }
@@ -168,8 +169,8 @@
                 createElement('div', { className: 'flex items-center gap-3' },
                     createElement('div', { className: 'w-12 h-12 bg-green-50 rounded-full flex items-center justify-center animate-mic-glow' }, createElement('span', { className: 'text-2xl' }, '🎙️')),
                     createElement('div', { className: 'flex flex-col justify-center' },
-                        createElement('div', { className: 'text-[14px] font-black text-gray-900 leading-tight' }, 'صباحكو رياضة'),
-                        createElement('div', { className: 'text-[9px] text-gray-500 font-bold mt-0.5' }, 'مع الإعلامي محمود سرحان')
+                        createElement('div', { className: 'text-[14px] font-black text-gray-900 leading-tight' }, 'حفل توقيع'),
+                        createElement('div', { className: 'text-[9px] text-gray-500 font-bold mt-0.5' }, 'مع الاعلامي مرسي عبد العليم')
                     )
                 ),
                 createElement('div', { className: 'bg-green-600 text-white text-[9px] font-black px-3 py-1.5 rounded-full shadow-md flex items-center gap-1 whitespace-nowrap' },
@@ -269,9 +270,18 @@
             const lastScrollTop = useRef(0);
             
             useEffect(() => {
-                const handleOpenModal = (e) => { setHeaderVisible(true); setActiveModalUrl(e.detail); };
+                const handleOpenModal = (e) => { 
+                    setHeaderVisible(true); 
+                    setActiveModalUrl(e.detail); 
+                    document.body.classList.add('modal-open');
+                };
                 window.addEventListener('openNewsModal', handleOpenModal);
-                const handlePopState = () => { if (activeModalUrl) setActiveModalUrl(null); };
+                const handlePopState = () => { 
+                    if (activeModalUrl) {
+                        setActiveModalUrl(null);
+                        document.body.classList.remove('modal-open');
+                    }
+                };
                 if (activeModalUrl) {
                     window.history.pushState({ modalOpen: true }, '');
                     window.addEventListener('popstate', handlePopState);
@@ -279,12 +289,14 @@
                 return () => {
                     window.removeEventListener('openNewsModal', handleOpenModal);
                     window.removeEventListener('popstate', handlePopState);
+                    document.body.classList.remove('modal-open');
                 };
             }, [activeModalUrl]);
 
             const closeModal = () => {
                 if (activeModalUrl) {
                     setActiveModalUrl(null);
+                    document.body.classList.remove('modal-open');
                     if (window.history.state && window.history.state.modalOpen) window.history.back();
                 }
             };
@@ -315,6 +327,7 @@
                     e.preventDefault();
                     setHeaderVisible(true);
                     setActiveModalUrl(news.link);
+                    document.body.classList.add('modal-open');
                 }
             };
 
