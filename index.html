@@ -129,6 +129,7 @@
         }
 
         // جميع الأخبار بالكامل دون أي حذف
+        const newsKhaledSaad = { id: 6785765, title: "خالد سعد يكشف أسرار نجاح الأميرية ببرنامج «ملوك التالتة» عبر الشباب والرياضة", program: "ملوك التالتة", image: "https://i.top4top.io/p_3859kn2d80.png", time: "26 يوليو 2026 - 08:15 ص", link: "https://6785765.vercel.app/" };
         const newsAminOmar = { id: 475488996, title: "أمين عمر يروي أسرار تألقه بمونديال 2026 عبر «يحدث هذا الأسبوع»", program: "يحدث هذا الأسبوع", image: "https://l.top4top.io/p_38592dcws0.png", time: "26 يوليو 2026 - 06:31 ص", link: "https://8797978979.vercel.app/" };
         const newsYasmineYehia = { id: 459867548, title: "ياسمين يحيى تكشف أزمات الزمالك وتأجيل المدرب الأجنبي ببرنامج «الرياضة في الميزان»", program: "الرياضة في الميزان", image: "https://g.top4top.io/p_3858wnr4v0.png", time: "25 يوليو 2026 - 09:41 م", link: "https://459867548.vercel.app/" };
         const newsFadelAssiri = { id: 5687647644, title: "فضل العسيري يكشف صفقات بيراميدز والأهلي ومستقبل صلاح ببرنامج «الرياضة في الميزان»", program: "الرياضة في الميزان", image: "https://f.top4top.io/p_3858o8a2z0.png", time: "25 يوليو 2026 - 09:10 م", link: "https://5687647644.vercel.app/" };
@@ -155,8 +156,10 @@
         const newsKarim = { id: 499545248, title: "محمد عبد الكريم يكشف تفاصيل معسكر رومانيا وقائمة منتخب الشابات للمونديال في «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://www.cairo24.com/UploadCache/libfiles/171/9/600x338o/412.jpg", time: "22 يوليو 2026 - 04:00 ص", link: "https://499545248.vercel.app" };
         const newsGamal = { id: 8257654, title: "جمال سالم يطالب باحتراف الناشئين ويشيد بأداء مصر وإسبانيا في المونديال عبر «سوبر الملاعب»", program: "سوبر الملاعب", image: "https://m.gomhuriaonline.com/Upload/News/25-12-2019_00_24_07_GomhuriaOnline_1577226247.jpg", time: "22 يوليو 2026 - 03:16 ص", link: "https://8257654.vercel.app" };
         
+        // السلايدر العلوي لا يتضمن الخبر الجديد
         const sliderNews = [newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsYasserSharif, newsTarekRamadan];
-        const listNews = [newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsMohamedDaoud, newsKhaledLatif, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal];
+        // قائمة الأخبار تحت السلايدر ويبدأ الخبر الجديد (خالد سعد) كأول خبر في الأعلى
+        const listNews = [newsKhaledSaad, newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsMohamedDaoud, newsKhaledLatif, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal];
         
         function LiveProgram() {
             return createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'mx-3 my-4 bg-white rounded-2xl border-2 border-green-600 shadow-lg p-4 flex items-center justify-between active:scale-[0.98] transition-transform animate-border-glow' },
@@ -249,10 +252,10 @@
                         createElement('i', { className: 'fa-solid fa-mosque text-yellow-400 text-sm animate-smooth-floating' }),
                         createElement('span', { className: 'font-black text-xs tracking-wide' }, 'مواقيت الصلاة')
                     ),
-                    createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2 py-0.5 rounded-full' }, 'السبت 25 يوليو 2026')
+                    createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2 py-0.5 rounded-full' }, 'الأحد 26 يوليو 2026')
                 ),
                 createElement('div', { className: 'rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white p-1' },
-                    createElement('img', { src: 'https://g.top4top.io/p_3857tz3pq0.png', className: 'w-full object-cover rounded-xl animate-smooth-floating', alt: 'مواقيت الصلاة' })
+                    createElement('img', { src: 'https://j.top4top.io/p_3859fye3p0.png', className: 'w-full object-cover rounded-xl animate-smooth-floating', alt: 'مواقيت الصلاة' })
                 )
             );
         }
