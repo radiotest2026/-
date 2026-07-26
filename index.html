@@ -128,7 +128,8 @@
             );
         }
 
-        // بقية الأخبار مع الحفاظ على الترتيب السليم
+        // جميع الأخبار بالكامل دون أي حذف مع الخبر الجديد في الصدارة
+        const newsMohamedAwny = { id: 34, title: "محمد عوني يعلن صفقات الأهلي الجديدة ومواجهة برشلونة في برنامج «ساعة رياضة»", program: "ساعة رياضة", image: "https://a.top4top.io/p_3859ztldd0.png", time: "26 يوليو 2026 - 04:00 م", link: "https://mohamedawny.vercel.app/" };
         const newsMarwaAdel = { id: 33, title: "مروة عادل تفتح ملف جريمة ختان الإناث وعقوباتها في برنامج «واو وعي»", program: "واو وعي", image: "https://i.top4top.io/p_3859k99eo0.png", time: "26 يوليو 2026 - 03:15 م", link: "https://marwaadel2.vercel.app/" };
         const newsEmanRamadan = { id: 32, title: "إيمان رمضان تعلن اعتزال أحمد حجازي والمشاركات الإفريقية ببرنامج «نشرة الألعاب الرياضية»", program: "نشرة الألعاب الرياضية", image: "https://h.top4top.io/p_38595pouf0.png", time: "26 يوليو 2026 - 02:20 م", link: "https://nashra-blue.vercel.app/" };
         const newsMohamedHamdy = { id: 31, title: "محمد حمدي يكشف كواليس رحيل صلاح وصفقات ريال مدريد ببرنامج «توب فايف»", program: "توب فايف", image: "https://h.top4top.io/p_38598b3h30.png", time: "26 يوليو 2026 - 01:05 م", link: "https://top5-three.vercel.app/" };
@@ -156,10 +157,10 @@
         const newsMahmoud = { id: 21, title: "محمود حافظ يدعم تجديد عقد حسام حسن ويكشف سر تألق الفراعنة في المونديال ببرنامج «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH0CrYaZHlkuYFUsBXNNO9xPAjIrUIPNAZwmv30Chb1AeKoX9Cv8mflCQ&s=10", time: "23 يوليو 2026 - 03:50 ص", link: "https://radioshababwrayadh108.vercel.app" };
         const newsEmad = { id: 22, title: "عماد غنيم يحلل أداء الفراعنة في المونديال ويطالب بدعم حسام حسن في «مشغول بإيه»", program: "مشغول بإيه", image: "https://i.ytimg.com/vi/tq7evIgZzpI/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGBMgSih_MA8=&rs=AOn4CLDThq-CE-YrC78EYjaG8BJqWIof5w", time: "23 يوليو 2026 - 02:54 ص", link: "https://radioshababwrayadh108.vercel.app" };
         
-        // السلايدر العلوي
-        const sliderNews = [newsMarwaAdel, newsEmanRamadan, newsMohamedHamdy, newsEssamSalem, newsTarekRamadanNew];
-        // قائمة الأخبار تحت السلايدر (بعد حذف آخر 7 أخبار)
-        const listNews = [newsMarwaAdel, newsEmanRamadan, newsMohamedHamdy, newsEssamSalem, newsTarekRamadanNew, newsRehabRahmawy, newsShrifKhshab, newsKhaledSaad, newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsMohamedDaoud, newsKhaledLatif, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad];
+        // السلايدر العلوي يضم الخبر الجديد (محمد عوني) كأول خبر
+        const sliderNews = [newsMohamedAwny, newsMarwaAdel, newsEmanRamadan, newsMohamedHamdy, newsEssamSalem];
+        // قائمة الأخبار تحت السلايدر ويبدأ الخبر الجديد (محمد عوني) كأول خبر في الأعلى
+        const listNews = [newsMohamedAwny, newsMarwaAdel, newsEmanRamadan, newsMohamedHamdy, newsEssamSalem, newsTarekRamadanNew, newsRehabRahmawy, newsShrifKhshab, newsKhaledSaad, newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsMohamedDaoud, newsKhaledLatif, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad];
         
         function LiveProgram() {
             return createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'mx-3 my-4 bg-white rounded-2xl border-2 border-green-600 shadow-lg p-4 flex items-center justify-between active:scale-[0.98] transition-transform animate-border-glow' },
