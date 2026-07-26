@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -129,8 +128,8 @@
             );
         }
 
-        // جميع الأخبار بالكامل دون أي حذف مع خبر محمد عزب في الصدارة
-        const newsMohamedAzab = { id: 575556689, title: "محمد عزب يكشف أزمات الزمالك ورحيل 8 نجوم ببرنامج «يحدث هذا الأسبوع»", program: "يحدث هذا الأسبوع", image: "https://e.top4top.io/p_38582wg5f0.png", time: "25 يوليو 2026 - 11:00 م", link: "https://575556689.vercel.app/" };
+        // جميع الأخبار بالكامل دون أي حذف
+        const newsAminOmar = { id: 475488996, title: "أمين عمر يروي أسرار تألقه بمونديال 2026 عبر «يحدث هذا الأسبوع»", program: "يحدث هذا الأسبوع", image: "https://l.top4top.io/p_38592dcws0.png", time: "26 يوليو 2026 - 06:31 ص", link: "https://475488996.vercel.app/" };
         const newsYasmineYehia = { id: 459867548, title: "ياسمين يحيى تكشف أزمات الزمالك وتأجيل المدرب الأجنبي ببرنامج «الرياضة في الميزان»", program: "الرياضة في الميزان", image: "https://g.top4top.io/p_3858wnr4v0.png", time: "25 يوليو 2026 - 09:41 م", link: "https://459867548.vercel.app/" };
         const newsFadelAssiri = { id: 5687647644, title: "فضل العسيري يكشف صفقات بيراميدز والأهلي ومستقبل صلاح ببرنامج «الرياضة في الميزان»", program: "الرياضة في الميزان", image: "https://f.top4top.io/p_3858o8a2z0.png", time: "25 يوليو 2026 - 09:10 م", link: "https://5687647644.vercel.app/" };
         const newsMohamedDaoud = { id: 758863568, title: "الدكتور محمد داود يوضح أهمية ترشيد استهلاك نعمة الماء ببرنامج «ربيع القلوب»", program: "ربيع القلوب", image: "https://i.top4top.io/p_3857p8anp0.png", time: "25 يوليو 2026 - 04:14 ص", link: "https://758863568.vercel.app/" };
@@ -156,16 +155,16 @@
         const newsKarim = { id: 499545248, title: "محمد عبد الكريم يكشف تفاصيل معسكر رومانيا وقائمة منتخب الشابات للمونديال في «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://www.cairo24.com/UploadCache/libfiles/171/9/600x338o/412.jpg", time: "22 يوليو 2026 - 04:00 ص", link: "https://499545248.vercel.app" };
         const newsGamal = { id: 8257654, title: "جمال سالم يطالب باحتراف الناشئين ويشيد بأداء مصر وإسبانيا في المونديال عبر «سوبر الملاعب»", program: "سوبر الملاعب", image: "https://m.gomhuriaonline.com/Upload/News/25-12-2019_00_24_07_GomhuriaOnline_1577226247.jpg", time: "22 يوليو 2026 - 03:16 ص", link: "https://8257654.vercel.app" };
         
-        const sliderNews = [newsMohamedAzab, newsYasmineYehia, newsFadelAssiri, newsYasserSharif, newsTarekRamadan];
-        const listNews = [newsMohamedAzab, newsYasmineYehia, newsFadelAssiri, newsMohamedDaoud, newsKhaledLatif, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal];
+        const sliderNews = [newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsYasserSharif, newsTarekRamadan];
+        const listNews = [newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsMohamedDaoud, newsKhaledLatif, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal];
         
         function LiveProgram() {
             return createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'mx-3 my-4 bg-white rounded-2xl border-2 border-green-600 shadow-lg p-4 flex items-center justify-between active:scale-[0.98] transition-transform animate-border-glow' },
                 createElement('div', { className: 'flex items-center gap-3' },
                     createElement('div', { className: 'w-12 h-12 bg-green-50 rounded-full flex items-center justify-center animate-mic-glow' }, createElement('span', { className: 'text-2xl' }, '🎙️')),
                     createElement('div', { className: 'flex flex-col justify-center' },
-                        createElement('div', { className: 'text-[14px] font-black text-gray-900 leading-tight' }, 'مع ولا ضد'),
-                        createElement('div', { className: 'text-[9px] text-gray-500 font-bold mt-0.5' }, 'مع الإعلامية نجلاء حلمي')
+                        createElement('div', { className: 'text-[14px] font-black text-gray-900 leading-tight' }, 'صباحكو رياضة'),
+                        createElement('div', { className: 'text-[9px] text-gray-500 font-bold mt-0.5' }, 'مع الإعلامي محمود سرحان')
                     )
                 ),
                 createElement('div', { className: 'bg-green-600 text-white text-[9px] font-black px-3 py-1.5 rounded-full shadow-md flex items-center gap-1 whitespace-nowrap' },
