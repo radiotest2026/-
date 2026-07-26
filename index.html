@@ -266,12 +266,9 @@
         function App() {
             const [showAll, setShowAll] = useState(false);
             const [activeModalUrl, setActiveModalUrl] = useState(null);
-            const [headerVisible, setHeaderVisible] = useState(true);
-            const lastScrollTop = useRef(0);
             
             useEffect(() => {
                 const handleOpenModal = (e) => { 
-                    setHeaderVisible(true); 
                     setActiveModalUrl(e.detail); 
                     document.body.classList.add('modal-open');
                 };
@@ -301,21 +298,6 @@
                 }
             };
 
-            const handleMainScroll = (e) => {
-                const st = window.pageYOffset || document.documentElement.scrollTop;
-                if (st > lastScrollTop.current && st > 50) {
-                    setHeaderVisible(false);
-                } else {
-                    setHeaderVisible(true);
-                }
-                lastScrollTop.current = st <= 0 ? 0 : st;
-            };
-
-            useEffect(() => {
-                window.addEventListener('scroll', handleMainScroll);
-                return () => window.removeEventListener('scroll', handleMainScroll);
-            }, []);
-
             const initialNews = listNews.slice(0, 15);
             const remainingNews = listNews.slice(15);
             const firstThreeNews = initialNews.slice(0, 3);
@@ -325,14 +307,13 @@
             const handleNewsClick = (e, news) => {
                 if (news.link) {
                     e.preventDefault();
-                    setHeaderVisible(true);
                     setActiveModalUrl(news.link);
                     document.body.classList.add('modal-open');
                 }
             };
 
             return createElement('div', { className: 'min-h-screen flex flex-col bg-gray-50' },
-                createElement('header', { className: `bg-blue-950 text-white p-3 shadow-2xl fixed top-0 left-0 right-0 z-50 rounded-b-[2rem] pb-6 transition-transform duration-300 ${headerVisible ? 'translate-y-0' : '-translate-y-full'}` },
+                createElement('header', { className: 'bg-blue-950 text-white p-3 shadow-2xl sticky top-0 z-50 rounded-b-[2rem] pb-6' },
                     createElement('div', { className: 'max-w-4xl mx-auto flex items-center justify-between' },
                         createElement('div', { className: 'flex items-center gap-2' },
                             createElement('img', { onClick: () => window.open('https://www.maspero.eg/stream/11', '_blank'), src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-[45px] h-[45px] rounded-full border-2 border-white object-cover shadow-2xl animate-halo-pulse cursor-pointer', referrerPolicy: 'no-referrer' }),
@@ -349,7 +330,7 @@
                         createElement('a', { href: 'https://www.facebook.com/share/1bzDzdVHfh/', target: '_blank' }, createElement('img', { src: 'https://i.postimg.cc/B61C0pPF/images.png', className: 'w-6 h-6 rounded-full object-cover border border-white/20', referrerPolicy: 'no-referrer' }))
                     )
                 ),
-                createElement('main', { className: 'flex-grow p-3 max-w-4xl mx-auto w-full pt-20' },
+                createElement('main', { className: 'flex-grow p-3 max-w-4xl mx-auto w-full' },
                     createElement(Slider),
                     createElement(LiveProgram),
                     
