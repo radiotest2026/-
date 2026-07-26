@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>إذاعة الشباب والرياضة</title>
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIuKchSDYp9mE0YjZhSDYqNin2YTYqNivINin2YTYt9in2YjYqSDYqNmF2K/Yqtin2K8iLAogICJzaG9ydF9uYW1lIjogIuKchSDYp9mE0YjZhSDYqNin2YTYqNivIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMxZTFhNDMiLAogICJ0aGVtZV9jb2xvciI6ICIjMWUxYTQzIiwKICAiaWNvbnMiOiBbIHsgInNyYyI6ICJodHRwczovL2kucG9zdGltZy5jYy84NXRTMzhDYy9TY3JlZW5zaG90LTIwMjYtMDUtMTMtMDItNTgtNTAtODAtOTZiMjYxMjFlNTQ1MjMxYTNjNTY5MzExYTU0Y2RhOTYuanBnIiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9qcGVnIiB9 F0KfQ==">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIuKchSDYp9mE0YjZhSDYqNin2YTYqNivINin2YTYt9in2YjYqSDYqNmF2K/Yqtin2K8iLAogICJzaG9ydF9uYW1lIjogIuKchSDYp9mE0YjZhSDYqNin2YTYqNivIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMxZTFhNDMiLAogICJ0aGVtZV9jb2xvciI6ICIjMWUxYTQzIiwKICAiaWNvbnMiOiBbIHsgInNyYyI6ICJodHRwczovL2kucG9zdGltZy5jYy84NXRTMzhDYy9TY3JlZW5zaG90LTIwMjYtMDUtMTMtMDItNTgtNTAtODAtOTZiMjYxMjFlNTQ1MjMxYTNjNTY5MzExYTU0Y2RhOTYuanBnIiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9qcGVnцьfQ==">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -129,6 +129,7 @@
         }
 
         // جميع الأخبار بالكامل دون أي حذف
+        const newsShrifKhshab = { id: 38593450, title: "شريف الخشاب يكشف أسباب انهيار الأندية الجماهيرية في برنامج «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://c.top4top.io/p_3859vy3450.png", time: "26 يوليو 2026 - 08:50 ص", link: "https://shrifkhshab.vercel.app/" };
         const newsKhaledSaad = { id: 6785765, title: "خالد سعد يكشف أسرار نجاح الأميرية ببرنامج «ملوك التالتة» عبر الشباب والرياضة", program: "ملوك التالتة", image: "https://i.top4top.io/p_3859kn2d80.png", time: "26 يوليو 2026 - 08:15 ص", link: "https://6785765.vercel.app/" };
         const newsAminOmar = { id: 475488996, title: "أمين عمر يروي أسرار تألقه بمونديال 2026 عبر «يحدث هذا الأسبوع»", program: "يحدث هذا الأسبوع", image: "https://l.top4top.io/p_38592dcws0.png", time: "26 يوليو 2026 - 06:31 ص", link: "https://8797978979.vercel.app/" };
         const newsYasmineYehia = { id: 459867548, title: "ياسمين يحيى تكشف أزمات الزمالك وتأجيل المدرب الأجنبي ببرنامج «الرياضة في الميزان»", program: "الرياضة في الميزان", image: "https://g.top4top.io/p_3858wnr4v0.png", time: "25 يوليو 2026 - 09:41 م", link: "https://459867548.vercel.app/" };
@@ -158,8 +159,8 @@
         
         // السلايدر العلوي لا يتضمن الخبر الجديد
         const sliderNews = [newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsYasserSharif, newsTarekRamadan];
-        // قائمة الأخبار تحت السلايدر ويبدأ الخبر الجديد (خالد سعد) كأول خبر في الأعلى
-        const listNews = [newsKhaledSaad, newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsMohamedDaoud, newsKhaledLatif, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal];
+        // قائمة الأخبار تحت السلايدر ويبدأ الخبر الجديد (شريف الخشاب) كأول خبر في الأعلى
+        const listNews = [newsShrifKhshab, newsKhaledSaad, newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsMohamedDaoud, newsKhaledLatif, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad, newsAmer, newsZaghloul, newsJabali, newsRadioTweet, newsMeteo, newsKarim, newsGamal];
         
         function LiveProgram() {
             return createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'mx-3 my-4 bg-white rounded-2xl border-2 border-green-600 shadow-lg p-4 flex items-center justify-between active:scale-[0.98] transition-transform animate-border-glow' },
@@ -319,7 +320,7 @@
                         createElement('div', { className: 'flex flex-col items-center gap-1' },
                             createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'relative bg-yellow-500 text-blue-950 px-2 py-0.5 rounded-full text-[8px] font-bold active-scale flex items-center gap-1' }, 
                                 createElement('svg', { className: 'w-3 h-3 text-red-600 fill-current animate-play-blink', viewBox: '0 0 24 24' }, createElement('path', { d: 'M8 5v14l11-7z' })),
-                                'استمع الآن'
+                                'اسمع الآن'
                             ),
                             createElement(Clock)
                         ),
