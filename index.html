@@ -129,7 +129,7 @@
             );
         }
 
-        // جميع الأخبار بالكامل دون أي حذف مع ضبط رابط الصورة الصحيح والموثوق لسارة الجمل
+        // جميع الأخبار بالكامل دون أي حذف مع ضبط صورة ورابط سارة الجمل الجديد بدقة
         const newsSaraElGamal = { id: 39, title: "سارة الجمل تحذر من كوارث حقن التخسيس ومشروبات الطاقة ببرنامج «أجمد لمة»", program: "أجمد لمة", image: "https://c.top4top.io/p_3860b0ver0.png", time: "26 يوليو 2026 - 07:30 م", link: "https://agmdlama.vercel.app/" };
         const newsIbrahimElQadi = { id: 38, title: "إبراهيم القاضي يفتح ملفات القرية وتجاهل الجوائز في برنامج «حفل توقيع»", program: "حفل توقيع", image: "https://g.top4top.io/p_3860zwuy90.png", time: "26 يوليو 2026 - 07:00 م", link: "https://hafltawke3aa.vercel.app/" };
         const newsMahaRadwan = { id: 37, title: "مها رضوان: الأزمات تكشف معادن البشر والميراث يختبر الإخوة ببرنامج «أيوه نقدر»", program: "أيوه نقدر", image: "https://g.top4top.io/p_3859okvvf0.png", time: "26 يوليو 2026 - 06:15 م", link: "https://nekder.vercel.app/" };
@@ -292,14 +292,6 @@
                 };
             }, [activeModalUrl]);
 
-            const closeModal = () => {
-                if (activeModalUrl) {
-                    setActiveModalUrl(null);
-                    document.body.classList.remove('modal-open');
-                    if (window.history.state && window.history.state.modalOpen) window.history.back();
-                }
-            };
-
             const initialNews = listNews.slice(0, 15);
             const remainingNews = listNews.slice(15);
             const firstThreeNews = initialNews.slice(0, 3);
@@ -428,31 +420,12 @@
                 ),
                 
                 activeModalUrl && createElement('div', { 
-                    className: 'fixed inset-0 z-50 bg-blue-950 flex flex-col items-center justify-center p-0 m-0 overflow-hidden',
-                    onClick: closeModal
+                    className: 'fixed inset-0 z-50 bg-blue-950 flex flex-col items-center justify-center p-0 m-0 overflow-hidden'
                 },
                     createElement('div', { 
                         className: 'bg-white w-screen h-screen flex flex-col relative',
                         onClick: (e) => e.stopPropagation()
                     },
-                        createElement('div', { 
-                            className: 'bg-blue-950 text-white px-4 py-3 flex items-center justify-between border-b-4 border-yellow-500 flex-shrink-0 shadow-lg rounded-b-[2rem] z-30' 
-                        },
-                            createElement('div', { className: 'flex items-center gap-2.5' },
-                                createElement('img', { src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-9 h-9 rounded-full border-2 border-yellow-400 object-cover shadow-md' }),
-                                createElement('div', { className: 'flex flex-col' },
-                                    createElement('span', { className: 'font-black text-xs sm:text-sm text-yellow-400 tracking-tight' }, 'إذاعة الشباب والرياضة 108 FM'),
-                                    createElement('span', { className: 'text-[9px] text-white/80 font-bold' }, 'البث الرقمي والتفاعلي')
-                                )
-                            ),
-                            createElement('button', { 
-                                className: 'bg-gradient-to-r from-red-600 to-red-700 text-white px-3.5 py-1.5 rounded-full font-black text-xs flex items-center gap-2 hover:from-red-700 hover:to-red-800 transition-all shadow-md active:scale-95 border border-red-500',
-                                onClick: closeModal
-                            },
-                                createElement('i', { className: 'fa-solid fa-arrow-right text-xs' }),
-                                'الرجوع للرئيسية'
-                            )
-                        ),
                         createElement('iframe', { 
                             src: activeModalUrl, 
                             className: 'w-full flex-grow border-0 bg-white overflow-y-auto',
