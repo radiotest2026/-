@@ -129,7 +129,8 @@
             );
         }
 
-        // جميع الأخبار بالكامل دون أي حذف مع ضبط صورة ورابط سارة الجمل الجديد بدقة
+        // جميع الأخبار بالكامل دون أي حذف بناءً على كودك الأصلي
+        const newsWaelFouad = { id: 40, title: "وائل فؤاد يفتح ملفات الزمالك وإهمال قطاعات الناشئين ببرنامج «الرياضة رايح جاي»", program: "الرياضة رايح جاي", image: "https://k.top4top.io/p_3860cts0a0.png", time: "28 يوليو 2026 - 10:00 ص", link: "https://ryadahrayehgay.vercel.app/" };
         const newsSaraElGamal = { id: 39, title: "سارة الجمل تحذر من كوارث حقن التخسيس ومشروبات الطاقة ببرنامج «أجمد لمة»", program: "أجمد لمة", image: "https://c.top4top.io/p_3860b0ver0.png", time: "26 يوليو 2026 - 07:30 م", link: "https://agmdlama.vercel.app/" };
         const newsIbrahimElQadi = { id: 38, title: "إبراهيم القاضي يفتح ملفات القرية وتجاهل الجوائز في برنامج «حفل توقيع»", program: "حفل توقيع", image: "https://g.top4top.io/p_3860zwuy90.png", time: "26 يوليو 2026 - 07:00 م", link: "https://hafltawke3aa.vercel.app/" };
         const newsMahaRadwan = { id: 37, title: "مها رضوان: الأزمات تكشف معادن البشر والميراث يختبر الإخوة ببرنامج «أيوه نقدر»", program: "أيوه نقدر", image: "https://g.top4top.io/p_3859okvvf0.png", time: "26 يوليو 2026 - 06:15 م", link: "https://nekder.vercel.app/" };
@@ -163,8 +164,8 @@
         const newsMahmoud = { id: 21, title: "محمود حافظ يدعم تجديد عقد حسام حسن ويكشف سر تألق الفراعنة في المونديال ببرنامج «90 دقيقة كورة»", program: "90 دقيقة كورة", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH0CrYaZHlkuYFUsBXNNO9xPAjIrUIPNAZwmv30Chb1AeKoX9Cv8mflCQ&s=10", time: "23 يوليو 2026 - 03:50 ص", link: "https://radioshababwrayadh108.vercel.app" };
         const newsEmad = { id: 22, title: "عماد غنيم يحلل أداء الفراعنة في المونديال ويطالب بدعم حسام حسن في «مشغول بإيه»", program: "مشغول بإيه", image: "https://i.ytimg.com/vi/tq7evIgZzpI/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGBMgSih_MA8=&rs=AOn4CLDThq-CE-YrC78EYjaG8BJqWIof5w", time: "23 يوليو 2026 - 02:54 ص", link: "https://radioshababwrayadh108.vercel.app" };
         
-        const sliderNews = [newsEmadGohnim, newsMohamedAwny, newsMarwaAdel, newsEmanRamadan, newsMohamedHamdy];
-        const listNews = [newsSaraElGamal, newsIbrahimElQadi, newsMahaRadwan, newsAliAbdelRadi, newsEmadGohnim, newsMohamedAwny, newsMarwaAdel, newsEmanRamadan, newsMohamedHamdy, newsEssamSalem, newsTarekRamadanNew, newsRehabRahmawy, newsShrifKhshab, newsKhaledSaad, newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsMohamedDaoud, newsKhaledLatif, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad];
+        const sliderNews = [newsWaelFouad, newsEmadGohnim, newsMohamedAwny, newsMarwaAdel, newsEmanRamadan];
+        const listNews = [newsWaelFouad, newsSaraElGamal, newsIbrahimElQadi, newsMahaRadwan, newsAliAbdelRadi, newsEmadGohnim, newsMohamedAwny, newsMarwaAdel, newsEmanRamadan, newsMohamedHamdy, newsEssamSalem, newsTarekRamadanNew, newsRehabRahmawy, newsShrifKhshab, newsKhaledSaad, newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsMohamedDaoud, newsKhaledLatif, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaima, newsHussein, newsSisi, newsEntessar, newsLifestyle, newsAdel, newsMahmoud, newsEmad];
         
         function LiveProgram() {
             return createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'mx-3 my-4 bg-white rounded-2xl border-2 border-green-600 shadow-lg p-4 flex items-center justify-between active:scale-[0.98] transition-transform animate-border-glow' },
@@ -291,6 +292,14 @@
                     document.body.classList.remove('modal-open');
                 };
             }, [activeModalUrl]);
+
+            const closeModal = () => {
+                if (activeModalUrl) {
+                    setActiveModalUrl(null);
+                    document.body.classList.remove('modal-open');
+                    if (window.history.state && window.history.state.modalOpen) window.history.back();
+                }
+            };
 
             const initialNews = listNews.slice(0, 15);
             const remainingNews = listNews.slice(15);
