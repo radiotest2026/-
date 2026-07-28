@@ -44,9 +44,14 @@
         .prev-btn { right: 15px; }
         .next-btn { left: 15px; }
 
+        /* تعديلات الشاشات الكبيرة والكمبيوتر ليظهر الموقع بعرض منسق بالكامل */
+        @media (min-width: 768px) {
+            .desktop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .slider-container { height: 350px; }
+        }
         @media (min-width: 1024px) {
-            .desktop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1000px; margin: 0 auto; }
-            .slider-container { height: 400px; }
+            .desktop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+            .slider-container { height: 420px; }
             .news-card-wrapper { display: flex; flex-direction: column; }
         }
 
@@ -335,7 +340,7 @@
 
             return createElement('div', { className: 'min-h-screen flex flex-col bg-gray-50' },
                 createElement('header', { className: 'bg-blue-950 text-white p-3 shadow-2xl sticky top-0 z-50 rounded-b-[2rem] pb-6' },
-                    createElement('div', { className: 'max-w-4xl mx-auto flex items-center justify-between' },
+                    createElement('div', { className: 'max-w-6xl mx-auto flex items-center justify-between' },
                         createElement('div', { className: 'flex items-center gap-2' },
                             createElement('img', { onClick: () => window.open('https://www.maspero.eg/stream/11', '_blank'), src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-[45px] h-[45px] rounded-full border-2 border-white object-cover shadow-2xl animate-halo-pulse cursor-pointer', referrerPolicy: 'no-referrer' }),
                             createElement('div', { className: 'whitespace-nowrap' }, createElement('h1', { className: 'font-black text-[14px] tracking-tight' }, 'إذاعة الشباب والرياضة'), createElement('div', { className: 'text-yellow-400 text-[11px] font-bold' }, '108 FM'))
@@ -351,7 +356,7 @@
                         createElement('a', { href: 'https://www.facebook.com/share/1bzDzdVHfh/', target: '_blank' }, createElement('img', { src: 'https://i.postimg.cc/B61C0pPF/images.png', className: 'w-6 h-6 rounded-full object-cover border border-white/20', referrerPolicy: 'no-referrer' }))
                     )
                 ),
-                createElement('main', { className: 'flex-grow p-3 max-w-4xl mx-auto w-full' },
+                createElement('main', { className: 'flex-grow p-3 max-w-6xl mx-auto w-full' },
                     createElement(Slider),
                     createElement(LiveProgram),
                     
