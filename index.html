@@ -254,10 +254,10 @@
                         createElement('i', { className: 'fa-solid fa-mosque text-yellow-400 text-sm animate-smooth-floating' }),
                         createElement('span', { className: 'font-black text-xs tracking-wide' }, 'مواقيت الصلاة')
                     ),
-                    createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2 py-0.5 rounded-full' }, 'الأحد 26 يوليو 2026')
+                    createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2 py-0.5 rounded-full' }, 'الثلاثاء 28 يوليو 2026')
                 ),
                 createElement('div', { className: 'rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white p-1' },
-                    createElement('img', { src: 'https://j.top4top.io/p_3859fye3p0.png', className: 'w-full object-cover rounded-xl animate-smooth-floating', alt: 'صورة مواقيت الصلاة' })
+                    createElement('img', { src: 'https://c.top4top.io/p_38602lk8f0.png', className: 'w-full object-cover rounded-xl animate-smooth-floating', alt: 'صورة مواقيت الصلاة' })
                 )
             );
         }
@@ -266,7 +266,6 @@
             const [showAll, setShowAll] = useState(false);
             const [activeModalUrl, setActiveModalUrl] = useState(null);
             
-            // إضافة خاصية التحديث التلقائي للصفحة كل دقيقة (60000 مللي ثانية) لضمان جلب وتحديث أي جديد
             useEffect(() => {
                 const autoRefreshTimer = setInterval(() => {
                     window.location.reload();
