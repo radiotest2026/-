@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -129,7 +130,8 @@
             );
         }
 
-        // جميع الأخبار بالكامل بالتوقيتات الفعلية الدقيقة للتوثيق اللحظي
+        // جميع الأخبار بالكامل بالتوقيتات الفعلية الدقيقة والمرتبة تنازلياً حسب الأحدث
+        const newsAdelTeama = { id: 45, title: "عادل طعيمة يكشف أزمات المدربين وأهمية قطاع الناشئين في برنامج «سوبر الملاعب»", program: "سوبر الملاعب", image: "https://d.top4top.io/p_386129sk20.png", time: "28 يوليو 2026 - 10:04 م", link: "https://adelteama.vercel.app/" };
         const newsMansourMegahed = { id: 44, title: "منصور مجاهد يكشف أزمات الزمالك وتفاصيل رعاية النادي الأهلي ببرنامج «صباحكو رياضة»", program: "صباحكو رياضة", image: "https://l.top4top.io/p_3861j1a740.png", time: "28 يوليو 2026 - 09:44 م", link: "https://mansourmegahed.vercel.app/" };
         const newsAhmedBahy = { id: 43, title: "أحمد باهي يكشف كواليس مواجهة الأهلي وبرشلونة وأزمات الزمالك ببرنامج «صباحكوا رياضة»", program: "صباحكوا رياضة", image: "https://j.top4top.io/p_38602mvay0.png", time: "28 يوليو 2026 - 04:18 ص", link: "https://ahmedbahy.vercel.app/" };
         const newsAmalFouad = { id: 42, title: "آمال فؤاد تحلل حظوظ مصر بأمم إفريقيا للسيدات عبر برنامج «صباحكو رياضة»", program: "صباحكو رياضة", image: "https://d.top4top.io/p_3860m931a0.png", time: "28 يوليو 2026 - 03:58 ص", link: "https://amalfouad.vercel.app/" };
@@ -159,10 +161,10 @@
         const newsRabieYassin = { id: 12, title: "ربيع ياسين يدعم التعتيم الإعلامي ويطالب بتقليص الأجانب ببرنامج «مع ولا ضد»", program: "مع ولا ضد", image: "https://c.top4top.io/p_3857otx8c0.png", time: "24 يوليو 2026 - 03:36 م", link: "https://544436475.vercel.app/" };
         const newsBalHana = { id: 19, title: "نصائح ذهبية لتقوية الذاكرة ونضارة البشرة مع داليا حمزة في «بالهنا والشفا»", program: "بالهنا والشفا", image: "https://b.top4top.io/p_3856luf6t0.png", time: "24 يوليو 2026 - 04:30 ص", link: "https://547696589.vercel.app/" };
         const newsQahoud = { id: 18, title: "الشيخ محمد حسن قاعود يوضح أهمية روح الجماعة والشورى ببرنامج «علمنا الرسول»", program: "علمنا الرسول", image: "https://l.top4top.io/p_38561wbic0.png", time: "24 يوليو 2026 - 04:00 ص", link: "https://457585.vercel.app/" };
-        const newsAdelToaima = { id: 13, title: "عادل طعيمة يكشف أسباب تفضيل الأهلي للمدرب الأجنبي في «استفتاء على الهوا»", program: "استفتاء على الهوا", image: "https://e.top4top.io/p_38560zpgj0.png", time: "23 يوليو 2026 - 09:00 م", link: "https://656843643.vercel.app/" };
+        const newsAdelToaimaOld = { id: 13, title: "عادل طعيمة يكشف أسباب تفضيل الأهلي للمدرب الأجنبي في «استفتاء على الهوا»", program: "استفتاء على الهوا", image: "https://e.top4top.io/p_38560zpgj0.png", time: "23 يوليو 2026 - 09:00 م", link: "https://656843643.vercel.app/" };
         
-        const sliderNews = [newsMansourMegahed, newsAhmedBahy, newsAmalFouad, newsGehadGeresha, newsWaelFouad];
-        const listNews = [newsMansourMegahed, newsAhmedBahy, newsAmalFouad, newsGehadGeresha, newsWaelFouad, newsSaraElGamal, newsIbrahimElQadi, newsMahaRadwan, newsAliAbdelRadi, newsEmadGohnim, newsMohamedAwny, newsMarwaAdel, newsEmanRamadan, newsMohamedHamdy, newsEssamSalem, newsTarekRamadanNew, newsRehabRahmawy, newsShrifKhshab, newsKhaledSaad, newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsMohamedDaoud, newsKhaledLatif, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaima];
+        const sliderNews = [newsAdelTeama, newsMansourMegahed, newsAhmedBahy, newsAmalFouad, newsGehadGeresha];
+        const listNews = [newsAdelTeama, newsMansourMegahed, newsAhmedBahy, newsAmalFouad, newsGehadGeresha, newsWaelFouad, newsSaraElGamal, newsIbrahimElQadi, newsMahaRadwan, newsAliAbdelRadi, newsEmadGohnim, newsMohamedAwny, newsMarwaAdel, newsEmanRamadan, newsMohamedHamdy, newsEssamSalem, newsTarekRamadanNew, newsRehabRahmawy, newsShrifKhshab, newsKhaledSaad, newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsMohamedDaoud, newsKhaledLatif, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud, newsAdelToaimaOld];
         
         function LiveProgram() {
             return createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'mx-3 my-4 bg-white rounded-2xl border-2 border-green-600 shadow-lg p-4 flex items-center justify-between active:scale-[0.98] transition-transform animate-border-glow' },
@@ -482,3 +484,4 @@
     </script>
 </body>
 </html>
+
