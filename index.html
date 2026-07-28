@@ -13,11 +13,12 @@
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
         body { font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; background-color: #f3f4f6; overflow-x: hidden; }
         body.modal-open { overflow: hidden; position: fixed; width: 100%; height: 100%; }
-        .slider-container { overflow: hidden; position: relative; width: 100%; height: 280px; }
+        
+        .slider-container { overflow: hidden; position: relative; width: 100%; aspect-ratio: 16 / 9; max-height: 500px; }
         .slider-wrapper { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
         .slider-item { min-width: 100%; height: 100%; box-sizing: border-box; padding: 10px; cursor: pointer; }
 
-        .programs-slider-container { overflow: hidden; position: relative; width: 100%; height: 180px; border-radius: 1rem; touch-action: pan-y; cursor: grab; }
+        .programs-slider-container { overflow: hidden; position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 1rem; touch-action: pan-y; cursor: grab; }
         .programs-slider-container:active { cursor: grabbing; }
         .programs-slider-wrapper { display: flex; transition: transform 0.3s ease-out; height: 100%; }
         .programs-slider-item { min-width: 100%; height: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; background-color: #ffffff; }
@@ -26,7 +27,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             color: white;
             width: 35px;
             height: 35px;
@@ -40,18 +41,15 @@
             cursor: pointer;
             transition: background 0.3s;
         }
-        .nav-button:active { background: rgba(0, 0, 0, 0.6); }
+        .nav-button:active { background: rgba(0, 0, 0, 0.7); }
         .prev-btn { right: 15px; }
         .next-btn { left: 15px; }
 
-        /* تعديلات الشاشات الكبيرة والكمبيوتر ليظهر الموقع بعرض منسق بالكامل */
         @media (min-width: 768px) {
             .desktop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-            .slider-container { height: 350px; }
         }
         @media (min-width: 1024px) {
             .desktop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-            .slider-container { height: 420px; }
             .news-card-wrapper { display: flex; flex-direction: column; }
         }
 
@@ -195,17 +193,17 @@
                 timerRef.current = setInterval(() => { setIndex((prev) => (prev + 1) % sliderNews.length); }, 4000);
                 return () => clearInterval(timerRef.current);
             }, []);
-            return createElement('div', { className: 'slider-container' },
+            return createElement('div', { className: 'slider-container rounded-2xl shadow-lg bg-white overflow-hidden relative' },
                 createElement('button', { className: 'nav-button prev-btn', onClick: prevSlide }, '▶'),
                 createElement('button', { className: 'nav-button next-btn', onClick: nextSlide }, '◀'),
                 createElement('div', { className: 'slider-wrapper', style: { transform: `translateX(${index * 100}%)` } },
-                    sliderNews.map((news) => createElement('div', { key: news.id, className: 'slider-item', onClick: (e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openNewsModal', { detail: news.link })); } },
-                        createElement('div', { className: 'bg-white h-full rounded-2xl shadow-lg border border-gray-100 overflow-hidden relative' },
-                            createElement('div', { className: 'relative w-full h-40 bg-white flex items-center justify-center overflow-hidden' },
-                                createElement('img', { src: news.image, className: 'w-full h-full object-cover', referrerPolicy: 'no-referrer' }),
-                                createElement('div', { className: 'absolute top-2 right-2 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-md z-10' }, news.program)
-                            ),
-                            createElement('div', { className: 'p-3' }, createElement('h2', { className: 'font-bold text-[18px] text-gray-900 leading-snug mt-1' }, news.title))
+                    sliderNews.map((news) => createElement('div', { key: news.id, className: 'slider-item cursor-pointer relative !p-0', onClick: (e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openNewsModal', { detail: news.link })); } },
+                        createElement('div', { className: 'w-full h-full relative overflow-hidden bg-gray-900 flex items-center justify-center' },
+                            createElement('img', { src: news.image, className: 'w-full h-full object-contain', referrerPolicy: 'no-referrer', alt: '[صورة الخبر]' }),
+                            createElement('div', { className: 'absolute top-3 right-3 bg-red-600 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md z-10' }, news.program),
+                            createElement('div', { className: 'absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-4 pt-8 text-white' },
+                                createElement('h2', { className: 'font-black text-sm md:text-lg leading-snug drop-shadow-md text-right' }, news.title)
+                            )
                         )
                     ))
                 )
@@ -219,7 +217,7 @@
                 "https://b.top4top.io/p_3861n4zch0.png",
                 "https://c.top4top.io/p_3861m9cwf1.png",
                 "https://d.top4top.io/p_3861f4jfv2.png",
-                "https://l.top4top.io/p_38619pa7k0.png"
+                "https://j.top4top.io/p_3861u7dq40.png"
             ];
             const touchStartX = useRef(0);
             const touchEndX = useRef(0);
@@ -248,7 +246,7 @@
                     createElement('button', { className: 'nav-button next-btn', onClick: nextProg }, '◀'),
                     createElement('div', { className: 'programs-slider-wrapper', style: { transform: `translateX(${progIndex * 100}%)` } },
                         images.map((imgUrl, idx) => createElement('div', { key: idx, className: 'programs-slider-item' },
-                            createElement('img', { src: imgUrl, className: 'w-full h-full object-cover cursor-pointer', onClick: () => setZoomedIndex(idx) })
+                            createElement('img', { src: imgUrl, className: 'w-full h-full object-contain cursor-pointer', onClick: () => setZoomedIndex(idx), alt: '[صورة البرنامج]' })
                         ))
                     ),
                     createElement('div', { className: 'absolute bottom-2 left-0 right-0 z-20 flex justify-center gap-1.5' },
@@ -258,7 +256,7 @@
                 zoomedIndex !== null && createElement('div', { className: 'fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4', onClick: () => setZoomedIndex(null) },
                     createElement('div', { className: 'relative max-w-lg w-full flex flex-col items-center select-none', onClick: (e) => e.stopPropagation() },
                         createElement('button', { className: 'absolute -top-12 left-0 text-white bg-red-600 w-9 h-9 rounded-full font-bold text-sm shadow-md flex items-center justify-center z-50', onClick: () => setZoomedIndex(null) }, '✕'),
-                        createElement('img', { src: images[zoomedIndex], className: 'w-full max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/20' })
+                        createElement('img', { src: images[zoomedIndex], className: 'w-full max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/20', alt: '[صورة مكبرة]' })
                     )
                 )
             );
@@ -274,7 +272,7 @@
                     createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2 py-0.5 rounded-full' }, 'الأربعاء 29 يوليو 2026')
                 ),
                 createElement('div', { className: 'rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white p-1' },
-                    createElement('img', { src: 'https://d.top4top.io/p_3861pwsid0.png', className: 'w-full object-cover rounded-xl animate-smooth-floating', alt: 'صورة مواقيت الصلاة' })
+                    createElement('img', { src: 'https://d.top4top.io/p_3861pwsid0.png', className: 'w-full object-cover rounded-xl animate-smooth-floating', alt: '[صورة مواقيت الصلاة]' })
                 )
             );
         }
@@ -342,7 +340,7 @@
                 createElement('header', { className: 'bg-blue-950 text-white p-3 shadow-2xl sticky top-0 z-50 rounded-b-[2rem] pb-6' },
                     createElement('div', { className: 'max-w-6xl mx-auto flex items-center justify-between' },
                         createElement('div', { className: 'flex items-center gap-2' },
-                            createElement('img', { onClick: () => window.open('https://www.maspero.eg/stream/11', '_blank'), src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-[45px] h-[45px] rounded-full border-2 border-white object-cover shadow-2xl animate-halo-pulse cursor-pointer', referrerPolicy: 'no-referrer' }),
+                            createElement('img', { onClick: () => window.open('https://www.maspero.eg/stream/11', '_blank'), src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-[45px] h-[45px] rounded-full border-2 border-white object-cover shadow-2xl animate-halo-pulse cursor-pointer', referrerPolicy: 'no-referrer', alt: '[شعار الإذاعة]' }),
                             createElement('div', { className: 'whitespace-nowrap' }, createElement('h1', { className: 'font-black text-[14px] tracking-tight' }, 'إذاعة الشباب والرياضة'), createElement('div', { className: 'text-yellow-400 text-[11px] font-bold' }, '108 FM'))
                         ),
                         createElement('div', { className: 'flex items-center gap-1 bg-white/10 rounded-xl px-2 py-1' }, createElement(LiveTemp)),
@@ -353,7 +351,7 @@
                             ),
                             createElement(Clock)
                         ),
-                        createElement('a', { href: 'https://www.facebook.com/share/1bzDzdVHfh/', target: '_blank' }, createElement('img', { src: 'https://i.postimg.cc/B61C0pPF/images.png', className: 'w-6 h-6 rounded-full object-cover border border-white/20', referrerPolicy: 'no-referrer' }))
+                        createElement('a', { href: 'https://www.facebook.com/share/1bzDzdVHfh/', target: '_blank' }, createElement('img', { src: 'https://i.postimg.cc/B61C0pPF/images.png', className: 'w-6 h-6 rounded-full object-cover border border-white/20', referrerPolicy: 'no-referrer', alt: '[فيسبوك]' }))
                     )
                 ),
                 createElement('main', { className: 'flex-grow p-3 max-w-6xl mx-auto w-full' },
@@ -369,7 +367,7 @@
                                 onClick: (e) => handleNewsClick(e, news),
                                 className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' 
                             },
-                                createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
+                                createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer', alt: '[صورة الخبر المصغرة]' })),
                                 createElement('div', { className: 'flex-1 overflow-hidden' },
                                     createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
                                     createElement('h2', { className: 'font-bold text-sm leading-tight text-gray-800' }, news.title),
@@ -398,7 +396,7 @@
                                 onClick: (e) => handleNewsClick(e, news),
                                 className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' 
                             },
-                                createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
+                                createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer', alt: '[صورة الخبر المصغرة]' })),
                                 createElement('div', { className: 'flex-1 overflow-hidden' },
                                     createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
                                     createElement('h2', { className: 'font-bold text-sm leading-tight text-gray-800' }, news.title),
@@ -419,7 +417,7 @@
                                 onClick: (e) => handleNewsClick(e, news),
                                 className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' 
                             },
-                                createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
+                                createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer', alt: '[صورة الخبر المصغرة]' })),
                                 createElement('div', { className: 'flex-1 overflow-hidden' },
                                     createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
                                     createElement('h2', { className: 'font-bold text-sm leading-tight text-gray-800' }, news.title),
@@ -438,7 +436,7 @@
                                 onClick: (e) => handleNewsClick(e, news),
                                 className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 h-full block' 
                             },
-                                createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer' })),
+                                createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer', alt: '[صورة الخبر المصغرة]' })),
                                 createElement('div', { className: 'flex-1 overflow-hidden' },
                                     createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
                                     createElement('h2', { className: 'font-bold text-sm leading-tight text-gray-800' }, news.title),
@@ -458,7 +456,7 @@
                         className: 'bg-blue-950 text-white px-4 py-3 flex items-center justify-between flex-shrink-0 shadow-lg z-30 w-full' 
                     },
                         createElement('div', { className: 'flex items-center gap-2.5' },
-                            createElement('img', { src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-9 h-9 rounded-full border-2 border-yellow-400 object-cover shadow-md' }),
+                            createElement('img', { src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-9 h-9 rounded-full border-2 border-yellow-400 object-cover shadow-md', alt: '[شعار الإذاعة]' }),
                             createElement('div', { className: 'flex flex-col' },
                                 createElement('span', { className: 'font-black text-xs sm:text-sm text-yellow-400 tracking-tight' }, 'إذاعة الشباب والرياضة 108 FM'),
                                 createElement('span', { className: 'text-[9px] text-white/80 font-bold' }, 'البث الرقمي والتفاعلي')
