@@ -129,8 +129,8 @@
             );
         }
 
-        // جميع الأخبار بالكامل بالتوقيتات الفعلية الدقيقة والمرتبة تنازلياً حسب الأحدث
-        const newsMansourMegahed = { id: 44, title: "منصور مجاهد يكشف أزمات الزمالك وتفاصيل رعاية النادي الأهلي ببرنامج «صباحكو رياضة»", program: "صباحكو رياضة", image: "https://l.top4top.io/p_3861j1a740.png", time: "28 يوليو 2026 - 04:55 ص", link: "https://mansourmegahed.vercel.app/" };
+        // جميع الأخبار بالكامل بالتوقيتات الفعلية الدقيقة للتوثيق اللحظي
+        const newsMansourMegahed = { id: 44, title: "منصور مجاهد يكشف أزمات الزمالك وتفاصيل رعاية النادي الأهلي ببرنامج «صباحكو رياضة»", program: "صباحكو رياضة", image: "https://l.top4top.io/p_3861j1a740.png", time: "28 يوليو 2026 - 09:44 م", link: "https://mansourmegahed.vercel.app/" };
         const newsAhmedBahy = { id: 43, title: "أحمد باهي يكشف كواليس مواجهة الأهلي وبرشلونة وأزمات الزمالك ببرنامج «صباحكوا رياضة»", program: "صباحكوا رياضة", image: "https://j.top4top.io/p_38602mvay0.png", time: "28 يوليو 2026 - 04:18 ص", link: "https://ahmedbahy.vercel.app/" };
         const newsAmalFouad = { id: 42, title: "آمال فؤاد تحلل حظوظ مصر بأمم إفريقيا للسيدات عبر برنامج «صباحكو رياضة»", program: "صباحكو رياضة", image: "https://d.top4top.io/p_3860m931a0.png", time: "28 يوليو 2026 - 03:58 ص", link: "https://amalfouad.vercel.app/" };
         const newsGehadGeresha = { id: 41, title: "جهاد جريشة يطالب بالشفافية ويرفض عودة الخبراء الأجانب في برنامج «صباحكو رياضة»", program: "صباحكو رياضة", image: "https://i.top4top.io/p_3860vxc5f0.png", time: "28 يوليو 2026 - 03:38 ص", link: "https://gehadgeresha.vercel.app/" };
@@ -267,6 +267,7 @@
             const [showAll, setShowAll] = useState(false);
             const [activeModalUrl, setActiveModalUrl] = useState(null);
             
+            // تحديث تلقائي يعمل فقط إذا لم يكن المستخدم يقرأ تفاصيل خبر
             useEffect(() => {
                 const autoRefreshTimer = setInterval(() => {
                     if (!activeModalUrl) {
