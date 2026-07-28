@@ -161,7 +161,6 @@
         const newsRabieYassin = { id: 12, title: "ربيع ياسين يدعم التعتيم الإعلامي ويطالب بتقليص الأجانب ببرنامج «مع ولا ضد»", program: "مع ولا ضد", image: "https://c.top4top.io/p_3857otx8c0.png", time: "24 يوليو 2026 - 03:36 م", link: "https://544436475.vercel.app/" };
         const newsBalHana = { id: 19, title: "نصائح ذهبية لتقوية الذاكرة ونضارة البشرة مع داليا حمزة في «بالهنا والشفا»", program: "بالهنا والشفا", image: "https://b.top4top.io/p_3856luf6t0.png", time: "24 يوليو 2026 - 04:30 ص", link: "https://547696589.vercel.app/" };
         const newsQahoud = { id: 18, title: "الشيخ محمد حسن قاعود يوضح أهمية روح الجماعة والشورى ببرنامج «علمنا الرسول»", program: "علمنا الرسول", image: "https://l.top4top.io/p_38561wbic0.png", time: "24 يوليو 2026 - 04:00 ص", link: "https://457585.vercel.app/" };
-        const newsAdelToaimaOld = { id: 13, title: "عادل طعيمة يكشف أسباب تفضيل الأهلي للمدرب الأجنبي في «استفتاء على الهوا»", program: "استفتاء على الهوا", image: "https://e.top4top.io/p_38560zpgj0.png", time: "23 يوليو 2026 - 09:00 م", link: "https://656843643.vercel.app/" };
         
         const sliderNews = [newsDya3a, newsAdelTeama, newsMansourMegahed, newsAhmedBahy, newsAmalFouad];
         const listNews = [newsDya3a, newsAdelTeama, newsMansourMegahed, newsAhmedBahy, newsAmalFouad, newsGehadGeresha, newsWaelFouad, newsSaraElGamal, newsIbrahimElQadi, newsMahaRadwan, newsAliAbdelRadi, newsEmadGohnim, newsMohamedAwny, newsMarwaAdel, newsEmanRamadan, newsMohamedHamdy, newsEssamSalem, newsTarekRamadanNew, newsRehabRahmawy, newsShrifKhshab, newsKhaledSaad, newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsMohamedDaoud, newsKhaledLatif, newsYasserSharif, newsTarekRamadan, newsRabieYassin, newsBalHana, newsQahoud];
@@ -211,9 +210,17 @@
         function ProgramsSlider() {
             const [progIndex, setProgIndex] = useState(0);
             const [zoomedIndex, setZoomedIndex] = useState(null);
-            const images = ["https://e.top4top.io/p_3856hfvtk0.png"];
+            const images = [
+                "https://b.top4top.io/p_3861n4zch0.png",
+                "https://c.top4top.io/p_3861m9cwf1.png",
+                "https://d.top4top.io/p_3861f4jfv2.png",
+                "https://l.top4top.io/p_38619pa7k0.png"
+            ];
             const touchStartX = useRef(0);
             const touchEndX = useRef(0);
+
+            const nextProg = (e) => { if(e) e.stopPropagation(); setProgIndex((prev) => (prev + 1) % images.length); };
+            const prevProg = (e) => { if(e) e.stopPropagation(); setProgIndex((prev) => (prev - 1 + images.length) % images.length); };
 
             useEffect(() => {
                 const timer = setInterval(() => {
@@ -232,6 +239,8 @@
 
             return createElement('div', { className: 'mb-4' },
                 createElement('div', { className: 'programs-slider-container shadow-md bg-white relative overflow-hidden', onTouchStart: handleTouchStart, onTouchMove: handleTouchMove, onTouchEnd: handleTouchEnd },
+                    createElement('button', { className: 'nav-button prev-btn', onClick: prevProg }, '▶'),
+                    createElement('button', { className: 'nav-button next-btn', onClick: nextProg }, '◀'),
                     createElement('div', { className: 'programs-slider-wrapper', style: { transform: `translateX(${progIndex * 100}%)` } },
                         images.map((imgUrl, idx) => createElement('div', { key: idx, className: 'programs-slider-item' },
                             createElement('img', { src: imgUrl, className: 'w-full h-full object-cover cursor-pointer', onClick: () => setZoomedIndex(idx) })
@@ -257,10 +266,10 @@
                         createElement('i', { className: 'fa-solid fa-mosque text-yellow-400 text-sm animate-smooth-floating' }),
                         createElement('span', { className: 'font-black text-xs tracking-wide' }, 'مواقيت الصلاة')
                     ),
-                    createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2 py-0.5 rounded-full' }, 'الثلاثاء 28 يوليو 2026')
+                    createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2 py-0.5 rounded-full' }, 'الأربعاء 29 يوليو 2026')
                 ),
                 createElement('div', { className: 'rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white p-1' },
-                    createElement('img', { src: 'https://c.top4top.io/p_38602lk8f0.png', className: 'w-full object-cover rounded-xl animate-smooth-floating', alt: '[صورة مواقيت الصلاة]' })
+                    createElement('img', { src: 'https://d.top4top.io/p_3861pwsid0.png', className: 'w-full object-cover rounded-xl animate-smooth-floating', alt: 'صورة مواقيت الصلاة' })
                 )
             );
         }
