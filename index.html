@@ -316,15 +316,6 @@
         function App() {
             const [showAll, setShowAll] = useState(false);
             const [activeModalUrl, setActiveModalUrl] = useState(null);
-            
-            useEffect(() => {
-                const autoRefreshTimer = setInterval(() => {
-                    if (!activeModalUrl) {
-                        window.location.reload();
-                    }
-                }, 900000);
-                return () => clearInterval(autoRefreshTimer);
-            }, [activeModalUrl]);
 
             useEffect(() => {
                 const handleOpenModal = (e) => { 
