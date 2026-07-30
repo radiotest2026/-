@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>إذاعة الشباب والرياضة</title>
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIuKchSDYp9mE0YjZhSDYqNin2YTYqNivINin2YTYt9in2YjYqSDYqNmF2K/Yqtin2K8iLAogICJzaG9ydF9uYW1lIjogIuKchSDYp9mE0YjZhSDYqNin2YTYqNivIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMxZTFhNDMiLAogICJ0aGVtZV9jb2xvciI6ICIjMWUxYTQzIiwKICAiaWNvbnMiOiBbIHsgInNyYyI6ICJodHRwczovL2kucG9zdGltZy5jYy84NXRTMzhDYy9TY3JlZW5zaG90LTIwMjYtMDUtMTMtMDItNTgtNTAtODAtOTZiMjYxMjFlNTQ1MjMxYTNjNTY5MzExYTU0Y2RhOTYuanBnIiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9qcGVnцьgcmFkYW5vIj4=">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIuKchSDYp9mE0YjZhSDYqNin2YTYqNivINin2YTYt9in2YjYqSDYqNmF2K/Yqtin2K8iLAogICJzaG9ydF9uYW1lIjogIuKchSDYp9mE0YjZhSDYqNin2YTYqNivIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMxZTFhNDMiLAogICJ0aGVtZV9jb2xvciI6ICIjMWUxYTQzIiwKICAiaWNvbnMiOiBbIHsgInNyYyI6ICJodHRwczovL2kucG9zdGltZy5jYy84NXRTMzhDYy9TY3JlZW5zaG90LTIwMjYtMDUtMTMtMDItNTgtNTAtODAtOTZiMjYxMjFlNTQ1MjMxYTNjNTY5MzExYTU0Y2RhOTYuanBnIiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS/qcGVnцьgcmFkYW5vIj4=">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -103,15 +103,15 @@
         }
 
         function LiveClockWidget() {
-            const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }));
+            const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }));
             useEffect(() => {
                 const timer = setInterval(() => {
-                    setTime(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }));
+                    setTime(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }));
                 }, 1000);
                 return () => clearInterval(timer);
             }, []);
-            return createElement('div', { className: 'bg-yellow-500 text-blue-950 px-3 py-1.5 rounded-xl shadow-md flex items-center gap-1.5 font-black text-sm tracking-wide whitespace-nowrap' },
-                createElement('span', { className: 'animate-slow-fade' }, '🕒'),
+            return createElement('div', { className: 'text-orange-500 text-lg font-black tracking-wide flex items-center gap-2 whitespace-nowrap' },
+                createElement('span', { className: 'animate-slow-fade text-yellow-400' }, '🕒'),
                 createElement('span', {}, time.replace('AM', 'ص').replace('PM', 'م'))
             );
         }
