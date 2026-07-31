@@ -110,7 +110,7 @@
                 }, 1000);
                 return () => clearInterval(timer);
             }, []);
-            return createElement('div', { className: 'text-orange-500 text-lg font-black tracking-wide flex items-center gap-2 whitespace-nowrap' },
+            return createElement('div', { className: 'text-green-500 text-lg font-black tracking-wide flex items-center gap-2 whitespace-nowrap' },
                 createElement('span', { className: 'animate-slow-fade text-yellow-400' }, '🕒'),
                 createElement('span', {}, time.replace('AM', 'ص').replace('PM', 'م'))
             );
@@ -142,6 +142,7 @@
             );
         }
 
+        const newsLotfySa3qan = { id: 57, title: "لطفي السقعان لبرنامج «ساعة رياضة»: الكرة المصرية تدار بالفهلوة ونحتاج بورصة لتسعير اللاعبين", program: "ساعة رياضة", image: "https://iili.io/C8sWhrP.md.png", time: "31 يوليو 2026 - 03:32 ص", link: "https://lotfysa3qan.vercel.app/" };
         const newsEssamShaltoot = { id: 56, title: "شلتوت لبرنامج «90 دقيقة كورة»: إدوارد تنازل عن الملايين واختيارات الجبلاية بالمجاملات", program: "90 دقيقة كورة", image: "https://iili.io/C8gLGbS.md.png", time: "30 يوليو 2026 - 10:47 م", link: "https://essamshaltoot.vercel.app/" };
         const newsEhabSalah = { id: 55, title: "إيهاب صلاح لبرنامج «90 دقيقة كورة»: ناشئات اليد قهرن أوروبا ومنظومتنا قدوة", program: "90 دقيقة كورة", image: "https://iili.io/C8gX7vR.md.png", time: "30 يوليو 2026 - 10:28 م", link: "https://ehabsalah.vercel.app/" };
         const newsHassanKhalafallah = { id: 54, title: "خلف الله لبرنامج «استفتاء على الهوا»: الزمالك يتخبط إداريا ومناصب الجبلاية بالمجاملات", program: "استفتاء على الهوا", image: "https://iili.io/C8gTKG9.md.png", time: "30 يوليو 2026 - 10:16 م", link: "https://hassankhalafallah.vercel.app/" };
@@ -178,8 +179,8 @@
         const newsFadelAssiri = { id: 7, title: "فضل العسيري يكشف صفقات بيراميدز والأهلي ومستقبل صلاح ببرنامج «الرياضة في الميزان»", program: "الرياضة في الميزان", image: "https://f.top4top.io/p_3858o8a2z0.png", time: "25 يوليو 2026 - 09:10 م", link: "https://5687647644.vercel.app/" };
         const newsMohamedDaoud = { id: 8, title: "الدكتور محمد داود يوضح أهمية ترشيد استهلاك نعمة الماء ببرنامج «ربيع القلوب»", program: "ربيع القلوب", image: "https://i.top4top.io/p_3857p8anp0.png", time: "25 يوليو 2026 - 04:14 ص", link: "https://758863568.vercel.app/" };
         
-        const sliderNews = [newsEssamShaltoot, newsEhabSalah, newsHassanKhalafallah, newsAlaaEzat, newsRamyBeshay];
-        const listNews = [newsEssamShaltoot, newsEhabSalah, newsHassanKhalafallah, newsAlaaEzat, newsRamyBeshay, newsTarekNewSlider, newsAboayed, newsElbenhawy, newsMohamedHany, newsMahmoudSabry, newsDya3a, newsAdelTeama, newsMansourMegahed, newsAhmedBahy, newsAmalFouad, newsGehadGeresha, newsWaelFouad, newsSaraElGamal, newsIbrahimElQadi, newsMahaRadwan, newsAliAbdelRadi, newsEmadGohnim, newsMohamedAwny, newsMarwaAdel, newsEmanRamadan, newsMohamedHamdy, newsEssamSalem, newsTarekRamadanNew, newsRehabRahmawy, newsShrifKhshab, newsKhaledSaad, newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsMohamedDaoud];
+        const sliderNews = [newsLotfySa3qan, newsEssamShaltoot, newsEhabSalah, newsHassanKhalafallah, newsAlaaEzat];
+        const listNews = [newsLotfySa3qan, newsEssamShaltoot, newsEhabSalah, newsHassanKhalafallah, newsAlaaEzat, newsRamyBeshay, newsTarekNewSlider, newsAboayed, newsElbenhawy, newsMohamedHany, newsMahmoudSabry, newsDya3a, newsAdelTeama, newsMansourMegahed, newsAhmedBahy, newsAmalFouad, newsGehadGeresha, newsWaelFouad, newsSaraElGamal, newsIbrahimElQadi, newsMahaRadwan, newsAliAbdelRadi, newsEmadGohnim, newsMohamedAwny, newsMarwaAdel, newsEmanRamadan, newsMohamedHamdy, newsEssamSalem, newsTarekRamadanNew, newsRehabRahmawy, newsShrifKhshab, newsKhaledSaad, newsAminOmar, newsYasmineYehia, newsFadelAssiri, newsMohamedDaoud];
         
         function LiveProgram() {
             return createElement('div', { className: 'mx-3 my-4 bg-gray-900 text-white rounded-2xl border border-red-600 shadow-xl p-4 flex flex-col gap-3' },
