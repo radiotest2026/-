@@ -102,6 +102,14 @@
             );
         }
 
+        function ThemeToggle({ isDark, onToggle }) {
+            return createElement('button', {
+                onClick: onToggle,
+                className: 'w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm active:scale-95 transition-transform cursor-pointer shadow-sm text-yellow-400',
+                title: isDark ? 'الوضع الفاتح' : 'الوضع الداكن'
+            }, isDark ? '☀️' : '💡');
+        }
+
         function LiveClockWidget() {
             const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }));
             useEffect(() => {
@@ -193,8 +201,8 @@
                                 createElement('span', { className: 'w-2 h-2 bg-green-500 rounded-full animate-fade-pulse' }),
                                 createElement('span', { className: 'text-[10px] text-yellow-400 font-bold' }, 'تستمعون الآن')
                             ),
-                            createElement('div', { className: 'text-[15px] font-black text-white leading-tight mt-0.5' }, 'مع السهرانين'),
-                            createElement('div', { className: 'text-[10px] text-white/80 font-bold mt-0.5' }, 'مع الاعلامي محمود عبد الرحيم')
+                            createElement('div', { className: 'text-[15px] font-black text-white leading-tight mt-0.5' }, 'نقل مباشر لصلاة الجمعة'),
+                            createElement('div', { className: 'text-[10px] text-white/80 font-bold mt-0.5' }, 'تقبل الله منا ومنكم')
                         )
                     ),
                     createElement(LiveClockWidget)
@@ -283,6 +291,8 @@
             const [showAll, setShowAll] = useState(false);
             const [activeModalUrl, setActiveModalUrl] = useState(null);
 
+            const [darkMode, setDarkMode] = useState(false);
+
             useEffect(() => {
                 const handleOpenModal = (e) => { 
                     setActiveModalUrl(e.detail); 
@@ -325,7 +335,7 @@
                 }
             };
 
-            return createElement('div', { className: 'min-h-screen flex flex-col bg-gray-50' },
+            return createElement('div', { className: `min-h-screen flex flex-col ${darkMode ? 'bg-[#121212] text-white' : 'bg-gray-50'}` },
                 createElement('header', { className: 'bg-blue-950 text-white p-3 shadow-2xl sticky top-0 z-50 rounded-b-[2rem] pb-6' },
                     createElement('div', { className: 'max-w-6xl mx-auto flex items-center justify-between' },
                         createElement('div', { className: 'flex items-center gap-2' },
@@ -338,7 +348,7 @@
                                 createElement('svg', { className: 'w-3 h-3 text-red-600 fill-current animate-play-blink', viewBox: '0 0 24 24' }, createElement('path', { d: 'M8 5v14l11-7z' })),
                                 'اسمع الآن'
                             ),
-                            createElement(Clock)
+                            createElement(ThemeToggle, { isDark: darkMode, onToggle: () => setDarkMode(!darkMode) })
                         ),
                         createElement('a', { href: 'https://www.facebook.com/share/1bzDzdVHfh/', target: '_blank' }, createElement('img', { src: 'https://i.postimg.cc/B61C0pPF/images.png', className: 'w-6 h-6 rounded-full object-cover border border-white/20', referrerPolicy: 'no-referrer', alt: 'فيسبوك' }))
                     )
@@ -362,12 +372,12 @@
                             target: '_self', 
                             rel: 'noopener noreferrer', 
                             onClick: (e) => handleNewsClick(e, news),
-                            className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 block' 
+                            className: `${darkMode ? 'bg-gray-900 border-gray-800 text-white' : 'bg-white border-gray-200 text-gray-800'} p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border block` 
                         },
                             createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer', alt: 'صورة الخبر المصغرة' })),
                             createElement('div', { className: 'flex-1 overflow-hidden' },
                                 createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
-                                createElement('h2', { className: 'font-bold text-sm leading-tight text-gray-800' }, news.title),
+                                createElement('h2', { className: `font-bold text-sm leading-tight ${darkMode ? 'text-white' : 'text-gray-800'}` }, news.title),
                                 createElement('div', { className: 'text-[9px] text-gray-400 mt-0.5' }, news.time)
                             )
                         )
@@ -379,12 +389,12 @@
                         target: '_self', 
                         rel: 'noopener noreferrer', 
                         onClick: (e) => handleNewsClick(e, news),
-                        className: 'bg-white p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border border-gray-200 block' 
+                        className: `${darkMode ? 'bg-gray-900 border-gray-800 text-white' : 'bg-white border-gray-200 text-gray-800'} p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border block` 
                     },
                         createElement('div', { className: 'relative p-0.5 rounded-full animate-red-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer', alt: 'صورة الخبر المصغرة' })),
                         createElement('div', { className: 'flex-1 overflow-hidden' },
                             createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-red-600 animate-blink' }), createElement('span', { className: 'bg-red-600 text-white text-[9px] px-1.5 py-0.5 rounded' }, news.program)),
-                            createElement('h2', { className: 'font-bold text-sm leading-tight text-gray-800' }, news.title),
+                            createElement('h2', { className: `font-bold text-sm leading-tight ${darkMode ? 'text-white' : 'text-gray-800'}` }, news.title),
                             createElement('div', { className: 'text-[9px] text-gray-400 mt-0.5' }, news.time)
                         )
                     )),
@@ -413,7 +423,7 @@
                             'العودة للرئيسية'
                         )
                     ),
-                    createElement('div', { 
+                    createElement('form', { 
                         className: 'bg-white w-screen flex-grow flex flex-col relative overflow-hidden',
                         onClick: (e) => e.stopPropagation()
                     },
@@ -425,7 +435,7 @@
                     )
                 ),
 
-                    createElement('footer', { className: 'bg-blue-950 text-white text-center py-4 mt-auto font-black text-xs border-t-4 border-yellow-500' },
+                createElement('footer', { className: 'bg-blue-950 text-white text-center py-4 mt-auto font-black text-xs border-t-4 border-yellow-500' },
                     'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'
                 )
             );
