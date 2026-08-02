@@ -407,8 +407,24 @@
         function App() {
             const [showAll, setShowAll] = useState(false);
             const [activeModalUrl, setActiveModalUrl] = useState(null);
+            const [showNav, setShowNav] = useState(true);
 
             const [darkMode, setDarkMode] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    const scrollY = window.scrollY;
+                    const windowHeight = window.innerHeight;
+                    const docHeight = document.documentElement.scrollHeight;
+                    if (scrollY === 0 || (windowHeight + scrollY >= docHeight - 15)) {
+                        setShowNav(true);
+                    } else {
+                        setShowNav(false);
+                    }
+                };
+                window.addEventListener('scroll', handleScroll, { passive: true });
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
 
             useEffect(() => {
                 const handleOpenModal = (e) => { 
@@ -570,6 +586,31 @@
                             className: 'w-full flex-grow border-0 bg-white overflow-y-auto',
                             title: 'محتوى الخبر'
                         })
+                    )
+                ),
+
+                createElement('nav', { 
+                    className: `fixed bottom-3 left-4 right-4 max-w-[380px] mx-auto z-40 bg-blue-950/95 backdrop-blur-md border border-yellow-500/40 flex items-center justify-around py-2 shadow-2xl rounded-full transition-all duration-300 transform ${showNav ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}` 
+                },
+                    createElement('button', {
+                        onClick: () => {
+                            setActiveModalUrl(null);
+                            document.body.classList.remove('modal-open');
+                        },
+                        className: `flex flex-col items-center gap-0.5 px-6 py-1 rounded-full transition-all cursor-pointer ${!activeModalUrl ? 'text-yellow-400 font-black scale-105' : 'text-white/70 font-bold hover:text-white'}`
+                    },
+                        createElement('i', { className: 'fa-solid fa-house text-sm' }),
+                        createElement('span', { className: 'text-[10px]' }, 'الرئيسية')
+                    ),
+                    createElement('button', {
+                        onClick: () => {
+                            setActiveModalUrl('https://shababwryadhmedia.vercel.app/');
+                            document.body.classList.add('modal-open');
+                        },
+                        className: `flex flex-col items-center gap-0.5 px-6 py-1 rounded-full transition-all cursor-pointer ${activeModalUrl === 'https://shababwryadhmedia.vercel.app/' ? 'text-yellow-400 font-black scale-105' : 'text-white/70 font-bold hover:text-white'}`
+                    },
+                        createElement('i', { className: 'fa-solid fa-photo-film text-sm' }),
+                        createElement('span', { className: 'text-[10px]' }, 'ميديا')
                     )
                 ),
 
