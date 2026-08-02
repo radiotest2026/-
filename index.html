@@ -154,7 +154,7 @@
         const newsEhabSalah = { id: 55, title: "إيهاب صلاح لبرنامج «90 دقيقة كورة»: ناشئات اليد قهرن أوروبا ومنظومتنا قدوة", program: "90 دقيقة كورة", image: "https://iili.io/C8gX7vR.md.png", time: "30 يوليو 2026 - 10:28 م", link: "https://ehabsalah.vercel.app/" };
         const newsHassanKhalafallah = { id: 54, title: "خلف الله لبرنامج «استفتاء على الهوا»: الزمالك يتخبط إداريا ومناصب الجبلاية بالمجاملات", program: "استفتاء على الهوا", image: "https://iili.io/C8gTKG9.md.png", time: "30 يوليو 2026 - 10:16 م", link: "https://hassankhalafallah.vercel.app/" };
         const newsAlaaEzat = { id: 53, title: "علاء عزت لبرنامج «استفتاء على الهوا»: وكيل عاشور ينتقم من الأهلي بالشائعات", program: "استفتاء على الهوا", image: "https://iili.io/C8Ug1zG.md.png", time: "30 يوليو 2026 - 09:56 م", link: "https://alaaezat.vercel.app/" };
-        const newsRamyBeshay = { id: 52, title: "رامي بشاي لبرنامج «صباحكو رياضة»: إدوard رحل باحترافية والزمالك يخشى فخ الأجانب", program: "صباحكو رياضة", image: "https://iili.io/C8UCbXn.md.png", time: "30 يوليو 2026 - 09:42 م", link: "https://ramybeshay.vercel.app/" };
+        const newsRamyBeshay = { id: 52, title: "رامي بشاي لبرنامج «صباحكو رياضة»: إدوارد رحل باحترافية والزمالك يخشى فخ الأجانب", program: "صباحكو رياضة", image: "https://iili.io/C8UCbXn.md.png", time: "30 يوليو 2026 - 09:42 م", link: "https://ramybeshay.vercel.app/" };
         const newsTarekNewSlider = { id: 51, title: "طارق رمضان لبرنامج «صباحكو رياضة»: السرية تدمر التحكيم وتخبط اتحاد الكرة مستمر", program: "صباحكو رياضة", image: "https://iili.io/C8SsmiJ.md.png", time: "30 يوليو 2026 - 09:15 م", link: "https://tarekramadan2.vercel.app/" };
         const newsAboayed = { id: 50, title: "أبو عايد لبرنامج «ضربة حرة»: نرفض تسييس الرياضة وتتويج الزمالك بتعثر المنافسين", program: "ضربة حرة", image: "https://b.top4top.io/p_3862rk32h0.png", time: "30 يوليو 2026 - 03:37 ص", link: "https://aboayed.vercel.app" };
         const newsElbenhawy = { id: 49, title: "البنهاوي لبرنامج «90 دقيقة كورة»: إدوارد قاد تمردا بالزمالك ومعتمد جمال مستمر", program: "90 دقيقة كورة", image: "https://h.top4top.io/p_3862tzlla0.png", time: "30 يوليو 2026 - 03:28 ص", link: "https://elbenhawy.vercel.app/" };
@@ -163,14 +163,14 @@
         const listNews = [newsAymanDegesh, newsAmalFouad, newsHossamSharkawey, newsSamhSaid, newsSeifHousseiny, newsNogoumEskou, newsAshrafAbdalnaser, newsElHaj, newsHussienFarmawy, newsDaliaHamza, newsSamehOthman, newsEssamSalemMa3WlaDed, newsIslamMohamed, newsEssamSalemNew, newsLotfySa3qan, newsEssamShaltoot, newsEhabSalah, newsHassanKhalafallah, newsAlaaEzat, newsRamyBeshay, newsTarekNewSlider, newsAboayed, newsElbenhawy];
 
         function AnimatedHornIcon() {
-            const [state, setState] = useState(0); // 0: muted (with slash), 1: unmuted (no slash)
+            const [state, setState] = useState(0);
             useEffect(() => {
                 const interval = setInterval(() => {
                     setState(prev => (prev === 0 ? 1 : 0));
                 }, 750);
                 return () => clearInterval(interval);
             }, []);
-            return createElement('span', { className: 'inline-block mx-1 relative' },
+            return createElement('span', { className: 'inline-flex items-center mx-1 align-middle' },
                 createElement('i', {
                     className: `fa-solid ${state === 0 ? 'fa-volume-xmark text-red-500' : 'fa-volume-high text-green-600'} transition-all duration-300 scale-110`
                 })
@@ -183,10 +183,10 @@
             return createElement('div', { className: 'w-full bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm p-3 flex flex-col gap-2.5' },
                 createElement('div', { className: 'flex items-center justify-between flex-wrap gap-1' },
                     createElement('div', { className: 'flex items-center gap-2' },
-                        createElement('div', { className: `w-2.5 h-2.5 rounded-full ${activePlayer ? 'bg-green-500 animate-ping' : 'bg-red-500'}` }),
-                        createElement('span', { className: 'text-xs font-black text-gray-800 flex items-center flex-wrap' },
+                        createElement('div', { className: 'w-2.5 h-2.5 rounded-full bg-green-500 animate-ping' }),
+                        createElement('span', { className: 'text-[11px] font-black text-gray-800 flex items-center flex-wrap' },
                             activePlayer ? createElement(React.Fragment, null,
-                                'البث المباشر يعمل (اضغط على زر المايك ',
+                                'البث المباشر يعمل (اضغط على المستطيل الأسود ثم اضغط على زر المايك ',
                                 createElement(AnimatedHornIcon),
                                 ' لسماع الصوت)'
                             ) : 'البث المباشر متوقف'
