@@ -414,6 +414,7 @@
             const [currentIndex, setCurrentIndex] = useState(0);
             const [zoomedIndex, setZoomedIndex] = useState(null);
             const images = [
+                "https://iili.io/CSkQjTv.md.png",
                 "https://d.top4top.io/p_3861mgsvr0.png",
                 "https://iili.io/C8LvjUv.md.png",
                 "https://iili.io/C8LvNJR.md.png",
@@ -626,7 +627,8 @@
             const part2 = listNews.slice(3, 6);
             const part3 = listNews.slice(6, 9);
             const remaining = listNews.slice(9);
-            const visibleRemaining = showAll ? remaining : remaining.slice(0, 6);
+            const visibleRemaining = showAll ? remaining : remaining.slice(0, 10);
+            const hasMore = remaining.length > 10 && !showAll;
 
             return createElement('div', { className: `min-h-screen flex flex-col ${darkMode ? 'bg-[#121212] text-white' : 'bg-gray-50'}` },
                 createElement('header', { className: 'bg-[#15803d] text-white p-3 shadow-2xl sticky top-0 z-50 rounded-b-[2rem] pb-6' },
@@ -698,7 +700,10 @@
 
                     visibleRemaining.map(renderNewsCard),
 
-                    !showAll && createElement('button', { onClick: () => setShowAll(true), className: 'w-full bg-[#15803d] text-white py-3 rounded-2xl font-black text-sm mb-6 shadow-lg active:scale-95 transition-all hover:bg-green-700 border border-yellow-400/40' }, 'عرض المزيد من الأخبار')
+                    !showAll && remaining.length > 0 && createElement('button', { 
+                        onClick: () => setShowAll(true), 
+                        className: 'w-full bg-[#15803d] text-white py-3 rounded-2xl font-black text-sm mb-6 shadow-lg active:scale-95 transition-all hover:bg-green-700 border border-yellow-400/40' 
+                    }, 'عرض المزيد من الأخبار')
                 ),
                 
                 activeModalUrl && createElement('div', { 
