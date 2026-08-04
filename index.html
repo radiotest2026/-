@@ -263,6 +263,8 @@
 
         function MasperoPlayer() {
             const [activePlayer, setActivePlayer] = useState(false);
+            const [statusText, setStatusText] = useState("البث المباشر متوقف");
+            const countdownTimer = useRef(null);
 
             const [radioListeners, setRadioListeners] = useState(() => {
                 const key = 'pure_real_radio_listeners';
@@ -277,29 +279,52 @@
             const handlePlayRadio = () => {
                 if (!activePlayer) {
                     setActivePlayer(true);
+                    let count = 5;
+                    setStatusText(`سيتم تشغيل البث بعد ${count}`);
+                    
+                    if (countdownTimer.current) clearInterval(countdownTimer.current);
+
+                    countdownTimer.current = setInterval(() => {
+                        count -= 1;
+                        if (count > 0) {
+                            setStatusText(`سيتم تشغيل البث بعد ${count}`);
+                        } else {
+                            clearInterval(countdownTimer.current);
+                            setStatusText("البث المباشر يعمل");
+                        }
+                    }, 1000);
+
                     const key = 'pure_real_radio_listeners';
                     const sessionKey = 'pure_real_radio_session';
                     if (!sessionStorage.getItem(sessionKey)) {
-                        let count = parseInt(localStorage.getItem(key)) || 0;
-                        count += 1;
-                        localStorage.setItem(key, count);
+                        let listenersCount = parseInt(localStorage.getItem(key)) || 0;
+                        listenersCount += 1;
+                        localStorage.setItem(key, listenersCount);
                         sessionStorage.setItem(sessionKey, 'true');
-                        setRadioListeners(count);
+                        setRadioListeners(listenersCount);
                     }
                 }
             };
 
             const handleStopRadio = () => {
+                if (countdownTimer.current) clearInterval(countdownTimer.current);
                 setActivePlayer(false);
+                setStatusText("البث المباشر متوقف");
+            };
+
+            // If iframe loads successfully, assume sound/stream is live and instantly mark as working
+            const handleIframeLoad = () => {
+                if (activePlayer) {
+                    if (countdownTimer.current) clearInterval(countdownTimer.current);
+                    setStatusText("البث المباشر يعمل");
+                }
             };
 
             return createElement('div', { className: 'w-full bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm p-3 flex flex-col gap-2.5 [touch-action:pan-y]' },
                 createElement('div', { className: 'flex items-center justify-between flex-wrap gap-1' },
                     createElement('div', { className: 'flex items-center gap-2' },
-                        createElement('div', { className: `w-2.5 h-2.5 rounded-full ${activePlayer ? 'bg-green-500 animate-ping' : 'bg-green-500'}` }),
-                        createElement('span', { className: 'text-xs font-black text-gray-800' },
-                            activePlayer ? 'البث المباشر يعمل' : 'البث المباشر متوقف'
-                        )
+                        createElement('div', { className: `w-2.5 h-2.5 rounded-full ${statusText.includes("يعمل") ? 'bg-green-500 animate-ping' : (statusText.includes("بعد") ? 'bg-yellow-500 animate-bounce' : 'bg-red-500')}` }),
+                        createElement('span', { className: 'text-xs font-black text-gray-800' }, statusText)
                     ),
                     createElement('div', { className: 'flex items-center gap-1.5' },
                         createElement('button', {
@@ -328,6 +353,7 @@
                 activePlayer && createElement('div', { className: 'w-full bg-white rounded-lg overflow-hidden border border-gray-200 p-2 flex items-center justify-center [touch-action:pan-y]' },
                     createElement('iframe', {
                         src: 'https://www.maspero.eg/stream/11',
+                        onLoad: handleIframeLoad,
                         className: 'w-full h-[60px] border-0 bg-white rounded',
                         scrolling: 'no',
                         allow: 'autoplay',
@@ -485,7 +511,6 @@
                 return total;
             });
 
-            // Handle direct deep-link or shared Vercel link tracking on initial load
             useEffect(() => {
                 const checkDirectLinkView = () => {
                     const currentUrl = window.location.href;
