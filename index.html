@@ -264,6 +264,35 @@
         function MasperoPlayer() {
             const [activePlayer, setActivePlayer] = useState(false);
 
+            const [radioListeners, setRadioListeners] = useState(() => {
+                const key = 'pure_real_radio_listeners';
+                let count = parseInt(localStorage.getItem(key));
+                if (isNaN(count)) {
+                    count = 0;
+                    localStorage.setItem(key, count);
+                }
+                return count;
+            });
+
+            const handlePlayRadio = () => {
+                if (!activePlayer) {
+                    setActivePlayer(true);
+                    const key = 'pure_real_radio_listeners';
+                    const sessionKey = 'pure_real_radio_session';
+                    if (!sessionStorage.getItem(sessionKey)) {
+                        let count = parseInt(localStorage.getItem(key)) || 0;
+                        count += 1;
+                        localStorage.setItem(key, count);
+                        sessionStorage.setItem(sessionKey, 'true');
+                        setRadioListeners(count);
+                    }
+                }
+            };
+
+            const handleStopRadio = () => {
+                setActivePlayer(false);
+            };
+
             return createElement('div', { className: 'w-full bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm p-3 flex flex-col gap-2.5 [touch-action:pan-y]' },
                 createElement('div', { className: 'flex items-center justify-between flex-wrap gap-1' },
                     createElement('div', { className: 'flex items-center gap-2' },
@@ -274,22 +303,27 @@
                     ),
                     createElement('div', { className: 'flex items-center gap-1.5' },
                         createElement('button', {
-                            onClick: () => setActivePlayer(true),
+                            onClick: handlePlayRadio,
                             disabled: activePlayer,
-                            className: `px-3 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1 transition-all shadow-sm cursor-pointer ${activePlayer ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-green-600 text-white hover:bg-green-700 active:scale-95'}`
+                            className: `px-3 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1 transition-all shadow-sm cursor-pointer ${activePlayer ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-[#15803d] text-white hover:bg-green-700 active:scale-95'}`
                         },
                             createElement('i', { className: 'fa-solid fa-play text-[10px]' }),
                             'تشغيل'
                         ),
                         createElement('button', {
-                            onClick: () => setActivePlayer(false),
+                            onClick: handleStopRadio,
                             disabled: !activePlayer,
-                            className: `px-3 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1 transition-all shadow-sm cursor-pointer ${!activePlayer ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-green-600 text-white hover:bg-green-700 active:scale-95'}`
+                            className: `px-3 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1 transition-all shadow-sm cursor-pointer ${!activePlayer ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-[#15803d] text-white hover:bg-green-700 active:scale-95'}`
                         },
                             createElement('i', { className: 'fa-solid fa-stop text-[10px]' }),
                             'إيقاف'
                         )
                     )
+                ),
+                createElement('div', { className: 'flex items-center justify-center gap-1 text-[11px] font-bold text-green-800 bg-green-50 py-1 px-2 rounded-lg border border-green-200 mt-1' },
+                    createElement('i', { className: 'fa-solid fa-headphones text-[10px]' }),
+                    createElement('span', {}, 'عدد المستمعون الآن:'),
+                    createElement('span', { className: 'font-black text-green-700' }, `${radioListeners.toLocaleString('ar-EG')} مستمع`)
                 ),
                 activePlayer && createElement('div', { className: 'w-full bg-white rounded-lg overflow-hidden border border-gray-200 p-2 flex items-center justify-center [touch-action:pan-y]' },
                     createElement('iframe', {
@@ -433,8 +467,42 @@
             const [showAll, setShowAll] = useState(false);
             const [activeModalUrl, setActiveModalUrl] = useState(null);
             const [showNav, setShowNav] = useState(true);
-
             const [darkMode, setDarkMode] = useState(false);
+
+            const [siteViews, setSiteViews] = useState(() => {
+                const key = 'pure_real_site_views';
+                const sessionKey = 'pure_real_site_session';
+                let total = parseInt(localStorage.getItem(key));
+                if (isNaN(total)) {
+                    total = 0;
+                    localStorage.setItem(key, total);
+                }
+                if (!sessionStorage.getItem(sessionKey)) {
+                    total += 1;
+                    localStorage.setItem(key, total);
+                    sessionStorage.setItem(sessionKey, 'true');
+                }
+                return total;
+            });
+
+            // Handle direct deep-link or shared Vercel link tracking on initial load
+            useEffect(() => {
+                const checkDirectLinkView = () => {
+                    const currentUrl = window.location.href;
+                    const matchedNews = listNews.find(n => currentUrl.includes(n.link.replace(/\/$/, "")));
+                    if (matchedNews) {
+                        const viewKey = `pure_news_views_${matchedNews.id}`;
+                        const sessionNewsKey = `pure_news_session_${matchedNews.id}`;
+                        let currentViews = parseInt(localStorage.getItem(viewKey)) || 0;
+                        if (!sessionStorage.getItem(sessionNewsKey)) {
+                            currentViews += 1;
+                            localStorage.setItem(viewKey, currentViews);
+                            sessionStorage.setItem(sessionNewsKey, 'true');
+                        }
+                    }
+                };
+                checkDirectLinkView();
+            }, []);
 
             useEffect(() => {
                 const handleScroll = () => {
@@ -485,26 +553,51 @@
             const handleNewsClick = (e, news) => {
                 if (news.link) {
                     e.preventDefault();
+                    const viewKey = `pure_news_views_${news.id}`;
+                    const sessionNewsKey = `pure_news_session_${news.id}`;
+                    let currentViews = parseInt(localStorage.getItem(viewKey));
+                    if (isNaN(currentViews)) {
+                        currentViews = 0;
+                    }
+                    if (!sessionStorage.getItem(sessionNewsKey)) {
+                        currentViews += 1;
+                        localStorage.setItem(viewKey, currentViews);
+                        sessionStorage.setItem(sessionNewsKey, 'true');
+                    }
                     setActiveModalUrl(news.link);
                     document.body.classList.add('modal-open');
                 }
             };
 
-            const renderNewsCard = (news) => createElement('a', { 
-                key: news.id, 
-                href: news.link, 
-                target: '_self', 
-                rel: 'noopener noreferrer', 
-                onClick: (e) => handleNewsClick(e, news),
-                className: `${darkMode ? 'bg-gray-900 border-gray-800 text-white' : 'bg-white border-gray-200 text-gray-800'} p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border block` 
-            },
-                createElement('div', { className: 'relative p-0.5 rounded-full animate-green-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer', alt: 'صورة الخبر المصغرة' })),
-                createElement('div', { className: 'flex-1 overflow-hidden' },
-                    createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-green-600 animate-blink' }), createElement('span', { className: 'bg-[#15803d] text-white text-[9px] px-1.5 py-0.5 rounded font-bold' }, news.program)),
-                    createElement('h2', { className: `font-bold text-sm leading-tight ${darkMode ? 'text-white' : 'text-gray-900'}` }, news.title),
-                    createElement('div', { className: 'text-[9px] text-gray-500 mt-0.5 font-medium' }, news.time)
-                )
-            );
+            const renderNewsCard = (news) => {
+                const viewKey = `pure_news_views_${news.id}`;
+                let views = parseInt(localStorage.getItem(viewKey));
+                if (isNaN(views)) {
+                    views = 0;
+                }
+
+                return createElement('a', { 
+                    key: news.id, 
+                    href: news.link, 
+                    target: '_self', 
+                    rel: 'noopener noreferrer', 
+                    onClick: (e) => handleNewsClick(e, news),
+                    className: `${darkMode ? 'bg-gray-900 border-gray-800 text-white' : 'bg-white border-gray-200 text-gray-800'} p-3 rounded-2xl mb-3 shadow-sm flex items-center gap-3 active-scale cursor-pointer border block` 
+                },
+                    createElement('div', { className: 'relative p-0.5 rounded-full animate-green-ring-pulse shrink-0' }, createElement('img', { src: news.image, className: 'w-14 h-14 rounded-full object-cover', referrerPolicy: 'no-referrer', alt: 'صورة الخبر المصغرة' })),
+                    createElement('div', { className: 'flex-1 overflow-hidden' },
+                        createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-green-600 animate-blink' }), createElement('span', { className: 'bg-[#15803d] text-white text-[9px] px-1.5 py-0.5 rounded font-bold' }, news.program)),
+                        createElement('h2', { className: `font-bold text-sm leading-tight ${darkMode ? 'text-white' : 'text-gray-900'}` }, news.title),
+                        createElement('div', { className: 'text-[9px] text-gray-500 mt-0.5 font-medium flex items-center justify-between' },
+                            createElement('span', {}, news.time),
+                            createElement('span', { className: 'flex items-center gap-1 text-green-700 font-bold bg-green-50 px-2 py-0.5 rounded-full border border-green-200' },
+                                createElement('i', { className: 'fa-solid fa-eye text-[8px]' }),
+                                `${views.toLocaleString('ar-EG')} مشاهدة`
+                            )
+                        )
+                    )
+                );
+            };
 
             const part1 = listNews.slice(0, 3);
             const part2 = listNews.slice(3, 6);
@@ -523,8 +616,12 @@
                             createElement('svg', { className: 'w-3 h-3 text-green-700 fill-current animate-play-blink', viewBox: '0 0 24 24' }, createElement('path', { d: 'M8 5v14l11-7z' })),
                             'اسمع الآن'
                         ),
-                        createElement('div', { className: 'flex flex-col items-center gap-1' },
-                            createElement(ThemeToggle, { isDark: darkMode, onToggle: () => setDarkMode(!darkMode) })
+                        createElement('div', { className: 'flex flex-col items-end gap-1' },
+                            createElement(ThemeToggle, { isDark: darkMode, onToggle: () => setDarkMode(!darkMode) }),
+                            createElement('div', { className: 'text-[9px] text-yellow-300 font-bold flex items-center gap-1 whitespace-nowrap bg-black/20 px-2 py-0.5 rounded-full border border-yellow-400/30' },
+                                createElement('i', { className: 'fa-solid fa-eye text-[8px]' }),
+                                `${siteViews.toLocaleString('ar-EG')} زيارة`
+                            )
                         ),
                         createElement('a', { href: 'https://www.facebook.com/share/1bzDzdVHfh/', target: '_blank' }, createElement('img', { src: 'https://i.postimg.cc/B61C0pPF/images.png', className: 'w-6 h-6 rounded-full object-cover border border-white/30', referrerPolicy: 'no-referrer', alt: 'فيسبوك' }))
                     )
