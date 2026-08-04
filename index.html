@@ -312,7 +312,6 @@
                 setStatusText("البث المباشر متوقف");
             };
 
-            // If iframe loads successfully, assume sound/stream is live and instantly mark as working
             const handleIframeLoad = () => {
                 if (activePlayer) {
                     if (countdownTimer.current) clearInterval(countdownTimer.current);
@@ -415,7 +414,6 @@
             const [currentIndex, setCurrentIndex] = useState(0);
             const [zoomedIndex, setZoomedIndex] = useState(null);
             const images = [
-                "https://iili.io/CSkQjTv.md.png",
                 "https://d.top4top.io/p_3861mgsvr0.png",
                 "https://iili.io/C8LvjUv.md.png",
                 "https://iili.io/C8LvNJR.md.png",
