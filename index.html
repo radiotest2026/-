@@ -528,9 +528,9 @@
                     if (cloudList.length > 0) {
                         setListItems([...cloudList, ...initialListNews]);
                     }
-                    if (cloudSlider.length > 0) {
-                        setSliderItems([...cloudSlider, ...initialSliderNews]);
-                    }
+                    // قصر السلايدر على 5 أخبار فقط كحد أقصى بشكل دائم
+                    const combinedSlider = [...cloudSlider, ...initialSliderNews].slice(0, 5);
+                    setSliderItems(combinedSlider);
                 }).catch((error) => {
                     console.log("Error getting documents: ", error);
                 });
@@ -580,7 +580,7 @@
                     return;
                 }
 
-                // توليد التوقيت اللحظي الفوري والدقيق بالثانية والدقيقة
+                // التوقيت اللحظي الدقيق
                 const now = new Date();
                 const datePart = now.toLocaleDateString('ar-EG', { day: 'numeric', month: 'long', year: 'numeric' });
                 const timePart = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', hour12: true }).replace('AM', 'ص').replace('PM', 'م');
@@ -598,12 +598,10 @@
 
                 try {
                     if (editingId) {
-                        // تعديل الخبر الحالي
                         await db.collection("news").doc(editingId).update(newsObj);
                         alert('تم تحديث وتعديل الخبر بنجاح في السحاب!');
                         setEditingId(null);
                     } else {
-                        // نشر خبر جديد
                         newsObj.id = Date.now();
                         await db.collection("news").add(newsObj);
                         alert('تم نشر الخبر بنجاح في السحاب وسيراه جميع الزوار فوراً!');
