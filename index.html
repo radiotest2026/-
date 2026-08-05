@@ -41,7 +41,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 20;
+            z-index: 10;
             border: none;
             outline: none;
             cursor: pointer;
@@ -483,19 +483,23 @@
             const [darkMode, setDarkMode] = useState(false);
 
             useEffect(() => {
+                if (activeModalUrl) {
+                    setShowNav(true);
+                    return;
+                }
                 const handleScroll = () => {
                     const scrollY = window.scrollY;
                     const windowHeight = window.innerHeight;
                     const docHeight = document.documentElement.scrollHeight;
-                    if (scrollY === 0 || (windowHeight + scrollY >= docHeight - 15)) {
-                        setShowNav(true);
-                    } else {
+                    if (windowHeight + scrollY >= docHeight - 30) {
                         setShowNav(false);
+                    } else {
+                        setShowNav(true);
                     }
                 };
                 window.addEventListener('scroll', handleScroll, { passive: true });
                 return () => window.removeEventListener('scroll', handleScroll);
-            }, []);
+            }, [activeModalUrl]);
 
             useEffect(() => {
                 const handleOpenModal = (e) => { 
@@ -519,14 +523,6 @@
                     document.body.classList.remove('modal-open');
                 };
             }, [activeModalUrl]);
-
-            const closeModal = () => {
-                if (activeModalUrl) {
-                    setActiveModalUrl(null);
-                    document.body.classList.remove('modal-open');
-                    if (window.history.state && window.history.state.modalOpen) window.history.back();
-                }
-            };
 
             const handleNewsClick = (e, news) => {
                 if (news.link) {
@@ -564,7 +560,7 @@
             const hasMore = remaining.length > 10 && !showAll;
 
             return createElement('div', { className: `min-h-screen flex flex-col ${darkMode ? 'bg-[#121212] text-white' : 'bg-gray-50'}` },
-                createElement('header', { className: 'bg-[#15803d] text-white p-3 shadow-2xl sticky top-0 z-50 rounded-b-[2rem] pb-6' },
+                createElement('header', { className: 'bg-[#15803d] text-white p-3 shadow-2xl sticky top-0 z-20 rounded-b-[2rem] pb-6' },
                     createElement('div', { className: 'max-w-6xl mx-auto flex items-center justify-between' },
                         createElement('div', { className: 'flex items-center gap-2' },
                             createElement('img', { onClick: () => window.open('https://www.maspero.eg/stream/11', '_blank'), src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-[45px] h-[45px] rounded-full border-2 border-yellow-400 object-cover shadow-2xl animate-halo-pulse cursor-pointer', referrerPolicy: 'no-referrer', alt: 'شعار الإذاعة' }),
@@ -576,7 +572,7 @@
                         createElement('a', { href: 'https://www.facebook.com/share/1bzDzdVHfh/', target: '_blank' }, createElement('img', { src: 'https://i.postimg.cc/B61C0pPF/images.png', className: 'w-6 h-6 rounded-full object-cover border border-white/30', referrerPolicy: 'no-referrer', alt: 'فيسبوك' }))
                     )
                 ),
-                createElement('main', { className: 'flex-grow p-3 max-w-6xl mx-auto w-full' },
+                createElement('main', { className: 'flex-grow p-3 max-w-6xl mx-auto w-full pb-20' },
                     createElement(Slider),
                     createElement(LiveProgram),
                     
@@ -632,57 +628,44 @@
                 ),
                 
                 activeModalUrl && createElement('div', { 
-                    className: 'fixed inset-0 z-50 bg-[#15803d] flex flex-col items-center justify-center p-0 m-0 overflow-hidden'
+                    className: 'fixed inset-0 z-30 bg-white flex flex-col items-center justify-center p-0 m-0 overflow-hidden'
                 },
-                    createElement('div', { 
-                        className: 'bg-[#15803d] text-white px-4 py-3 flex items-center justify-between flex-shrink-0 shadow-lg z-30 w-full' 
-                    },
-                        createElement('div', { className: 'flex items-center gap-2.5' },
-                            createElement('img', { src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-9 h-9 rounded-full border-2 border-yellow-400 object-cover shadow-md', alt: 'شعار الإذاعة' }),
-                            createElement('div', { className: 'flex flex-col' },
-                                createElement('span', { className: 'font-black text-xs sm:text-sm text-yellow-300 tracking-tight' }, 'إذاعة الشباب والرياضة 108 FM'),
-                                createElement('span', { className: 'text-[9px] text-white/90 font-bold' }, 'البث الرقمي والتفاعلي')
-                            )
-                        ),
-                        createElement('button', { 
-                            className: 'bg-gradient-to-r from-yellow-500 to-yellow-600 text-green-950 px-3.5 py-1.5 rounded-full font-black text-xs flex items-center gap-2 hover:from-yellow-400 hover:to-yellow-500 transition-all shadow-md active:scale-95 border border-yellow-400 cursor-pointer',
-                            onClick: closeModal
-                        },
-                            createElement('i', { className: 'fa-solid fa-arrow-right text-xs' }),
-                            'العودة للرئيسية'
-                        )
-                    ),
-                    createElement('form', { 
-                        className: 'bg-white w-screen flex-grow flex flex-col relative overflow-hidden',
-                        onClick: (e) => e.stopPropagation()
-                    },
-                        createElement('iframe', { 
-                            src: activeModalUrl, 
-                            className: 'w-full flex-grow border-0 bg-white overflow-y-auto',
-                            title: 'محتوى الخبر'
-                        })
-                    )
+                    createElement('iframe', { 
+                        src: activeModalUrl, 
+                        className: 'w-full flex-grow border-0 bg-white overflow-y-auto pb-24',
+                        title: 'محتوى الخبر'
+                    })
                 ),
 
                 createElement('nav', { 
-                    className: `fixed bottom-3 left-4 right-4 max-w-[380px] mx-auto z-40 bg-[#15803d]/95 backdrop-blur-md border border-yellow-400/50 flex items-center justify-around py-2 shadow-2xl rounded-full transition-all duration-300 transform ${showNav ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}` 
+                    className: `fixed bottom-3 left-4 right-4 max-w-[380px] mx-auto z-[9999] bg-[#15803d]/95 backdrop-blur-md border border-yellow-400/50 flex items-center justify-around py-2 shadow-2xl rounded-full transition-all duration-300 transform ${showNav ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}` 
                 },
                     createElement('button', {
                         onClick: () => {
                             setActiveModalUrl(null);
                             document.body.classList.remove('modal-open');
                         },
-                        className: `flex flex-col items-center gap-0.5 px-6 py-1 rounded-full transition-all cursor-pointer ${!activeModalUrl ? 'text-yellow-300 font-black scale-105' : 'text-white/80 font-bold hover:text-white'}`
+                        className: `flex flex-col items-center gap-0.5 px-4 py-1 rounded-full transition-all cursor-pointer ${!activeModalUrl ? 'text-yellow-300 font-black scale-105' : 'text-white/80 font-bold hover:text-white'}`
                     },
                         createElement('i', { className: 'fa-solid fa-house text-sm' }),
                         createElement('span', { className: 'text-[10px]' }, 'الرئيسية')
                     ),
                     createElement('button', {
                         onClick: () => {
+                            setActiveModalUrl('https://newsshababeryadh.vercel.app/');
+                            document.body.classList.add('modal-open');
+                        },
+                        className: `flex flex-col items-center gap-0.5 px-4 py-1 rounded-full transition-all cursor-pointer ${activeModalUrl === 'https://newsshababeryadh.vercel.app/' ? 'text-yellow-300 font-black scale-105' : 'text-white/80 font-bold hover:text-white'}`
+                    },
+                        createElement('i', { className: 'fa-solid fa-bolt text-sm' }),
+                        createElement('span', { className: 'text-[10px]' }, 'لحظة بلحظة')
+                    ),
+                    createElement('button', {
+                        onClick: () => {
                             setActiveModalUrl('https://shababwryadhmedia.vercel.app/');
                             document.body.classList.add('modal-open');
                         },
-                        className: `flex flex-col items-center gap-0.5 px-6 py-1 rounded-full transition-all cursor-pointer ${activeModalUrl === 'https://shababwryadhmedia.vercel.app/' ? 'text-yellow-300 font-black scale-105' : 'text-white/80 font-bold hover:text-white'}`
+                        className: `flex flex-col items-center gap-0.5 px-4 py-1 rounded-full transition-all cursor-pointer ${activeModalUrl === 'https://shababwryadhmedia.vercel.app/' ? 'text-yellow-300 font-black scale-105' : 'text-white/80 font-bold hover:text-white'}`
                     },
                         createElement('i', { className: 'fa-solid fa-photo-film text-sm' }),
                         createElement('span', { className: 'text-[10px]' }, 'ميديا')
