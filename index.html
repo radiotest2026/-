@@ -546,6 +546,7 @@
             const [newTitle, setNewTitle] = useState('');
             const [newImage, setNewImage] = useState('');
             const [newLink, setNewLink] = useState('');
+            const [newProgram, setNewProgram] = useState('');
             const [newPlacement, setNewPlacement] = useState('both');
             const [editingId, setEditingId] = useState(null);
 
@@ -585,7 +586,7 @@
 
                 const newsObj = {
                     title: newTitle,
-                    program: "إذاعة الشباب",
+                    program: newProgram || "إذاعة الشباب والرياضة",
                     image: newImage || "https://iili.io/CgzIo9S.md.png",
                     time: timeNow,
                     link: newLink,
@@ -608,6 +609,7 @@
                     setNewTitle('');
                     setNewImage('');
                     setNewLink('');
+                    setNewProgram('');
                     setNewPlacement('both');
                 } catch (error) {
                     alert('حدث خطأ أثناء الحفظ السحابي: ' + error.message);
@@ -619,6 +621,7 @@
                 setNewTitle(item.title);
                 setNewImage(item.image);
                 setNewLink(item.link);
+                setNewProgram(item.program || '');
                 setNewPlacement(item.inSlider ? 'both' : 'list_only');
             };
 
@@ -631,6 +634,7 @@
                             setNewTitle('');
                             setNewImage('');
                             setNewLink('');
+                            setNewProgram('');
                         }
                         fetchCloudNews();
                         alert("تم حذف الخبر بنجاح!");
@@ -848,7 +852,7 @@
                     createElement('div', { className: 'bg-white rounded-2xl p-6 max-w-lg w-full shadow-2xl flex flex-col gap-4 text-right my-auto max-h-[90vh] overflow-y-auto' },
                         createElement('div', { className: 'flex items-center justify-between border-b pb-3 sticky top-0 bg-white z-10' },
                             createElement('h3', { className: 'font-black text-base text-[#15803d]' }, editingId ? 'تعديل الخبر الحالي' : 'لوحة التحكم - نشر خبر جديد'),
-                            createElement('button', { type: 'button', onClick: () => { setShowAdminPanel(false); setEditingId(null); setNewTitle(''); setNewImage(''); setNewLink(''); }, className: 'text-gray-400 hover:text-gray-600 font-bold text-lg' }, '✕')
+                            createElement('button', { type: 'button', onClick: () => { setShowAdminPanel(false); setEditingId(null); setNewTitle(''); setNewImage(''); setNewLink(''); setNewProgram(''); }, className: 'text-gray-400 hover:text-gray-600 font-bold text-lg' }, '✕')
                         ),
                         
                         createElement('form', { onSubmit: handleSaveNews, className: 'flex flex-col gap-3 border-b pb-4' },
@@ -858,6 +862,13 @@
                                 placeholder: 'عنوان الخبر...',
                                 value: newTitle,
                                 onChange: (e) => setNewTitle(e.target.value),
+                                className: 'w-full p-2.5 border border-gray-300 rounded-xl text-xs focus:outline-none focus:border-green-600'
+                            }),
+                            createElement('input', {
+                                type: 'text',
+                                placeholder: 'اسم البرنامج (مثال: صباحكو رياضة، زاوية عكسية)...',
+                                value: newProgram,
+                                onChange: (e) => setNewProgram(e.target.value),
                                 className: 'w-full p-2.5 border border-gray-300 rounded-xl text-xs focus:outline-none focus:border-green-600'
                             }),
                             createElement('input', {
@@ -890,7 +901,7 @@
                             createElement('div', { className: 'flex gap-2' },
                                 editingId && createElement('button', {
                                     type: 'button',
-                                    onClick: () => { setEditingId(null); setNewTitle(''); setNewImage(''); setNewLink(''); },
+                                    onClick: () => { setEditingId(null); setNewTitle(''); setNewImage(''); setNewLink(''); setNewProgram(''); },
                                     className: 'py-2.5 px-4 bg-gray-300 text-gray-800 rounded-xl font-bold text-xs'
                                 }, 'إلغاء التعديل'),
                                 createElement('button', { type: 'submit', className: 'flex-1 py-2.5 bg-[#15803d] text-white rounded-xl font-bold text-xs hover:bg-green-700 mt-1' }, editingId ? 'حفظ التعديلات' : 'نشر الخبر سحابياً')
@@ -923,7 +934,7 @@
                         ),
 
                         createElement('div', { className: 'flex justify-end mt-2' },
-                            createElement('button', { type: 'button', onClick: () => { setShowAdminPanel(false); setEditingId(null); setNewTitle(''); setNewImage(''); setNewLink(''); }, className: 'px-5 py-2 bg-gray-200 text-gray-800 rounded-xl font-bold text-xs' }, 'إغلاق اللوحة')
+                            createElement('button', { type: 'button', onClick: () => { setShowAdminPanel(false); setEditingId(null); setNewTitle(''); setNewImage(''); setNewLink(''); setNewProgram(''); }, className: 'px-5 py-2 bg-gray-200 text-gray-800 rounded-xl font-bold text-xs' }, 'إغلاق اللوحة')
                         )
                     )
                 )
