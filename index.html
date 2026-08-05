@@ -277,16 +277,6 @@
             const [statusText, setStatusText] = useState("البث المباشر متوقف");
             const countdownTimer = useRef(null);
 
-            const [radioListeners, setRadioListeners] = useState(() => {
-                const key = 'pure_real_radio_listeners';
-                let count = parseInt(localStorage.getItem(key));
-                if (isNaN(count)) {
-                    count = 0;
-                    localStorage.setItem(key, count);
-                }
-                return count;
-            });
-
             const handlePlayRadio = () => {
                 if (!activePlayer) {
                     setActivePlayer(true);
@@ -304,16 +294,6 @@
                             setStatusText("البث المباشر يعمل");
                         }
                     }, 1000);
-
-                    const key = 'pure_real_radio_listeners';
-                    const sessionKey = 'pure_real_radio_session';
-                    if (!sessionStorage.getItem(sessionKey)) {
-                        let listenersCount = parseInt(localStorage.getItem(key)) || 0;
-                        listenersCount += 1;
-                        localStorage.setItem(key, listenersCount);
-                        sessionStorage.setItem(sessionKey, 'true');
-                        setRadioListeners(listenersCount);
-                    }
                 }
             };
 
@@ -354,11 +334,6 @@
                             'إيقاف'
                         )
                     )
-                ),
-                createElement('div', { className: 'flex items-center justify-center gap-1 text-[11px] font-bold text-green-800 bg-green-50 py-1 px-2 rounded-lg border border-green-200 mt-1' },
-                    createElement('i', { className: 'fa-solid fa-headphones text-[10px]' }),
-                    createElement('span', {}, 'عدد المستمعون الآن:'),
-                    createElement('span', { className: 'font-black text-green-700' }, `${radioListeners.toLocaleString('ar-EG')} مستمع`)
                 ),
                 activePlayer && createElement('div', { className: 'w-full bg-white rounded-lg overflow-hidden border border-gray-200 p-2 flex items-center justify-center [touch-action:pan-y]' },
                     createElement('iframe', {
@@ -505,40 +480,6 @@
             const [showNav, setShowNav] = useState(true);
             const [darkMode, setDarkMode] = useState(false);
 
-            const [siteViews, setSiteViews] = useState(() => {
-                const key = 'pure_real_site_views';
-                const sessionKey = 'pure_real_site_session';
-                let total = parseInt(localStorage.getItem(key));
-                if (isNaN(total)) {
-                    total = 0;
-                    localStorage.setItem(key, total);
-                }
-                if (!sessionStorage.getItem(sessionKey)) {
-                    total += 1;
-                    localStorage.setItem(key, total);
-                    sessionStorage.setItem(sessionKey, 'true');
-                }
-                return total;
-            });
-
-            useEffect(() => {
-                const checkDirectLinkView = () => {
-                    const currentUrl = window.location.href;
-                    const matchedNews = listNews.find(n => currentUrl.includes(n.link.replace(/\/$/, "")));
-                    if (matchedNews) {
-                        const viewKey = `pure_news_views_${matchedNews.id}`;
-                        const sessionNewsKey = `pure_news_session_${matchedNews.id}`;
-                        let currentViews = parseInt(localStorage.getItem(viewKey)) || 0;
-                        if (!sessionStorage.getItem(sessionNewsKey)) {
-                            currentViews += 1;
-                            localStorage.setItem(viewKey, currentViews);
-                            sessionStorage.setItem(sessionNewsKey, 'true');
-                        }
-                    }
-                };
-                checkDirectLinkView();
-            }, []);
-
             useEffect(() => {
                 const handleScroll = () => {
                     const scrollY = window.scrollY;
@@ -588,29 +529,12 @@
             const handleNewsClick = (e, news) => {
                 if (news.link) {
                     e.preventDefault();
-                    const viewKey = `pure_news_views_${news.id}`;
-                    const sessionNewsKey = `pure_news_session_${news.id}`;
-                    let currentViews = parseInt(localStorage.getItem(viewKey));
-                    if (isNaN(currentViews)) {
-                        currentViews = 0;
-                    }
-                    if (!sessionStorage.getItem(sessionNewsKey)) {
-                        currentViews += 1;
-                        localStorage.setItem(viewKey, currentViews);
-                        sessionStorage.setItem(sessionNewsKey, 'true');
-                    }
                     setActiveModalUrl(news.link);
                     document.body.classList.add('modal-open');
                 }
             };
 
             const renderNewsCard = (news) => {
-                const viewKey = `pure_news_views_${news.id}`;
-                let views = parseInt(localStorage.getItem(viewKey));
-                if (isNaN(views)) {
-                    views = 0;
-                }
-
                 return createElement('a', { 
                     key: news.id, 
                     href: news.link, 
@@ -623,12 +547,8 @@
                     createElement('div', { className: 'flex-1 overflow-hidden' },
                         createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-green-600 animate-blink' }), createElement('span', { className: 'bg-[#15803d] text-white text-[9px] px-1.5 py-0.5 rounded font-bold' }, news.program)),
                         createElement('h2', { className: `font-bold text-sm leading-tight ${darkMode ? 'text-white' : 'text-gray-900'}` }, news.title),
-                        createElement('div', { className: 'text-[9px] text-gray-500 mt-0.5 font-medium flex items-center justify-between' },
-                            createElement('span', {}, news.time),
-                            createElement('span', { className: 'flex items-center gap-1 text-green-700 font-bold bg-green-50 px-2 py-0.5 rounded-full border border-green-200' },
-                                createElement('i', { className: 'fa-solid fa-eye text-[8px]' }),
-                                `${views.toLocaleString('ar-EG')} مشاهدة`
-                            )
+                        createElement('div', { className: 'text-[9px] text-gray-500 mt-0.5 font-medium' },
+                            createElement('span', {}, news.time)
                         )
                     )
                 );
@@ -648,16 +568,8 @@
                             createElement('img', { onClick: () => window.open('https://www.maspero.eg/stream/11', '_blank'), src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-[45px] h-[45px] rounded-full border-2 border-yellow-400 object-cover shadow-2xl animate-halo-pulse cursor-pointer', referrerPolicy: 'no-referrer', alt: 'شعار الإذاعة' }),
                             createElement('div', { className: 'whitespace-nowrap' }, createElement('h1', { className: 'font-black text-[14px] tracking-tight text-white' }, 'محبو إذاعة الشباب والرياضة'), createElement('div', { className: 'text-yellow-300 text-[11px] font-bold' }, '108 FM'))
                         ),
-                        createElement('a', { href: 'https://www.maspero.eg/stream/11', target: '_blank', className: 'relative bg-yellow-400 text-green-950 px-2.5 py-1 rounded-full text-[9px] font-black active-scale flex items-center gap-1 shadow-md' }, 
-                            createElement('svg', { className: 'w-3 h-3 text-green-700 fill-current animate-play-blink', viewBox: '0 0 24 24' }, createElement('path', { d: 'M8 5v14l11-7z' })),
-                            'اسمع الآن'
-                        ),
                         createElement('div', { className: 'flex flex-col items-end gap-1' },
-                            createElement(ThemeToggle, { isDark: darkMode, onToggle: () => setDarkMode(!darkMode) }),
-                            createElement('div', { className: 'text-[9px] text-yellow-300 font-bold flex items-center gap-1 whitespace-nowrap bg-black/20 px-2 py-0.5 rounded-full border border-yellow-400/30' },
-                                createElement('i', { className: 'fa-solid fa-eye text-[8px]' }),
-                                `${siteViews.toLocaleString('ar-EG')} زيارة`
-                            )
+                            createElement(ThemeToggle, { isDark: darkMode, onToggle: () => setDarkMode(!darkMode) })
                         ),
                         createElement('a', { href: 'https://www.facebook.com/share/1bzDzdVHfh/', target: '_blank' }, createElement('img', { src: 'https://i.postimg.cc/B61C0pPF/images.png', className: 'w-6 h-6 rounded-full object-cover border border-white/30', referrerPolicy: 'no-referrer', alt: 'فيسبوك' }))
                     )
