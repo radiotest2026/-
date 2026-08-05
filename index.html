@@ -8,6 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- مكتبة Firebase السحابية -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
@@ -97,6 +100,21 @@
 <body>
     <div id="root"></div>
     <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBqP2kkiOcCIBDFf0VG-H3iUCR0ovh62E0",
+            authDomain: "radioshababwryadh108.firebaseapp.com",
+            projectId: "radioshababwryadh108",
+            storageBucket: "radioshababwryadh108.firebasestorage.app",
+            messagingSenderId: "254227056791",
+            appId: "1:254227056791:web:2751a2f0cfdb67ff91c1d2",
+            measurementId: "G-HKT0JP1E8B"
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
         const { createElement, useState, useEffect, useRef } = React;
         
         function Clock() {
@@ -135,41 +153,48 @@
             );
         }
 
-        const newsMohamedTarek = { id: 100, title: "محمد طارق لـ «زاوية عكسية»: الترسانة يرفض بيع نجومه ويستهدف العودة للممتاز بخطة استثنائية", program: "زاوية عكسية", image: "https://iili.io/CgzIo9S.md.png", time: "5 أغسطس 2026 - 03:52 ص", link: "https://mohamedtarek-ten.vercel.app/" };
-        const newsTarekRamadan2 = { id: 101, title: "طارق رمضان لـ «صباحكو رياضة»: دمج إنبي والشرقية «شو إعلامي» وتصريحات العقود كارثية", program: "صباحكو رياضة", image: "https://iili.io/CgzRfz7.md.png", time: "5 أغسطس 2026 - 03:51 ص", link: "https://tareekramadan.vercel.app/" };
-        const newsAhmedAdam = { id: 97, title: "أحمد آدم لـ «90 دقيقة كورة»: مصر تتصدر الترتيب العالمي في بطولة التحدي للبوتشا وتتفوق على عمالقة اللعبة", program: "90 دقيقة كورة", image: "https://iili.io/CgzfyX4.md.png", time: "5 أغسطس 2026 - 03:30 ص", link: "https://ahmedadam.vercel.app/" };
-        const newsMahmoudAbdalrahman = { id: 98, title: "محمود عبد الرحمن لـ «90 دقيقة كورة»: مصر تدرس استضافة كأس العالم للبوتشا والوفود العالمية تنبهر بصالة حسن مصطفى", program: "90 دقيقة كورة", image: "https://iili.io/CgzC5zJ.md.png", time: "5 أغسطس 2026 - 03:25 ص", link: "https://mahmoudabdalrahman.vercel.app/" };
-        const newsSayedGamal = { id: 99, title: "سيد جمال لـ «زاوية عكسية»: إمام عاشور يرفض 22 مليوناً لتمديد عقده والزمالك يغلق ملف رحيل خوان بيزيرا", program: "زاوية عكسية", image: "https://iili.io/CgzxG5P.md.png", time: "5 أغسطس 2026 - 03:20 ص", link: "https://sayedgamal.vercel.app/" };
-        const newsEhabSalah = { id: 94, title: "إيهاب صلاح لـ «90 دقيقة كورة»: ناشئات اليد كسرن عقدة الدنمارك بصبغة عالمية وإنجاز تاريخي", program: "90 دقيقة كورة", image: "https://iili.io/CgxsBP2.md.png", time: "5 أغسطس 2026 - 03:20 ص", link: "https://ehabsalah1.vercel.app/" };
-        const newsTamerMamdouh = { id: 95, title: "تامر ممدوح لـ «90 دقيقة كورة»: اكتساح مصري لمنصات تتويج مونديال الاسكواش بكندا و500 لاعب في بطولة مصر الدولية", program: "90 دقيقة كورة", image: "https://iili.io/Cgz9Adv.md.png", time: "5 أغسطس 2026 - 03:10 ص", link: "https://tamermamdouh.vercel.app/" };
-        const newsHatemAskar = { id: 91, title: "حاتم عسكر لـ «زاوية عكسية»: غموض حول مستحقات الزمالك في صفقة حسام عبد المجيد وأزمة القيد تهدد الموسم", program: "زاوية عكسية", image: "https://iili.io/CgoiHNf.md.png", time: "5 أغسطس 2026 - 03:00 ص", link: "https://hatemaskar.vercel.app/" };
-        const newsTasneemGoda = { id: 96, title: "تسنيم جودة لـ «90 دقيقة كورة»: ذهبية «البوتشا» دافع قوي قبل مونديال كوريا ونستهدف إنجازاً تاريخياً", program: "90 دقيقة كورة", image: "https://iili.io/CgzFWYu.md.png", time: "5 أغسطس 2026 - 02:50 ص", link: "https://tasneemgoda.vercel.app/" };
-        const newsGamalBehairy = { id: 92, title: "جمال البحيري لـ «سوبر الملاعب»: صرامة حسام حسن سر نجاح المنتخب ومستوى المونديال كان متواضعاً", program: "سوبر الملاعب", image: "https://iili.io/CgxNnVa.md.png", time: "5 أغسطس 2026 - 02:45 ص", link: "https://mohamedelhelys.vercel.app/" };
-        const newsMohamedHelis = { id: 93, title: "محمد الهليس لـ «صباحكو رياضة»: هيكلة لجنة الحكام غريبة وتدخلات أحمد مجاهد «مصيبة سودا»", program: "صباحكو رياضة", image: "https://iili.io/CgxgiKX.md.png", time: "5 أغسطس 2026 - 02:30 ص", link: "https://mohamedholayes.vercel.app/" };
-        const newsKaremMohamed = { id: 90, title: "كريم محمد لبرنامج «ضربة حرة»: الزمالك مهدد بالإصابات بسبب تأخر فترة الإعداد", program: "ضربة حرة", image: "https://iili.io/CU6OeXn.md.png", time: "4 أغسطس 2026 - 04:07 ص", link: "https://karemmohamed.vercel.app/" };
-        const newsRamiRagab = { id: 89, title: "رامي رجب لبرنامج «ضربة حرة»: استياء بالاتحاد من الأهلي وتعديلات جديدة بالدوري", program: "ضربة حرة", image: "https://iili.io/CU6h2yX.md.png", time: "4 أغسطس 2026 - 04:00 ص", link: "https://ramyragab.vercel.app/" };
-        const newsKhaledGlal = { id: 88, title: "خالد جلال لـ 90 دقيقة كورة: الزمالك يواجه تحديات ومعتمد يستحق الاستمرار", program: "90 دقيقة كورة", image: "https://iili.io/CU603cg.md.png", time: "4 أغسطس 2026 - 03:45 ص", link: "https://khaledglal.vercel.app/" };
-        const newsRedaBeltagy = { id: 87, title: "رضا البلتاجي لـ 90 دقيقة كورة: التحكيم المصري يحتاج لتوحيد القرارات والرحمة", program: "90 دقيقة كورة", image: "https://iili.io/CU6zSl2.md.png", time: "4 أغسطس 2026 - 03:30 ص", link: "https://redabeltagy-sable.vercel.app/" };
-        const newsMahmoudMakhbazy = { id: 86, title: "محمود المخبزي لبرنامج 90 دقيقة كورة: بيان الأهلي يفجر أزمات التحكيم مبكرا", program: "90 دقيقة كورة", image: "https://iili.io/CU63RXS.md.png", time: "4 أغسطس 2026 - 03:10 ص", link: "https://mahmoudmakhbazy.vercel.app" };
-        const newsAlaaAbdelzaher = { id: 85, title: "علاء عبد الظاهر لـ «صباحكو رياضة»: أتمنى استمرار إيقاف قيد الزمالك لخمس سنوات", program: "صباحكو رياضة", image: "https://iili.io/CU4iu6P.md.png", time: "4 أغسطس 2026 - 02:50 ص", link: "https://ala3aabdelzaher.vercel.app" };
-        const newsTarekRamadanNew = { id: 84, title: "طارق رمضان لـ «صباحكو رياضة»: شخصيات الظل تدير اتحاد الكرة والأهلي محق", program: "صباحكو رياضة", image: "https://iili.io/CU4oaa9.md.png", time: "4 أغسطس 2026 - 02:20 ص", link: "https://saba7kooryadh.vercel.app" };
-        const newsWaelShokr = { id: 83, title: "وائل شكر لـ «الكورة العالمية»: استثمار المونديال يحرم الجماهير من المتعة ويهدد بالتلاعب في النتائج", program: "الكورة العالمية", image: "https://iili.io/CUoVq8B.md.png", time: "3 أغسطس 2026 - 05:27 ص", link: "https://waelshokr.vercel.app" };
-        const newsAhmedWagih = { id: 82, title: "أحمد وجيه لـ «الكورة العالمية»: الزناتي مديرا رياضيا للزمالك ومعسكر قطري مرتقب", program: "الكورة العالمية", image: "https://iili.io/CUoaNUX.md.png", time: "3 أغسطس 2026 - 05:14 ص", link: "https://ahmedwagih-nu.vercel.app" };
-        const newsMohamedAbuali = { id: 81, title: "محمد أبو علي لـ «الكورة العالمية»: غضب بالأهلي ضد التحكيم وإمام مستمر", program: "الكورة العالمية", image: "https://iili.io/CUoTOjS.md.png", time: "3 أغسطس 2026 - 05:01 ص", link: "https://mohamedabuali.vercel.app" };
-        const newsHanyFawzy = { id: 80, title: "هاني فوزي لـ 90 دقيقة كورة: دمج الأندية الجماهيرية مشروط بتدخل الوزير", program: "90 دقيقة كورة", image: "https://iili.io/CUoCvCG.md.png", time: "3 أغسطس 2026 - 04:55 ص", link: "https://hanyfawzy.vercel.app" };
-        const newsGamalsalem = { id: 79, title: "جمال سالم لـ «90 دقيقة كورة»: دمج الأندية الجماهيرية فاشل والمقاولون يستعد بقوة", program: "90 دقيقة كورة", image: "https://iili.io/CUoH7x2.md.png", time: "3 أغسطس 2026 - 04:43 ص", link: "https://gamalsalem.vercel.app" };
-        const newsMahmoudSalem = { id: 78, title: "محمود سالم لـ «ساعة رياضة»: المقاولون يحتاج لثورة وشركة الزمالك تتطلب خبراء", program: "ساعة رياضة", image: "https://iili.io/CUnLTQa.md.png", time: "3 أغسطس 2026 - 04:30 ص", link: "https://mahmoudsalem.vercel.app" };
-        const newsAbdelhamidHafez = { id: 77, title: "عبد الحميد حافظ لـ «ساعة رياضة»: الشهرة والمصالح الشخصية تعرقل شركة الزمالك", program: "ساعة رياضة", image: "https://iili.io/CUnNikQ.md.png", time: "3 أغسطس 2026 - 04:20 ص", link: "https://abdelhamidhafez.vercel.app" };
-        const newsMohamedAwny = { id: 76, title: "محمد عوني لـ «ساعة رياضة»: عاشور يمدد عقده مع الأهلي.. وتفاصيل صفقات الدفاع والراحلين", program: "ساعة رياضة", image: "https://iili.io/CUnc4Nj.md.png", time: "3 أغسطس 2026 - 04:10 ص", link: "https://mohamedawny-nine.vercel.app" };
-        const newsAbdelhamidFarag = { id: 75, title: "عبد الحميد فراج لـــ «صباحكو رياضة»: تأخر معسكر الزمالك يهدد مسيرته.. والزناتي يقترب من منصب المدير الرياضي", program: "صباحكو رياضة", image: "https://iili.io/CUnudmB.md.png", time: "3 أغسطس 2026 - 04:02 ص", link: "https://abdelhamidfarag.vercel.app" };
-        const newsMohamedAdel = { id: 74, title: "محمد عادل لـــ «صباحكو رياضة»: تألق استثنائي لحمزة مع برشلونة أمام برمنجهام.. وعرض تركي جديد لضم محمد صلاح", program: "صباحكو رياضة", image: "https://iili.io/CUnCcNe.md.png", time: "3 أغسطس 2026 - 03:48 ص", link: "https://mohamedadel-three.vercel.app" };
-        const newsAymanDegeshNew = { id: 73, title: "أيمن دجيش لبرنامج «صباحكو رياضة»: التحكيم الأجنبي أخرنا وتأسيس أكاديمية للناشئين ضرورة", program: "صباحكو رياضة", image: "https://iili.io/CUnHVp4.md.png", time: "3 أغسطس 2026 - 03:37 ص", link: "https://aymandegesh-nine.vercel.app/" };
-        const newsMohamedFarouk = { id: 72, title: "محمد فاروق لبرنامج «صباحكو رياضة»: نرفض الأجانب بالتحكيم وعاشور مديرا لتقنية الفار", program: "صباحكو رياضة", image: "https://iili.io/CUCg4yb.md.png", time: "3 أغسطس 2026 - 03:16 ص", link: "https://mohamedfarouk.vercel.app/" };
-        const newsAymanDegesh = { id: 71, title: "أيمن دجيش لبرنامج «ملعب الناشئين»: نرفض الأجانب ولجنة الحكام الجديدة تضم قامات", program: "ملعب الناشئين", image: "https://iili.io/CSkxITv.md.png", time: "2 أغسطس 2026 - 04:05 ص", link: "https://aymandegesh.vercel.app/" };
-        const newsAmalFouad = { id: 70, title: "آمال فؤاد لبرنامج «ملعب الناشئين»: انهيار منتخب السيدات بأمم إفريقيا لغياب الاحتكاك", program: "ملعب الناشئين", image: "https://iili.io/CSkBq5x.md.png", time: "2 أغسطس 2026 - 03:51 ص", link: "https://amalfouad1.vercel.app/" };
-        
-        const sliderNews = [newsMohamedTarek, newsTarekRamadan2, newsAhmedAdam, newsMahmoudAbdalrahman, newsSayedGamal];
-        const listNews = [newsMohamedTarek, newsTarekRamadan2, newsAhmedAdam, newsMahmoudAbdalrahman, newsSayedGamal, newsEhabSalah, newsTamerMamdouh, newsHatemAskar, newsTasneemGoda, newsGamalBehairy, newsMohamedHelis, newsKaremMohamed, newsRamiRagab, newsKhaledGlal, newsRedaBeltagy, newsMahmoudMakhbazy, newsAlaaAbdelzaher, newsTarekRamadanNew, newsWaelShokr, newsAhmedWagih, newsMohamedAbuali, newsHanyFawzy, newsGamalsalem, newsMahmoudSalem, newsAbdelhamidHafez, newsMohamedAwny, newsAbdelhamidFarag, newsMohamedAdel, newsAymanDegeshNew, newsMohamedFarouk, newsAymanDegesh, newsAmalFouad];
+        const initialSliderNews = [
+            { id: 100, title: "محمد طارق لـ «زاوية عكسية»: الترسانة يرفض بيع نجومه ويستهدف العودة للممتاز بخطة استثنائية", program: "زاوية عكسية", image: "https://iili.io/CgzIo9S.md.png", time: "5 أغسطس 2026 - 03:52 ص", link: "https://mohamedtarek-ten.vercel.app/" },
+            { id: 101, title: "طارق رمضان لـ «صباحكو رياضة»: دمج إنبي والشرقية «شو إعلامي» وتصريحات العقود كارثية", program: "صباحكو رياضة", image: "https://iili.io/CgzRfz7.md.png", time: "5 أغسطس 2026 - 03:51 ص", link: "https://tareekramadan.vercel.app/" },
+            { id: 97, title: "أحمد آدم لـ «90 دقيقة كورة»: مصر تتصدر الترتيب العالمي في بطولة التحدي للبوتشا وتتفوق على عمالقة اللعبة", program: "90 دقيقة كورة", image: "https://iili.io/CgzfyX4.md.png", time: "5 أغسطس 2026 - 03:30 ص", link: "https://ahmedadam.vercel.app/" },
+            { id: 98, title: "محمود عبد الرحمن لـ «90 دقيقة كورة»: مصر تدرس استضافة كأس العالم للبوتشا والوفود العالمية تنبهر بصالة حسن مصطفى", program: "90 دقيقة كورة", image: "https://iili.io/CgzC5zJ.md.png", time: "5 أغسطس 2026 - 03:25 ص", link: "https://mahmoudabdalrahman.vercel.app/" },
+            { id: 99, title: "سيد جمال لـ «زاوية عكسية»: إمام عاشور يرفض 22 مليوناً لتمديد عقده والزمالك يغلق ملف رحيل خوان بيزيرا", program: "زاوية عكسية", image: "https://iili.io/CgzxG5P.md.png", time: "5 أغسطس 2026 - 03:20 ص", link: "https://sayedgamal.vercel.app/" }
+        ];
+
+        const initialListNews = [
+            { id: 100, title: "محمد طارق لـ «زاوية عكسية»: الترسانة يرفض بيع نجومه ويستهدف العودة للممتاز بخطة استثنائية", program: "زاوية عكسية", image: "https://iili.io/CgzIo9S.md.png", time: "5 أغسطس 2026 - 03:52 ص", link: "https://mohamedtarek-ten.vercel.app/" },
+            { id: 101, title: "طارق رمضان لـ «صباحكو رياضة»: دمج إنبي والشرقية «شو إعلامي» وتصريحات العقود كارثية", program: "صباحكو رياضة", image: "https://iili.io/CgzRfz7.md.png", time: "5 أغسطس 2026 - 03:51 ص", link: "https://tareekramadan.vercel.app/" },
+            { id: 97, title: "أحمد آدم لـ «90 دقيقة كورة»: مصر تتصدر الترتيب العالمي في بطولة التحدي للبوتشا وتتفوق على عمالقة اللعبة", program: "90 دقيقة كورة", image: "https://iili.io/CgzfyX4.md.png", time: "5 أغسطس 2026 - 03:30 ص", link: "https://ahmedadam.vercel.app/" },
+            { id: 98, title: "محمود عبد الرحمن لـ «90 دقيقة كورة»: مصر تدرس استضافة كأس العالم للبوتشا والوفود العالمية تنبهر بصالة حسن مصطفى", program: "90 دقيقة كورة", image: "https://iili.io/CgzC5zJ.md.png", time: "5 أغسطس 2026 - 03:25 ص", link: "https://mahmoudabdalrahman.vercel.app/" },
+            { id: 99, title: "سيد جمال لـ «زاوية عكسية»: إمام عاشور يرفض 22 مليوناً لتمديد عقده والزمالك يغلق ملف رحيل خوان بيزيرا", program: "زاوية عكسية", image: "https://iili.io/CgzxG5P.md.png", time: "5 أغسطس 2026 - 03:20 ص", link: "https://sayedgamal.vercel.app/" },
+            { id: 94, title: "إيهاب صلاح لـ «90 دقيقة كورة»: ناشئات اليد كسرن عقدة الدنمارك بصبغة عالمية وإنجاز تاريخي", program: "90 دقيقة كورة", image: "https://iili.io/CgxsBP2.md.png", time: "5 أغسطس 2026 - 03:20 ص", link: "https://ehabsalah1.vercel.app/" },
+            { id: 95, title: "تامر ممدوح لـ «90 دقيقة كورة»: اكتساح مصري لمنصات تتويج مونديال الاسكواش بكندا و500 لاعب في بطولة مصر الدولية", program: "90 دقيقة كورة", image: "https://iili.io/Cgz9Adv.md.png", time: "5 أغسطس 2026 - 03:10 ص", link: "https://tamermamdouh.vercel.app/" },
+            { id: 91, title: "حاتم عسكر لـ «زاوية عكسية»: غموض حول مستحقات الزمالك في صفقة حسام عبد المجيد وأزمة القيد تهدد الموسم", program: "زاوية عكسية", image: "https://iili.io/CgoiHNf.md.png", time: "5 أغسطس 2026 - 03:00 ص", link: "https://hatemaskar.vercel.app/" },
+            { id: 96, title: "تسنيم جودة لـ «90 دقيقة كورة»: ذهبية «البوتشا» دافع قوي قبل مونديال كوريا ونستهدف إنجازاً تاريخياً", program: "90 دقيقة كورة", image: "https://iili.io/CgzFWYu.md.png", time: "5 أغسطس 2026 - 02:50 ص", link: "https://tasneemgoda.vercel.app/" },
+            { id: 92, title: "جمال البحيري لـ «سوبر الملاعب»: صرامة حسام حسن سر نجاح المنتخب ومستوى المونديال كان متواضعاً", program: "سوبر الملاعب", image: "https://iili.io/CgxNnVa.md.png", time: "5 أغسطس 2026 - 02:45 ص", link: "https://mohamedelhelys.vercel.app/" },
+            { id: 93, title: "محمد الهليس لـ «صباحكو رياضة»: هيكلة لجنة الحكام غريبة وتدخلات أحمد مجاهد «مصيبة سودا»", program: "صباحكو رياضة", image: "https://iili.io/CgxgiKX.md.png", time: "5 أغسطس 2026 - 02:30 ص", link: "https://mohamedholayes.vercel.app/" },
+            { id: 90, title: "كريم محمد لبرنامج «ضربة حرة»: الزمالك مهدد بالإصابات بسبب تأخر فترة الإعداد", program: "ضربة حرة", image: "https://iili.io/CU6OeXn.md.png", time: "4 أغسطس 2026 - 04:07 ص", link: "https://karemmohamed.vercel.app/" },
+            { id: 89, title: "رامي رجب لبرنامج «ضربة حرة»: استياء بالاتحاد من الأهلي وتعديلات جديدة بالدوري", program: "ضربة حرة", image: "https://iili.io/CU6h2yX.md.png", time: "4 أغسطس 2026 - 04:00 ص", link: "https://ramyragab.vercel.app/" },
+            { id: 88, title: "خالد جلال لـ 90 دقيقة كورة: الزمالك يواجه تحديات ومعتمد يستحق الاستمرار", program: "90 دقيقة كورة", image: "https://iili.io/CU603cg.md.png", time: "4 أغسطس 2026 - 03:45 ص", link: "https://khaledglal.vercel.app/" },
+            { id: 87, title: "رضا البلتاجي لـ 90 دقيقة كورة: التحكيم المصري يحتاج لتوحيد القرارات والرحمة", program: "90 دقيقة كورة", image: "https://iili.io/CU6zSl2.md.png", time: "4 أغسطس 2026 - 03:30 ص", link: "https://redabeltagy-sable.vercel.app/" },
+            { id: 86, title: "محمود المخبزي لبرنامج 90 دقيقة كورة: بيان الأهلي يفجر أزمات التحكيم مبكرا", program: "90 دقيقة كورة", image: "https://iili.io/CU63RXS.md.png", time: "4 أغسطس 2026 - 03:10 ص", link: "https://mahmoudmakhbazy.vercel.app" },
+            { id: 85, title: "علاء عبد الظاهر لـ «صباحكو رياضة»: أتمنى استمرار إيقاف قيد الزمالك لخمس سنوات", program: "صباحكو رياضة", image: "https://iili.io/CU4iu6P.md.png", time: "4 أغسطس 2026 - 02:50 ص", link: "https://ala3aabdelzaher.vercel.app" },
+            { id: 84, title: "طارق رمضان لـ «صباحكو رياضة»: شخصيات الظل تدير اتحاد الكرة والأهلي محق", program: "صباحكو رياضة", image: "https://iili.io/CU4oaa9.md.png", time: "4 أغسطس 2026 - 02:20 ص", link: "https://saba7kooryadh.vercel.app" },
+            { id: 83, title: "وائل شكر لـ «الكورة العالمية»: استثمار المونديال يحرم الجماهير من المتعة ويهدد بالتلاعب في النتائج", program: "الكورة العالمية", image: "https://iili.io/CUoVq8B.md.png", time: "3 أغسطس 2026 - 05:27 ص", link: "https://waelshokr.vercel.app" },
+            { id: 82, title: "أحمد وجيه لـ «الكورة العالمية»: الزناتي مديرا رياضيا للزمالك ومعسكر قطري مرتقب", program: "الكورة العالمية", image: "https://iili.io/CUoaNUX.md.png", time: "3 أغسطس 2026 - 05:14 ص", link: "https://ahmedwagih-nu.vercel.app" },
+            { id: 81, title: "محمد أبو علي لـ «الكورة العالمية»: غضب بالأهلي ضد التحكيم وإمام مستمر", program: "الكورة العالمية", image: "https://iili.io/CUoTOjS.md.png", time: "3 أغسطس 2026 - 05:01 ص", link: "https://mohamedabuali.vercel.app" },
+            { id: 80, title: "هاني فوزي لـ 90 دقيقة كورة: دمج الأندية الجماهيرية مشروط بتدخل الوزير", program: "90 دقيقة كورة", image: "https://iili.io/CUoCvCG.md.png", time: "3 أغسطس 2026 - 04:55 ص", link: "https://hanyfawzy.vercel.app" },
+            { id: 79, title: "جمال سالم لـ «90 دقيقة كورة»: دمج الأندية الجماهيرية فاشل والمقاولون يستعد بقوة", program: "90 دقيقة كورة", image: "https://iili.io/CUoH7x2.md.png", time: "3 أغسطس 2026 - 04:43 ص", link: "https://gamalsalem.vercel.app" },
+            { id: 78, title: "محمود سالم لـ «ساعة رياضة»: المقاولون يحتاج لثورة وشركة الزمالك تتطلب خبراء", program: "ساعة رياضة", image: "https://iili.io/CUnLTQa.md.png", time: "3 أغسطس 2026 - 04:30 ص", link: "https://mahmoudsalem.vercel.app" },
+            { id: 77, title: "عبد الحميد حافظ لـ «ساعة رياضة»: الشهرة والمصالح الشخصية تعرقل شركة الزمالك", program: "ساعة رياضة", image: "https://iili.io/CUnNikQ.md.png", time: "3 أغسطس 2026 - 04:20 ص", link: "https://abdelhamidhafez.vercel.app" },
+            { id: 76, title: "محمد عوني لـ «ساعة رياضة»: عاشور يمدد عقده مع الأهلي.. وتفاصيل صفقات الدفاع والراحلين", program: "ساعة رياضة", image: "https://iili.io/CUnc4Nj.md.png", time: "3 أغسطس 2026 - 04:10 ص", link: "https://mohamedawny-nine.vercel.app" },
+            { id: 75, title: "عبد الحميد فراج لـــ «صباحكو رياضة»: تأخر معسكر الزمالك يهدد مسيرته.. والزناتي يقترب من منصب المدير الرياضي", program: "صباحكو رياضة", image: "https://iili.io/CUnudmB.md.png", time: "3 أغسطس 2026 - 04:02 ص", link: "https://abdelhamidfarag.vercel.app" },
+            { id: 74, title: "محمد عادل لـــ «صباحكو رياضة»: تألق استثنائي لحمزة مع برشلونة أمام برمنجهام.. وعرض تركي جديد لضم محمد صلاح", program: "صباحكو رياضة", image: "https://iili.io/CUnCcNe.md.png", time: "3 أغسطس 2026 - 03:48 ص", link: "https://mohamedadel-three.vercel.app" },
+            { id: 73, title: "أيمن دجيش لبرنامج «صباحكو رياضة»: التحكيم الأجنبي أخرنا وتأسيس أكاديمية للناشئين ضرورة", program: "صباحكو رياضة", image: "https://iili.io/CUnHVp4.md.png", time: "3 أغسطس 2026 - 03:37 ص", link: "https://aymandegesh-nine.vercel.app/" },
+            { id: 72, title: "محمد فاروق لبرنامج «صباحكو رياضة»: نرفض الأجانب بالتحكيم وعاشور مديرا لتقنية الفار", program: "صباحكو رياضة", image: "https://iili.io/CUCg4yb.md.png", time: "3 أغسطس 2026 - 03:16 ص", link: "https://mohamedfarouk.vercel.app/" },
+            { id: 71, title: "أيمن دجيش لبرنامج «ملعب الناشئين»: نرفض الأجانب ولجنة الحكام الجديدة تضم قامات", program: "ملعب الناشئين", image: "https://iili.io/CSkxITv.md.png", time: "2 أغسطس 2026 - 04:05 ص", link: "https://aymandegesh.vercel.app/" },
+            { id: 70, title: "آمال فؤاد لبرنامج «ملعب الناشئين»: انهيار منتخب السيدات بأمم إفريقيا لغياب الاحتكاك", program: "ملعب الناشئين", image: "https://iili.io/CSkBq5x.md.png", time: "2 أغسطس 2026 - 03:51 ص", link: "https://amalfouad1.vercel.app/" }
+        ];
 
         function InfoRotatorSection() {
             const [currentIndex, setCurrentIndex] = useState(0);
@@ -370,23 +395,23 @@
             );
         }
 
-        function Slider() {
+        function Slider({ items }) {
             const [index, setIndex] = useState(0);
             const timerRef = useRef(null);
-            const nextSlide = (e) => { if(e) e.stopPropagation(); setIndex((prev) => (prev + 1) % sliderNews.length); };
-            const prevSlide = (e) => { if(e) e.stopPropagation(); setIndex((prev) => (prev - 1 + sliderNews.length) % sliderNews.length); };
+            const nextSlide = (e) => { if(e) e.stopPropagation(); setIndex((prev) => (prev + 1) % items.length); };
+            const prevSlide = (e) => { if(e) e.stopPropagation(); setIndex((prev) => (prev - 1 + items.length) % items.length); };
             useEffect(() => {
-                timerRef.current = setInterval(() => { setIndex((prev) => (prev + 1) % sliderNews.length); }, 4000);
+                timerRef.current = setInterval(() => { setIndex((prev) => (prev + 1) % items.length); }, 4000);
                 return () => clearInterval(timerRef.current);
-            }, []);
+            }, [items.length]);
             return createElement('div', { className: 'slider-container rounded-2xl shadow-lg bg-white overflow-hidden relative' },
                 createElement('button', { className: 'nav-button prev-btn', onClick: prevSlide }, '▶'),
                 createElement('button', { className: 'nav-button next-btn', onClick: nextSlide }, '◀'),
                 createElement('div', { className: 'slider-wrapper', style: { transform: `translateX(${index * 100}%)` } },
-                    sliderNews.map((news) => createElement('div', { key: news.id, className: 'slider-item cursor-pointer relative !p-0', onClick: (e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openNewsModal', { detail: news.link })); } },
+                    items.map((news) => createElement('div', { key: news.id, className: 'slider-item cursor-pointer relative !p-0', onClick: (e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openNewsModal', { detail: news.link })); } },
                         createElement('div', { className: 'w-full h-full relative overflow-hidden bg-gray-900 flex items-center justify-center' },
                             createElement('img', { src: news.image, className: 'w-full h-full object-contain', referrerPolicy: 'no-referrer', alt: 'صورة الخبر' }),
-                            createElement('div', { className: 'absolute top-3 right-3 bg-[#15803d] text-yellow-300 text-[11px] font-bold px-3 py-1 rounded-full shadow-md z-10 border border-yellow-400/40' }, news.program),
+                            createElement('div', { className: 'absolute top-3 right-3 bg-[#15803d] text-yellow-300 text-[11px] font-bold px-3 py-1 rounded-full shadow-md z-10 border border-yellow-400/40' }, news.program || 'عاجل'),
                             createElement('div', { className: 'absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-4 pt-8 text-white' },
                                 createElement('h2', { className: 'font-black text-sm md:text-lg leading-snug drop-shadow-md text-right text-yellow-300' }, news.title)
                             )
@@ -482,6 +507,144 @@
             const [showNav, setShowNav] = useState(true);
             const [darkMode, setDarkMode] = useState(false);
 
+            const [sliderItems, setSliderItems] = useState(initialSliderNews);
+            const [listItems, setListItems] = useState(initialListNews);
+            const [cloudNews, setCloudNews] = useState([]);
+
+            const fetchCloudNews = () => {
+                db.collection("news").orderBy("createdAt", "desc").get().then((querySnapshot) => {
+                    let cloudList = [];
+                    let cloudSlider = [];
+                    let adminCloudList = [];
+                    querySnapshot.forEach((doc) => {
+                        const item = { firebaseId: doc.id, ...doc.data() };
+                        adminCloudList.push(item);
+                        cloudList.push(item);
+                        if (item.inSlider) {
+                            cloudSlider.push(item);
+                        }
+                    });
+                    setCloudNews(adminCloudList);
+                    if (cloudList.length > 0) {
+                        setListItems([...cloudList, ...initialListNews]);
+                    }
+                    if (cloudSlider.length > 0) {
+                        setSliderItems([...cloudSlider, ...initialSliderNews]);
+                    }
+                }).catch((error) => {
+                    console.log("Error getting documents: ", error);
+                });
+            };
+
+            useEffect(() => {
+                fetchCloudNews();
+            }, []);
+
+            const [clickCount, setClickCount] = useState(0);
+            const [showPasswordModal, setShowPasswordModal] = useState(false);
+            const [passwordInput, setPasswordInput] = useState('');
+            const [showAdminPanel, setShowAdminPanel] = useState(false);
+
+            const [newTitle, setNewTitle] = useState('');
+            const [newImage, setNewImage] = useState('');
+            const [newLink, setNewLink] = useState('');
+            const [newPlacement, setNewPlacement] = useState('both');
+            const [editingId, setEditingId] = useState(null);
+
+            const handleHeaderClick = () => {
+                setClickCount(prev => {
+                    const next = prev + 1;
+                    if (next >= 5) {
+                        setShowPasswordModal(true);
+                        return 0;
+                    }
+                    return next;
+                });
+            };
+
+            const handleLogin = (e) => {
+                e.preventDefault();
+                if (passwordInput === '108') {
+                    setShowPasswordModal(false);
+                    setShowAdminPanel(true);
+                    setPasswordInput('');
+                } else {
+                    alert('كلمة المرور غير صحيحة!');
+                }
+            };
+
+            const handleSaveNews = async (e) => {
+                e.preventDefault();
+                if (!newTitle || !newLink) {
+                    alert('يرجى إدخال عنوان الخبر ورابط الخبر على الأقل!');
+                    return;
+                }
+
+                // توليد التوقيت اللحظي الفوري والدقيق بالثانية والدقيقة
+                const now = new Date();
+                const datePart = now.toLocaleDateString('ar-EG', { day: 'numeric', month: 'long', year: 'numeric' });
+                const timePart = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', hour12: true }).replace('AM', 'ص').replace('PM', 'م');
+                const timeNow = `${datePart} - ${timePart}`;
+
+                const newsObj = {
+                    title: newTitle,
+                    program: "إذاعة الشباب",
+                    image: newImage || "https://iili.io/CgzIo9S.md.png",
+                    time: timeNow,
+                    link: newLink,
+                    inSlider: newPlacement === 'both',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                try {
+                    if (editingId) {
+                        // تعديل الخبر الحالي
+                        await db.collection("news").doc(editingId).update(newsObj);
+                        alert('تم تحديث وتعديل الخبر بنجاح في السحاب!');
+                        setEditingId(null);
+                    } else {
+                        // نشر خبر جديد
+                        newsObj.id = Date.now();
+                        await db.collection("news").add(newsObj);
+                        alert('تم نشر الخبر بنجاح في السحاب وسيراه جميع الزوار فوراً!');
+                    }
+
+                    fetchCloudNews();
+                    setNewTitle('');
+                    setNewImage('');
+                    setNewLink('');
+                    setNewPlacement('both');
+                } catch (error) {
+                    alert('حدث خطأ أثناء الحفظ السحابي: ' + error.message);
+                }
+            };
+
+            const handleEditClick = (item) => {
+                setEditingId(item.firebaseId);
+                setNewTitle(item.title);
+                setNewImage(item.image);
+                setNewLink(item.link);
+                setNewPlacement(item.inSlider ? 'both' : 'list_only');
+            };
+
+            const handleDeleteNews = async (firebaseId) => {
+                if (confirm("هل أنت متأكد من حذف هذا الخبر نهائياً من الموقع والسحاب؟")) {
+                    try {
+                        await db.collection("news").doc(firebaseId).delete();
+                        if (editingId === firebaseId) {
+                            setEditingId(null);
+                            setNewTitle('');
+                            setNewImage('');
+                            setNewLink('');
+                        }
+                        fetchCloudNews();
+                        alert("تم حذف الخبر بنجاح!");
+                    } catch (error) {
+                        alert("حدث خطأ أثناء الحذف: " + error.message);
+                    }
+                }
+            };
+
             useEffect(() => {
                 if (activeModalUrl) {
                     setShowNav(true);
@@ -534,7 +697,7 @@
 
             const renderNewsCard = (news) => {
                 return createElement('a', { 
-                    key: news.id, 
+                    key: news.id || news.firebaseId, 
                     href: news.link, 
                     target: '_self', 
                     rel: 'noopener noreferrer', 
@@ -552,28 +715,30 @@
                 );
             };
 
-            const part1 = listNews.slice(0, 3);
-            const part2 = listNews.slice(3, 6);
-            const part3 = listNews.slice(6, 9);
-            const remaining = listNews.slice(9);
+            const part1 = listItems.slice(0, 3);
+            const part2 = listItems.slice(3, 6);
+            const part3 = listItems.slice(6, 9);
+            const remaining = listItems.slice(9);
             const visibleRemaining = showAll ? remaining : remaining.slice(0, 10);
-            const hasMore = remaining.length > 10 && !showAll;
 
             return createElement('div', { className: `min-h-screen flex flex-col ${darkMode ? 'bg-[#121212] text-white' : 'bg-gray-50'}` },
-                createElement('header', { className: 'bg-[#15803d] text-white p-3 shadow-2xl sticky top-0 z-20 rounded-b-[2rem] pb-6' },
+                createElement('header', { 
+                    onClick: handleHeaderClick,
+                    className: 'bg-[#15803d] text-white p-3 shadow-2xl sticky top-0 z-20 rounded-b-[2rem] pb-6 cursor-pointer select-none' 
+                },
                     createElement('div', { className: 'max-w-6xl mx-auto flex items-center justify-between' },
                         createElement('div', { className: 'flex items-center gap-2' },
-                            createElement('img', { onClick: () => window.open('https://www.maspero.eg/stream/11', '_blank'), src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-[45px] h-[45px] rounded-full border-2 border-yellow-400 object-cover shadow-2xl animate-halo-pulse cursor-pointer', referrerPolicy: 'no-referrer', alt: 'شعار الإذاعة' }),
+                            createElement('img', { onClick: (e) => { e.stopPropagation(); window.open('https://www.maspero.eg/stream/11', '_blank'); }, src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-[45px] h-[45px] rounded-full border-2 border-yellow-400 object-cover shadow-2xl animate-halo-pulse cursor-pointer', referrerPolicy: 'no-referrer', alt: 'شعار الإذاعة' }),
                             createElement('div', { className: 'whitespace-nowrap' }, createElement('h1', { className: 'font-black text-[14px] tracking-tight text-white' }, 'محبو إذاعة الشباب والرياضة'), createElement('div', { className: 'text-yellow-300 text-[11px] font-bold' }, '108 FM'))
                         ),
-                        createElement('div', { className: 'flex flex-col items-end gap-1' },
+                        createElement('div', { className: 'flex flex-col items-end gap-1', onClick: (e) => e.stopPropagation() },
                             createElement(ThemeToggle, { isDark: darkMode, onToggle: () => setDarkMode(!darkMode) })
                         ),
-                        createElement('a', { href: 'https://www.facebook.com/share/1bzDzdVHfh/', target: '_blank' }, createElement('img', { src: 'https://i.postimg.cc/B61C0pPF/images.png', className: 'w-6 h-6 rounded-full object-cover border border-white/30', referrerPolicy: 'no-referrer', alt: 'فيسبوك' }))
+                        createElement('a', { href: 'https://www.facebook.com/share/1bzDzdVHfh/', target: '_blank', onClick: (e) => e.stopPropagation() }, createElement('img', { src: 'https://i.postimg.cc/B61C0pPF/images.png', className: 'w-6 h-6 rounded-full object-cover border border-white/30', referrerPolicy: 'no-referrer', alt: 'فيسبوك' }))
                     )
                 ),
-                createElement('main', { className: 'flex-grow p-3 max-w-6xl mx-auto w-full pb-20' },
-                    createElement(Slider),
+                createElement('main', { className: 'flex-grow p-3 max-w-6xl mx-auto w-full pb-28' },
+                    createElement(Slider, { items: sliderItems }),
                     createElement(LiveProgram),
                     
                     part1.map(renderNewsCard),
@@ -674,6 +839,110 @@
 
                 createElement('footer', { className: 'bg-[#15803d] text-white text-center py-4 mt-auto font-black text-xs border-t-4 border-yellow-400' },
                     'جميع الحقوق محفوظة لإذاعة الشباب والرياضة 108 FM @2026'
+                ),
+
+                showPasswordModal && createElement('div', { className: 'fixed inset-0 z-[10000] bg-black/80 flex items-center justify-center p-4' },
+                    createElement('form', { onSubmit: handleLogin, className: 'bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl flex flex-col gap-4 text-right' },
+                        createElement('h3', { className: 'font-black text-base text-gray-900' }, 'لوحة التحكم السرية - كلمة المرور'),
+                        createElement('input', {
+                            type: 'password',
+                            placeholder: 'أدخل كلمة المرور',
+                            value: passwordInput,
+                            onChange: (e) => setPasswordInput(e.target.value),
+                            className: 'w-full p-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-green-600',
+                            autoFocus: true
+                        }),
+                        createElement('div', { className: 'flex gap-2 justify-end' },
+                            createElement('button', { type: 'button', onClick: () => setShowPasswordModal(false), className: 'px-4 py-2 bg-gray-200 text-gray-800 rounded-xl font-bold text-xs' }, 'إلغاء'),
+                            createElement('button', { type: 'submit', className: 'px-4 py-2 bg-[#15803d] text-white rounded-xl font-bold text-xs' }, 'دخول')
+                        )
+                    )
+                ),
+
+                showAdminPanel && createElement('div', { className: 'fixed inset-0 z-[10000] bg-black/80 flex items-center justify-center p-4 overflow-y-auto' },
+                    createElement('div', { className: 'bg-white rounded-2xl p-6 max-w-lg w-full shadow-2xl flex flex-col gap-4 text-right my-auto max-h-[90vh] overflow-y-auto' },
+                        createElement('div', { className: 'flex items-center justify-between border-b pb-3 sticky top-0 bg-white z-10' },
+                            createElement('h3', { className: 'font-black text-base text-[#15803d]' }, editingId ? 'تعديل الخبر الحالي' : 'لوحة التحكم - نشر خبر جديد'),
+                            createElement('button', { type: 'button', onClick: () => { setShowAdminPanel(false); setEditingId(null); setNewTitle(''); setNewImage(''); setNewLink(''); }, className: 'text-gray-400 hover:text-gray-600 font-bold text-lg' }, '✕')
+                        ),
+                        
+                        // نموذج النشر أو التعديل
+                        createElement('form', { onSubmit: handleSaveNews, className: 'flex flex-col gap-3 border-b pb-4' },
+                            createElement('h4', { className: 'font-bold text-xs text-gray-800' }, editingId ? '✏️ تعديل بيانات الخبر:' : '📝 نشر خبر جديد سحابياً (بالتوقيت اللحظي):'),
+                            createElement('input', {
+                                type: 'text',
+                                placeholder: 'عنوان الخبر...',
+                                value: newTitle,
+                                onChange: (e) => setNewTitle(e.target.value),
+                                className: 'w-full p-2.5 border border-gray-300 rounded-xl text-xs focus:outline-none focus:border-green-600'
+                            }),
+                            createElement('input', {
+                                type: 'text',
+                                placeholder: 'رابط الصورة (اختياري)...',
+                                value: newImage,
+                                onChange: (e) => setNewImage(e.target.value),
+                                className: 'w-full p-2.5 border border-gray-300 rounded-xl text-xs focus:outline-none focus:border-green-600'
+                            }),
+                            createElement('input', {
+                                type: 'text',
+                                placeholder: 'رابط Vercel الخاص بالخبر...',
+                                value: newLink,
+                                onChange: (e) => setNewLink(e.target.value),
+                                className: 'w-full p-2.5 border border-gray-300 rounded-xl text-xs focus:outline-none focus:border-green-600'
+                            }),
+                            createElement('div', { className: 'flex flex-col gap-1' },
+                                createElement('label', { className: 'text-[11px] font-bold text-gray-700' }, 'مكان النشر:'),
+                                createElement('div', { className: 'flex gap-4 text-xs font-bold text-gray-800' },
+                                    createElement('label', { className: 'flex items-center gap-1.5 cursor-pointer' },
+                                        createElement('input', { type: 'radio', name: 'placement', value: 'both', checked: newPlacement === 'both', onChange: (e) => setNewPlacement(e.target.value) }),
+                                        'السلايدر وأول القائمة'
+                                    ),
+                                    createElement('label', { className: 'flex items-center gap-1.5 cursor-pointer' },
+                                        createElement('input', { type: 'radio', name: 'placement', value: 'list_only', checked: newPlacement === 'list_only', onChange: (e) => setNewPlacement(e.target.value) }),
+                                        'أول القائمة فقط'
+                                    )
+                                )
+                            ),
+                            createElement('div', { className: 'flex gap-2' },
+                                editingId && createElement('button', {
+                                    type: 'button',
+                                    onClick: () => { setEditingId(null); setNewTitle(''); setNewImage(''); setNewLink(''); },
+                                    className: 'py-2.5 px-4 bg-gray-300 text-gray-800 rounded-xl font-bold text-xs'
+                                }, 'إلغاء التعديل'),
+                                createElement('button', { type: 'submit', className: 'flex-1 py-2.5 bg-[#15803d] text-white rounded-xl font-bold text-xs hover:bg-green-700 mt-1' }, editingId ? 'حفظ التعديلات' : 'نشر الخبر سحابياً')
+                            )
+                        ),
+
+                        // قسم إدارة وحذف وتعديل الأخبار
+                        createElement('div', { className: 'flex flex-col gap-2' },
+                            createElement('h4', { className: 'font-bold text-xs text-gray-800' }, '🗑️ تعديل أو حذف الأخبار السحابية المنشورة:'),
+                            cloudNews.length === 0 
+                                ? createElement('p', { className: 'text-xs text-gray-400 text-center py-2' }, 'لا توجد أخبار سحابية منشورة حالياً')
+                                : createElement('div', { className: 'flex flex-col gap-2 max-h-48 overflow-y-auto pr-1' },
+                                    cloudNews.map((item) => 
+                                        createElement('div', { key: item.firebaseId, className: 'flex items-center justify-between bg-gray-50 border p-2 rounded-xl gap-2' },
+                                            createElement('span', { className: 'text-xs font-bold text-gray-800 truncate flex-1' }, item.title),
+                                            createElement('div', { className: 'flex gap-1 shrink-0' },
+                                                createElement('button', {
+                                                    type: 'button',
+                                                    onClick: () => handleEditClick(item),
+                                                    className: 'bg-blue-600 text-white px-2.5 py-1 rounded-lg text-xs font-bold hover:bg-blue-700'
+                                                }, 'تعديل'),
+                                                createElement('button', {
+                                                    type: 'button',
+                                                    onClick: () => handleDeleteNews(item.firebaseId),
+                                                    className: 'bg-red-500 text-white px-2.5 py-1 rounded-lg text-xs font-bold hover:bg-red-600'
+                                                }, 'حذف')
+                                            )
+                                        )
+                                    )
+                                )
+                        ),
+
+                        createElement('div', { className: 'flex justify-end mt-2' },
+                            createElement('button', { type: 'button', onClick: () => { setShowAdminPanel(false); setEditingId(null); setNewTitle(''); setNewImage(''); setNewLink(''); }, className: 'px-5 py-2 bg-gray-200 text-gray-800 rounded-xl font-bold text-xs' }, 'إغلاق اللوحة')
+                        )
+                    )
                 )
             );
         }
