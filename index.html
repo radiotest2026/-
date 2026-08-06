@@ -537,13 +537,23 @@
 
         function App() {
             const [showAll, setShowAll] = useState(false);
-            const [activeModalUrl, setActiveModalUrl] = useState(null);
+            const [activeModalUrl, setActiveModalUrl] = useState(() => {
+                return localStorage.getItem('activeSectionUrl') || null;
+            });
             const [showNav, setShowNav] = useState(true);
             const [darkMode, setDarkMode] = useState(false);
 
             const [sliderItems, setSliderItems] = useState(initialSliderNews);
             const [listItems, setListItems] = useState(initialListNews);
             const [cloudNews, setCloudNews] = useState([]);
+
+            useEffect(() => {
+                if (activeModalUrl) {
+                    localStorage.setItem('activeSectionUrl', activeModalUrl);
+                } else {
+                    localStorage.removeItem('activeSectionUrl');
+                }
+            }, [activeModalUrl]);
 
             const fetchCloudNews = () => {
                 db.collection("news").orderBy("createdAt", "desc").get().then((querySnapshot) => {
@@ -707,9 +717,8 @@
                 };
                 window.addEventListener('openNewsModal', handleOpenModal);
                 const handlePopState = () => { 
-                    if (activeModalUrl) {
-                        setActiveModalUrl(null);
-                    }
+                    setActiveModalUrl(null);
+                    localStorage.removeItem('activeSectionUrl');
                 };
                 if (activeModalUrl) {
                     window.history.pushState({ modalOpen: true }, '');
@@ -839,6 +848,7 @@
                     createElement('button', {
                         onClick: () => {
                             setActiveModalUrl(null);
+                            localStorage.removeItem('activeSectionUrl');
                         },
                         className: `flex flex-col items-center gap-0.5 px-4 py-1 rounded-full transition-all cursor-pointer ${!activeModalUrl ? 'text-yellow-300 font-black scale-105' : 'text-white/80 font-bold hover:text-white'}`
                     },
