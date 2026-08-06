@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>إذاعة الشباب والرياضة</title>
+    
+    <!-- Open Graph / Social Media Meta Tags (لإظهار صورة الموقع وعنوانه عند المشاركة) -->
+    <meta property="og:title" content="محبو إذاعة الشباب والرياضة 108 FM">
+    <meta property="og:description" content="البث المباشر وأحدث الأخبار الرياضية والبرامج الإذاعية لإذاعة الشباب والرياضة المصرية.">
+    <meta property="og:image" content="https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg">
+    <meta property="og:type" content="website">
+
     <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIuKchSDYp9mE0YjZhSDYqNin2YTYqNivINin2YTYt9in2YjYqSDYqNmF2K/Yqtin2K8iLAogICJzaG9ydF9uYW1lIjogIuKchSDYp9mE0YjZhSDYqNin2YTYqNivIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMxZTFhNDMiLAogICJ0aGVtZV9jb2xvciI6ICIjMWUxYTQzIiwKICAiaWNvbnMiOiBbIHsgInNyYyI6ICJodHRwczovL2kucG9zdGltZy5jYy84NXRTMzhDYy9TY3JlZW5zaG90LTIwMjYtMDUtMTMtMDItNTgtNTAtODAtOTZiMjYxMjFlNTQ1MjMxYTNjNTY5MzExYTU0Y2RhOTYuanBnIiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9qcGVnцьgcmFkYW5vIj4=">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -116,13 +123,12 @@
 
         const { createElement, useState, useEffect, useRef } = React;
         
-        // دالة مخصصة تضمن تحويل أي أرقام عربية أو هندية إلى إنجليزية (0-9)
         function formatEnglishTime(date) {
             let hours = date.getHours();
             const minutes = date.getMinutes();
             const ampm = hours >= 12 ? 'م' : 'ص';
             hours = hours % 12;
-            hours = hours ? hours : 12; // الساعة 12 بدلاً من 0
+            hours = hours ? hours : 12;
             const minutesStr = minutes < 10 ? '0' + minutes : minutes;
             return `${hours}:${minutesStr} ${ampm}`;
         }
@@ -135,7 +141,6 @@
             const monthName = months[date.getMonth()];
             const year = date.getFullYear();
             
-            // تحويل أقم التاريخ إلى أرقام إنجليزية صريحة
             const engDayNum = String(dayNum).replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
             const engYear = String(year).replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
             
