@@ -116,26 +116,43 @@
 
         const { createElement, useState, useEffect, useRef } = React;
         
-        // دالة تحويل الأرقام العربية إلى الإنجليزية بشكل قاطع
-        function toEnglishDigits(str) {
-            if (!str) return '';
-            const arabicNums = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-            return str.replace(/[٠-٩]/g, w => arabicNums.indexOf(w));
+        // دالة مخصصة تضمن تحويل أي أرقام عربية أو هندية إلى إنجليزية (0-9)
+        function formatEnglishTime(date) {
+            let hours = date.getHours();
+            const minutes = date.getMinutes();
+            const ampm = hours >= 12 ? 'م' : 'ص';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // الساعة 12 بدلاً من 0
+            const minutesStr = minutes < 10 ? '0' + minutes : minutes;
+            return `${hours}:${minutesStr} ${ampm}`;
         }
         
+        function formatEnglishDate(date) {
+            const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+            const months = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+            const dayName = days[date.getDay()];
+            const dayNum = date.getDate();
+            const monthName = months[date.getMonth()];
+            const year = date.getFullYear();
+            
+            // تحويل أقم التاريخ إلى أرقام إنجليزية صريحة
+            const engDayNum = String(dayNum).replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
+            const engYear = String(year).replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
+            
+            return `${dayName} ${engDayNum} ${monthName} ${engYear}`;
+        }
+
         function Clock() {
-            const [time, setTime] = useState(() => {
-                return toEnglishDigits(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }));
-            });
+            const [time, setTime] = useState(() => formatEnglishTime(new Date()));
             useEffect(() => {
                 const timer = setInterval(() => {
-                    setTime(toEnglishDigits(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })));
-                }, 60000);
+                    setTime(formatEnglishTime(new Date()));
+                }, 1000);
                 return () => clearInterval(timer);
             }, []);
             return createElement('div', { className: 'flex items-center gap-1' },
                 createElement('span', { className: 'animate-slow-fade' }, '🕒'),
-                createElement('span', { className: 'text-[10px] font-bold text-white/80' }, time.replace('AM', 'ص').replace('PM', 'م'))
+                createElement('span', { className: 'text-[10px] font-bold text-white/80' }, time)
             );
         }
 
@@ -148,18 +165,16 @@
         }
 
         function LiveClockWidget() {
-            const [time, setTime] = useState(() => {
-                return toEnglishDigits(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }));
-            });
+            const [time, setTime] = useState(() => formatEnglishTime(new Date()));
             useEffect(() => {
                 const timer = setInterval(() => {
-                    setTime(toEnglishDigits(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })));
+                    setTime(formatEnglishTime(new Date()));
                 }, 1000);
                 return () => clearInterval(timer);
             }, []);
             return createElement('div', { className: 'text-yellow-400 text-lg font-black tracking-wide flex items-center gap-2 whitespace-nowrap' },
                 createElement('span', { className: 'animate-slow-fade text-white/90' }, '🕒'),
-                createElement('span', {}, time.replace('AM', 'ص').replace('PM', 'م'))
+                createElement('span', {}, time)
             );
         }
 
@@ -269,9 +284,9 @@
                                 ),
                                 createElement('div', { className: 'rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white p-1' },
                                     createElement('img', { 
-                                        src: 'https://iili.io/CgiaRZF.md.png', 
+                                        src: 'https://iili.io/Cgia7Cg.md.png', 
                                         className: 'w-full object-cover rounded-xl animate-smooth-floating cursor-pointer', 
-                                        onClick: () => setZoomedImage('https://iili.io/CgiaRZF.md.png'),
+                                        onClick: () => setZoomedImage('https://iili.io/Cgia7Cg.md.png'),
                                         alt: 'صورة مواقيت الصلاة' 
                                     })
                                 )
@@ -288,9 +303,9 @@
                                 ),
                                 createElement('div', { className: 'rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white p-1' },
                                     createElement('img', { 
-                                        src: 'https://iili.io/Cgia7Cg.md.png', 
+                                        src: 'https://iili.io/CgiaRZF.md.png', 
                                         className: 'w-full object-cover rounded-xl animate-smooth-floating cursor-pointer', 
-                                        onClick: () => setZoomedImage('https://iili.io/Cgia7Cg.md.png'),
+                                        onClick: () => setZoomedImage('https://iili.io/CgiaRZF.md.png'),
                                         alt: 'صورة درجات الحرارة' 
                                     })
                                 )
@@ -528,9 +543,8 @@
                     let adminCloudList = [];
                     querySnapshot.forEach((doc) => {
                         const item = { firebaseId: doc.id, ...doc.data() };
-                        // ضمان أن التاريخ والوقت للأخبار السحابية بالأرقام الإنجليزية دائماً
                         if (item.time) {
-                            item.time = toEnglishDigits(item.time);
+                            item.time = item.time.replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
                         }
                         adminCloudList.push(item);
                         cloudList.push(item);
@@ -595,8 +609,8 @@
                 }
 
                 const now = new Date();
-                const datePart = toEnglishDigits(now.toLocaleDateString('ar-EG', { day: 'numeric', month: 'long', year: 'numeric' }));
-                const timePart = toEnglishDigits(now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', hour12: true }).replace('AM', 'ص').replace('PM', 'م'));
+                const datePart = formatEnglishDate(now);
+                const timePart = formatEnglishTime(now);
                 const timeNow = `${datePart} - ${timePart}`;
 
                 const newsObj = {
@@ -706,6 +720,7 @@
             };
 
             const renderNewsCard = (news) => {
+                const formattedTime = news.time ? news.time.replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d)) : '';
                 return createElement('a', { 
                     key: news.id || news.firebaseId, 
                     href: news.link, 
@@ -719,7 +734,7 @@
                         createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-green-600 animate-blink' }), createElement('span', { className: 'bg-[#15803d] text-white text-[9px] px-1.5 py-0.5 rounded font-bold' }, news.program)),
                         createElement('h2', { className: `font-bold text-sm leading-tight ${darkMode ? 'text-white' : 'text-gray-900'}` }, news.title),
                         createElement('div', { className: 'text-[9px] text-gray-500 mt-0.5 font-medium' },
-                            createElement('span', {}, toEnglishDigits(news.time))
+                            createElement('span', {}, formattedTime)
                         )
                     )
                 );
@@ -940,7 +955,7 @@
                                                 createElement('button', {
                                                     type: 'button',
                                                     onClick: () => handleDeleteNews(item.firebaseId),
-                                                    className: 'bg-red-500 text-white px-2.5 py-1 rounded-xl text-xs font-bold hover:bg-red-600'
+                                                    className: 'bg-red-500 text-white px-2.5 py-1 rounded-lg text-xs font-bold hover:bg-red-600'
                                                 }, 'حذف')
                                             )
                                         )
@@ -964,4 +979,3 @@
     </script>
 </body>
 </html>
- 
