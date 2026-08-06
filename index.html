@@ -116,11 +116,20 @@
 
         const { createElement, useState, useEffect, useRef } = React;
         
+        // دالة تحويل الأرقام العربية إلى الإنجليزية بشكل قاطع
+        function toEnglishDigits(str) {
+            if (!str) return '';
+            const arabicNums = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+            return str.replace(/[٠-٩]/g, w => arabicNums.indexOf(w));
+        }
+        
         function Clock() {
-            const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }));
+            const [time, setTime] = useState(() => {
+                return toEnglishDigits(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }));
+            });
             useEffect(() => {
                 const timer = setInterval(() => {
-                    setTime(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }));
+                    setTime(toEnglishDigits(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })));
                 }, 60000);
                 return () => clearInterval(timer);
             }, []);
@@ -139,10 +148,12 @@
         }
 
         function LiveClockWidget() {
-            const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }));
+            const [time, setTime] = useState(() => {
+                return toEnglishDigits(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }));
+            });
             useEffect(() => {
                 const timer = setInterval(() => {
-                    setTime(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }));
+                    setTime(toEnglishDigits(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })));
                 }, 1000);
                 return () => clearInterval(timer);
             }, []);
@@ -258,9 +269,9 @@
                                 ),
                                 createElement('div', { className: 'rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white p-1' },
                                     createElement('img', { 
-                                        src: 'https://iili.io/Cgia7Cg.md.png', 
+                                        src: 'https://iili.io/CgiaRZF.md.png', 
                                         className: 'w-full object-cover rounded-xl animate-smooth-floating cursor-pointer', 
-                                        onClick: () => setZoomedImage('https://iili.io/Cgia7Cg.md.png'),
+                                        onClick: () => setZoomedImage('https://iili.io/CgiaRZF.md.png'),
                                         alt: 'صورة مواقيت الصلاة' 
                                     })
                                 )
@@ -277,9 +288,9 @@
                                 ),
                                 createElement('div', { className: 'rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white p-1' },
                                     createElement('img', { 
-                                        src: 'https://iili.io/CgiaRZF.md.png', 
+                                        src: 'https://iili.io/Cgia7Cg.md.png', 
                                         className: 'w-full object-cover rounded-xl animate-smooth-floating cursor-pointer', 
-                                        onClick: () => setZoomedImage('https://iili.io/CgiaRZF.md.png'),
+                                        onClick: () => setZoomedImage('https://iili.io/Cgia7Cg.md.png'),
                                         alt: 'صورة درجات الحرارة' 
                                     })
                                 )
@@ -517,6 +528,10 @@
                     let adminCloudList = [];
                     querySnapshot.forEach((doc) => {
                         const item = { firebaseId: doc.id, ...doc.data() };
+                        // ضمان أن التاريخ والوقت للأخبار السحابية بالأرقام الإنجليزية دائماً
+                        if (item.time) {
+                            item.time = toEnglishDigits(item.time);
+                        }
                         adminCloudList.push(item);
                         cloudList.push(item);
                         if (item.inSlider) {
@@ -580,8 +595,8 @@
                 }
 
                 const now = new Date();
-                const datePart = now.toLocaleDateString('ar-EG', { day: 'numeric', month: 'long', year: 'numeric' });
-                const timePart = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', hour12: true }).replace('AM', 'ص').replace('PM', 'م');
+                const datePart = toEnglishDigits(now.toLocaleDateString('ar-EG', { day: 'numeric', month: 'long', year: 'numeric' }));
+                const timePart = toEnglishDigits(now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', hour12: true }).replace('AM', 'ص').replace('PM', 'م'));
                 const timeNow = `${datePart} - ${timePart}`;
 
                 const newsObj = {
@@ -704,7 +719,7 @@
                         createElement('div', { className: 'flex items-center gap-1.5 mb-0.5' }, createElement('div', { className: 'w-1.5 h-1.5 rounded-full bg-green-600 animate-blink' }), createElement('span', { className: 'bg-[#15803d] text-white text-[9px] px-1.5 py-0.5 rounded font-bold' }, news.program)),
                         createElement('h2', { className: `font-bold text-sm leading-tight ${darkMode ? 'text-white' : 'text-gray-900'}` }, news.title),
                         createElement('div', { className: 'text-[9px] text-gray-500 mt-0.5 font-medium' },
-                            createElement('span', {}, news.time)
+                            createElement('span', {}, toEnglishDigits(news.time))
                         )
                     )
                 );
@@ -949,3 +964,4 @@
     </script>
 </body>
 </html>
+ 
