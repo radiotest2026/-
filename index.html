@@ -386,20 +386,20 @@
             );
         }
 
-        // قسم برامجنا مع لوحة تحكم مستقلة بـ 5 ضغطات (إضافة، اسامٍ تعريفية، وحذف)
+        // قسم برامجنا مع لوحة تحكم مستقلة بـ 5 ضغطات (إضافة، اسامٍ تعريفية، وحذف) ودعم رابط عادي أو كود HTML
         function ProgramsSlider() {
             const [currentIndex, setCurrentIndex] = useState(0);
             const [zoomedIndex, setZoomedIndex] = useState(null);
             const [programsList, setProgramsList] = useState([
-                { id: '1', name: 'صباحكو رياضة', url: 'https://iili.io/CgufgoJ.md.png' },
-                { id: '2', name: 'زاوية عكسية', url: 'https://iili.io/CgufrMv.md.png' },
-                { id: '3', name: '90 دقيقة كورة', url: 'https://iili.io/CSkQjTv.md.png' },
-                { id: '4', name: 'سوبر الملاعب', url: 'https://d.top4top.io/p_3861mgsvr0.png' },
-                { id: '5', name: 'ضربة حرة', url: 'https://iili.io/C8LvjUv.md.png' },
-                { id: '6', name: 'الكورة العالمية', url: 'https://iili.io/C8LvNJR.md.png' },
-                { id: '7', name: 'ساعة رياضة', url: 'https://iili.io/C8Lieea.md.png' },
-                { id: '8', name: 'ملعب الناشئين', url: 'https://iili.io/C8LiO5g.md.png' },
-                { id: '9', name: 'استوديو 108', url: 'https://iili.io/C8LiNdF.md.png' }
+                { id: '1', name: 'صباحكو رياضة', url: 'https://iili.io/CgufgoJ.md.png', type: 'url' },
+                { id: '2', name: 'زاوية عكسية', url: 'https://iili.io/CgufrMv.md.png', type: 'url' },
+                { id: '3', name: '90 دقيقة كورة', url: 'https://iili.io/CSkQjTv.md.png', type: 'url' },
+                { id: '4', name: 'سوبر الملاعب', url: 'https://d.top4top.io/p_3861mgsvr0.png', type: 'url' },
+                { id: '5', name: 'ضربة حرة', url: 'https://iili.io/C8LvjUv.md.png', type: 'url' },
+                { id: '6', name: 'الكورة العالمية', url: 'https://iili.io/C8LvNJR.md.png', type: 'url' },
+                { id: '7', name: 'ساعة رياضة', url: 'https://iili.io/C8Lieea.md.png', type: 'url' },
+                { id: '8', name: 'ملعب الناشئين', url: 'https://iili.io/C8LiO5g.md.png', type: 'url' },
+                { id: '9', name: 'استوديو 108', url: 'https://iili.io/C8LiNdF.md.png', type: 'url' }
             ]);
 
             const [clickCount, setClickCount] = useState(0);
@@ -408,11 +408,12 @@
             const [showAdminPanel, setShowAdminPanel] = useState(false);
             const [newName, setNewName] = useState('');
             const [newUrl, setNewUrl] = useState('');
+            const [imgInputType, setImgInputType] = useState('url'); // 'url' or 'html'
 
             useEffect(() => {
                 db.collection("programs_gallery").onSnapshot(snapshot => {
                     if (!snapshot.empty) {
-                        setProgramsList(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+                        setProgramsList(snapshot.docs.map(doc => ({ id: doc.id, type: 'url', ...doc.data() })));
                     }
                 });
             }, []);
@@ -441,18 +442,20 @@
             const handleAddProgram = async (e) => {
                 e.preventDefault();
                 if (!newUrl || !newName) {
-                    alert('يرجى كتابة الاسم التعريفي ورابط الصورة!');
+                    alert('يرجى كتابة الاسم التعريفي والرابط أو كود الصورة!');
                     return;
                 }
                 try {
                     await db.collection("programs_gallery").add({
                         name: newName,
                         url: newUrl,
+                        type: imgInputType,
                         createdAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
                     alert('تمت إضافة البرنامج بنجاح!');
                     setNewName('');
                     setNewUrl('');
+                    setImgInputType('url');
                 } catch (error) {
                     alert('خطأ أثناء الإضافة: ' + error.message);
                 }
@@ -506,21 +509,29 @@
                     createElement('button', { className: 'nav-button prev-btn', onClick: prevImage }, '▶'),
                     createElement('button', { className: 'nav-button next-btn', onClick: nextImage }, '◀'),
                     createElement('div', { className: 'programs-slider-wrapper', style: { transform: `translateX(${currentIndex * 100}%)` } },
-                        programsList.map((item, idx) => createElement('div', { key: item.id || idx, className: 'programs-slider-item' },
-                            createElement('img', { 
-                                src: item.url, 
-                                className: 'w-full h-full object-contain cursor-pointer', 
-                                referrerPolicy: 'no-referrer', 
-                                onClick: () => setZoomedIndex(idx), 
-                                alt: item.name || 'صورة البرنامج' 
-                            })
+                        programsList.map((item, idx) => createElement('div', { key: item.id || idx, className: 'programs-slider-item flex items-center justify-center w-full h-full relative overflow-hidden' },
+                            item.type === 'html'
+                                ? createElement('div', { 
+                                    className: 'w-full h-full flex items-center justify-center cursor-pointer [&>img]:w-full [&>img]:h-full [&>img]:object-contain',
+                                    dangerouslySetInnerHTML: { __html: item.url },
+                                    onClick: () => setZoomedIndex(idx)
+                                })
+                                : createElement('img', { 
+                                    src: item.url, 
+                                    className: 'w-full h-full object-contain cursor-pointer', 
+                                    referrerPolicy: 'no-referrer', 
+                                    onClick: () => setZoomedIndex(idx), 
+                                    alt: item.name || 'صورة البرنامج' 
+                                })
                         ))
                     )
                 ),
                 zoomedIndex !== null && createElement('div', { className: 'fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4', onClick: () => setZoomedIndex(null) },
                     createElement('div', { className: 'relative max-w-lg w-full flex flex-col items-center select-none', onClick: (e) => e.stopPropagation() },
                         createElement('button', { className: 'absolute -top-12 left-0 text-white bg-green-600 w-9 h-9 rounded-full font-bold text-sm shadow-md flex items-center justify-center z-50', onClick: () => setZoomedIndex(null) }, '✕'),
-                        createElement('img', { src: programsList[zoomedIndex].url, className: 'w-full max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/20', referrerPolicy: 'no-referrer', alt: 'صورة مكبرة' })
+                        programsList[zoomedIndex].type === 'html'
+                            ? createElement('div', { className: 'w-full max-h-[80vh] flex items-center justify-center [&>img]:max-h-[80vh] [&>img]:w-full [&>img]:object-contain', dangerouslySetInnerHTML: { __html: programsList[zoomedIndex].url } })
+                            : createElement('img', { src: programsList[zoomedIndex].url, className: 'w-full max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/20', referrerPolicy: 'no-referrer', alt: 'صورة مكبرة' })
                     )
                 ),
 
@@ -557,9 +568,22 @@
                                 onChange: (e) => setNewName(e.target.value),
                                 className: 'w-full p-2.5 border rounded-xl text-xs focus:outline-none focus:border-green-600 text-gray-900 bg-white'
                             }),
+                            createElement('div', { className: 'flex flex-col gap-1' },
+                                createElement('label', { className: 'text-[11px] font-bold text-gray-700' }, 'نوع الإدخال:'),
+                                createElement('div', { className: 'flex gap-4 text-xs font-bold text-gray-800' },
+                                    createElement('label', { className: 'flex items-center gap-1.5 cursor-pointer' },
+                                        createElement('input', { type: 'radio', name: 'imgInputType', value: 'url', checked: imgInputType === 'url', onChange: (e) => setImgInputType(e.target.value) }),
+                                        'رابط صورة عادي'
+                                    ),
+                                    createElement('label', { className: 'flex items-center gap-1.5 cursor-pointer' },
+                                        createElement('input', { type: 'radio', name: 'imgInputType', value: 'html', checked: imgInputType === 'html', onChange: (e) => setImgInputType(e.target.value) }),
+                                        'كود HTML للصورة'
+                                    )
+                                )
+                            ),
                             createElement('input', {
                                 type: 'text',
-                                placeholder: 'رابط الصورة...',
+                                placeholder: imgInputType === 'html' ? 'أدخل كود HTML للصورة...' : 'رابط الصورة...',
                                 value: newUrl,
                                 onChange: (e) => setNewUrl(e.target.value),
                                 className: 'w-full p-2.5 border rounded-xl text-xs focus:outline-none focus:border-green-600 text-gray-900 bg-white'
