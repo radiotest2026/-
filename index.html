@@ -5,21 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>إذاعة الشباب والرياضة</title>
     
-    <!-- أيقونة اللوجو التي تظهر في التاب فوق في متصفحات اللابتوب والموبايل -->
     <link rel="icon" type="image/jpeg" href="https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg">
     <link rel="apple-touch-icon" href="https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg">
 
-    <!-- Open Graph / Social Media Meta Tags (لإظهار صورة الموقع وعنوانه عند المشاركة) -->
     <meta property="og:title" content="محبو إذاعة الشباب والرياضة 108 FM">
     <meta property="og:description" content="البث المباشر وأحدث الأخبار الرياضية والبرامج الإذاعية لإذاعة الشباب والرياضة المصرية.">
     <meta property="og:image" content="https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg">
     <meta property="og:type" content="website">
 
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIuKchSDYp9mE0YjZhSDYqNin2YTYqNivINin2YTYt9in2YjYqSDYqNmF2K/Yqtin2K8iLAogICJzaG9ydF9uYW1lIjogIuKchSDYp9mE0YjZhSDYqNin2YTYqNivIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMxZTFhNDMiLAogICJ0aGVtZV9jb2xvciI6ICIjMWUxYTQzIiwKICAiaWNvbnMiOiBbIHsgInNyYyI6ICJodHRwczovL2kucG9zdGltZy5jYy84NXRTMzhDYy9TY3JlZW5zaG90LTIwMjYtMDUtMTMtMDItNTgtNTAtODAtOTZiMjYxMjFlNTQ1MjMxYTNjNTY5MzExYTU0Y2RhOTYuanBnIiwgInNpemVzIjogIjUxMng1MTIiLCAidHlwZSI6ICJpbWFnZS9qcGVnцьgcmFkYW5vIj4=">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <!-- مكتبة Firebase السحابية -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -65,8 +61,6 @@
         .next-btn { left: 15px; }
 
         @keyframes halo-pulse-green { 0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); } 70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); } }
-        @keyframes play-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
-        @keyframes ring-pulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(2.2); opacity: 0; } }
         @keyframes smooth-floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
         .animate-smooth-floating { animation: smooth-floating 3s ease-in-out infinite; }
         
@@ -85,8 +79,6 @@
         }
         .animate-mic-pulse-bounce { animation: mic-pulse-bounce 1.8s ease-in-out infinite; }
 
-        @keyframes border-glow { 0% { box-shadow: inset 0 0 0px #22c55e, 0 0 0px #22c55e; } 50% { box-shadow: inset 0 0 5px #22c55e, 0 0 5px #22c55e; } 100% { box-shadow: inset 0 0 0px #22c55e, 0 0 0px #22c55e; } }
-        .animate-border-glow { animation: border-glow 2s infinite; }
         @keyframes green-ring-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); } 50% { box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2); } }
         .animate-green-ring-pulse { animation: green-ring-pulse 2s ease-in-out infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
@@ -95,16 +87,8 @@
         .animate-fade-pulse { animation: fade-pulse 1s infinite; }
         @keyframes mic-glow-soft { 0%, 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.2); } 50% { box-shadow: 0 0 6px 2px rgba(251, 191, 36, 0.35); } }
         .animate-mic-glow-soft { animation: mic-glow-soft 2s ease-in-out infinite; }
-        @keyframes sun-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .animate-sun-rotate { animation: sun-rotate 10s linear infinite; }
-        @keyframes sun-glow-effect { 0%, 100% { filter: drop-shadow(0 0 3px #fbbf24); } 50% { filter: drop-shadow(0 0 8px #f59e0b); } }
-        .animate-sun-glow-effect { animation: sun-glow-effect 2s infinite ease-in-out; }
         @keyframes slow-fade { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
         .animate-slow-fade { animation: slow-fade 4s infinite ease-in-out; }
-        @keyframes cloud-move { 0% { transform: translateX(0px); } 50% { transform: translateX(10px); } 100% { transform: translateX(0px); } }
-        .animate-cloud-move { animation: cloud-move 4s ease-in-out infinite; }
-        @keyframes sun-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.8; } }
-        .animate-sun-pulse { animation: sun-pulse 3s infinite ease-in-out; }
     </style>
 </head>
 <body>
@@ -149,20 +133,6 @@
             const engYear = String(year).replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
             
             return `${dayName} ${engDayNum} ${monthName} ${engYear}`;
-        }
-
-        function Clock() {
-            const [time, setTime] = useState(() => formatEnglishTime(new Date()));
-            useEffect(() => {
-                const timer = setInterval(() => {
-                    setTime(formatEnglishTime(new Date()));
-                }, 1000);
-                return () => clearInterval(timer);
-            }, []);
-            return createElement('div', { className: 'flex items-center gap-1' },
-                createElement('span', { className: 'animate-slow-fade' }, '🕒'),
-                createElement('span', { className: 'text-[10px] font-bold text-white/80' }, time)
-            );
         }
 
         function ThemeToggle({ isDark, onToggle }) {
@@ -230,9 +200,59 @@
             { id: 70, title: "آمال فؤاد لبرنامج «ملعب الناشئين»: انهيار منتخب السيدات بأمم إفريقيا لغياب الاحتكاك", program: "ملعب الناشئين", image: "https://iili.io/CSkBq5x.md.png", time: "2 أغسطس 2026 - 03:51 ص", link: "https://amalfouad1.vercel.app/" }
         ];
 
-        function InfoRotatorSection() {
+        // قسم مواقيت الصلاة والطقس مع لوحة استبدال الصور
+        function InfoRotatorSection({ prayerImg, weatherImg }) {
             const [currentIndex, setCurrentIndex] = useState(0);
             const [zoomedImage, setZoomedImage] = useState(null);
+            
+            const [clickCount, setClickCount] = useState(0);
+            const [showPasswordModal, setShowPasswordModal] = useState(false);
+            const [passwordInput, setPasswordInput] = useState('');
+            const [showImagePanel, setShowImagePanel] = useState(false);
+            const [pImgInput, setPImgInput] = useState(prayerImg);
+            const [wImgInput, setWImgInput] = useState(weatherImg);
+
+            useEffect(() => {
+                setPImgInput(prayerImg);
+                setWImgInput(weatherImg);
+            }, [prayerImg, weatherImg]);
+
+            const handleHeaderClick = () => {
+                const next = clickCount + 1;
+                if (next >= 5) {
+                    setShowPasswordModal(true);
+                    setClickCount(0);
+                } else {
+                    setClickCount(next);
+                }
+            };
+
+            const handleLogin = (e) => {
+                e.preventDefault();
+                if (passwordInput === '108') {
+                    setShowPasswordModal(false);
+                    setShowImagePanel(true);
+                    setPasswordInput('');
+                } else {
+                    alert('كلمة المرور غير صحيحة!');
+                }
+            };
+
+            const handleSaveImages = async (e) => {
+                e.preventDefault();
+                try {
+                    await db.collection("settings").doc("rotator_images").set({
+                        prayerImage: pImgInput || 'https://iili.io/Cr5uOkQ.md.png',
+                        weatherImage: wImgInput || 'https://iili.io/Cr5lGqB.md.png',
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    alert('تم استبدال صور مواقيت الصلاة والطقس بنجاح في السحاب!');
+                    setShowImagePanel(false);
+                } catch (error) {
+                    alert('حدث خطأ أثناء الحفظ: ' + error.message);
+                }
+            };
+
             const touchStartX = useRef(0);
             const touchEndX = useRef(0);
 
@@ -243,38 +263,18 @@
                 return () => clearInterval(timer);
             }, []);
 
-            const nextSlide = (e) => {
-                if (e) e.stopPropagation();
-                setCurrentIndex((prev) => (prev === 0 ? 1 : 0));
-            };
-
-            const prevSlide = (e) => {
-                if (e) e.stopPropagation();
-                setCurrentIndex((prev) => (prev === 0 ? 1 : 0));
-            };
-
-            const handleTouchStart = (e) => {
-                touchStartX.current = e.touches[0].clientX;
-            };
-
-            const handleTouchMove = (e) => {
-                touchEndX.current = e.touches[0].clientX;
-            };
-
-            const handleTouchEnd = () => {
-                if (touchStartX.current - touchEndX.current > 50) {
-                    setCurrentIndex(1);
-                } else if (touchEndX.current - touchStartX.current > 50) {
-                    prevSlide();
-                }
-            };
+            const nextSlide = (e) => { if (e) e.stopPropagation(); setCurrentIndex((prev) => (prev === 0 ? 1 : 0)); };
+            const prevSlide = (e) => { if (e) e.stopPropagation(); setCurrentIndex((prev) => (prev === 0 ? 1 : 0)); };
 
             return createElement('div', { className: 'mb-4' },
                 createElement('div', { 
                     className: 'info-rotator-container shadow-md relative overflow-hidden bg-transparent',
-                    onTouchStart: handleTouchStart,
-                    onTouchMove: handleTouchMove,
-                    onTouchEnd: handleTouchEnd
+                    onTouchStart: (e) => touchStartX.current = e.touches[0].clientX,
+                    onTouchMove: (e) => touchEndX.current = e.touches[0].clientX,
+                    onTouchEnd: () => {
+                        if (touchStartX.current - touchEndX.current > 50) setCurrentIndex(1);
+                        else if (touchEndX.current - touchStartX.current > 50) prevSlide();
+                    }
                 },
                     createElement('button', { className: 'nav-button prev-btn', onClick: prevSlide }, '▶'),
                     createElement('button', { className: 'nav-button next-btn', onClick: nextSlide }, '◀'),
@@ -284,18 +284,21 @@
                     },
                         createElement('div', { className: 'info-rotator-item' },
                             createElement('div', {},
-                                createElement('div', { className: 'mb-2 flex items-center justify-between bg-[#15803d] text-white px-4 py-2.5 rounded-xl shadow-md border-r-4 border-yellow-400' },
+                                createElement('div', { 
+                                    onClick: handleHeaderClick,
+                                    className: 'mb-2 flex items-center justify-between bg-[#15803d] text-white px-4 py-2.5 rounded-xl shadow-md border-r-4 border-yellow-400 cursor-pointer select-none' 
+                                },
                                     createElement('div', { className: 'flex items-center gap-2' },
                                         createElement('i', { className: 'fa-solid fa-mosque text-yellow-400 text-sm animate-smooth-floating' }),
                                         createElement('span', { className: 'font-black text-xs tracking-wide' }, 'مواقيت الصلاة')
                                     ),
-                                    createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2.5 py-1 rounded-full whitespace-nowrap' }, 'الخميس 6 أغسطس 2026')
+                                    createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2.5 py-1 rounded-full whitespace-nowrap' }, 'الجمعة 7 أغسطس 2026')
                                 ),
                                 createElement('div', { className: 'rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white p-1' },
                                     createElement('img', { 
-                                        src: 'https://iili.io/Cgia7Cg.md.png', 
+                                        src: prayerImg || 'https://iili.io/Cr5uOkQ.md.png', 
                                         className: 'w-full object-cover rounded-xl animate-smooth-floating cursor-pointer', 
-                                        onClick: () => setZoomedImage('https://iili.io/Cgia7Cg.md.png'),
+                                        onClick: () => setZoomedImage(prayerImg || 'https://iili.io/Cr5uOkQ.md.png'),
                                         alt: 'صورة مواقيت الصلاة' 
                                     })
                                 )
@@ -303,18 +306,21 @@
                         ),
                         createElement('div', { className: 'info-rotator-item' },
                             createElement('div', {},
-                                createElement('div', { className: 'mb-2 flex items-center justify-between bg-[#15803d] text-white px-4 py-2.5 rounded-xl shadow-md border-r-4 border-yellow-400' },
+                                createElement('div', { 
+                                    onClick: handleHeaderClick,
+                                    className: 'mb-2 flex items-center justify-between bg-[#15803d] text-white px-4 py-2.5 rounded-xl shadow-md border-r-4 border-yellow-400 cursor-pointer select-none' 
+                                },
                                     createElement('div', { className: 'flex items-center gap-2' },
                                         createElement('i', { className: 'fa-solid fa-temperature-high text-yellow-400 text-sm animate-smooth-floating' }),
                                         createElement('span', { className: 'font-black text-xs tracking-wide' }, 'درجات الحرارة')
                                     ),
-                                    createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2.5 py-1 rounded-full whitespace-nowrap' }, 'الخميس 6 أغسطس 2026')
+                                    createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2.5 py-1 rounded-full whitespace-nowrap' }, 'الجمعة 7 أغسطس 2026')
                                 ),
                                 createElement('div', { className: 'rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white p-1' },
                                     createElement('img', { 
-                                        src: 'https://iili.io/CgiaRZF.md.png', 
+                                        src: weatherImg || 'https://iili.io/Cr5lGqB.md.png', 
                                         className: 'w-full object-cover rounded-xl animate-smooth-floating cursor-pointer', 
-                                        onClick: () => setZoomedImage('https://iili.io/CgiaRZF.md.png'),
+                                        onClick: () => setZoomedImage(weatherImg || 'https://iili.io/Cr5lGqB.md.png'),
                                         alt: 'صورة درجات الحرارة' 
                                     })
                                 )
@@ -326,6 +332,357 @@
                     createElement('div', { className: 'relative max-w-lg w-full flex flex-col items-center select-none', onClick: (e) => e.stopPropagation() },
                         createElement('button', { className: 'absolute -top-12 left-0 text-white bg-green-600 w-9 h-9 rounded-full font-bold text-sm shadow-md flex items-center justify-center z-50', onClick: () => setZoomedImage(null) }, '✕'),
                         createElement('img', { src: zoomedImage, className: 'w-full max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/20', referrerPolicy: 'no-referrer', alt: 'صورة مكبرة' })
+                    )
+                ),
+
+                showPasswordModal && createElement('div', { className: 'fixed inset-0 z-[10000] bg-black/80 flex items-center justify-center p-4' },
+                    createElement('form', { onSubmit: handleLogin, className: 'bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl flex flex-col gap-4 text-right' },
+                        createElement('h3', { className: 'font-black text-base text-gray-900' }, 'كلمة المرور لتحديث صور الصلاة والطقس'),
+                        createElement('input', {
+                            type: 'password',
+                            placeholder: 'أدخل كلمة المرور',
+                            value: passwordInput,
+                            onChange: (e) => setPasswordInput(e.target.value),
+                            className: 'w-full p-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-green-600 text-gray-900 bg-white',
+                            autoFocus: true
+                        }),
+                        createElement('div', { className: 'flex gap-2 justify-end' },
+                            createElement('button', { type: 'button', onClick: () => setShowPasswordModal(false), className: 'px-4 py-2 bg-gray-200 text-gray-800 rounded-xl font-bold text-xs' }, 'إلغاء'),
+                            createElement('button', { type: 'submit', className: 'px-4 py-2 bg-[#15803d] text-white rounded-xl font-bold text-xs' }, 'دخول')
+                        )
+                    )
+                ),
+
+                showImagePanel && createElement('div', { className: 'fixed inset-0 z-[10000] bg-black/80 flex items-center justify-center p-4' },
+                    createElement('form', { onSubmit: handleSaveImages, className: 'bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl flex flex-col gap-4 text-right' },
+                        createElement('div', { className: 'flex items-center justify-between border-b pb-2' },
+                            createElement('h3', { className: 'font-black text-sm text-[#15803d]' }, 'لوحة تحكم استبدال صور الصلاة والطقس'),
+                            createElement('button', { type: 'button', onClick: () => setShowImagePanel(false), className: 'text-gray-400 font-bold' }, '✕')
+                        ),
+                        createElement('div', { className: 'flex flex-col gap-1' },
+                            createElement('label', { className: 'text-[11px] font-bold text-gray-700' }, 'رابط صورة مواقيت الصلاة الجديد (سيستبدل القديمة):'),
+                            createElement('input', {
+                                type: 'text',
+                                value: pImgInput,
+                                onChange: (e) => setPImgInput(e.target.value),
+                                className: 'w-full p-2.5 border rounded-xl text-xs focus:outline-none focus:border-green-600 text-gray-900 bg-white'
+                            })
+                        ),
+                        createElement('div', { className: 'flex flex-col gap-1' },
+                            createElement('label', { className: 'text-[11px] font-bold text-gray-700' }, 'رابط صورة درجات الحرارة الجديد (سيستبدل القديمة):'),
+                            createElement('input', {
+                                type: 'text',
+                                value: wImgInput,
+                                onChange: (e) => setWImgInput(e.target.value),
+                                className: 'w-full p-2.5 border rounded-xl text-xs focus:outline-none focus:border-green-600 text-gray-900 bg-white'
+                            })
+                        ),
+                        createElement('div', { className: 'flex gap-2 justify-end mt-2' },
+                            createElement('button', { type: 'button', onClick: () => setShowImagePanel(false), className: 'px-4 py-2 bg-gray-200 text-gray-800 rounded-xl font-bold text-xs' }, 'إلغاء'),
+                            createElement('button', { type: 'submit', className: 'px-4 py-2 bg-[#15803d] text-white rounded-xl font-bold text-xs' }, 'استبدال وحفظ سحابياً')
+                        )
+                    )
+                )
+            );
+        }
+
+        // قسم برامجنا مع لوحة تحكم مستقلة بـ 5 ضغطات (إضافة، اسامٍ تعريفية، وحذف)
+        function ProgramsSlider() {
+            const [currentIndex, setCurrentIndex] = useState(0);
+            const [zoomedIndex, setZoomedIndex] = useState(null);
+            const [programsList, setProgramsList] = useState([
+                { id: '1', name: 'صباحكو رياضة', url: 'https://iili.io/CgufgoJ.md.png' },
+                { id: '2', name: 'زاوية عكسية', url: 'https://iili.io/CgufrMv.md.png' },
+                { id: '3', name: '90 دقيقة كورة', url: 'https://iili.io/CSkQjTv.md.png' },
+                { id: '4', name: 'سوبر الملاعب', url: 'https://d.top4top.io/p_3861mgsvr0.png' },
+                { id: '5', name: 'ضربة حرة', url: 'https://iili.io/C8LvjUv.md.png' },
+                { id: '6', name: 'الكورة العالمية', url: 'https://iili.io/C8LvNJR.md.png' },
+                { id: '7', name: 'ساعة رياضة', url: 'https://iili.io/C8Lieea.md.png' },
+                { id: '8', name: 'ملعب الناشئين', url: 'https://iili.io/C8LiO5g.md.png' },
+                { id: '9', name: 'استوديو 108', url: 'https://iili.io/C8LiNdF.md.png' }
+            ]);
+
+            const [clickCount, setClickCount] = useState(0);
+            const [showPasswordModal, setShowPasswordModal] = useState(false);
+            const [passwordInput, setPasswordInput] = useState('');
+            const [showAdminPanel, setShowAdminPanel] = useState(false);
+            const [newName, setNewName] = useState('');
+            const [newUrl, setNewUrl] = useState('');
+
+            useEffect(() => {
+                db.collection("programs_gallery").onSnapshot(snapshot => {
+                    if (!snapshot.empty) {
+                        setProgramsList(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+                    }
+                });
+            }, []);
+
+            const handleHeaderClick = () => {
+                const next = clickCount + 1;
+                if (next >= 5) {
+                    setShowPasswordModal(true);
+                    setClickCount(0);
+                } else {
+                    setClickCount(next);
+                }
+            };
+
+            const handleLogin = (e) => {
+                e.preventDefault();
+                if (passwordInput === '108') {
+                    setShowPasswordModal(false);
+                    setShowAdminPanel(true);
+                    setPasswordInput('');
+                } else {
+                    alert('كلمة المرور غير صحيحة!');
+                }
+            };
+
+            const handleAddProgram = async (e) => {
+                e.preventDefault();
+                if (!newUrl || !newName) {
+                    alert('يرجى كتابة الاسم التعريفي ورابط الصورة!');
+                    return;
+                }
+                try {
+                    await db.collection("programs_gallery").add({
+                        name: newName,
+                        url: newUrl,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    alert('تمت إضافة البرنامج بنجاح!');
+                    setNewName('');
+                    setNewUrl('');
+                } catch (error) {
+                    alert('خطأ أثناء الإضافة: ' + error.message);
+                }
+            };
+
+            const handleDeleteProgram = async (id) => {
+                if (confirm("هل أنت متأكد من حذف هذه الصورة نهائياً؟")) {
+                    try {
+                        await db.collection("programs_gallery").doc(id).delete();
+                        alert('تم الحذف بنجاح!');
+                    } catch (error) {
+                        alert('خطأ أثناء الحذف: ' + error.message);
+                    }
+                }
+            };
+
+            useEffect(() => {
+                if (programsList.length === 0) return;
+                const timer = setInterval(() => {
+                    setCurrentIndex((prev) => (prev + 1) % programsList.length);
+                }, 2000);
+                return () => clearInterval(timer);
+            }, [programsList.length]);
+
+            const nextImage = (e) => { if (e) e.stopPropagation(); setCurrentIndex((prev) => (prev + 1) % programsList.length); };
+            const prevImage = (e) => { if (e) e.stopPropagation(); setCurrentIndex((prev) => (prev - 1 + programsList.length) % programsList.length); };
+
+            const touchStartX = useRef(0);
+            const touchEndX = useRef(0);
+
+            return createElement('div', { className: 'mb-4' },
+                createElement('div', { 
+                    onClick: handleHeaderClick,
+                    className: 'my-4 flex items-center justify-between bg-[#15803d] text-white px-4 py-2.5 rounded-xl shadow-md border-r-4 border-yellow-400 cursor-pointer select-none' 
+                },
+                    createElement('div', { className: 'flex items-center gap-2' },
+                        createElement('i', { className: 'fa-solid fa-microphone-lines text-yellow-400 text-sm animate-mic-pulse-bounce' }),
+                        createElement('span', { className: 'font-black text-xs tracking-wide text-white' }, 'برامجنا')
+                    ),
+                    createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2.5 py-0.5 rounded-full' }, 'الخريطة البرامجية')
+                ),
+                createElement('div', { 
+                    className: 'programs-slider-container shadow-md bg-white relative overflow-hidden',
+                    onTouchStart: (e) => touchStartX.current = e.touches[0].clientX,
+                    onTouchMove: (e) => touchEndX.current = e.touches[0].clientX,
+                    onTouchEnd: () => {
+                        if (touchStartX.current - touchEndX.current > 50) nextImage();
+                        else if (touchEndX.current - touchStartX.current > 50) prevImage();
+                    }
+                },
+                    createElement('button', { className: 'nav-button prev-btn', onClick: prevImage }, '▶'),
+                    createElement('button', { className: 'nav-button next-btn', onClick: nextImage }, '◀'),
+                    createElement('div', { className: 'programs-slider-wrapper', style: { transform: `translateX(${currentIndex * 100}%)` } },
+                        programsList.map((item, idx) => createElement('div', { key: item.id || idx, className: 'programs-slider-item' },
+                            createElement('img', { 
+                                src: item.url, 
+                                className: 'w-full h-full object-contain cursor-pointer', 
+                                referrerPolicy: 'no-referrer', 
+                                onClick: () => setZoomedIndex(idx), 
+                                alt: item.name || 'صورة البرنامج' 
+                            })
+                        ))
+                    )
+                ),
+                zoomedIndex !== null && createElement('div', { className: 'fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4', onClick: () => setZoomedIndex(null) },
+                    createElement('div', { className: 'relative max-w-lg w-full flex flex-col items-center select-none', onClick: (e) => e.stopPropagation() },
+                        createElement('button', { className: 'absolute -top-12 left-0 text-white bg-green-600 w-9 h-9 rounded-full font-bold text-sm shadow-md flex items-center justify-center z-50', onClick: () => setZoomedIndex(null) }, '✕'),
+                        createElement('img', { src: programsList[zoomedIndex].url, className: 'w-full max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/20', referrerPolicy: 'no-referrer', alt: 'صورة مكبرة' })
+                    )
+                ),
+
+                showPasswordModal && createElement('div', { className: 'fixed inset-0 z-[10000] bg-black/80 flex items-center justify-center p-4' },
+                    createElement('form', { onSubmit: handleLogin, className: 'bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl flex flex-col gap-4 text-right' },
+                        createElement('h3', { className: 'font-black text-base text-gray-900' }, 'كلمة المرور لوحة تحكم برامجنا'),
+                        createElement('input', {
+                            type: 'password',
+                            placeholder: 'أدخل كلمة المرور',
+                            value: passwordInput,
+                            onChange: (e) => setPasswordInput(e.target.value),
+                            className: 'w-full p-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-green-600 text-gray-900 bg-white',
+                            autoFocus: true
+                        }),
+                        createElement('div', { className: 'flex gap-2 justify-end' },
+                            createElement('button', { type: 'button', onClick: () => setShowPasswordModal(false), className: 'px-4 py-2 bg-gray-200 text-gray-800 rounded-xl font-bold text-xs' }, 'إلغاء'),
+                            createElement('button', { type: 'submit', className: 'px-4 py-2 bg-[#15803d] text-white rounded-xl font-bold text-xs' }, 'دخول')
+                        )
+                    )
+                ),
+
+                showAdminPanel && createElement('div', { className: 'fixed inset-0 z-[10000] bg-black/80 flex items-center justify-center p-4 overflow-y-auto' },
+                    createElement('div', { className: 'bg-white rounded-2xl p-6 max-w-lg w-full shadow-2xl flex flex-col gap-4 text-right my-auto max-h-[90vh] overflow-y-auto' },
+                        createElement('div', { className: 'flex items-center justify-between border-b pb-3 sticky top-0 bg-white z-10' },
+                            createElement('h3', { className: 'font-black text-base text-[#15803d]' }, 'لوحة تحكم قسم برامجنا'),
+                            createElement('button', { type: 'button', onClick: () => setShowAdminPanel(false), className: 'text-gray-400 font-bold text-lg' }, '✕')
+                        ),
+                        createElement('form', { onSubmit: handleAddProgram, className: 'flex flex-col gap-3 border-b pb-4' },
+                            createElement('h4', { className: 'font-bold text-xs text-gray-800' }, '➕ إضافة برنامج جديد:'),
+                            createElement('input', {
+                                type: 'text',
+                                placeholder: 'الاسم التعريفي للصورة (للأدمن فقط)...',
+                                value: newName,
+                                onChange: (e) => setNewName(e.target.value),
+                                className: 'w-full p-2.5 border rounded-xl text-xs focus:outline-none focus:border-green-600 text-gray-900 bg-white'
+                            }),
+                            createElement('input', {
+                                type: 'text',
+                                placeholder: 'رابط الصورة...',
+                                value: newUrl,
+                                onChange: (e) => setNewUrl(e.target.value),
+                                className: 'w-full p-2.5 border rounded-xl text-xs focus:outline-none focus:border-green-600 text-gray-900 bg-white'
+                            }),
+                            createElement('button', { type: 'submit', className: 'py-2.5 bg-[#15803d] text-white rounded-xl font-bold text-xs hover:bg-green-700' }, 'إضافة الصورة')
+                        ),
+                        createElement('div', { className: 'flex flex-col gap-2' },
+                            createElement('h4', { className: 'font-bold text-xs text-gray-800' }, '🗑️ حذف الصور الحالية:'),
+                            programsList.map((item) => 
+                                createElement('div', { key: item.id, className: 'flex items-center justify-between bg-gray-50 border p-2 rounded-xl gap-2' },
+                                    createElement('span', { className: 'text-xs font-bold text-gray-800 truncate flex-1' }, item.name || 'بدون اسم'),
+                                    createElement('button', {
+                                        type: 'button',
+                                        onClick: () => handleDeleteProgram(item.id),
+                                        className: 'bg-red-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-red-600'
+                                    }, 'حذف')
+                                )
+                            )
+                        ),
+                        createElement('div', { className: 'flex justify-end mt-2' },
+                            createElement('button', { type: 'button', onClick: () => setShowAdminPanel(false), className: 'px-5 py-2 bg-gray-200 text-gray-800 rounded-xl font-bold text-xs' }, 'إغلاق اللوحة')
+                        )
+                    )
+                )
+            );
+        }
+
+        // قسم صورة الإعلان التفاعلي مع لوحة استبدال بـ 5 ضغطات
+        function AdBannerSection({ adImg }) {
+            const [clickCount, setClickCount] = useState(0);
+            const [showPasswordModal, setShowPasswordModal] = useState(false);
+            const [passwordInput, setPasswordInput] = useState('');
+            const [showImagePanel, setShowImagePanel] = useState(false);
+            const [imgInput, setImgInput] = useState(adImg);
+
+            useEffect(() => {
+                setImgInput(adImg);
+            }, [adImg]);
+
+            const handleImageClick = () => {
+                const next = clickCount + 1;
+                if (next >= 5) {
+                    setShowPasswordModal(true);
+                    setClickCount(0);
+                } else {
+                    setClickCount(next);
+                }
+            };
+
+            const handleLogin = (e) => {
+                e.preventDefault();
+                if (passwordInput === '108') {
+                    setShowPasswordModal(false);
+                    setShowImagePanel(true);
+                    setPasswordInput('');
+                } else {
+                    alert('كلمة المرور غير صحيحة!');
+                }
+            };
+
+            const handleSaveImage = async (e) => {
+                e.preventDefault();
+                try {
+                    await db.collection("settings").doc("ad_image").set({
+                        adImageUrl: imgInput || 'https://iili.io/C8QciFe.md.png',
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    alert('تم استبدال صورة الإعلان بنجاح في السحاب!');
+                    setShowImagePanel(false);
+                } catch (error) {
+                    alert('حدث خطأ أثناء الحفظ: ' + error.message);
+                }
+            };
+
+            return createElement('div', { className: 'my-4' },
+                createElement('div', { 
+                    onClick: handleImageClick,
+                    className: 'rounded-2xl overflow-hidden shadow-lg bg-white p-1 animate-green-glow-border cursor-pointer select-none' 
+                },
+                    createElement('img', { 
+                        src: adImg || 'https://iili.io/C8QciFe.md.png', 
+                        className: 'w-full object-cover rounded-xl pointer-events-none', 
+                        alt: 'إعلان' 
+                    })
+                ),
+
+                showPasswordModal && createElement('div', { className: 'fixed inset-0 z-[10000] bg-black/80 flex items-center justify-center p-4' },
+                    createElement('form', { onSubmit: handleLogin, className: 'bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl flex flex-col gap-4 text-right' },
+                        createElement('h3', { className: 'font-black text-base text-gray-900' }, 'كلمة المرور لوحة تحكم صورة الإعلان'),
+                        createElement('input', {
+                            type: 'password',
+                            placeholder: 'أدخل كلمة المرور',
+                            value: passwordInput,
+                            onChange: (e) => setPasswordInput(e.target.value),
+                            className: 'w-full p-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-green-600 text-gray-900 bg-white',
+                            autoFocus: true
+                        }),
+                        createElement('div', { className: 'flex gap-2 justify-end' },
+                            createElement('button', { type: 'button', onClick: () => setShowPasswordModal(false), className: 'px-4 py-2 bg-gray-200 text-gray-800 rounded-xl font-bold text-xs' }, 'إلغاء'),
+                            createElement('button', { type: 'submit', className: 'px-4 py-2 bg-[#15803d] text-white rounded-xl font-bold text-xs' }, 'دخول')
+                        )
+                    )
+                ),
+
+                showImagePanel && createElement('div', { className: 'fixed inset-0 z-[10000] bg-black/80 flex items-center justify-center p-4' },
+                    createElement('form', { onSubmit: handleSaveImage, className: 'bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl flex flex-col gap-4 text-right' },
+                        createElement('div', { className: 'flex items-center justify-between border-b pb-2' },
+                            createElement('h3', { className: 'font-black text-sm text-[#15803d]' }, 'لوحة تحكم استبدال صورة الإعلان'),
+                            createElement('button', { type: 'button', onClick: () => setShowImagePanel(false), className: 'text-gray-400 font-bold' }, '✕')
+                        ),
+                        createElement('div', { className: 'flex flex-col gap-1' },
+                            createElement('label', { className: 'text-[11px] font-bold text-gray-700' }, 'رابط صورة الإعلان الجديد (سيستبدل القديمة):'),
+                            createElement('input', {
+                                type: 'text',
+                                value: imgInput,
+                                onChange: (e) => setImgInput(e.target.value),
+                                className: 'w-full p-2.5 border rounded-xl text-xs focus:outline-none focus:border-green-600 text-gray-900 bg-white'
+                            })
+                        ),
+                        createElement('div', { className: 'flex gap-2 justify-end mt-2' },
+                            createElement('button', { type: 'button', onClick: () => setShowImagePanel(false), className: 'px-4 py-2 bg-gray-200 text-gray-800 rounded-xl font-bold text-xs' }, 'إلغاء'),
+                            createElement('button', { type: 'submit', className: 'px-4 py-2 bg-[#15803d] text-white rounded-xl font-bold text-xs' }, 'استبدال وحفظ سحابياً')
+                        )
                     )
                 )
             );
@@ -341,9 +698,7 @@
                     setActivePlayer(true);
                     let count = 5;
                     setStatusText(`سيتم تشغيل البث بعد ${count}`);
-                    
                     if (countdownTimer.current) clearInterval(countdownTimer.current);
-
                     countdownTimer.current = setInterval(() => {
                         count -= 1;
                         if (count > 0) {
@@ -407,24 +762,127 @@
             );
         }
 
-        function LiveProgram() {
+        // قسم البث المباشر (تستمعون الآن) مع لوحة مستقلة بـ 5 ضغطات لتغيير البرنامج والمذيع
+        function LiveProgram({ liveData }) {
+            const [clickCount, setClickCount] = useState(0);
+            const [showPasswordModal, setShowPasswordModal] = useState(false);
+            const [passwordInput, setPasswordInput] = useState('');
+            const [showAdminPanel, setShowAdminPanel] = useState(false);
+            const [progInput, setProgInput] = useState(liveData.programName);
+            const [presInput, setPresInput] = useState(liveData.presenterName);
+
+            useEffect(() => {
+                setProgInput(liveData.programName);
+                setPresInput(liveData.presenterName);
+            }, [liveData]);
+
+            const handleClick = () => {
+                const next = clickCount + 1;
+                if (next >= 5) {
+                    setShowPasswordModal(true);
+                    setClickCount(0);
+                } else {
+                    setClickCount(next);
+                }
+            };
+
+            const handleLogin = (e) => {
+                e.preventDefault();
+                if (passwordInput === '108') {
+                    setShowPasswordModal(false);
+                    setShowAdminPanel(true);
+                    setPasswordInput('');
+                } else {
+                    alert('كلمة المرور غير صحيحة!');
+                }
+            };
+
+            const handleSave = async (e) => {
+                e.preventDefault();
+                try {
+                    await db.collection("settings").doc("live_program").set({
+                        programName: progInput || 'صباحكم رياضة',
+                        presenterName: presInput || 'مع الإعلامية: نجلاء حلمي',
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    alert('تم تحديث بيانات البث المباشر بنجاح في السحاب!');
+                    setShowAdminPanel(false);
+                } catch (error) {
+                    alert('حدث خطأ أثناء الحفظ: ' + error.message);
+                }
+            };
+
             return createElement('div', { className: 'mx-3 my-4 bg-gray-900 text-white rounded-2xl border border-yellow-400 shadow-xl p-4 flex flex-col gap-3' },
                 createElement('div', { className: 'flex items-center justify-between' },
-                    createElement('div', { className: 'flex items-center gap-3' },
-                        createElement('div', { className: 'w-12 h-12 bg-white/10 rounded-full flex items-center justify-center animate-mic-glow-soft p-0.5' }, createElement('img', { src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-full h-full rounded-full object-cover', referrerPolicy: 'no-referrer', alt: 'شعار الإذاعة' })),
+                    createElement('div', { 
+                        onClick: handleClick,
+                        className: 'flex items-center gap-3 cursor-pointer select-none' 
+                    },
+                        createElement('div', { className: 'w-12 h-12 bg-white/10 rounded-full flex items-center justify-center animate-mic-glow-soft p-0.5' }, 
+                            createElement('img', { src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-full h-full rounded-full object-cover', referrerPolicy: 'no-referrer', alt: 'شعار الإذاعة' })
+                        ),
                         createElement('div', { className: 'flex flex-col justify-center' },
                             createElement('div', { className: 'flex items-center gap-1.5' },
                                 createElement('span', { className: 'w-2 h-2 bg-green-500 rounded-full animate-fade-pulse' }),
                                 createElement('span', { className: 'text-[10px] text-yellow-400 font-bold' }, 'تستمعون الآن')
                             ),
-                            createElement('div', { className: 'text-[15px] font-black text-yellow-400 leading-tight mt-0.5' }, 'صباحكم رياضة'),
-                            createElement('div', { className: 'text-[10px] text-white/90 font-bold mt-0.5' }, 'مع الإعلامية: نجلاء حلمي')
+                            createElement('div', { className: 'text-[15px] font-black text-yellow-400 leading-tight mt-0.5' }, liveData.programName),
+                            createElement('div', { className: 'text-[10px] text-white/90 font-bold mt-0.5' }, liveData.presenterName)
                         )
                     ),
                     createElement(LiveClockWidget)
                 ),
                 createElement('div', { className: 'mt-1' },
                     createElement(MasperoPlayer)
+                ),
+
+                showPasswordModal && createElement('div', { className: 'fixed inset-0 z-[10000] bg-black/80 flex items-center justify-center p-4' },
+                    createElement('form', { onSubmit: handleLogin, className: 'bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl flex flex-col gap-4 text-right' },
+                        createElement('h3', { className: 'font-black text-base text-gray-900' }, 'كلمة المرور لوحة تحكم البرنامج المباشر'),
+                        createElement('input', {
+                            type: 'password',
+                            placeholder: 'أدخل كلمة المرور',
+                            value: passwordInput,
+                            onChange: (e) => setPasswordInput(e.target.value),
+                            className: 'w-full p-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-green-600 text-gray-900 bg-white',
+                            autoFocus: true
+                        }),
+                        createElement('div', { className: 'flex gap-2 justify-end' },
+                            createElement('button', { type: 'button', onClick: () => setShowPasswordModal(false), className: 'px-4 py-2 bg-gray-200 text-gray-800 rounded-xl font-bold text-xs' }, 'إلغاء'),
+                            createElement('button', { type: 'submit', className: 'px-4 py-2 bg-[#15803d] text-white rounded-xl font-bold text-xs' }, 'دخول')
+                        )
+                    )
+                ),
+
+                showAdminPanel && createElement('div', { className: 'fixed inset-0 z-[10000] bg-black/80 flex items-center justify-center p-4' },
+                    createElement('form', { onSubmit: handleSave, className: 'bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl flex flex-col gap-4 text-right' },
+                        createElement('div', { className: 'flex items-center justify-between border-b pb-2' },
+                            createElement('h3', { className: 'font-black text-sm text-[#15803d]' }, 'لوحة تحكم تفاصيل البث المباشر'),
+                            createElement('button', { type: 'button', onClick: () => setShowAdminPanel(false), className: 'text-gray-400 font-bold' }, '✕')
+                        ),
+                        createElement('div', { className: 'flex flex-col gap-1' },
+                            createElement('label', { className: 'text-[11px] font-bold text-gray-700' }, 'اسم البرنامج (مثال: صباحكم رياضة):'),
+                            createElement('input', {
+                                type: 'text',
+                                value: progInput,
+                                onChange: (e) => setProgInput(e.target.value),
+                                className: 'w-full p-2.5 border rounded-xl text-xs focus:outline-none focus:border-green-600 text-gray-900 bg-white'
+                            })
+                        ),
+                        createElement('div', { className: 'flex flex-col gap-1' },
+                            createElement('label', { className: 'text-[11px] font-bold text-gray-700' }, 'اسم المذيع أو التفاصيل (مثال: مع الإعلامية: نجلاء حلمي):'),
+                            createElement('input', {
+                                type: 'text',
+                                value: presInput,
+                                onChange: (e) => setPresInput(e.target.value),
+                                className: 'w-full p-2.5 border rounded-xl text-xs focus:outline-none focus:border-green-600 text-gray-900 bg-white'
+                            })
+                        ),
+                        createElement('div', { className: 'flex gap-2 justify-end mt-2' },
+                            createElement('button', { type: 'button', onClick: () => setShowAdminPanel(false), className: 'px-4 py-2 bg-gray-200 text-gray-800 rounded-xl font-bold text-xs' }, 'إلغاء'),
+                            createElement('button', { type: 'submit', className: 'px-4 py-2 bg-[#15803d] text-white rounded-xl font-bold text-xs' }, 'حفظ وتحديث سحابياً')
+                        )
+                    )
                 )
             );
         }
@@ -455,86 +913,6 @@
             );
         }
 
-        function ProgramsSlider() {
-            const [currentIndex, setCurrentIndex] = useState(0);
-            const [zoomedIndex, setZoomedIndex] = useState(null);
-            const images = [
-                "https://iili.io/CgufgoJ.md.png",
-                "https://iili.io/CgufrMv.md.png",
-                "https://iili.io/CSkQjTv.md.png",
-                "https://d.top4top.io/p_3861mgsvr0.png",
-                "https://iili.io/C8LvjUv.md.png",
-                "https://iili.io/C8LvNJR.md.png",
-                "https://iili.io/C8Lieea.md.png",
-                "https://iili.io/C8LiO5g.md.png",
-                "https://iili.io/C8LiNdF.md.png"
-            ];
-            const touchStartX = useRef(0);
-            const touchEndX = useRef(0);
-
-            useEffect(() => {
-                const timer = setInterval(() => {
-                    setCurrentIndex((prev) => (prev + 1) % images.length);
-                }, 2000);
-                return () => clearInterval(timer);
-            }, [images.length]);
-
-            const nextImage = (e) => {
-                if (e) e.stopPropagation();
-                setCurrentIndex((prev) => (prev + 1) % images.length);
-            };
-
-            const prevImage = (e) => {
-                if (e) e.stopPropagation();
-                setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-            };
-
-            const handleTouchStart = (e) => {
-                touchStartX.current = e.touches[0].clientX;
-            };
-
-            const handleTouchMove = (e) => {
-                touchEndX.current = e.touches[0].clientX;
-            };
-
-            const handleTouchEnd = () => {
-                if (touchStartX.current - touchEndX.current > 50) {
-                    nextImage();
-                } else if (touchEndX.current - touchStartX.current > 50) {
-                    prevImage();
-                }
-            };
-
-            return createElement('div', { className: 'mb-4' },
-                createElement('div', { 
-                    className: 'programs-slider-container shadow-md bg-white relative overflow-hidden',
-                    onTouchStart: handleTouchStart,
-                    onTouchMove: handleTouchMove,
-                    onTouchEnd: handleTouchEnd
-                },
-                    createElement('button', { className: 'nav-button prev-btn', onClick: prevImage }, '▶'),
-                    createElement('button', { className: 'nav-button next-btn', onClick: nextImage }, '◀'),
-                    createElement('div', { className: 'programs-slider-wrapper', style: { transform: `translateX(${currentIndex * 100}%)` } },
-                        images.map((img, idx) => createElement('div', { key: idx, className: 'programs-slider-item' },
-                            createElement('img', { 
-                                src: img, 
-                                className: 'w-full h-full object-contain cursor-pointer', 
-                                referrerPolicy: 'no-referrer', 
-                                onClick: () => setZoomedIndex(idx), 
-                                alt: 'صورة البرنامج' 
-                            })
-                        ))
-                    )
-                ),
-                zoomedIndex !== null && createElement('div', { className: 'fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4', onClick: () => setZoomedIndex(null) },
-                    createElement('div', { className: 'relative max-w-lg w-full flex flex-col items-center select-none', onClick: (e) => e.stopPropagation() },
-                        createElement('button', { className: 'absolute -top-12 left-0 text-white bg-green-600 w-9 h-9 rounded-full font-bold text-sm shadow-md flex items-center justify-center z-50', onClick: () => setZoomedIndex(null) }, '✕'),
-                        createElement('img', { src: images[zoomedIndex], className: 'w-full max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/20', referrerPolicy: 'no-referrer', alt: 'صورة مكبرة' })
-                    )
-                )
-            );
-        }
-
         function App() {
             const [showAll, setShowAll] = useState(false);
             const [activeModalUrl, setActiveModalUrl] = useState(() => {
@@ -546,16 +924,16 @@
             const [sliderItems, setSliderItems] = useState(initialSliderNews);
             const [listItems, setListItems] = useState(initialListNews);
             const [cloudNews, setCloudNews] = useState([]);
+            
+            const [cloudPrayerImg, setCloudPrayerImg] = useState('https://iili.io/Cr5uOkQ.md.png');
+            const [cloudWeatherImg, setCloudWeatherImg] = useState('https://iili.io/Cr5lGqB.md.png');
+            const [cloudAdImg, setCloudAdImg] = useState('https://iili.io/C8QciFe.md.png');
+            const [cloudLiveProgram, setCloudLiveProgram] = useState({
+                programName: 'صباحكم رياضة',
+                presenterName: 'مع الإعلامية: نجلاء حلمي'
+            });
 
-            useEffect(() => {
-                if (activeModalUrl) {
-                    localStorage.setItem('activeSectionUrl', activeModalUrl);
-                } else {
-                    localStorage.removeItem('activeSectionUrl');
-                }
-            }, [activeModalUrl]);
-
-            const fetchCloudNews = () => {
+            const fetchData = () => {
                 db.collection("news").orderBy("createdAt", "desc").get().then((querySnapshot) => {
                     let cloudList = [];
                     let cloudSlider = [];
@@ -578,15 +956,54 @@
                     const combinedSlider = [...cloudSlider, ...initialSliderNews].slice(0, 5);
                     setSliderItems(combinedSlider);
                 }).catch((error) => {
-                    console.log("Error getting documents: ", error);
+                    console.log("Error getting news: ", error);
+                });
+
+                db.collection("settings").doc("rotator_images").get().then((doc) => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        if (data.prayerImage) setCloudPrayerImg(data.prayerImage);
+                        if (data.weatherImage) setCloudWeatherImg(data.weatherImage);
+                    }
+                }).catch((error) => {
+                    console.log("Error getting settings: ", error);
+                });
+
+                db.collection("settings").doc("ad_image").get().then((doc) => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        if (data.adImageUrl) setCloudAdImg(data.adImageUrl);
+                    }
+                }).catch((error) => {
+                    console.log("Error getting ad image: ", error);
+                });
+
+                db.collection("settings").doc("live_program").get().then((doc) => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        setCloudLiveProgram({
+                            programName: data.programName || 'صباحكم رياضة',
+                            presenterName: data.presenterName || 'مع الإعلامية: نجلاء حلمي'
+                        });
+                    }
+                }).catch((error) => {
+                    console.log("Error getting live program settings: ", error);
                 });
             };
 
             useEffect(() => {
-                fetchCloudNews();
+                fetchData();
             }, []);
 
-            const [clickCount, setClickCount] = useState(0);
+            useEffect(() => {
+                if (activeModalUrl) {
+                    localStorage.setItem('activeSectionUrl', activeModalUrl);
+                } else {
+                    localStorage.removeItem('activeSectionUrl');
+                }
+            }, [activeModalUrl]);
+
+            const [headerClickCount, setHeaderClickCount] = useState(0);
             const [showPasswordModal, setShowPasswordModal] = useState(false);
             const [passwordInput, setPasswordInput] = useState('');
             const [showAdminPanel, setShowAdminPanel] = useState(false);
@@ -599,14 +1016,13 @@
             const [editingId, setEditingId] = useState(null);
 
             const handleHeaderClick = () => {
-                setClickCount(prev => {
-                    const next = prev + 1;
-                    if (next >= 5) {
-                        setShowPasswordModal(true);
-                        return 0;
-                    }
-                    return next;
-                });
+                const next = headerClickCount + 1;
+                if (next >= 5) {
+                    setShowPasswordModal(true);
+                    setHeaderClickCount(0);
+                } else {
+                    setHeaderClickCount(next);
+                }
             };
 
             const handleLogin = (e) => {
@@ -653,7 +1069,7 @@
                         alert('تم نشر الخبر بنجاح في السحاب وسيراه جميع الزوار فوراً!');
                     }
 
-                    fetchCloudNews();
+                    fetchData();
                     setNewTitle('');
                     setNewImage('');
                     setNewLink('');
@@ -684,7 +1100,7 @@
                             setNewLink('');
                             setNewProgram('');
                         }
-                        fetchCloudNews();
+                        fetchData();
                         alert("تم حذف الخبر بنجاح!");
                     } catch (error) {
                         alert("حدث خطأ أثناء الحذف: " + error.message);
@@ -787,30 +1203,23 @@
                         title: 'محتوى الصفحة'
                     }) : [
                         createElement(Slider, { key: 'slider', items: sliderItems }),
-                        createElement(LiveProgram, { key: 'live' }),
+                        createElement(LiveProgram, { key: 'live', liveData: cloudLiveProgram }),
                         
                         ...part1.map(renderNewsCard),
 
-                        createElement('div', { key: 'prog-header', className: 'my-4 flex items-center justify-between bg-[#15803d] text-white px-4 py-2.5 rounded-xl shadow-md border-r-4 border-yellow-400' },
-                            createElement('div', { className: 'flex items-center gap-2' },
-                                createElement('i', { className: 'fa-solid fa-microphone-lines text-yellow-400 text-sm animate-mic-pulse-bounce' }),
-                                createElement('span', { className: 'font-black text-xs tracking-wide text-white' }, 'برامجنا')
-                            ),
-                            createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2.5 py-0.5 rounded-full' }, 'الخريطة البرامجية')
-                        ),
                         createElement(ProgramsSlider, { key: 'prog-slider' }),
 
                         ...part2.map(renderNewsCard),
 
-                        createElement(InfoRotatorSection, { key: 'rotator' }),
+                        createElement(InfoRotatorSection, { 
+                            key: 'rotator', 
+                            prayerImg: cloudPrayerImg, 
+                            weatherImg: cloudWeatherImg 
+                        }),
 
                         ...part3.map(renderNewsCard),
 
-                        createElement('div', { key: 'ad', className: 'my-4' },
-                            createElement('div', { className: 'rounded-2xl overflow-hidden shadow-lg bg-white p-1 animate-green-glow-border' },
-                                createElement('img', { src: 'https://iili.io/C8QciFe.md.png', className: 'w-full object-cover rounded-xl', alt: 'إعلان' })
-                            )
-                        ),
+                        createElement(AdBannerSection, { key: 'ad', adImg: cloudAdImg }),
 
                         createElement('div', { key: 'warning', className: 'my-4' },
                             createElement('div', { className: 'mb-2 flex items-center justify-between bg-[#15803d] text-white px-4 py-2.5 rounded-xl shadow-md border-r-4 border-yellow-400' },
@@ -887,7 +1296,7 @@
                             placeholder: 'أدخل كلمة المرور',
                             value: passwordInput,
                             onChange: (e) => setPasswordInput(e.target.value),
-                            className: 'w-full p-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-green-600',
+                            className: 'w-full p-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-green-600 text-gray-900 bg-white',
                             autoFocus: true
                         }),
                         createElement('div', { className: 'flex gap-2 justify-end' },
@@ -911,28 +1320,28 @@
                                 placeholder: 'عنوان الخبر...',
                                 value: newTitle,
                                 onChange: (e) => setNewTitle(e.target.value),
-                                className: 'w-full p-2.5 border border-gray-300 rounded-xl text-xs focus:outline-none focus:border-green-600'
+                                className: 'w-full p-2.5 border border-gray-300 rounded-xl text-xs focus:outline-none focus:border-green-600 text-gray-900 bg-white'
                             }),
                             createElement('input', {
                                 type: 'text',
                                 placeholder: 'اسم البرنامج (مثال: صباحكو رياضة، زاوية عكسية)...',
                                 value: newProgram,
                                 onChange: (e) => setNewProgram(e.target.value),
-                                className: 'w-full p-2.5 border border-gray-300 rounded-xl text-xs focus:outline-none focus:border-green-600'
+                                className: 'w-full p-2.5 border border-gray-300 rounded-xl text-xs focus:outline-none focus:border-green-600 text-gray-900 bg-white'
                             }),
                             createElement('input', {
                                 type: 'text',
                                 placeholder: 'رابط الصورة (اختياري)...',
                                 value: newImage,
                                 onChange: (e) => setNewImage(e.target.value),
-                                className: 'w-full p-2.5 border border-gray-300 rounded-xl text-xs focus:outline-none focus:border-green-600'
+                                className: 'w-full p-2.5 border border-gray-300 rounded-xl text-xs focus:outline-none focus:border-green-600 text-gray-900 bg-white'
                             }),
                             createElement('input', {
                                 type: 'text',
                                 placeholder: 'رابط Vercel الخاص بالخبر...',
                                 value: newLink,
                                 onChange: (e) => setNewLink(e.target.value),
-                                className: 'w-full p-2.5 border border-gray-300 rounded-xl text-xs focus:outline-none focus:border-green-600'
+                                className: 'w-full p-2.5 border border-gray-300 rounded-xl text-xs focus:outline-none focus:border-green-600 text-gray-900 bg-white'
                             }),
                             createElement('div', { className: 'flex flex-col gap-1' },
                                 createElement('label', { className: 'text-[11px] font-bold text-gray-700' }, 'مكان النشر:'),
