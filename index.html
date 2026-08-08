@@ -200,22 +200,41 @@
             { id: 70, title: "آمال فؤاد لبرنامج «ملعب الناشئين»: انهيار منتخب السيدات بأمم إفريقيا لغياب الاحتكاك", program: "ملعب الناشئين", image: "https://iili.io/CSkBq5x.md.png", time: "2 أغسطس 2026 - 03:51 ص", link: "https://amalfouad1.vercel.app/" }
         ];
 
-        // قسم مواقيت الصلاة والطقس مع لوحة استبدال الصور
-        function InfoRotatorSection({ prayerImg, weatherImg }) {
+        // قسم مواقيت الصلاة والطقس مستقل تماماً وبمراقبة سحابية لحظية مع إمكانية اختيار رابط عادي أو كود HTML
+        function InfoRotatorSection() {
             const [currentIndex, setCurrentIndex] = useState(0);
             const [zoomedImage, setZoomedImage] = useState(null);
             
+            const [currentPrayerImg, setCurrentPrayerImg] = useState('https://iili.io/Cr5uOkQ.md.png');
+            const [currentWeatherImg, setCurrentWeatherImg] = useState('https://iili.io/Cr5lGqB.md.png');
+            const [pType, setPType] = useState('url');
+            const [wType, setWType] = useState('url');
+
             const [clickCount, setClickCount] = useState(0);
             const [showPasswordModal, setShowPasswordModal] = useState(false);
             const [passwordInput, setPasswordInput] = useState('');
             const [showImagePanel, setShowImagePanel] = useState(false);
-            const [pImgInput, setPImgInput] = useState(prayerImg);
-            const [wImgInput, setWImgInput] = useState(weatherImg);
+            const [pImgInput, setPImgInput] = useState('https://iili.io/Cr5uOkQ.md.png');
+            const [wImgInput, setWImgInput] = useState('https://iili.io/Cr5lGqB.md.png');
 
             useEffect(() => {
-                setPImgInput(prayerImg);
-                setWImgInput(weatherImg);
-            }, [prayerImg, weatherImg]);
+                const unsubscribe = db.collection("settings").doc("rotator_images").onSnapshot(doc => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        if (data.prayerImage) {
+                            setCurrentPrayerImg(data.prayerImage);
+                            setPImgInput(data.prayerImage);
+                            setPType(data.prayerType || 'url');
+                        }
+                        if (data.weatherImage) {
+                            setCurrentWeatherImg(data.weatherImage);
+                            setWImgInput(data.weatherImage);
+                            setWType(data.weatherType || 'url');
+                        }
+                    }
+                });
+                return () => unsubscribe();
+            }, []);
 
             const handleHeaderClick = () => {
                 const next = clickCount + 1;
@@ -243,7 +262,9 @@
                 try {
                     await db.collection("settings").doc("rotator_images").set({
                         prayerImage: pImgInput || 'https://iili.io/Cr5uOkQ.md.png',
+                        prayerType: pType,
                         weatherImage: wImgInput || 'https://iili.io/Cr5lGqB.md.png',
+                        weatherType: wType,
                         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
                     alert('تم استبدال صور مواقيت الصلاة والطقس بنجاح في السحاب!');
@@ -295,12 +316,19 @@
                                     createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2.5 py-1 rounded-full whitespace-nowrap' }, 'الجمعة 7 أغسطس 2026')
                                 ),
                                 createElement('div', { className: 'rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white p-1' },
-                                    createElement('img', { 
-                                        src: prayerImg || 'https://iili.io/Cr5uOkQ.md.png', 
-                                        className: 'w-full object-cover rounded-xl animate-smooth-floating cursor-pointer', 
-                                        onClick: () => setZoomedImage(prayerImg || 'https://iili.io/Cr5uOkQ.md.png'),
-                                        alt: 'صورة مواقيت الصلاة' 
-                                    })
+                                    pType === 'html'
+                                        ? createElement('div', { 
+                                            className: 'w-full flex items-center justify-center cursor-pointer [&>img]:w-full [&>img]:object-cover [&>img]:rounded-xl',
+                                            dangerouslySetInnerHTML: { __html: currentPrayerImg },
+                                            onClick: () => setZoomedImage(currentPrayerImg)
+                                        })
+                                        : createElement('img', { 
+                                            src: currentPrayerImg, 
+                                            className: 'w-full object-cover rounded-xl animate-smooth-floating cursor-pointer', 
+                                            referrerPolicy: 'no-referrer',
+                                            onClick: () => setZoomedImage(currentPrayerImg),
+                                            alt: 'صورة مواقيت الصلاة' 
+                                        })
                                 )
                             )
                         ),
@@ -317,12 +345,19 @@
                                     createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2.5 py-1 rounded-full whitespace-nowrap' }, 'الجمعة 7 أغسطس 2026')
                                 ),
                                 createElement('div', { className: 'rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white p-1' },
-                                    createElement('img', { 
-                                        src: weatherImg || 'https://iili.io/Cr5lGqB.md.png', 
-                                        className: 'w-full object-cover rounded-xl animate-smooth-floating cursor-pointer', 
-                                        onClick: () => setZoomedImage(weatherImg || 'https://iili.io/Cr5lGqB.md.png'),
-                                        alt: 'صورة درجات الحرارة' 
-                                    })
+                                    wType === 'html'
+                                        ? createElement('div', { 
+                                            className: 'w-full flex items-center justify-center cursor-pointer [&>img]:w-full [&>img]:object-cover [&>img]:rounded-xl',
+                                            dangerouslySetInnerHTML: { __html: currentWeatherImg },
+                                            onClick: () => setZoomedImage(currentWeatherImg)
+                                        })
+                                        : createElement('img', { 
+                                            src: currentWeatherImg, 
+                                            className: 'w-full object-cover rounded-xl animate-smooth-floating cursor-pointer', 
+                                            referrerPolicy: 'no-referrer',
+                                            onClick: () => setZoomedImage(currentWeatherImg),
+                                            alt: 'صورة درجات الحرارة' 
+                                        })
                                 )
                             )
                         )
@@ -331,7 +366,9 @@
                 zoomedImage !== null && createElement('div', { className: 'fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4', onClick: () => setZoomedImage(null) },
                     createElement('div', { className: 'relative max-w-lg w-full flex flex-col items-center select-none', onClick: (e) => e.stopPropagation() },
                         createElement('button', { className: 'absolute -top-12 left-0 text-white bg-green-600 w-9 h-9 rounded-full font-bold text-sm shadow-md flex items-center justify-center z-50', onClick: () => setZoomedImage(null) }, '✕'),
-                        createElement('img', { src: zoomedImage, className: 'w-full max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/20', referrerPolicy: 'no-referrer', alt: 'صورة مكبرة' })
+                        (zoomedImage === currentPrayerImg && pType === 'html') || (zoomedImage === currentWeatherImg && wType === 'html')
+                            ? createElement('div', { className: 'w-full max-h-[80vh] flex items-center justify-center [&>img]:max-h-[80vh] [&>img]:w-full [&>img]:object-contain', dangerouslySetInnerHTML: { __html: zoomedImage } })
+                            : createElement('img', { src: zoomedImage, className: 'w-full max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/20', referrerPolicy: 'no-referrer', alt: 'صورة مكبرة' })
                     )
                 ),
 
@@ -360,20 +397,42 @@
                             createElement('button', { type: 'button', onClick: () => setShowImagePanel(false), className: 'text-gray-400 font-bold' }, '✕')
                         ),
                         createElement('div', { className: 'flex flex-col gap-1' },
-                            createElement('label', { className: 'text-[11px] font-bold text-gray-700' }, 'رابط صورة مواقيت الصلاة الجديد (سيستبدل القديمة):'),
+                            createElement('label', { className: 'text-[11px] font-bold text-gray-700' }, 'صورة مواقيت الصلاة:'),
+                            createElement('div', { className: 'flex gap-4 text-xs font-bold text-gray-800' },
+                                createElement('label', { className: 'flex items-center gap-1.5 cursor-pointer' },
+                                    createElement('input', { type: 'radio', name: 'pType', value: 'url', checked: pType === 'url', onChange: (e) => setPType(e.target.value) }),
+                                    'رابط صورة عادي'
+                                ),
+                                createElement('label', { className: 'flex items-center gap-1.5 cursor-pointer' },
+                                    createElement('input', { type: 'radio', name: 'pType', value: 'html', checked: pType === 'html', onChange: (e) => setPType(e.target.value) }),
+                                    'كود HTML للصورة'
+                                )
+                            ),
                             createElement('input', {
                                 type: 'text',
                                 value: pImgInput,
                                 onChange: (e) => setPImgInput(e.target.value),
+                                placeholder: pType === 'html' ? 'أدخل كود HTML للصورة...' : 'رابط الصورة...',
                                 className: 'w-full p-2.5 border rounded-xl text-xs focus:outline-none focus:border-green-600 text-gray-900 bg-white'
                             })
                         ),
                         createElement('div', { className: 'flex flex-col gap-1' },
-                            createElement('label', { className: 'text-[11px] font-bold text-gray-700' }, 'رابط صورة درجات الحرارة الجديد (سيستبدل القديمة):'),
+                            createElement('label', { className: 'text-[11px] font-bold text-gray-700' }, 'صورة درجات الحرارة:'),
+                            createElement('div', { className: 'flex gap-4 text-xs font-bold text-gray-800' },
+                                createElement('label', { className: 'flex items-center gap-1.5 cursor-pointer' },
+                                    createElement('input', { type: 'radio', name: 'wType', value: 'url', checked: wType === 'url', onChange: (e) => setWType(e.target.value) }),
+                                    'رابط صورة عادي'
+                                ),
+                                createElement('label', { className: 'flex items-center gap-1.5 cursor-pointer' },
+                                    createElement('input', { type: 'radio', name: 'wType', value: 'html', checked: wType === 'html', onChange: (e) => setWType(e.target.value) }),
+                                    'كود HTML للصورة'
+                                )
+                            ),
                             createElement('input', {
                                 type: 'text',
                                 value: wImgInput,
                                 onChange: (e) => setWImgInput(e.target.value),
+                                placeholder: wType === 'html' ? 'أدخل كود HTML للصورة...' : 'رابط الصورة...',
                                 className: 'w-full p-2.5 border rounded-xl text-xs focus:outline-none focus:border-green-600 text-gray-900 bg-white'
                             })
                         ),
@@ -408,7 +467,7 @@
             const [showAdminPanel, setShowAdminPanel] = useState(false);
             const [newName, setNewName] = useState('');
             const [newUrl, setNewUrl] = useState('');
-            const [imgInputType, setImgInputType] = useState('url'); // 'url' or 'html'
+            const [imgInputType, setImgInputType] = useState('url');
 
             useEffect(() => {
                 db.collection("programs_gallery").onSnapshot(snapshot => {
@@ -611,17 +670,32 @@
             );
         }
 
-        // قسم صورة الإعلان التفاعلي مع لوحة استبدال بـ 5 ضغطات
-        function AdBannerSection({ adImg }) {
+        // قسم صورة الإعلان التفاعلي مع دعم الرابط أو كود الـ HTML ومراقبة سحابية لحظية
+        function AdBannerSection() {
             const [clickCount, setClickCount] = useState(0);
             const [showPasswordModal, setShowPasswordModal] = useState(false);
             const [passwordInput, setPasswordInput] = useState('');
             const [showImagePanel, setShowImagePanel] = useState(false);
-            const [imgInput, setImgInput] = useState(adImg);
+            
+            const [currentAdImg, setCurrentAdImg] = useState('https://iili.io/C8QciFe.md.png');
+            const [adType, setAdType] = useState('url');
+            const [imgInput, setImgInput] = useState('https://iili.io/C8QciFe.md.png');
+            const [imgTypeInput, setImgTypeInput] = useState('url');
 
             useEffect(() => {
-                setImgInput(adImg);
-            }, [adImg]);
+                const unsubscribe = db.collection("settings").doc("ad_image").onSnapshot(doc => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        if (data.adImageUrl) {
+                            setCurrentAdImg(data.adImageUrl);
+                            setImgInput(data.adImageUrl);
+                            setAdType(data.adType || 'url');
+                            setImgTypeInput(data.adType || 'url');
+                        }
+                    }
+                });
+                return () => unsubscribe();
+            }, []);
 
             const handleImageClick = () => {
                 const next = clickCount + 1;
@@ -649,6 +723,7 @@
                 try {
                     await db.collection("settings").doc("ad_image").set({
                         adImageUrl: imgInput || 'https://iili.io/C8QciFe.md.png',
+                        adType: imgTypeInput,
                         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
                     alert('تم استبدال صورة الإعلان بنجاح في السحاب!');
@@ -663,11 +738,17 @@
                     onClick: handleImageClick,
                     className: 'rounded-2xl overflow-hidden shadow-lg bg-white p-1 animate-green-glow-border cursor-pointer select-none' 
                 },
-                    createElement('img', { 
-                        src: adImg || 'https://iili.io/C8QciFe.md.png', 
-                        className: 'w-full object-cover rounded-xl pointer-events-none', 
-                        alt: 'إعلان' 
-                    })
+                    adType === 'html'
+                        ? createElement('div', { 
+                            className: 'w-full flex items-center justify-center [&>img]:w-full [&>img]:object-cover [&>img]:rounded-xl',
+                            dangerouslySetInnerHTML: { __html: currentAdImg }
+                        })
+                        : createElement('img', { 
+                            src: currentAdImg, 
+                            className: 'w-full object-cover rounded-xl pointer-events-none', 
+                            referrerPolicy: 'no-referrer',
+                            alt: 'إعلان' 
+                        })
                 ),
 
                 showPasswordModal && createElement('div', { className: 'fixed inset-0 z-[10000] bg-black/80 flex items-center justify-center p-4' },
@@ -695,11 +776,25 @@
                             createElement('button', { type: 'button', onClick: () => setShowImagePanel(false), className: 'text-gray-400 font-bold' }, '✕')
                         ),
                         createElement('div', { className: 'flex flex-col gap-1' },
-                            createElement('label', { className: 'text-[11px] font-bold text-gray-700' }, 'رابط صورة الإعلان الجديد (سيستبدل القديمة):'),
+                            createElement('label', { className: 'text-[11px] font-bold text-gray-700' }, 'نوع الإدخال:'),
+                            createElement('div', { className: 'flex gap-4 text-xs font-bold text-gray-800' },
+                                createElement('label', { className: 'flex items-center gap-1.5 cursor-pointer' },
+                                    createElement('input', { type: 'radio', name: 'imgTypeInput', value: 'url', checked: imgTypeInput === 'url', onChange: (e) => setImgTypeInput(e.target.value) }),
+                                    'رابط صورة عادي'
+                                ),
+                                createElement('label', { className: 'flex items-center gap-1.5 cursor-pointer' },
+                                    createElement('input', { type: 'radio', name: 'imgTypeInput', value: 'html', checked: imgTypeInput === 'html', onChange: (e) => setImgTypeInput(e.target.value) }),
+                                    'كود HTML للصورة'
+                                )
+                            )
+                        ),
+                        createElement('div', { className: 'flex flex-col gap-1' },
+                            createElement('label', { className: 'text-[11px] font-bold text-gray-700' }, imgTypeInput === 'html' ? 'كود HTML للصورة الجديد:' : 'رابط صورة الإعلان الجديد:'),
                             createElement('input', {
                                 type: 'text',
                                 value: imgInput,
                                 onChange: (e) => setImgInput(e.target.value),
+                                placeholder: imgTypeInput === 'html' ? 'أدخل كود HTML للصورة...' : 'رابط الصورة...',
                                 className: 'w-full p-2.5 border rounded-xl text-xs focus:outline-none focus:border-green-600 text-gray-900 bg-white'
                             })
                         ),
@@ -949,9 +1044,6 @@
             const [listItems, setListItems] = useState(initialListNews);
             const [cloudNews, setCloudNews] = useState([]);
             
-            const [cloudPrayerImg, setCloudPrayerImg] = useState('https://iili.io/Cr5uOkQ.md.png');
-            const [cloudWeatherImg, setCloudWeatherImg] = useState('https://iili.io/Cr5lGqB.md.png');
-            const [cloudAdImg, setCloudAdImg] = useState('https://iili.io/C8QciFe.md.png');
             const [cloudLiveProgram, setCloudLiveProgram] = useState({
                 programName: 'صباحكم رياضة',
                 presenterName: 'مع الإعلامية: نجلاء حلمي'
@@ -981,25 +1073,6 @@
                     setSliderItems(combinedSlider);
                 }).catch((error) => {
                     console.log("Error getting news: ", error);
-                });
-
-                db.collection("settings").doc("rotator_images").get().then((doc) => {
-                    if (doc.exists) {
-                        const data = doc.data();
-                        if (data.prayerImage) setCloudPrayerImg(data.prayerImage);
-                        if (data.weatherImage) setCloudWeatherImg(data.weatherImage);
-                    }
-                }).catch((error) => {
-                    console.log("Error getting settings: ", error);
-                });
-
-                db.collection("settings").doc("ad_image").get().then((doc) => {
-                    if (doc.exists) {
-                        const data = doc.data();
-                        if (data.adImageUrl) setCloudAdImg(data.adImageUrl);
-                    }
-                }).catch((error) => {
-                    console.log("Error getting ad image: ", error);
                 });
 
                 db.collection("settings").doc("live_program").get().then((doc) => {
@@ -1235,15 +1308,11 @@
 
                         ...part2.map(renderNewsCard),
 
-                        createElement(InfoRotatorSection, { 
-                            key: 'rotator', 
-                            prayerImg: cloudPrayerImg, 
-                            weatherImg: cloudWeatherImg 
-                        }),
+                        createElement(InfoRotatorSection, { key: 'rotator' }),
 
                         ...part3.map(renderNewsCard),
 
-                        createElement(AdBannerSection, { key: 'ad', adImg: cloudAdImg }),
+                        createElement(AdBannerSection, { key: 'ad' }),
 
                         createElement('div', { key: 'warning', className: 'my-4' },
                             createElement('div', { className: 'mb-2 flex items-center justify-between bg-[#15803d] text-white px-4 py-2.5 rounded-xl shadow-md border-r-4 border-yellow-400' },
@@ -1407,7 +1476,7 @@
                                                 createElement('button', {
                                                     type: 'button',
                                                     onClick: () => handleDeleteNews(item.firebaseId),
-                                                    className: 'bg-red-500 text-white px-2.5 py-1 rounded-lg text-xs font-bold hover:bg-red-600'
+                                                    className: 'bg-red-500 text-white px-3.5 py-1 rounded-lg text-xs font-bold hover:bg-red-600'
                                                 }, 'حذف')
                                             )
                                         )
