@@ -157,40 +157,10 @@
             );
         }
 
-        const initialSliderNews = [
-            { id: 100, title: "محمد طارق لـ «زاوية عكسية»: الترسانة يرفض بيع نجومه ويستهدف العودة للممتاز بخطة استثنائية", program: "زاوية عكسية", image: "https://iili.io/CgzIo9S.md.png", time: "5 أغسطس 2026 - 03:52 ص", link: "https://mohamedtarek-ten.vercel.app/" },
-            { id: 101, title: "طارق رمضان لـ «صباحكو رياضة»: دمج إنبي والشرقية «شو إعلامي» وتصريحات العقود كارثية", program: "صباحكو رياضة", image: "https://iili.io/CgzRfz7.md.png", time: "5 أغسطس 2026 - 03:51 ص", link: "https://tareekramadan.vercel.app/" },
-            { id: 97, title: "أحمد آدم لـ «90 دقيقة كورة»: مصر تتصدر الترتيب العالمي في بطولة التحدي للبوتشا وتتفوق على عمالقة اللعبة", program: "90 دقيقة كورة", image: "https://iili.io/CgzfyX4.md.png", time: "5 أغسطس 2026 - 03:30 ص", link: "https://ahmedadam.vercel.app/" },
-            { id: 98, title: "محمود عبد الرحمن لـ «90 دقيقة كورة»: مصر تدرس استضافة كأس العالم للبوتشا والوفود العالمية تنبهر بصالة حسن مصطفى", program: "90 دقيقة كورة", image: "https://iili.io/CgzC5zJ.md.png", time: "5 أغسطس 2026 - 03:25 ص", link: "https://mahmoudabdalrahman.vercel.app/" },
-            { id: 99, title: "سيد جمال لـ «زاوية عكسية»: إمام عاشور يرفض 22 مليوناً لتمديد عقده والزمالك يغلق ملف رحيل خوان بيزيرا", program: "زاوية عكسية", image: "https://iili.io/CgzxG5P.md.png", time: "5 أغسطس 2026 - 03:20 ص", link: "https://sayedgamal.vercel.app/" }
-        ];
+        const initialSliderNews = [];
 
-        const initialListNews = [
-            { id: 100, title: "محمد طارق لـ «زاوية عكسية»: الترسانة يرفض بيع نجومه ويستهدف العودة للممتاز بخطة استثنائية", program: "زاوية عكسية", image: "https://iili.io/CgzIo9S.md.png", time: "5 أغسطس 2026 - 03:52 ص", link: "https://mohamedtarek-ten.vercel.app/" },
-            { id: 101, title: "طارق رمضان لـ «صباحكو رياضة»: دمج إنبي والشرقية «شو إعلامي» وتصريحات العقود كارثية", program: "صباحكو رياضة", image: "https://iili.io/CgzRfz7.md.png", time: "5 أغسطس 2026 - 03:51 ص", link: "https://tareekramadan.vercel.app/" },
-            { id: 97, title: "أحمد آدم لـ «90 دقيقة كورة»: مصر تتصدر الترتيب العالمي في بطولة التحدي للبوتشا وتتفوق على عمالقة اللعبة", program: "90 دقيقة كورة", image: "https://iili.io/CgzfyX4.md.png", time: "5 أغسطس 2026 - 03:30 ص", link: "https://ahmedadam.vercel.app/" },
-            { id: 98, title: "محمود عبد الرحمن لـ «90 دقيقة كورة»: مصر تدرس استضافة كأس العالم للبوتشا والوفود العالمية تنبهر بصالة حسن مصطفى", program: "90 دقيقة كورة", image: "https://iili.io/CgzC5zJ.md.png", time: "5 أغسطس 2026 - 03:25 ص", link: "https://mahmoudabdalrahman.vercel.app/" },
-            { id: 99, title: "سيد جمال لـ «زاوية عكسية»: إمام عاشور يرفض 22 مليوناً لتمديد عقده والزمالك يغلق ملف رحيل خوان بيزيرا", program: "زاوية عكسية", image: "https://iili.io/CgzxG5P.md.png", time: "5 أغسطس 2026 - 03:20 ص", link: "https://sayedgamal.vercel.app/" },
-            { id: 94, title: "إيهاب صلاح لـ «90 دقيقة كورة»: ناشئات اليد كسرن عقدة الدنمارك بصبغة عالمية وإنجاز تاريخي", program: "90 دقيقة كورة", image: "https://iili.io/CgxsBP2.md.png", time: "5 أغسطس 2026 - 03:20 ص", link: "https://ehabsalah1.vercel.app/" },
-            { id: 95, title: "تامر ممدوح لـ «90 دقيقة كورة»: اكتساح مصري لمنصات تتويج مونديال الاسكواش بكندا و500 لاعب في بطولة مصر الدولية", program: "90 دقيقة كورة", image: "https://iili.io/Cgz9Adv.md.png", time: "5 أغسطس 2026 - 03:10 ص", link: "https://tamermamdouh.vercel.app/" },
-            { id: 91, title: "حاتم عسكر لـ «زاوية عكسية»: غموض حول مستحقات الزمالك في صفقة حسام عبد المجيد وأزمة القيد تهدد الموسم", program: "زاوية عكسية", image: "https://iili.io/CgoiHNf.md.png", time: "5 أغسطس 2026 - 03:00 ص", link: "https://hatemaskar.vercel.app/" },
-            { id: 96, title: "تسنيم جودة لـ «90 دقيقة كورة»: ذهبية «البوتشا» دافع قوي قبل مونديال كوريا ونستهدف إنجازاً تاريخياً", program: "90 دقيقة كورة", image: "https://iili.io/CgzFWYu.md.png", time: "5 أغسطس 2026 - 02:50 ص", link: "https://tasneemgoda.vercel.app/" },
-            { id: 92, title: "جمال البحيري لـ «سوبر الملاعب»: صرامة حسام حسن سر نجاح المنتخب ومستوى المونديال كان متواضعاً", program: "سوبر الملاعب", image: "https://iili.io/CgxNnVa.md.png", time: "5 أغسطس 2026 - 02:45 ص", link: "https://mohamedelhelys.vercel.app/" },
-            { id: 93, title: "محمد الهليس لـ «صباحكو رياضة»: هيكلة لجنة الحكام غريبة وتدخلات أحمد مجاهد «مصيبة سودا»", program: "صباحكو رياضة", image: "https://iili.io/CgxgiKX.md.png", time: "5 أغسطس 2026 - 02:30 ص", link: "https://mohamedholayes.vercel.app/" },
-            { id: 90, title: "كريم محمد لبرنامج «ضربة حرة»: الزمالك مهدد بالإصابات بسبب تأخر فترة الإعداد", program: "ضربة حرة", image: "https://iili.io/CU6OeXn.md.png", time: "4 أغسطس 2026 - 04:07 ص", link: "https://karemmohamed.vercel.app/" },
-            { id: 89, title: "رامي رجب لبرنامج «ضربة حرة»: استياء بالاتحاد من الأهلي وتعديلات جديدة بالدوري", program: "ضربة حرة", image: "https://iili.io/CU6h2yX.md.png", time: "4 أغسطس 2026 - 04:00 ص", link: "https://ramyragab.vercel.app/" },
-            { id: 88, title: "خالد جلال لـ 90 دقيقة كورة: الزمالك يواجه تحديات ومعتمد يستحق الاستمرار", program: "90 دقيقة كورة", image: "https://iili.io/CU603cg.md.png", time: "4 أغسطس 2026 - 03:45 ص", link: "https://khaledglal.vercel.app/" },
-            { id: 87, title: "رضا البلتاجي لـ 90 دقيقة كورة: التحكيم المصري يحتاج لتوحيد القرارات والرحمة", program: "90 دقيقة كورة", image: "https://iili.io/CU6zSl2.md.png", time: "4 أغسطس 2026 - 03:30 ص", link: "https://redabeltagy-sable.vercel.app/" },
-            { id: 86, title: "محمود المخبزي لبرنامج 90 دقيقة كورة: بيان الأهلي يفجر أزمات التحكيم مبكرا", program: "90 دقيقة كورة", image: "https://iili.io/CU63RXS.md.png", time: "4 أغسطس 2026 - 03:10 ص", link: "https://mahmoudmakhbazy.vercel.app" },
-            { id: 85, title: "علاء عبد الظاهر لـ «صباحكو رياضة»: أتمنى استمرار إيقاف قيد الزمالك لخمس سنوات", program: "صباحكو رياضة", image: "https://iili.io/CU4iu6P.md.png", time: "4 أغسطس 2026 - 02:50 ص", link: "https://ala3aabdelzaher.vercel.app" },
-            { id: 84, title: "طارق رمضان لـ «صباحكو رياضة»: شخصيات الظل تدير اتحاد الكرة والأهلي محق", program: "صباحكو رياضة", image: "https://iili.io/CU4oaa9.md.png", time: "4 أغسطس 2026 - 02:20 ص", link: "https://saba7kooryadh.vercel.app" },
-            { id: 83, title: "وائل شكر لـ «الكورة العالمية»: استثمار المونديال يحرم الجماهير من المتعة ويهدد بالتلاعب في النتائج", program: "الكورة العالمية", image: "https://iili.io/CUoVq8B.md.png", time: "3 أغسطس 2026 - 05:27 ص", link: "https://waelshokr.vercel.app" },
-            { id: 82, title: "أحمد وجيه لـ «الكورة العالمية»: الزناتي مديرا رياضيا للزمالك ومعسكر قطري مرتقب", program: "الكورة العالمية", image: "https://iili.io/CUoaNUX.md.png", time: "3 أغسطس 2026 - 05:14 ص", link: "https://ahmedwagih-nu.vercel.app" },
-            { id: 81, title: "محمد أبو علي لـ «الكورة العالمية»: غضب بالأهلي ضد التحكيم وإمام مستمر", program: "الكورة العالمية", image: "https://iili.io/CUoTOjS.md.png", time: "3 أغسطس 2026 - 05:01 ص", link: "https://mohamedabuali.vercel.app" },
-            { id: 80, title: "هاني فوزي لـ 90 دقيقة كورة: دمج الأندية الجماهيرية مشروط بتدخل الوزير", program: "90 دقيقة كورة", image: "https://iili.io/CUoCvCG.md.png", time: "3 أغسطس 2026 - 04:55 ص", link: "https://hanyfawzy.vercel.app" }
-        ];
+        const initialListNews = [];
 
-        // قسم مواقيت الصلاة والطقس مع التاريخ التلقائي (وتحديثه بعد 12 ص) وخيار التعديل اليدوي من الأدمن
         function InfoRotatorSection() {
             const [currentIndex, setCurrentIndex] = useState(0);
             const [zoomedImage, setZoomedImage] = useState(null);
@@ -201,7 +171,6 @@
             const [wType, setWType] = useState('url');
             const [customDate, setCustomDate] = useState('');
 
-            // حساب التاريخ التلقائي المتجدد يومياً
             const autoDate = formatEnglishDate(new Date());
             const displayDate = customDate || autoDate;
 
@@ -474,7 +443,6 @@
             );
         }
 
-        // قسم برامجنا مع منع الروابط وفتح تكبير الصورة بسلاسة
         function ProgramsSlider() {
             const [currentIndex, setCurrentIndex] = useState(0);
             const [zoomedIndex, setZoomedIndex] = useState(null);
@@ -710,7 +678,6 @@
             );
         }
 
-        // قسم صورة الإعلان التفاعلي مع دعم الرابط أو كود الـ HTML ومراقبة سحابية لحظية
         function AdBannerSection() {
             const [clickCount, setClickCount] = useState(0);
             const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -925,7 +892,6 @@
             );
         }
 
-        // قسم البث المباشر (تستمعون الآن) مع لوحة مستقلة بـ 5 ضغطات لتغيير البرنامج والمذيع
         function LiveProgram({ liveData }) {
             const [clickCount, setClickCount] = useState(0);
             const [showPasswordModal, setShowPasswordModal] = useState(false);
