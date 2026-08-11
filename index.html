@@ -157,9 +157,38 @@
             );
         }
 
-        const initialSliderNews = [];
+        const initialSliderNews = [
+            { id: 100, title: "محمد طارق لـ «زاوية عكسية»: الترسانة يرفض بيع نجومه ويستهدف العودة للممتاز بخطة استثنائية", program: "زاوية عكسية", image: "https://iili.io/CgzIo9S.md.png", time: "5 أغسطس 2026 - 03:52 ص", link: "https://mohamedtarek-ten.vercel.app/" },
+            { id: 101, title: "طارق رمضان لـ «صباحكو رياضة»: دمج إنبي والشرقية «شو إعلامي» وتصريحات العقود كارثية", program: "صباحكو رياضة", image: "https://iili.io/CgzRfz7.md.png", time: "5 أغسطس 2026 - 03:51 ص", link: "https://tareekramadan.vercel.app/" },
+            { id: 97, title: "أحمد آدم لـ «90 دقيقة كورة»: مصر تتصدر الترتيب العالمي في بطولة التحدي للبوتشا وتتفوق على عمالقة اللعبة", program: "90 دقيقة كورة", image: "https://iili.io/CgzfyX4.md.png", time: "5 أغسطس 2026 - 03:30 ص", link: "https://ahmedadam.vercel.app/" },
+            { id: 98, title: "محمود عبد الرحمن لـ «90 دقيقة كورة»: مصر تدرس استضافة كأس العالم للبوتشا والوفود العالمية تنبهر بصالة حسن مصطفى", program: "90 دقيقة كورة", image: "https://iili.io/CgzC5zJ.md.png", time: "5 أغسطس 2026 - 03:25 ص", link: "https://mahmoudabdalrahman.vercel.app/" },
+            { id: 99, title: "سيد جمال لـ «زاوية عكسية»: إمام عاشور يرفض 22 مليوناً لتمديد عقده والزمالك يغلق ملف رحيل خوان بيزيرا", program: "زاوية عكسية", image: "https://iili.io/CgzxG5P.md.png", time: "5 أغسطس 2026 - 03:20 ص", link: "https://sayedgamal.vercel.app/" }
+        ];
 
-        const initialListNews = [];
+        const initialListNews = [
+            { id: 100, title: "محمد طارق لـ «زاوية عكسية»: الترسانة يرفض بيع نجومه ويستهدف العودة للممتاز بخطة استثنائية", program: "زاوية عكسية", image: "https://iili.io/CgzIo9S.md.png", time: "5 أغسطس 2026 - 03:52 ص", link: "https://mohamedtarek-ten.vercel.app/" },
+            { id: 101, title: "طارق رمضان لـ «صباحكو رياضة»: دمج إنبي والشرقية «شو إعلامي» وتصريحات العقود كارثية", program: "صباحكو رياضة", image: "https://iili.io/CgzRfz7.md.png", time: "5 أغسطس 2026 - 03:51 ص", link: "https://tareekramadan.vercel.app/" },
+            { id: 97, title: "أحمد آدم لـ «90 دقيقة كورة»: مصر تتصدر الترتيب العالمي في بطولة التحدي للبوتشا وتتفوق على عمالقة اللعبة", program: "90 دقيقة كورة", image: "https://iili.io/CgzfyX4.md.png", time: "5 أغسطس 2026 - 03:30 ص", link: "https://ahmedadam.vercel.app/" },
+            { id: 98, title: "محمود عبد الرحمن لـ «90 دقيقة كورة»: مصر تدرس استضافة كأس العالم للبوتشا والوفود العالمية تنبهر بصالة حسن مصطفى", program: "90 دقيقة كورة", image: "https://iili.io/CgzC5zJ.md.png", time: "5 أغسطس 2026 - 03:25 ص", link: "https://mahmoudabdalrahman.vercel.app/" },
+            { id: 99, title: "سيد جمال لـ «زاوية عكسية»: إمام عاشور يرفض 22 مليوناً لتمديد عقده والزمالك يغلق ملف رحيل خوان بيزيرا", program: "زاوية عكسية", image: "https://iili.io/CgzxG5P.md.png", time: "5 أغسطس 2026 - 03:20 ص", link: "https://sayedgamal.vercel.app/" },
+            { id: 94, title: "إيهاب صلاح لـ «90 دقيقة كورة»: ناشئات اليد كسرن عقدة الدنمارك بصبغة عالمية وإنجاز تاريخي", program: "90 دقيقة كورة", image: "https://iili.io/CgxsBP2.md.png", time: "5 أغسطس 2026 - 03:20 ص", link: "https://ehabsalah1.vercel.app/" },
+            { id: 95, title: "تامر ممدوح لـ «90 دقيقة كورة»: اكتساح مصري لمنصات تتويج مونديال الاسكواش بكندا و500 لاعب في بطولة مصر الدولية", program: "90 دقيقة كورة", image: "https://iili.io/Cgz9Adv.md.png", time: "5 أغسطس 2026 - 03:10 ص", link: "https://tamermamdouh.vercel.app/" },
+            { id: 91, title: "حاتم عسكر لـ «زاوية عكسية»: غموض حول مستحقات الزمالك في صفقة حسام عبد المجيد وأزمة القيد تهدد الموسم", program: "زاوية عكسية", image: "https://iili.io/CgoiHNf.md.png", time: "5 أغسطس 2026 - 03:00 ص", link: "https://hatemaskar.vercel.app/" },
+            { id: 96, title: "تسنيم جودة لـ «90 دقيقة كورة»: ذهبية «البوتشا» دافع قوي قبل مونديال كوريا ونستهدف إنجازاً تاريخياً", program: "90 دقيقة كورة", image: "https://iili.io/CgzFWYu.md.png", time: "5 أغسطس 2026 - 02:50 ص", link: "https://tasneemgoda.vercel.app/" },
+            { id: 92, title: "جمال البحيري لـ «سوبر الملاعب»: صرامة حسام حسن سر نجاح المنتخب ومستوى المونديال كان متواضعاً", program: "سوبر الملاعب", image: "https://iili.io/CgxNnVa.md.png", time: "5 أغسطس 2026 - 02:45 ص", link: "https://mohamedelhelys.vercel.app/" },
+            { id: 93, title: "محمد الهليس لـ «صباحكو رياضة»: هيكلة لجنة الحكام غريبة وتدخلات أحمد مجاهد «مصيبة سودا»", program: "صباحكو رياضة", image: "https://iili.io/CgxgiKX.md.png", time: "5 أغسطس 2026 - 02:30 ص", link: "https://mohamedholayes.vercel.app/" },
+            { id: 90, title: "كريم محمد لبرنامج «ضربة حرة»: الزمالك مهدد بالإصابات بسبب تأخر فترة الإعداد", program: "ضربة حرة", image: "https://iili.io/CU6OeXn.md.png", time: "4 أغسطس 2026 - 04:07 ص", link: "https://karemmohamed.vercel.app/" },
+            { id: 89, title: "رامي رجب لبرنامج «ضربة حرة»: استياء بالاتحاد من الأهلي وتعديلات جديدة بالدوري", program: "ضربة حرة", image: "https://iili.io/CU6h2yX.md.png", time: "4 أغسطس 2026 - 04:00 ص", link: "https://ramyragab.vercel.app/" },
+            { id: 88, title: "خالد جلال لـ 90 دقيقة كورة: الزمالك يواجه تحديات ومعتمد يستحق الاستمرار", program: "90 دقيقة كورة", image: "https://iili.io/CU603cg.md.png", time: "4 أغسطس 2026 - 03:45 ص", link: "https://khaledglal.vercel.app/" },
+            { id: 87, title: "رضا البلتاجي لـ 90 دقيقة كورة: التحكيم المصري يحتاج لتوحيد القرارات والرحمة", program: "90 دقيقة كورة", image: "https://iili.io/CU6zSl2.md.png", time: "4 أغسطس 2026 - 03:30 ص", link: "https://redabeltagy-sable.vercel.app/" },
+            { id: 86, title: "محمود المخبزي لبرنامج 90 دقيقة كورة: بيان الأهلي يفجر أزمات التحكيم مبكرا", program: "90 دقيقة كورة", image: "https://iili.io/CU63RXS.md.png", time: "4 أغسطس 2026 - 03:10 ص", link: "https://mahmoudmakhbazy.vercel.app" },
+            { id: 85, title: "علاء عبد الظاهر لـ «صباحكو رياضة»: أتمنى استمرار إيقاف قيد الزمالك لخمس سنوات", program: "صباحكو رياضة", image: "https://iili.io/CU4iu6P.md.png", time: "4 أغسطس 2026 - 02:50 ص", link: "https://ala3aabdelzaher.vercel.app" },
+            { id: 84, title: "طارق رمضان لـ «صباحكو رياضة»: شخصيات الظل تدير اتحاد الكرة والأهلي محق", program: "صباحكو رياضة", image: "https://iili.io/CU4oaa9.md.png", time: "4 أغسطس 2026 - 02:20 ص", link: "https://saba7kooryadh.vercel.app" },
+            { id: 83, title: "وائل شكر لـ «الكورة العالمية»: استثمار المونديال يحرم الجماهير من المتعة ويهدد بالتلاعب في النتائج", program: "الكورة العالمية", image: "https://iili.io/CUoVq8B.md.png", time: "3 أغسطس 2026 - 05:27 ص", link: "https://waelshokr.vercel.app" },
+            { id: 82, title: "أحمد وجيه لـ «الكورة العالمية»: الزناتي مديرا رياضيا للزمالك ومعسكر قطري مرتقب", program: "الكورة العالمية", image: "https://iili.io/CUoaNUX.md.png", time: "3 أغسطس 2026 - 05:14 ص", link: "https://ahmedwagih-nu.vercel.app" },
+            { id: 81, title: "محمد أبو علي لـ «الكورة العالمية»: غضب بالأهلي ضد التحكيم وإمام مستمر", program: "الكورة العالمية", image: "https://iili.io/CUoTOjS.md.png", time: "3 أغسطس 2026 - 05:01 ص", link: "https://mohamedabuali.vercel.app" },
+            { id: 80, title: "هاني فوزي لـ 90 دقيقة كورة: دمج الأندية الجماهيرية مشروط بتدخل الوزير", program: "90 دقيقة كورة", image: "https://iili.io/CUoCvCG.md.png", time: "3 أغسطس 2026 - 04:55 ص", link: "https://hanyfawzy.vercel.app" }
+        ];
 
         function InfoRotatorSection() {
             const [currentIndex, setCurrentIndex] = useState(0);
@@ -725,6 +754,12 @@
                 }
             };
 
+            const handleImageClickAction = (e) => {
+                const a = e.target.closest('a');
+                if (a) e.preventDefault();
+                handleImageClick();
+            };
+
             const handleSaveImage = async (e) => {
                 e.preventDefault();
                 try {
@@ -742,11 +777,7 @@
 
             return createElement('div', { className: 'my-4' },
                 createElement('div', { 
-                    onClick: (e) => {
-                        const a = e.target.closest('a');
-                        if (a) e.preventDefault();
-                        handleImageClick();
-                    },
+                    onClick: handleImageClickAction,
                     className: 'rounded-2xl overflow-hidden shadow-lg bg-white p-1 animate-green-glow-border cursor-pointer select-none' 
                 },
                     adType === 'html'
@@ -1029,7 +1060,7 @@
                 createElement('button', { className: 'nav-button prev-btn', onClick: prevSlide }, '▶'),
                 createElement('button', { className: 'nav-button next-btn', onClick: nextSlide }, '◀'),
                 createElement('div', { className: 'slider-wrapper', style: { transform: `translateX(${index * 100}%)` } },
-                    items.map((news) => createElement('div', { key: news.id, className: 'slider-item cursor-pointer relative !p-0', onClick: (e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openNewsModal', { detail: news.link })); } },
+                    items.map((news) => createElement('div', { key: news.id, className: 'slider-item cursor-pointer relative !p-0', onClick: (e) => { e.preventDefault(); window.open(news.link, '_self'); } },
                         createElement('div', { className: 'w-full h-full relative overflow-hidden bg-gray-900 flex items-center justify-center' },
                             createElement('img', { src: news.image, className: 'w-full h-full object-contain', referrerPolicy: 'no-referrer', alt: 'صورة الخبر' }),
                             createElement('div', { className: 'absolute top-3 right-3 bg-[#15803d] text-yellow-300 text-[11px] font-bold px-3 py-1 rounded-full shadow-md z-10 border border-yellow-400/40' }, news.program || 'عاجل'),
@@ -1044,10 +1075,6 @@
 
         function App() {
             const [showAll, setShowAll] = useState(false);
-            const [activeModalUrl, setActiveModalUrl] = useState(() => {
-                return localStorage.getItem('activeSectionUrl') || null;
-            });
-            const [showNav, setShowNav] = useState(true);
             const [darkMode, setDarkMode] = useState(false);
 
             const [sliderItems, setSliderItems] = useState(initialSliderNews);
@@ -1101,14 +1128,6 @@
             useEffect(() => {
                 fetchData();
             }, []);
-
-            useEffect(() => {
-                if (activeModalUrl) {
-                    localStorage.setItem('activeSectionUrl', activeModalUrl);
-                } else {
-                    localStorage.removeItem('activeSectionUrl');
-                }
-            }, [activeModalUrl]);
 
             const [headerClickCount, setHeaderClickCount] = useState(0);
             const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -1215,48 +1234,10 @@
                 }
             };
 
-            useEffect(() => {
-                if (activeModalUrl) {
-                    setShowNav(true);
-                    return;
-                }
-                const handleScroll = () => {
-                    const scrollY = window.scrollY;
-                    const windowHeight = window.innerHeight;
-                    const docHeight = document.documentElement.scrollHeight;
-                    if (windowHeight + scrollY >= docHeight - 30) {
-                        setShowNav(false);
-                    } else {
-                        setShowNav(true);
-                    }
-                };
-                window.addEventListener('scroll', handleScroll, { passive: true });
-                return () => window.removeEventListener('scroll', handleScroll);
-            }, [activeModalUrl]);
-
-            useEffect(() => {
-                const handleOpenModal = (e) => { 
-                    setActiveModalUrl(e.detail); 
-                };
-                window.addEventListener('openNewsModal', handleOpenModal);
-                const handlePopState = () => { 
-                    setActiveModalUrl(null);
-                    localStorage.removeItem('activeSectionUrl');
-                };
-                if (activeModalUrl) {
-                    window.history.pushState({ modalOpen: true }, '');
-                    window.addEventListener('popstate', handlePopState);
-                }
-                return () => {
-                    window.removeEventListener('openNewsModal', handleOpenModal);
-                    window.removeEventListener('popstate', handlePopState);
-                };
-            }, [activeModalUrl]);
-
             const handleNewsClick = (e, news) => {
                 if (news.link) {
                     e.preventDefault();
-                    setActiveModalUrl(news.link);
+                    window.open(news.link, '_self');
                 }
             };
 
@@ -1287,15 +1268,15 @@
             const remaining = listItems.slice(9);
             const visibleRemaining = showAll ? remaining : remaining.slice(0, 10);
 
-            return createElement('div', { className: `min-h-screen flex flex-col ${darkMode ? 'bg-[#121212] text-white' : 'bg-gray-50'}` },
+            return createElement('div', { className: `min-h-screen flex flex-col relative ${darkMode ? 'bg-[#121212] text-white' : 'bg-gray-50'}` },
                 createElement('header', { 
                     onClick: handleHeaderClick,
-                    className: 'bg-[#15803d] text-white p-3 shadow-2xl sticky top-0 z-40 rounded-b-[2rem] pb-6 cursor-pointer select-none shrink-0' 
+                    className: 'bg-[#15803d] text-white p-2.5 shadow-2xl fixed top-0 z-50 w-full max-w-[480px] rounded-b-xl pb-3 cursor-pointer select-none shrink-0' 
                 },
                     createElement('div', { className: 'max-w-6xl mx-auto flex items-center justify-between' },
                         createElement('div', { className: 'flex items-center gap-2' },
-                            createElement('img', { onClick: (e) => { e.stopPropagation(); window.open('https://www.maspero.eg/stream/11', '_blank'); }, src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-[45px] h-[45px] rounded-full border-2 border-yellow-400 object-cover shadow-2xl animate-halo-pulse cursor-pointer', referrerPolicy: 'no-referrer', alt: 'شعار الإذاعة' }),
-                            createElement('div', { className: 'whitespace-nowrap' }, createElement('h1', { className: 'font-black text-[14px] tracking-tight text-white' }, 'محبو إذاعة الشباب والرياضة'), createElement('div', { className: 'text-yellow-300 text-[11px] font-bold' }, '108 FM'))
+                            createElement('img', { onClick: (e) => { e.stopPropagation(); window.open('https://www.maspero.eg/stream/11', '_blank'); }, src: 'https://i.postimg.cc/85tS38Cc/Screenshot-2026-05-13-02-58-50-80-96b26121e545231a3c569311a54cda96.jpg', className: 'w-[38px] h-[38px] rounded-full border-2 border-yellow-400 object-cover shadow-2xl animate-halo-pulse cursor-pointer', referrerPolicy: 'no-referrer', alt: 'شعار الإذاعة' }),
+                            createElement('div', { className: 'whitespace-nowrap' }, createElement('h1', { className: 'font-black text-[13px] tracking-tight text-white' }, 'محبو إذاعة الشباب والرياضة'), createElement('div', { className: 'text-yellow-300 text-[10px] font-bold' }, '108 FM'))
                         ),
                         createElement('div', { className: 'flex flex-col items-end gap-1', onClick: (e) => e.stopPropagation() },
                             createElement(ThemeToggle, { isDark: darkMode, onToggle: () => setDarkMode(!darkMode) })
@@ -1303,84 +1284,64 @@
                         createElement('a', { href: 'https://www.facebook.com/share/1bzDzdVHfh/', target: '_blank', onClick: (e) => e.stopPropagation() }, createElement('img', { src: 'https://i.postimg.cc/B61C0pPF/images.png', className: 'w-6 h-6 rounded-full object-cover border border-white/30', referrerPolicy: 'no-referrer', alt: 'فيسبوك' }))
                     )
                 ),
-                createElement('main', { className: 'flex-grow p-3 max-w-6xl mx-auto w-full pb-28 flex flex-col' },
-                    activeModalUrl ? createElement('iframe', {
-                        src: activeModalUrl,
-                        className: 'w-full flex-grow border-0 bg-white rounded-2xl shadow-inner min-h-[75vh]',
-                        title: 'محتوى الصفحة'
-                    }) : [
-                        createElement(Slider, { key: 'slider', items: sliderItems }),
-                        createElement(LiveProgram, { key: 'live', liveData: cloudLiveProgram }),
-                        
-                        ...part1.map(renderNewsCard),
+                createElement('main', { className: 'flex-grow p-3 max-w-6xl mx-auto w-full pb-20 flex flex-col pt-20' }, [
+                    createElement(Slider, { key: 'slider', items: sliderItems }),
+                    createElement(LiveProgram, { key: 'live', liveData: cloudLiveProgram }),
+                    
+                    ...part1.map(renderNewsCard),
 
-                        createElement(ProgramsSlider, { key: 'prog-slider' }),
+                    createElement(ProgramsSlider, { key: 'prog-slider' }),
 
-                        ...part2.map(renderNewsCard),
+                    ...part2.map(renderNewsCard),
 
-                        createElement(InfoRotatorSection, { key: 'rotator' }),
+                    createElement(InfoRotatorSection, { key: 'rotator' }),
 
-                        ...part3.map(renderNewsCard),
+                    ...part3.map(renderNewsCard),
 
-                        createElement(AdBannerSection, { key: 'ad' }),
+                    createElement(AdBannerSection, { key: 'ad' }),
 
-                        createElement('div', { key: 'warning', className: 'my-4' },
-                            createElement('div', { className: 'mb-2 flex items-center justify-between bg-[#15803d] text-white px-4 py-2.5 rounded-xl shadow-md border-r-4 border-yellow-400' },
-                                createElement('div', { className: 'flex items-center gap-2' },
-                                    createElement('span', { className: 'animate-bounce text-yellow-400 text-sm' }, '👇'),
-                                    createElement('span', { className: 'font-black text-xs tracking-wide text-white' }, 'إذاعة الشباب والرياضة بتحذرك')
-                                ),
-                                createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2.5 py-1 rounded-full whitespace-nowrap animate-pulse' }, 'تسجيل هام')
+                    createElement('div', { key: 'warning', className: 'my-4' },
+                        createElement('div', { className: 'mb-2 flex items-center justify-between bg-[#15803d] text-white px-4 py-2.5 rounded-xl shadow-md border-r-4 border-yellow-400' },
+                            createElement('div', { className: 'flex items-center gap-2' },
+                                createElement('span', { className: 'animate-bounce text-yellow-400 text-sm' }, '👇'),
+                                createElement('span', { className: 'font-black text-xs tracking-wide text-white' }, 'إذاعة الشباب والرياضة بتحذرك')
                             ),
-                            createElement('div', { className: 'rounded-2xl overflow-hidden shadow-lg border border-green-900/30 bg-white p-2 flex flex-col items-center justify-center' },
-                                createElement('iframe', {
-                                    src: 'https://voca.ro/embed/1cbB1N0ObmV9',
-                                    width: '100%',
-                                    height: '60',
-                                    frameBorder: '0',
-                                    allow: 'autoplay',
-                                    className: 'w-full rounded-lg'
-                                })
-                            )
+                            createElement('span', { className: 'text-[10px] text-yellow-400 font-bold bg-white/10 px-2.5 py-1 rounded-full whitespace-nowrap animate-pulse' }, 'تسجيل هام')
                         ),
+                        createElement('div', { className: 'rounded-2xl overflow-hidden shadow-lg border border-green-900/30 bg-white p-2 flex flex-col items-center justify-center' },
+                            createElement('iframe', {
+                                src: 'https://voca.ro/embed/1cbB1N0ObmV9',
+                                width: '100%',
+                                height: '60',
+                                frameBorder: '0',
+                                allow: 'autoplay',
+                                className: 'w-full rounded-lg'
+                            })
+                        )
+                    ),
 
-                        ...visibleRemaining.map(renderNewsCard),
+                    ...visibleRemaining.map(renderNewsCard),
 
-                        !showAll && remaining.length > 0 && createElement('button', { 
-                            key: 'more-btn',
-                            onClick: () => setShowAll(true), 
-                            className: 'w-full bg-[#15803d] text-white py-3 rounded-2xl font-black text-sm mb-6 shadow-lg active:scale-95 transition-all hover:bg-green-700 border border-yellow-400/40' 
-                        }, 'عرض المزيد من الأخبار')
-                    ]
-                ),
+                    !showAll && remaining.length > 0 && createElement('button', { 
+                        key: 'more-btn',
+                        onClick: () => setShowAll(true), 
+                        className: 'w-full bg-[#15803d] text-white py-3 rounded-2xl font-black text-sm mb-6 shadow-lg active:scale-95 transition-all hover:bg-green-700 border border-yellow-400/40' 
+                    }, 'عرض المزيد من الأخبار')
+                ]),
 
                 createElement('nav', { 
-                    className: `fixed bottom-3 left-4 right-4 max-w-[380px] mx-auto z-[9999] bg-[#15803d]/95 backdrop-blur-md border border-yellow-400/50 flex items-center justify-around py-2 shadow-2xl rounded-full transition-all duration-300 transform ${showNav ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}` 
+                    className: 'fixed bottom-3 left-4 right-4 max-w-[380px] mx-auto z-[9999] bg-[#15803d]/95 backdrop-blur-md border border-yellow-400/50 flex items-center justify-around py-2 shadow-2xl rounded-full' 
                 },
                     createElement('button', {
-                        onClick: () => {
-                            setActiveModalUrl(null);
-                            localStorage.removeItem('activeSectionUrl');
-                        },
-                        className: `flex flex-col items-center gap-0.5 px-4 py-1 rounded-full transition-all cursor-pointer ${!activeModalUrl ? 'text-yellow-300 font-black scale-105' : 'text-white/80 font-bold hover:text-white'}`
+                        onClick: () => { window.scrollTo({ top: 0, behavior: 'smooth' }); },
+                        className: 'flex flex-col items-center gap-0.5 px-4 py-1 rounded-full transition-all cursor-pointer text-yellow-300 font-black scale-105'
                     },
                         createElement('i', { className: 'fa-solid fa-house text-sm' }),
                         createElement('span', { className: 'text-[10px]' }, 'الرئيسية')
                     ),
                     createElement('button', {
-                        onClick: () => {
-                            setActiveModalUrl('https://newsshababeryadh.vercel.app/');
-                        },
-                        className: `flex flex-col items-center gap-0.5 px-4 py-1 rounded-full transition-all cursor-pointer ${activeModalUrl === 'https://newsshababeryadh.vercel.app/' ? 'text-yellow-300 font-black scale-105' : 'text-white/80 font-bold hover:text-white'}`
-                    },
-                        createElement('i', { className: 'fa-solid fa-bolt text-sm' }),
-                        createElement('span', { className: 'text-[10px]' }, 'لحظة بلحظة')
-                    ),
-                    createElement('button', {
-                        onClick: () => {
-                            setActiveModalUrl('https://shababwryadhmedia.vercel.app/');
-                        },
-                        className: `flex flex-col items-center gap-0.5 px-4 py-1 rounded-full transition-all cursor-pointer ${activeModalUrl === 'https://shababwryadhmedia.vercel.app/' ? 'text-yellow-300 font-black scale-105' : 'text-white/80 font-bold hover:text-white'}`
+                        onClick: () => { window.open('https://shababwryadhmedia.vercel.app/', '_self'); },
+                        className: 'flex flex-col items-center gap-0.5 px-4 py-1 rounded-full transition-all cursor-pointer text-white/80 font-bold hover:text-white'
                     },
                         createElement('i', { className: 'fa-solid fa-photo-film text-sm' }),
                         createElement('span', { className: 'text-[10px]' }, 'ميديا')
