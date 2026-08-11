@@ -1060,7 +1060,7 @@
                 createElement('button', { className: 'nav-button prev-btn', onClick: prevSlide }, '▶'),
                 createElement('button', { className: 'nav-button next-btn', onClick: nextSlide }, '◀'),
                 createElement('div', { className: 'slider-wrapper', style: { transform: `translateX(${index * 100}%)` } },
-                    items.map((news) => createElement('div', { key: news.id, className: 'slider-item cursor-pointer relative !p-0', onClick: (e) => { e.preventDefault(); window.open(news.link, '_self'); } },
+                    items.map((news) => createElement('div', { key: news.id, className: 'slider-item cursor-pointer relative !p-0', onClick: (e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('openNewsWithLoading', { detail: news })); } },
                         createElement('div', { className: 'w-full h-full relative overflow-hidden bg-gray-900 flex items-center justify-center' },
                             createElement('img', { src: news.image, className: 'w-full h-full object-contain', referrerPolicy: 'no-referrer', alt: 'صورة الخبر' }),
                             createElement('div', { className: 'absolute top-3 right-3 bg-[#15803d] text-yellow-300 text-[11px] font-bold px-3 py-1 rounded-full shadow-md z-10 border border-yellow-400/40' }, news.program || 'عاجل'),
@@ -1076,9 +1076,11 @@
         function App() {
             const [showAll, setShowAll] = useState(false);
             const [darkMode, setDarkMode] = useState(false);
+            const [openingNews, setOpeningNews] = useState(null);
+            const [countdown, setCountdown] = useState(2);
 
-            const [sliderItems, setSliderItems] = useState(initialSliderNews);
-            const [listItems, setListItems] = useState(initialListNews);
+            const [sliderItems, setSliderItems] = useState([]);
+            const [listItems, setListItems] = useState([]);
             const [cloudNews, setCloudNews] = useState([]);
             
             const [cloudLiveProgram, setCloudLiveProgram] = useState({
@@ -1103,13 +1105,16 @@
                         }
                     });
                     setCloudNews(adminCloudList);
-                    if (cloudList.length > 0) {
-                        setListItems([...cloudList, ...initialListNews]);
-                    }
-                    const combinedSlider = [...cloudSlider, ...initialSliderNews].slice(0, 5);
-                    setSliderItems(combinedSlider);
+                    
+                    const finalList = cloudList.length > 0 ? [...cloudList, ...initialListNews] : initialListNews;
+                    setListItems(finalList);
+
+                    const finalSlider = cloudSlider.length > 0 ? [...cloudSlider, ...initialSliderNews].slice(0, 5) : initialSliderNews;
+                    setSliderItems(finalSlider);
                 }).catch((error) => {
                     console.log("Error getting news: ", error);
+                    setListItems(initialListNews);
+                    setSliderItems(initialSliderNews);
                 });
 
                 db.collection("settings").doc("live_program").get().then((doc) => {
@@ -1127,6 +1132,31 @@
 
             useEffect(() => {
                 fetchData();
+            }, []);
+
+            // تفعيل عداد الثواني عند الضغط على أي خبر والانتقال بعده
+            useEffect(() => {
+                if (!openingNews) return;
+                if (countdown > 0) {
+                    const timer = setTimeout(() => {
+                        setCountdown(prev => prev - 1);
+                    }, 1000);
+                    return () => clearTimeout(timer);
+                } else {
+                    window.open(openingNews.link, '_self');
+                }
+            }, [openingNews, countdown]);
+
+            useEffect(() => {
+                const handleOpenWithLoading = (e) => {
+                    const news = e.detail;
+                    if (news && news.link) {
+                        setOpeningNews(news);
+                        setCountdown(2);
+                    }
+                };
+                window.addEventListener('openNewsWithLoading', handleOpenWithLoading);
+                return () => window.removeEventListener('openNewsWithLoading', handleOpenWithLoading);
             }, []);
 
             const [headerClickCount, setHeaderClickCount] = useState(0);
@@ -1237,7 +1267,8 @@
             const handleNewsClick = (e, news) => {
                 if (news.link) {
                     e.preventDefault();
-                    window.open(news.link, '_self');
+                    setOpeningNews(news);
+                    setCountdown(2);
                 }
             };
 
@@ -1285,7 +1316,7 @@
                     )
                 ),
                 createElement('main', { className: 'flex-grow p-3 max-w-6xl mx-auto w-full pb-20 flex flex-col pt-20' }, [
-                    createElement(Slider, { key: 'slider', items: sliderItems }),
+                    sliderItems.length > 0 && createElement(Slider, { key: 'slider', items: sliderItems }),
                     createElement(LiveProgram, { key: 'live', liveData: cloudLiveProgram }),
                     
                     ...part1.map(renderNewsCard),
@@ -1328,6 +1359,19 @@
                         className: 'w-full bg-[#15803d] text-white py-3 rounded-2xl font-black text-sm mb-6 shadow-lg active:scale-95 transition-all hover:bg-green-700 border border-yellow-400/40' 
                     }, 'عرض المزيد من الأخبار')
                 ]),
+
+                // نافذة التحميل السلسة والعداد عند فتح الخبر
+                openingNews && createElement('div', { className: 'fixed inset-0 z-[100000] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4' },
+                    createElement('div', { className: 'bg-white rounded-3xl p-6 max-w-xs w-full shadow-2xl flex flex-col items-center gap-4 text-center border-2 border-[#15803d]' },
+                        createElement('div', { className: 'w-10 h-10 border-4 border-[#15803d] border-t-transparent rounded-full animate-spin' }),
+                        createElement('h3', { className: 'font-black text-sm text-gray-900' }, 'جاري تحضير وفتح الخبر...'),
+                        createElement('p', { className: 'text-xs text-gray-500 font-bold' }, `سيتم فتح الخبر خلال ${countdown} ثوانٍ`),
+                        createElement('button', { 
+                            onClick: () => setOpeningNews(null), 
+                            className: 'mt-1 px-4 py-1.5 bg-gray-200 text-gray-700 rounded-xl text-xs font-bold active:scale-95 cursor-pointer' 
+                        }, 'إلغاء')
+                    )
+                ),
 
                 createElement('nav', { 
                     className: 'fixed bottom-3 left-4 right-4 max-w-[380px] mx-auto z-[9999] bg-[#15803d]/95 backdrop-blur-md border border-yellow-400/50 flex items-center justify-around py-2 shadow-2xl rounded-full' 
