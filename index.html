@@ -1077,7 +1077,7 @@
             const [showAll, setShowAll] = useState(false);
             const [darkMode, setDarkMode] = useState(false);
             const [openingNews, setOpeningNews] = useState(null);
-            const [countdown, setCountdown] = useState(2);
+            const [countdown, setCountdown] = useState(1);
 
             const [sliderItems, setSliderItems] = useState([]);
             const [listItems, setListItems] = useState([]);
@@ -1134,13 +1134,24 @@
                 fetchData();
             }, []);
 
-            // تفعيل عداد الثواني عند الضغط على أي خبر والانتقال بعده
+            // منع ظهور رسالة التحميل عند الضغط على زر الرجوع في المتصفح أو الموبايل
+            useEffect(() => {
+                const handlePageShow = (event) => {
+                    if (event.persisted) {
+                        setOpeningNews(null);
+                    }
+                };
+                window.addEventListener('pageshow', handlePageShow);
+                return () => window.removeEventListener('pageshow', handlePageShow);
+            }, []);
+
+            // سرعة فائقة أقل من ثانية للانتقال للخبر
             useEffect(() => {
                 if (!openingNews) return;
                 if (countdown > 0) {
                     const timer = setTimeout(() => {
                         setCountdown(prev => prev - 1);
-                    }, 1000);
+                    }, 500);
                     return () => clearTimeout(timer);
                 } else {
                     window.open(openingNews.link, '_self');
@@ -1152,7 +1163,7 @@
                     const news = e.detail;
                     if (news && news.link) {
                         setOpeningNews(news);
-                        setCountdown(2);
+                        setCountdown(1);
                     }
                 };
                 window.addEventListener('openNewsWithLoading', handleOpenWithLoading);
@@ -1268,7 +1279,7 @@
                 if (news.link) {
                     e.preventDefault();
                     setOpeningNews(news);
-                    setCountdown(2);
+                    setCountdown(1);
                 }
             };
 
@@ -1360,12 +1371,12 @@
                     }, 'عرض المزيد من الأخبار')
                 ]),
 
-                // نافذة التحميل السلسة والعداد عند فتح الخبر
+                // نافذة التحميل السلسة والسرعة الفائقة عند فتح الخبر
                 openingNews && createElement('div', { className: 'fixed inset-0 z-[100000] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4' },
                     createElement('div', { className: 'bg-white rounded-3xl p-6 max-w-xs w-full shadow-2xl flex flex-col items-center gap-4 text-center border-2 border-[#15803d]' },
                         createElement('div', { className: 'w-10 h-10 border-4 border-[#15803d] border-t-transparent rounded-full animate-spin' }),
-                        createElement('h3', { className: 'font-black text-sm text-gray-900' }, 'جاري تحضير وفتح الخبر...'),
-                        createElement('p', { className: 'text-xs text-gray-500 font-bold' }, `سيتم فتح الخبر خلال ${countdown} ثوانٍ`),
+                        createElement('h3', { className: 'font-black text-sm text-gray-900' }, 'جاري فتح الخبر...'),
+                        createElement('p', { className: 'text-xs text-gray-500 font-bold' }, `يتم فتح الخبر الآن...`),
                         createElement('button', { 
                             onClick: () => setOpeningNews(null), 
                             className: 'mt-1 px-4 py-1.5 bg-gray-200 text-gray-700 rounded-xl text-xs font-bold active:scale-95 cursor-pointer' 
