@@ -571,6 +571,13 @@
             const touchStartX = useRef(0);
             const touchEndX = useRef(0);
 
+            // اكتشاف تلقائي ذكي لما إذا كان المحتوى HTML أو رابط صورة عادي لمنع أي صور مكسورة
+            const isHtmlContent = (url) => {
+                if (!url) return false;
+                const trimmed = url.trim();
+                return trimmed.startsWith('<') || trimmed.includes('<img') || trimmed.includes('</');
+            };
+
             return createElement('div', { className: 'mb-4' },
                 createElement('div', { 
                     onClick: handleHeaderClick,
@@ -594,42 +601,49 @@
                     createElement('button', { className: 'nav-button prev-btn', onClick: prevImage }, '▶'),
                     createElement('button', { className: 'nav-button next-btn', onClick: nextImage }, '◀'),
                     createElement('div', { className: 'programs-slider-wrapper', style: { transform: `translateX(${currentIndex * 100}%)` } },
-                        programsList.map((item, idx) => createElement('div', { key: item.id || idx, className: 'programs-slider-item flex items-center justify-center w-full h-full relative overflow-hidden' },
-                            item.type === 'html'
-                                ? createElement('div', { 
-                                    className: 'w-full h-full flex items-center justify-center cursor-pointer [&>img]:w-full [&>img]:h-full [&>img]:object-contain',
-                                    dangerouslySetInnerHTML: { __html: item.url },
-                                    onClick: (e) => {
-                                        const a = e.target.closest('a');
-                                        if (a) e.preventDefault();
-                                        setZoomedIndex(idx);
-                                    }
-                                })
-                                : createElement('img', { 
-                                    src: item.url, 
-                                    className: 'w-full h-full object-contain cursor-pointer', 
-                                    referrerPolicy: 'no-referrer', 
-                                    onClick: () => setZoomedIndex(idx), 
-                                    alt: item.name || 'صورة البرنامج' 
-                                })
-                        ))
+                        programsList.map((item, idx) => {
+                            const isHtml = item.type === 'html' || isHtmlContent(item.url);
+                            return createElement('div', { key: item.id || idx, className: 'programs-slider-item flex items-center justify-center w-full h-full relative overflow-hidden' },
+                                isHtml
+                                    ? createElement('div', { 
+                                        className: 'w-full h-full flex items-center justify-center cursor-pointer [&>img]:w-full [&>img]:h-full [&>img]:object-contain',
+                                        dangerouslySetInnerHTML: { __html: item.url },
+                                        onClick: (e) => {
+                                            const a = e.target.closest('a');
+                                            if (a) e.preventDefault();
+                                            setZoomedIndex(idx);
+                                        }
+                                    })
+                                    : createElement('img', { 
+                                        src: item.url, 
+                                        className: 'w-full h-full object-contain cursor-pointer', 
+                                        referrerPolicy: 'no-referrer', 
+                                        onClick: () => setZoomedIndex(idx), 
+                                        alt: item.name || 'صورة البرنامج' 
+                                    })
+                            );
+                        })
                     )
                 ),
-                zoomedIndex !== null && createElement('div', { className: 'fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4', onClick: () => setZoomedIndex(null) },
-                    createElement('div', { 
-                        className: 'relative max-w-lg w-full flex flex-col items-center select-none', 
-                        onClick: (e) => {
-                            e.stopPropagation();
-                            const a = e.target.closest('a');
-                            if (a) e.preventDefault();
-                        } 
-                    },
-                        createElement('button', { className: 'absolute -top-12 left-0 text-white bg-green-600 w-9 h-9 rounded-full font-bold text-sm shadow-md flex items-center justify-center z-50', onClick: () => setZoomedIndex(null) }, '✕'),
-                        programsList[zoomedIndex].type === 'html'
-                            ? createElement('div', { className: 'w-full max-h-[80vh] flex items-center justify-center [&>img]:max-h-[80vh] [&>img]:w-full [&>img]:object-contain', dangerouslySetInnerHTML: { __html: programsList[zoomedIndex].url } })
-                            : createElement('img', { src: programsList[zoomedIndex].url, className: 'w-full max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/20', referrerPolicy: 'no-referrer', alt: 'صورة مكبرة' })
-                    )
-                ),
+                zoomedIndex !== null && (() => {
+                    const zoomedItem = programsList[zoomedIndex];
+                    const isZoomedHtml = zoomedItem && (zoomedItem.type === 'html' || isHtmlContent(zoomedItem.url));
+                    return createElement('div', { className: 'fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4', onClick: () => setZoomedIndex(null) },
+                        createElement('div', { 
+                            className: 'relative max-w-lg w-full flex flex-col items-center select-none', 
+                            onClick: (e) => {
+                                e.stopPropagation();
+                                const a = e.target.closest('a');
+                                if (a) e.preventDefault();
+                            } 
+                        },
+                            createElement('button', { className: 'absolute -top-12 left-0 text-white bg-green-600 w-9 h-9 rounded-full font-bold text-sm shadow-md flex items-center justify-center z-50', onClick: () => setZoomedIndex(null) }, '✕'),
+                            isZoomedHtml
+                                ? createElement('div', { className: 'w-full max-h-[80vh] flex items-center justify-center [&>img]:max-h-[80vh] [&>img]:w-full [&>img]:object-contain', dangerouslySetInnerHTML: { __html: zoomedItem.url } })
+                                : createElement('img', { src: zoomedItem.url, className: 'w-full max-h-[80vh] object-contain rounded-xl shadow-2xl border border-white/20', referrerPolicy: 'no-referrer', alt: 'صورة مكبرة' })
+                        )
+                    );
+                })(),
 
                 showPasswordModal && createElement('div', { className: 'fixed inset-0 z-[10000] bg-black/80 flex items-center justify-center p-4' },
                     createElement('form', { onSubmit: handleLogin, className: 'bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl flex flex-col gap-4 text-right' },
@@ -1145,13 +1159,13 @@
                 return () => window.removeEventListener('pageshow', handlePageShow);
             }, []);
 
-            // سرعة فائقة أقل من ثانية للانتقال للخبر
+            // سرعة فائقة جداً (أقل من ثانية) للانتقال للخبر
             useEffect(() => {
                 if (!openingNews) return;
                 if (countdown > 0) {
                     const timer = setTimeout(() => {
                         setCountdown(prev => prev - 1);
-                    }, 500);
+                    }, 400);
                     return () => clearTimeout(timer);
                 } else {
                     window.open(openingNews.link, '_self');
@@ -1371,7 +1385,7 @@
                     }, 'عرض المزيد من الأخبار')
                 ]),
 
-                // نافذة التحميل السلسة والسرعة الفائقة عند فتح الخبر
+                // نافذة التحميل السلسة والسرعة الفائقة
                 openingNews && createElement('div', { className: 'fixed inset-0 z-[100000] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4' },
                     createElement('div', { className: 'bg-white rounded-3xl p-6 max-w-xs w-full shadow-2xl flex flex-col items-center gap-4 text-center border-2 border-[#15803d]' },
                         createElement('div', { className: 'w-10 h-10 border-4 border-[#15803d] border-t-transparent rounded-full animate-spin' }),
@@ -1511,7 +1525,7 @@
                         ),
 
                         createElement('div', { className: 'flex justify-end mt-2' },
-                            createElement('button', { type: 'button', onClick: () => { setShowAdminPanel(false); setEditingId(null); setNewTitle(''); setNewImage(''); setNewLink(''); setNewProgram(''); }, className: 'px-5 py-2 bg-gray-200 text-gray-800 rounded-xl font-bold text-xs' }, 'إغلاق اللوحة')
+                            createElement('button', { type: 'button', onClick: () => setShowAdminPanel(false), className: 'px-5 py-2 bg-gray-200 text-gray-800 rounded-xl font-bold text-xs' }, 'إغلاق اللوحة')
                         )
                     )
                 )
